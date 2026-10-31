@@ -27,7 +27,7 @@ How the fraud worked, in numbers: a client with fully paid shares worth ₹10 la
 
 ## Real examples and history
 - Other brokers with similar problems (for example BMA Wealth Creators) surfaced around the same time, confirming a systemic weakness.
-- Lenders' appeals to SAT failed to obtain immediate relief; the principle that clients' fully paid securities belong to clients was upheld.
+- Lenders' appeals to SAT got no interim relief in 2019, and clients kept their shares. In December 2023, however, SAT ruled that the pledges had been released without the lenders' consent and directed SEBI, NSE and NSDL to restore the pledges or compensate the lenders with interest. SEBI appealed to the Supreme Court, so the final allocation of the loss between lenders and market institutions was still being litigated.
 
 ## Edge cases and common mistakes
 - **Believing a large broker is automatically safe.** Karvy was a well-known name.
@@ -45,7 +45,7 @@ Margin pledge; DDPI; segregation of client assets; Investor Protection Fund; bro
 </lesson>
 <qa difficulty="medium"><q>What did Karvy do with clients' securities?</q><a>Using powers of attorney, it transferred clients' shares (including those of clients who had fully paid) to its own account and pledged them with banks and NBFCs to raise loans, diverting funds to group companies.</a></qa>
 <qa difficulty="hard"><q>List four reforms introduced after the Karvy case.</q><a>(1) Margin pledge and re-pledge, keeping margin securities in clients' accounts (2020). (2) DDPI replacing broad POAs (2022). (3) Block mechanism for early pay-in (2022). (4) Stronger segregation, reconciliation of client balances and upstreaming of client funds to clearing corporations, along with running-account settlement.</a></qa>
-<qa difficulty="hard"><q>Why were Karvy's lenders unable to recover through the pledged shares?</q><a>The shares belonged to Karvy's clients, many of whom had fully paid for them, and Karvy had no authority to pledge them for its own borrowing (which SEBI had banned in June 2019). Regulators returned the shares to the clients, and SAT refused lenders' requests for relief, leaving lenders with claims against Karvy.</a></qa>
+<qa difficulty="hard"><q>Why were Karvy's lenders unable to recover through the pledged shares?</q><a>The shares belonged to Karvy's clients, many of whom had fully paid for them, and Karvy had no authority to pledge them for its own borrowing (which SEBI had banned in June 2019). Regulators returned the shares to the clients, and SAT refused lenders interim relief in 2019. In December 2023 SAT did order SEBI, NSE and NSDL to restore the pledges or compensate the lenders, but SEBI appealed to the Supreme Court, so the lenders' recovery remained in dispute.</a></qa>
 <qa difficulty="medium"><q>What penalties did SEBI impose in its final order?</q><a>A seven-year ban from the securities market for Karvy Stock Broking and its promoter Comandur Parthasarathy, and a penalty of about ₹21 crore (April 2023).</a></qa>
 <qa difficulty="hard"><q>How do depository alerts help prevent a Karvy-type fraud today?</q><a>Clients receive SMS or email alerts for every debit, transfer or pledge in their demat accounts. An unauthorised movement of shares would trigger an alert the client can report immediately, and pledges require the client's OTP, making secret transfers difficult.</a></qa>
 <qa difficulty="medium"><q>When did NSE and BSE expel Karvy?</q><a>In November 2020, after declaring it a defaulter.</a></qa>

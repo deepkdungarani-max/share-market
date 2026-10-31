@@ -1,0 +1,290 @@
+<topic id="617">
+<level>intermediate</level>
+<lesson>
+# Margin pledge and re-pledge: haircuts, unpledge timelines and depository OTP
+
+## Core idea
+Since 1 September 2020, Indian investors who want to use their shares as margin keep them in their own demat account. Instead of transferring the shares, they mark a pledge in favour of their broker. The broker re-pledges them to its clearing member, which re-pledges them to the clearing corporation. Each step is recorded at the depository, and the investor approves the first step with an OTP. The aim, after the Karvy case, was to stop brokers from moving client shares into their own accounts and misusing them.
+
+## How it works, step by step
+1. **Pledge request.** The client selects shares in the broker's app and requests a margin pledge.
+2. **Depository OTP.** The depository (CDSL or NSDL) sends a link or OTP. The client confirms. The pledge is marked in favour of the broker's dedicated "client securities margin pledge account".
+3. **Re-pledge.** The broker re-pledges to the clearing member, and the clearing member to the clearing corporation. No further client OTP is needed for these steps.
+4. **Collateral value.** The clearing corporation values the shares after a haircut and gives margin credit, which the broker passes to the client.
+5. **Unpledge.** The client asks the broker. The chain is reversed (clearing corporation to clearing member to broker to client). This usually completes the same or next working day, depending on the broker's cut-off times.
+6. **Invocation.** If the client fails to meet a margin call, the broker can invoke the pledge, moving the shares to its account, and sell them to recover dues.
+
+## Haircuts and the cash rule
+- Haircuts follow the stock's VaR margin and liquidity group. Liquid Group I stocks have the smallest haircuts, and illiquid stocks have large ones.
+- At least half of the margin for derivatives positions must be in cash or cash equivalents. Pledged shares alone cannot cover the full margin.
+
+## Worked example
+A client pledges ₹2.5 lakh of a Group I stock with a 12.5% haircut, so collateral value = ₹2.5 lakh × 0.875 = ₹2,18,750. They want to sell options needing ₹2 lakh of margin.
+- At least ₹1 lakh must be cash. Pledged collateral can cover at most the other ₹1 lakh.
+- If the client has only ₹40,000 in cash, there is a ₹60,000 cash shortfall. Many brokers charge daily interest on such shortfalls, and an open shortfall at day end can bring a margin penalty.
+
+## Related pledge types
+- **Unpaid securities.** Shares bought but not fully paid are pledged automatically to the broker's client unpaid securities pledgee account. If the client does not pay within the set period (seven trading days), the broker may sell them.
+- **Margin trading facility (MTF).** Shares bought with broker funding are pledged to the broker as security for the loan.
+- **Selling pledged shares.** From late 2025 a "pledge release for early pay-in" instruction lets a sale release the pledge and block the shares for delivery in one step, instead of a separate unpledge.
+
+## Safeguards
+- Shares stay in the client's demat account, and the depository's records show the pledge chain.
+- Every pledge, re-pledge and invocation triggers an alert from the depository.
+- Brokers can re-pledge client shares only to the clearing member or clearing corporation for that client's margin, not for their own borrowing.
+- Corporate actions (dividends, bonuses) still go to the client because the client remains the owner.
+
+## Common mistakes
+- Expecting full value from pledged shares. Haircuts and the cash rule both limit usable margin.
+- Pledging shares that you might want to sell urgently without checking the unpledge or early pay-in process.
+- Ignoring haircut changes. A stock moving to a less liquid group gets a larger haircut and can trigger a margin call.
+
+## Key takeaways
+Margin pledges keep shares in your account, with an OTP-approved pledge to the broker and re-pledges to the clearing member and clearing corporation. Collateral value is after haircut, at least 50% of derivatives margin must be cash, and unpledging reverses the chain. These rules were built to make a Karvy-type misuse of client securities much harder.
+</lesson>
+<qa difficulty="medium"><q>From when did the margin pledge and re-pledge system apply, and what changed?</q><a>From 1 September 2020. Instead of transferring shares to the broker, clients mark a pledge on shares that stay in their own demat account, approved with a depository OTP, and the broker re-pledges them up the chain to the clearing corporation.</a></qa>
+<qa difficulty="medium"><q>Does a client need to approve each re-pledge with an OTP?</q><a>No. The client approves the pledge in favour of the broker. Re-pledges from broker to clearing member and from clearing member to clearing corporation do not need further client OTPs.</a></qa>
+<qa difficulty="hard"><q>A client pledges ₹2.5 lakh of shares with a 12.5% haircut and needs ₹2 lakh margin. What cash is needed?</q><a>Collateral value is ₹2,18,750, but at least 50% of the margin must be cash, so the client needs at least ₹1 lakh in cash. The pledged shares can cover the remaining ₹1 lakh.</a></qa>
+<qa difficulty="hard"><q>What happens to shares bought but not paid for under the current framework?</q><a>They are automatically pledged to the broker's client unpaid securities pledgee account. If the client does not pay within the set period (seven trading days), the broker can invoke the pledge and sell them.</a></qa>
+<qa difficulty="medium"><q>Does a client still receive dividends on pledged shares?</q><a>Yes. The client remains the owner, and the shares stay in the client's demat account with a pledge marked, so corporate action benefits go to the client.</a></qa>
+<qa difficulty="expert"><q>How does the pledge system prevent a broker from using client shares for its own loans?</q><a>Shares never leave the client's account. Pledges must be approved by the client with an OTP, can only be re-pledged to the clearing member or clearing corporation for that client's margin, and every movement is recorded and alerted by the depository. A broker cannot pledge the shares to a bank for its own borrowing.</a></qa>
+<source url="https://zerodha.com/z-connect/zerodha/announcements/understanding-the-new-margin-pledge-system">Understanding the new margin pledge system (Zerodha)</source>
+<source url="https://www.hdfcsec.com/margin-pledge-mechanism">New margin pledge mechanism (HDFC Securities)</source>
+<source url="https://www.business-standard.com/amp/markets/news/sebi-extends-deadline-for-margin-pledge-implementation-to-october-10-125081800717_1.html">SEBI extends deadline for margin pledge implementation to 10 October (Business Standard)</source>
+<source url="https://www.mstock.com/articles/new-pledge-and-repledge-system">New pledge and re-pledge system (m.Stock)</source>
+</topic>
+
+<topic id="618">
+<level>intermediate</level>
+<lesson>
+# Investor Protection Fund: sources, per-client caps and the claim process
+
+## Core idea
+Every Indian stock exchange (and depository) keeps an Investor Protection Fund (IPF), held in a separate trust. If a trading member is declared a defaulter or expelled and cannot return clients' money or securities, eligible clients can claim from the IPF, up to a per-investor cap. It is a safety net for broker failure, not insurance against market losses.
+
+## Where the money comes from
+SEBI's comprehensive guidelines of 30 May 2023 (effective 29 June 2023) list the sources. They include:
+1. Contributions by the exchange from its fees and income.
+2. Penalties collected from trading members, for example for wrong client-code modifications.
+3. Penalties collected from listed companies for non-compliance with listing regulations.
+4. Interest and investment income on the fund itself.
+5. Balances moved from older depository investor protection reserves.
+The fund must be ring-fenced from the exchange's own liabilities.
+
+## Per-investor cap
+- NSE raised its ceiling from ₹25 lakh to ₹35 lakh per investor per claim in August 2024. It applies to members declared defaulter or expelled after 13 August 2024.
+- Older defaults use the cap in force at the time, so the date of the member's default or expulsion matters.
+- Each exchange sets its own cap within SEBI's framework and reviews it periodically.
+
+## The claim process, step by step
+1. **Default.** The exchange declares the member a defaulter or expels it, and takes over its assets, deposits and membership rights.
+2. **Public notice.** The exchange publishes a notice inviting claims, with a deadline (for example three months in some past notices).
+3. **Filing.** The investor files online with documents such as contract notes, ledger statements, bank proof of payments and holdings statements.
+4. **Evaluation.** The exchange's committee checks whether each claim relates to exchange trades and is "due and payable" under its rules.
+5. **Payment.** Admitted claims are paid from the defaulter's assets and the IPF, within the cap, under the exchange's rules.
+
+## What is covered and what is not
+Covered: money and securities owed by the defaulting member for trades done through the exchange, such as credit balances, unpaid sale proceeds and undelivered shares.
+Not covered:
+- Losses from market moves or bad trades.
+- Loans or deposits given to the broker, "assured return" schemes or portfolio arrangements outside exchange trading.
+- Off-market transactions and dealings with unregistered entities.
+
+## Worked example
+A client had a ledger credit of ₹45 lakh with a broker expelled in 2025, and all of it relates to exchange trades.
+- The claim is admitted at ₹45 lakh.
+- The IPF pays up to the ₹35 lakh cap. Recovery of the remaining ₹10 lakh depends on the defaulter's assets and can be slow and partial.
+If the same client had also lent ₹5 lakh to the broker for "fixed returns", that part would not be admitted at all.
+
+## Why prevention now matters more
+With monthly or quarterly running-account settlement, upstreaming of client funds to clearing corporations, UPI block trading and margin pledges, clients' exposure to broker failure is smaller than before. The IPF remains a last line for what slips through.
+
+## Practical tips
+- Keep records: contract notes, ledgers and bank statements make claims faster.
+- Do not leave large idle balances with a broker; ask for settlement.
+- Act quickly on exchange notices about a defaulting member, because deadlines apply.
+
+## Key takeaways
+IPFs are trusts at each exchange, funded by exchange contributions, penalties and income. NSE's cap is ₹35 lakh per investor per claim for defaults after 13 August 2024. Claims cover exchange-trade dues from a defaulted or expelled member, not market losses or side deals.
+</lesson>
+<qa difficulty="medium"><q>What is an Investor Protection Fund for?</q><a>To compensate clients of a trading member who has been declared a defaulter or expelled, for legitimate dues arising from exchange trades, up to a per-investor cap.</a></qa>
+<qa difficulty="medium"><q>What is NSE's IPF ceiling per investor, and from when?</q><a>₹35 lakh per investor per claim, raised from ₹25 lakh, for members declared defaulter or expelled after 13 August 2024.</a></qa>
+<qa difficulty="medium"><q>Name three sources of IPF money under SEBI's May 2023 guidelines.</q><a>Exchange contributions from its fees and income; penalties on trading members (for example for client-code modifications) and on listed companies for listing non-compliance; and interest and investment income on the fund.</a></qa>
+<qa difficulty="hard"><q>A client of a member expelled in 2025 has an admitted claim of ₹45 lakh. How much can the IPF pay?</q><a>Up to the ₹35 lakh cap. Recovery of the remaining ₹10 lakh depends on the defaulter's assets.</a></qa>
+<qa difficulty="hard"><q>Which losses are not covered by the IPF?</q><a>Market losses, loans or deposits given to the broker, assured-return schemes, off-market deals and dealings with unregistered entities. Only dues from exchange trades through the defaulter are covered.</a></qa>
+<qa difficulty="expert"><q>Why has the IPF become less central to client protection since 2020?</q><a>Reforms such as margin pledges, running-account settlement, upstreaming of client funds to clearing corporations and UPI block trading reduced the money and securities brokers hold, shrinking clients' exposure to broker failure. The IPF remains a final safety net.</a></qa>
+<source url="https://www.sebi.gov.in/legal/circulars/may-2023/comprehensive-guidelines-for-investor-protection-fund-and-investor-services-fund-at-stock-exchanges-and-depositories_71925.html">SEBI: comprehensive guidelines for IPF and ISF at stock exchanges and depositories (May 2023)</source>
+<source url="https://www.moneylife.in/article/nse-increases-investor-claim-amount-to-rs35-lakh-from-rs25-lakh-per-claim/74911.html">NSE increases investor claim amount to ₹35 lakh from ₹25 lakh (Moneylife)</source>
+<source url="https://www.nseindia.com/static/complaints/investor-protection-fund-trust">NSE Investor Protection Fund Trust</source>
+<source url="https://www.taxmann.com/post/blog/sebi-revises-guidelines-on-investor-protection-fund-and-investor-services-fund/">SEBI revises guidelines on IPF and ISF (Taxmann)</source>
+</topic>
+
+<topic id="619">
+<level>advanced</level>
+<lesson>
+# Karvy litigation: SEBI orders, SAT rulings and depository liability
+
+## Core idea
+When Karvy Stock Broking was found in 2019 to have pledged its clients' shares to raise loans, two groups had claims on the same shares: the clients who owned them, and the banks and NBFCs that had lent against them. Regulators chose to protect the clients first. The lenders then went to court, and the question became who bears the loss: the lenders, or the market institutions that moved the shares. The Karvy cases are the main Indian test of depository and regulator liability for securities transfers.
+
+## Timeline of the main orders
+1. **22 November 2019.** SEBI's interim order barred Karvy from new clients and stopped it from using client POAs. NSDL was directed to transfer securities back to clients who had fully paid for them.
+2. **Late 2019.** NSDL returned shares to tens of thousands of clients. Lenders (including Bajaj Finance, HDFC Bank, ICICI Bank and IndusInd Bank) went to the Securities Appellate Tribunal (SAT). SAT gave an interim stay on further transfers and noted that pledged shares cannot normally be released without the pledgee's approval. It later declined to give the lenders immediate relief and asked them to approach SEBI.
+3. **2020.** SEBI rejected the lenders' pleas, treating pledges of client securities for the broker's own loans as invalid. In November 2020 NSE and BSE declared Karvy a defaulter and expelled it.
+4. **2021 to 2023.** Police and enforcement agencies pursued criminal cases against Karvy's promoter. SEBI's final order of April 2023 banned Karvy and its promoter for seven years.
+5. **20 December 2023.** SAT quashed SEBI's orders as they affected the lenders. It allowed Axis Bank to invoke its pledged shares. It directed SEBI, NSE and NSDL to restore the pledges in favour of the other lenders within four weeks, or compensate them with the value of the securities plus 10% interest a year.
+6. **30 December 2023 onwards.** SEBI appealed to the Supreme Court. Reports indicate interim protection from coercive action; check current court records for the final outcome.
+
+## The legal questions
+- **Were the pledges valid?** Lenders argued they took pledges in good faith from accounts held in Karvy's name. SEBI argued that the shares were clients' property and that SEBI had banned such pledges in June 2019.
+- **Could the depository release a pledge without the pledgee's consent?** Under depository rules a pledge is released by the pledgee. SAT treated the transfers without lender consent as beyond the powers used.
+- **Who pays?** If the pledges were valid, the lenders' loss moves to the market institutions that transferred the shares, not to the clients who got them back.
+
+## Worked example
+A client's ₹10 lakh of fully paid shares was pledged by Karvy to a bank for a ₹5 lakh loan.
+- **SEBI's 2019 approach:** the shares go back to the client; the bank's ₹5 lakh claim is against Karvy, which is insolvent.
+- **SAT's 2023 order:** the client keeps the shares, but SEBI, NSE and NSDL must restore an equivalent pledge or compensate the bank: ₹10 lakh value plus 10% a year (the pledged security's value, not just the loan).
+The investor is protected in both cases. The difference is whether lenders or market institutions absorb the loss.
+
+## What changed in market design
+- Margin pledges must now come from the client's own account with client OTP, and only to the clearing chain.
+- Brokers use specifically tagged accounts (client margin pledge, client unpaid securities), so lenders can see whose shares they are.
+- POAs were replaced by DDPI, limited to specific purposes.
+- Lenders now check the type and tagging of the account before accepting securities as collateral.
+
+## Lessons for each party
+- **Investors:** keep securities in your own account; read depository alerts; avoid broad authorisations.
+- **Lenders:** due diligence on whose securities are pledged; a broker's own account may still hold clients' shares.
+- **Regulators and depositories:** urgent investor protection still needs a clear legal basis, or liability follows.
+
+## Open questions and how to follow them
+- Whether market institutions must compensate lenders when they reverse transfers on regulatory directions.
+- How far a lender must look through a broker's account to the underlying owners before accepting collateral.
+- Whether SAT's measure of compensation (security value plus interest, rather than loan amount) stands on appeal.
+To follow the case, check Supreme Court cause lists and orders, SEBI's press releases and SAT judgments, rather than relying on news summaries.
+
+## Key takeaways
+SEBI protected Karvy's clients by returning their shares in 2019. Lenders lost early rounds but won at SAT in December 2023, which ordered SEBI, NSE and NSDL to restore pledges or compensate. SEBI's Supreme Court appeal leaves the final allocation of loss unresolved in the sources reviewed. The case pushed India to tagged accounts, OTP-based pledges and DDPI.
+</lesson>
+<qa difficulty="medium"><q>What did SEBI's interim order of 22 November 2019 do in the Karvy case?</q><a>It barred Karvy from taking new clients, stopped it from using client POAs, and led NSDL to transfer securities back to clients who had fully paid for them.</a></qa>
+<qa difficulty="hard"><q>What did SAT order on 20 December 2023?</q><a>It quashed SEBI's orders as they affected the lenders, allowed Axis Bank to invoke its pledged shares, and directed SEBI, NSE and NSDL to restore the pledges for the other lenders within four weeks or compensate them with the securities' value plus 10% annual interest.</a></qa>
+<qa difficulty="hard"><q>What were the two competing arguments about the validity of Karvy's pledges?</q><a>Lenders argued they accepted pledges in good faith from accounts in Karvy's name. SEBI argued the shares belonged to clients, many of whom had fully paid, and that pledging client securities for the broker's own loans had been banned in June 2019.</a></qa>
+<qa difficulty="expert"><q>Why is the Karvy case a test of depository liability?</q><a>NSDL moved shares that were under pledge without the pledgees' consent, on regulatory directions. If the pledges were valid, the lenders' loss falls on the institutions that moved the shares rather than on the defaulting broker or the clients. SAT's 2023 order placed it on SEBI, NSE and NSDL, and SEBI appealed.</a></qa>
+<qa difficulty="medium"><q>Who was protected in every ruling, and how?</q><a>The clients. Their shares were returned in 2019, and even SAT's 2023 order required compensation to lenders from market institutions rather than taking the shares back from clients.</a></qa>
+<qa difficulty="hard"><q>Which market design changes reduce the chance of a repeat dispute?</q><a>OTP-approved margin pledges from the client's own account to the clearing chain only, tagged broker accounts that show whose shares are held, DDPI replacing broad POAs, and lender due diligence on account type.</a></qa>
+<source url="https://www.business-standard.com/amp/markets/news/sat-quashes-sebi-orders-relief-to-banks-in-karvy-case-over-pledged-shares-123122001152_1.html">Karvy broking case: SAT directs SEBI, NSE, NSDL to compensate lenders (Business Standard)</source>
+<source url="https://www.business-standard.com/amp/markets/news/axis-bank-karvy-matter-sat-says-sebi-has-4-weeks-to-restore-pledged-shares-124011200669_1.html">Axis Bank-Karvy matter: SAT says SEBI has 4 weeks to restore pledged shares (Business Standard)</source>
+<source url="https://www.business-standard.com/amp/article/companies/sat-asks-nsdl-to-hold-back-remaining-stocks-of-karvy-broking-clients-119120301303_1.html">SAT asks NSDL to hold back remaining stocks of Karvy clients (Business Standard)</source>
+<source url="https://www.moneylife.in/article/karvy-sat-asks-sebi-nse-and-nsdl-to-restore-shares-pledged-with-axis-bank-icici-bank-hdfc-bank-indusind-bank-and-bajaj-finance/72931.html">Karvy: SAT asks SEBI, NSE and NSDL to restore shares pledged with lenders (Moneylife)</source>
+</topic>
+
+<topic id="620">
+<level>intermediate</level>
+<lesson>
+# UPI block for secondary-market trading: design, rollout and limits
+
+## Core idea
+Normally, an investor transfers money to a broker before trading, and the broker holds it until settlement. With the UPI block mechanism, the money stays in the investor's own bank account. Only a block is placed on it, and on settlement the clearing corporation debits the exact amount directly. The broker never holds the funds, removing the main way client money was misused in broker failures. It works like ASBA (Application Supported by Blocked Amount) for IPOs, extended to everyday trading.
+
+## How it works, step by step
+1. **Mandate.** The client creates a UPI block mandate for an amount in their UPI app, authorised with their UPI PIN.
+2. **Trading.** The broker allows trades up to the blocked amount. Funds stay in the client's savings account and keep earning interest.
+3. **Settlement debit.** On the settlement day, the clearing corporation (through the clearing bank) debits exactly the amount due from the block. The UPI "single block, multiple debits" feature, introduced by the RBI in December 2023, allows several debits from one block.
+4. **Sale proceeds.** On a sale, payout goes directly to the client's bank account.
+5. **Release.** Unused blocked funds are released when the mandate expires or is revoked.
+
+## Rollout
+- **January 2024:** SEBI introduced UPI-block-based trading in the cash segment as an optional facility.
+- **August 2024:** SEBI proposed making it mandatory for qualified stock brokers (QSBs), the largest brokers.
+- **November 2024:** SEBI required QSBs to offer, from 1 February 2025, either UPI-block trading in the cash segment or a "3-in-1" account (savings, demat and trading accounts linked so funds stay in the bank until settlement). Clients choose whether to use it.
+- Extension to derivatives, where daily margins and mark-to-market make the design harder, was discussed as a later step. Check SEBI circulars for the current scope.
+
+## Design limits
+- UPI per-transaction limits apply to capital market mandates, as with IPO bids, so very large traders may find it restrictive.
+- Funds are blocked for the mandate's life, so they cannot be spent elsewhere even if unused for trading.
+- Derivatives need margins that change daily, while a block is a fixed amount. That is harder to support than cash-segment trades.
+
+## Worked example
+A client blocks ₹1 lakh and buys shares worth ₹60,000 on Monday.
+- Tuesday (T+1): ₹60,000 plus charges is debited from the block to the clearing corporation. About ₹40,000 stays blocked for further trades.
+- Throughout, the full ₹1 lakh earned savings interest until debited.
+- Under the traditional model, the client would have moved ₹1 lakh to the broker, earning no interest and exposed to the broker's solvency.
+
+## Why it matters
+- **Protection:** if the broker fails, funds were never with it.
+- **Transparency:** the client's bank shows every debit tied to settlement.
+- **Interest:** the client earns interest on money waiting to be used.
+- **Broker economics:** brokers lose float income on client balances, one reason uptake has needed regulatory push.
+
+## Common questions
+- **Does UPI block cover intraday trades?** Yes, in the cash segment, with net settlement debited.
+- **Can the broker debit the block?** No. Debits are instructed by the clearing corporation for settlement obligations.
+- **Is it compulsory for clients?** No. QSBs must offer it (or 3-in-1), but clients choose.
+
+## Key takeaways
+UPI block trading keeps funds in the client's bank, with the clearing corporation debiting exact settlement amounts through UPI's single-block multiple-debit feature. Optional since January 2024, it must be offered by QSBs (or 3-in-1 accounts) from 1 February 2025. Its limits are UPI caps, blocked liquidity and the difficulty of supporting changing derivatives margins.
+</lesson>
+<qa difficulty="medium"><q>How does UPI block trading differ from the traditional way of funding a broker account?</q><a>Funds stay in the client's bank with a UPI block. On settlement the clearing corporation debits exactly what is due, so the broker never holds the money.</a></qa>
+<qa difficulty="medium"><q>Which UPI feature makes secondary-market blocking possible?</q><a>"Single block, multiple debits", announced by the RBI in December 2023, which allows several debits from one blocked amount.</a></qa>
+<qa difficulty="medium"><q>What did SEBI require of qualified stock brokers from 1 February 2025?</q><a>To offer clients either UPI-block-based trading in the cash segment or a 3-in-1 trading account facility (linked savings, demat and trading accounts).</a></qa>
+<qa difficulty="hard"><q>A client blocks ₹1 lakh and buys ₹60,000 of shares. What happens to the funds?</q><a>On T+1 about ₹60,000 plus charges is debited from the block to the clearing corporation. The remaining ₹40,000 stays blocked for further trades until the mandate expires or is revoked, and the client earns savings interest on blocked money until it is debited.</a></qa>
+<qa difficulty="hard"><q>Why is the UPI block harder to apply to derivatives?</q><a>Derivatives need margins and mark-to-market settlements that change daily, while a block is a fixed amount with UPI limits. Matching changing margin needs to blocks is operationally harder than settling fixed cash-segment trades.</a></qa>
+<qa difficulty="expert"><q>Why have brokers been slow to promote UPI block trading?</q><a>It removes float income on client balances and adds operational work with banks and clearing corporations. It also limits trading to blocked amounts. Regulatory mandates for QSBs were needed to push adoption.</a></qa>
+<source url="https://www.business-standard.com/amp/markets/stock-market-news/sebi-directs-qsbs-to-add-block-mechanism-or-3-in-1-trading-facilities-124111101467_1.html">SEBI asks qualified stock brokers to offer UPI mechanism from 1 February (Business Standard)</source>
+<source url="https://www.taxmann.com/post/blog/sebi-mandates-qualified-stock-brokers-to-offer-upi-block-mechanism-or-3-in-1-trading-account-facility-to-their-clients/">SEBI mandates QSBs to offer UPI block mechanism or 3-in-1 trading account (Taxmann)</source>
+<source url="https://www.business-standard.com/amp/markets/news/sebi-proposes-mandatory-upi-block-secondary-market-for-larger-brokers-124082801352_1.html">SEBI proposes mandatory UPI block in secondary market for larger brokers (Business Standard)</source>
+<source url="https://www.business-standard.com/amp/finance/personal-finance/new-trading-options-for-investors-upi-block-mechanism-and-3-in-1-accounts-124111200483_1.html">New trading options for investors: UPI block mechanism and 3-in-1 accounts (Business Standard)</source>
+</topic>
+
+<topic id="621">
+<level>advanced</level>
+<lesson>
+# Broker monitoring: qualified stock brokers, enhanced supervision and client-level collateral reporting
+
+## Core idea
+Rules protect clients only if someone checks compliance every day. In India that work is done by exchanges, clearing corporations and depositories, under SEBI's direction. Three layers stand out: regular reconciliation of client funds and securities held by brokers; client-level reporting of collateral to clearing corporations; and a "qualified stock broker" (QSB) regime with stricter obligations for brokers whose failure would hurt many investors.
+
+## Layer 1: client funds and securities reconciliation
+1. Since SEBI's 2016 enhanced supervision circular, brokers must keep client money in accounts named as client accounts, and report client balances regularly to exchanges.
+2. Exchanges compare what brokers owe clients (credit balances) with what brokers actually hold for clients (bank balances, deposits with clearing corporations, collateral). A shortfall, often called the "G value" in exchange reports, suggests client money has been used elsewhere.
+3. Depositories and exchanges reconcile securities holdings in broker accounts with client records. An early warning mechanism shares red flags (delayed pay-ins, complaints, unusual pledges) across exchanges and depositories.
+
+## Layer 2: client-level collateral reporting
+SEBI's framework for segregation and monitoring of collateral at client level (effective May 2022) requires brokers and clearing members to report every client's collateral to the clearing corporation every day. The clearing corporation then knows how much collateral belongs to each client. It can detect if one client's collateral is being used for another client's or the broker's positions, and it can return each client's collateral directly in a default.
+
+## Layer 3: qualified stock brokers
+- **Designation:** introduced by SEBI's circular of 6 February 2023. The original parameters were number of active clients, client assets held, trading volume and clients' end-of-day margin obligations. The March 2024 revision added compliance score, grievance redressal score and proprietary trading volume. Each broker's share of the market total in each parameter is calculated annually.
+- **Obligations (from July 2023):** a stronger governance structure, risk management, capacity planning and resilience for trading systems, cyber security, surveillance of client activity, investor grievance handling, and internal controls.
+- **Enhanced monitoring:** exchanges examine QSBs more closely and may ask for extra submissions.
+
+## Worked example: a reconciliation red flag
+At a weekly check a broker reports:
+- Client credit balances: ₹500 crore.
+- Held for clients: ₹300 crore in client bank accounts, ₹170 crore deposited with the clearing corporation, ₹10 crore of other approved collateral = ₹480 crore.
+- Shortfall: ₹20 crore (4%). The exchange would seek an explanation, may restrict the broker's trading, and could start an inspection. In the Karvy era, such gaps were found too late; regular reconciliation is meant to catch them within days.
+
+## Supporting rules
+- Running-account settlement returns idle client funds monthly or quarterly.
+- Upstreaming means client funds sit with clearing corporations, not in broker bank accounts.
+- Margin pledges and UPI block trading reduce what brokers hold.
+- Exchanges use risk-based supervision, inspecting higher-risk brokers more often.
+
+## Limitations
+- Reporting relies on broker data, which can be falsified until cross-checked with banks and depositories.
+- Off-exchange activities (unregistered schemes, loans to clients) fall outside these checks.
+- Monitoring finds problems; it cannot always prevent losses already incurred.
+
+## Key takeaways
+Broker monitoring in India combines regular reconciliation of client funds and securities, daily client-level collateral reports to clearing corporations, and a QSB regime for large brokers with stricter governance, risk and technology obligations. Together with upstreaming, pledges and UPI block, it aims to catch a Karvy-type gap in days, not years.
+</lesson>
+<qa difficulty="medium"><q>What is a qualified stock broker?</q><a>A broker designated by SEBI and exchanges, based on its market share in parameters such as active clients, client assets, trading volume and end-of-day margins (plus compliance, grievance and proprietary volume scores since 2024), that must meet stricter obligations and faces enhanced monitoring.</a></qa>
+<qa difficulty="medium"><q>Which parameters did SEBI add to the QSB criteria in March 2024?</q><a>Compliance score, grievance redressal score and proprietary trading volume.</a></qa>
+<qa difficulty="hard"><q>What does client-level collateral reporting allow the clearing corporation to do?</q><a>It knows each client's collateral every day, so it can detect if one client's collateral supports another's or the broker's positions, and it can return each client's collateral directly if the broker defaults.</a></qa>
+<qa difficulty="hard"><q>A broker owes clients ₹500 crore but holds ₹480 crore for them. What does this signal and what follows?</q><a>A ₹20 crore shortfall suggests client money may have been used for other purposes. The exchange would seek an explanation, could restrict the broker's trading, and could start an inspection.</a></qa>
+<qa difficulty="expert"><q>Why is reconciliation alone not enough to protect clients?</q><a>It relies on reported data that may be wrong until checked against banks and depositories, it cannot see off-exchange dealings, and it detects losses after they happen. Structural measures that keep assets out of broker hands (upstreaming, pledges, UPI block) are needed alongside it.</a></qa>
+<qa difficulty="medium"><q>Name three enhanced obligations of qualified stock brokers.</q><a>Any three of: stronger governance, risk management, trading system capacity and resilience, cyber security, surveillance of client activity, investor grievance handling, and internal controls.</a></qa>
+<source url="https://www.business-standard.com/amp/markets/news/sebi-seeks-to-boost-trust-in-mkt-expands-qualified-stock-broker-framework-124031100850_1.html">SEBI expands qualified stock broker framework (Business Standard)</source>
+<source url="https://taxmann.com/post/blog/sebi-sets-criteria-for-qualified-stock-broker-designation-for-stock-brokers">SEBI sets criteria for qualified stock broker designation (Taxmann)</source>
+<source url="https://www.moneylife.in/article/stricter-norms-for-qualified-stock-brokers-from-1st-july-sebi-issues-guidelines/69760.html">Stricter norms for qualified stock brokers from 1 July (Moneylife)</source>
+<source url="https://www.argus-p.com/updates/updates/sebi-mandates-increased-obligations-and-responsibilities-for-qualified-stock-brokers/">SEBI mandates increased obligations for qualified stock brokers (Argus Partners)</source>
+</topic>
