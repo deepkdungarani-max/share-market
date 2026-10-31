@@ -1,0 +1,309 @@
+<topic id="535">
+<level>advanced</level>
+<lesson>
+# SEBI's 2025 retail algo framework: algo IDs, empanelled providers, static IP, the 10 orders-per-second threshold and broker liability
+
+## Core idea
+Retail traders increasingly use APIs and third-party platforms to run automated strategies. Before 2025, such retail algos were largely unregulated: platforms sold "strategies" with unverified claims, orders were not identifiable as algorithmic, and accountability was unclear. SEBI's circular of 4 February 2025, "Safer participation of retail investors in algorithmic trading", brought retail algo trading into a formal framework: brokers are responsible as principals, algo providers must be empanelled with exchanges, algo orders carry an exchange-issued ID, API access is restricted to whitelisted static IPs, and high-frequency retail algos must be registered.
+
+## How it works, step by step
+1. **Broker as principal.** The stock broker is responsible for all algo orders placed through its systems, including those from third-party algo providers, and handles investor grievances.
+2. **Empanelled algo providers.** Providers offering algos to retail clients must be empanelled with exchanges (acting as agents of brokers), meeting conditions on technology, conduct and disclosures.
+3. **Algo ID.** Every algo strategy is approved by the exchange and assigned a unique ID; orders carry this ID so exchanges can identify and monitor them.
+4. **Static IP and API access.** Clients using APIs must trade from whitelisted static IP addresses (shareable within a family); open APIs without authentication are not allowed.
+5. **Orders-per-second threshold.** Retail traders writing their own algos for personal use who stay below a threshold (10 orders per second per exchange) do not need algo registration but still use static IP and API rules; above it, the algo must be registered with the exchange through the broker.
+6. **White box versus black box.** White-box algos disclose their logic and are replicable; black-box algos do not, and their providers must register as SEBI research analysts and maintain research reports for each algo.
+7. **Timeline.** Initially to apply from 1 August 2025; extended and phased, with full enforcement from 1 April 2026.
+
+## Formulas and numbers (worked example)
+A trader's own Python strategy sends bursts of orders:
+- Normal: 3 to 5 orders a second → below 10 OPS, no registration required; trades via API from a registered static IP.
+- During volatile moments it sends 14 orders a second on NSE → above the threshold; the strategy must be registered with the exchange through the broker and receive an algo ID, or be throttled below 10 OPS.
+
+Black-box provider: a platform sells a strategy at ₹2,000 a month to 500 users without disclosing logic. Under the framework it must register as a research analyst, be empanelled with the exchange, and each strategy needs approval and an ID; the broker remains accountable for orders.
+
+## India specifics
+- NSE issued implementation standards in May 2025 detailing registration, testing and monitoring requirements.
+- The framework connects to SEBI's broader concern about retail losses in F&O, often associated with automated strategies sold with misleading return claims.
+- Brokers must have kill switches and risk controls to stop errant algos.
+
+## Real examples and history
+- Exchanges had earlier rules for institutional algorithmic trading (since 2008 to 2012), including order-to-trade ratios and testing; the 2025 framework extended oversight to retail-facing APIs and platforms.
+- Globally, regulators (for example under MiFID II in Europe) require algorithmic traders to have controls, testing and identification of algorithms.
+
+## Edge cases and common mistakes
+- **Assuming personal scripts are exempt from everything.** Below 10 OPS, registration is not needed, but static IP and broker API rules still apply.
+- **Sharing API keys.** Using others' APIs or sharing static IPs outside family is not allowed.
+- **Marketing claims.** Providers cannot promise returns; black-box providers face research analyst rules.
+- **Broker liability.** Brokers will restrict or vet third-party platforms because they are accountable.
+- **Timeline confusion.** Several deadlines were extended; check current exchange circulars.
+
+## How traders, investors and quants use it
+- Retail quants keep strategies within the 10 OPS limit or register them through brokers.
+- Platform businesses become empanelled providers and register black-box strategies as research.
+- Brokers build approval workflows, algo tagging and monitoring.
+
+## Related concepts
+Algorithmic trading; APIs; research analyst regulations; SEBI F&O reforms; order-to-trade ratios; kill switches.
+</lesson>
+<qa difficulty="medium"><q>What is an algo ID under SEBI's 2025 framework?</q><a>A unique identifier assigned by the exchange to each approved algorithmic strategy; every order generated by that strategy carries the ID so the exchange can identify and monitor algorithmic orders.</a></qa>
+<qa difficulty="hard"><q>A retail trader's self-written algo sends at most 6 orders per second. What must they do?</q><a>Below the 10 orders-per-second threshold, the algo does not need exchange registration, but the trader must use the broker's API with authentication and trade from a whitelisted static IP; the broker remains responsible for the orders.</a></qa>
+<qa difficulty="hard"><q>Why must black-box algo providers register as research analysts?</q><a>A black-box algo does not disclose its logic, so users rely on the provider's judgement, effectively receiving investment recommendations. Registration as a research analyst brings the provider under SEBI's rules for research (qualifications, disclosures, conflicts, records), and each algo must be supported by a research report.</a></qa>
+<qa difficulty="medium"><q>Why does SEBI require static IP addresses for API trading?</q><a>To link API orders to identifiable, authorised clients and locations, preventing misuse of API keys by unknown parties and helping brokers and exchanges trace orders.</a></qa>
+<qa difficulty="expert"><q>How does making the broker the principal for algo orders change incentives?</q><a>Brokers become accountable for every algo order and related grievances, so they must vet third-party providers, enforce risk controls and monitor algos. This internalises the risk that unregulated platforms previously created, since the regulated entity (the broker) now bears the consequences of poor algos or misconduct.</a></qa>
+<qa difficulty="medium"><q>When did the retail algo framework become fully enforceable?</q><a>After deadlines were extended from the original 1 August 2025 date and phased in, full enforcement applied from 1 April 2026.</a></qa>
+<source url="https://ksandk.com/corporate/sebis-new-regulatory-framework-for-retail-algorithmic-trading/">SEBI's new regulatory framework for retail algorithmic trading (King Stubb and Kasiva)</source>
+<source url="https://www.business-standard.com/markets/capital-market-news/nse-lays-down-new-ground-rules-for-retail-algo-trading-to-boost-safety-and-compliance-125050600690_1.html">NSE lays down new ground rules for retail algo trading (Business Standard)</source>
+<source url="https://www.tradejini.com/blogs/what-sebis-new-algo-trading-rules-mean-for-you">What SEBI's new algo trading rules mean for you (Tradejini)</source>
+<source url="https://www.sahi.com/blogs/sebi-algo-trading-rules-2026-what-every-retail-trader-must-know-before-april">SEBI algo trading rules 2026 (Sahi)</source>
+<source url="https://community.upstox.com/t/interpretation-of-sebi-circular-titled-safer-participation-of-retail-investors-in-algorithmic-trading/8020">Interpretation of SEBI circular on safer participation in algorithmic trading (Upstox community)</source>
+</topic>
+
+<topic id="536">
+<level>advanced</level>
+<lesson>
+# SECC Regulations 2018 in depth: Public Interest Directors, statutory committees, ownership caps and key managerial personnel approval
+
+## Core idea
+Stock exchanges and clearing corporations are businesses and frontline regulators at the same time. The SECC Regulations 2018 manage this conflict through governance design: **public interest directors (PIDs)** who represent the public interest rather than shareholders, **statutory committees** that handle regulatory functions, dispersed **ownership caps**, and SEBI's control over the appointment and pay of **key managerial personnel (KMP)**.
+
+## How it works, step by step
+1. **Board composition.** The governing board includes shareholder directors, PIDs and the managing director. PIDs must be at least equal in number to shareholder directors; the chair is usually elected from among PIDs.
+2. **PID appointment.** The exchange forwards names (at least two for each vacancy) to SEBI after its governing board's approval; SEBI approves; shareholder approval is not needed. Tenure is three years (renewable with approval), and PIDs are not liable to retire by rotation; they are paid sitting fees rather than profit-linked pay.
+3. **Statutory committees.** SEBI specifies committees such as regulatory oversight, member selection, disciplinary action, settlement guarantee fund, risk management, investor grievance, defaulters, standing committee on technology, and nomination and remuneration. Since a June 2024 SEBI circular, PIDs can serve on all statutory committees, including the nomination and remuneration committee.
+4. **Ownership caps.** At least 51% public shareholding; no resident person above 5%; certain institutions up to 15%; foreign investment capped in aggregate at 49%; holders above set thresholds must be fit and proper with SEBI approval.
+5. **KMP and MD.** The managing director is appointed with SEBI's approval; KMP compensation is set by the nomination and remuneration committee within SEBI's norms (for example limits on variable pay and deferral), and KMP in regulatory functions must be insulated from business targets.
+6. **Segregation of functions (2023 amendment).** MIIs organise functions into critical operations, regulatory/compliance/risk, and other business, with dedicated heads and priority for critical and regulatory functions.
+
+## Formulas and numbers (worked example)
+An exchange board has 4 shareholder directors and the MD. It needs at least 4 PIDs (equal to shareholder directors). If one PID's three-year term ends in June, the exchange sends at least two candidate names to SEBI two months before the vacancy (by April).
+
+Ownership check: a bank wants 12% of an exchange (allowed up to 15% for banks, with SEBI approval and fit-and-proper status); a domestic individual investor wants 7% (above the 5% limit, not allowed).
+
+## India specifics
+- NSE's co-location and governance problems (2015 to 2022), including concerns over the appointment and conduct of senior management, led SEBI to tighten MII governance and KMP oversight.
+- Depository regulations have parallel rules for depositories (for example limits on PIDs' committee memberships and cooling-off periods before a PID can become a non-independent director).
+- Listed exchanges (BSE, and NSE after its 2026 IPO) also follow LODR governance rules where not inconsistent with SECC.
+
+## Real examples and history
+- Demutualisation of Indian exchanges in the 2000s separated broker-members from ownership; SECC rules (first in 2012, replaced in 2018) set the governance framework.
+- SEBI's actions against NSE's former MDs in the co-location and governance cases highlighted the importance of KMP approval and oversight.
+
+## Edge cases and common mistakes
+- **PIDs are not ordinary independent directors.** They are approved by SEBI and represent the public interest, with specific duties.
+- **Shareholder approval.** PIDs do not need it; shareholder directors do.
+- **Cooling-off.** Former PIDs need a gap before taking non-independent roles.
+- **Ownership aggregation.** Persons acting in concert are aggregated for caps.
+
+## How traders, investors and quants use it
+- Investors in exchange stocks consider governance quality and regulatory risk, which affect valuations.
+- Analysts track board composition, committee structures and KMP changes.
+- Students learn that market infrastructure governance prioritises integrity over profit.
+
+## Related concepts
+SECC ownership limits; NSE co-location case; MII segregation of functions; independent directors; demutualisation.
+</lesson>
+<qa difficulty="medium"><q>Who approves the appointment of a public interest director on an exchange's board?</q><a>SEBI, after the exchange's governing board forwards candidate names (at least two per vacancy); shareholder approval is not required.</a></qa>
+<qa difficulty="hard"><q>An exchange board has 5 shareholder directors. How many PIDs must it have at minimum?</q><a>At least 5, since PIDs must be at least equal in number to shareholder directors.</a></qa>
+<qa difficulty="hard"><q>What changed for PIDs in SEBI's June 2024 circular?</q><a>PIDs were permitted to be members of all statutory committees of MIIs, including the nomination and remuneration committee, strengthening independent oversight of appointments and pay.</a></qa>
+<qa difficulty="expert"><q>Why does SEBI control the appointment and pay of exchange KMP?</q><a>Exchange KMP run regulatory and critical functions. If their pay or tenure depended mainly on business growth (volumes, revenue), they might relax surveillance or risk controls. SEBI's approval of the MD, norms on variable pay and segregation of regulatory functions keep KMP focused on market integrity, a lesson from governance failures such as the NSE co-location period.</a></qa>
+<qa difficulty="medium"><q>What is the tenure of a public interest director under the SECC framework?</q><a>Three years, renewable subject to approval; PIDs are not liable to retire by rotation.</a></qa>
+<qa difficulty="hard"><q>Why are PIDs paid sitting fees rather than profit-linked commission?</q><a>Profit-linked pay would tie PIDs' rewards to the exchange's commercial success, creating a conflict with their duty to protect the public interest in fair markets. Fixed sitting fees keep their incentives neutral.</a></qa>
+<source url="https://www.azbpartners.com/bank/securities-contracts-regulation-stock-exchanges-and-clearing-corporations-regulations-2018/">SECC Regulations 2018 (AZB and Partners)</source>
+<source url="https://nsearchives.nseindia.com/web/sites/default/files/inline-files/Terms_and_conditions_of_Appointment_of_PID.pdf">NSE: terms and conditions of appointment of public interest directors</source>
+<source url="https://www.independentdirectorsdatabank.in/img/newsletter/2024/66d95fcf8e443.pdf">Independent directors databank newsletter on PIDs and statutory committees (2024)</source>
+<source url="https://nsdl.co.in/downloadables/pdf/Terms_&_Conditions_for_appointment_of_Independent_Director.pdf">NSDL: terms and conditions for appointment of public interest directors</source>
+</topic>
+
+<topic id="537">
+<level>advanced</level>
+<lesson>
+# SEBI settlement regulations: consent orders, settlement terms, and the NSE Rs 1,491 crore settlement
+
+## Core idea
+Not every SEBI case ends in a contested order. Under the SEBI (Settlement Proceedings) Regulations 2018, a person facing enforcement can apply to settle by paying an amount and agreeing to conditions, without admitting or denying the findings. SEBI saves time and resources; the applicant avoids prolonged litigation and uncertainty. Settlements are not available for the most serious offences. The largest-ever settlement, NSE's ₹1,491.21 crore in the co-location and dark-fibre cases, cleared the way for its 2026 IPO.
+
+## How it works, step by step
+1. **Application.** Filed after a show-cause notice (or in some cases earlier), with a fee and proposed terms.
+2. **Indicative amount.** Computed by a formula in the regulations' schedules, based on factors such as the base amount for the violation, profits made or losses avoided, the applicant's size and history, and SEBI's legal costs.
+3. **Internal committee.** Meets the applicant, discusses terms and may revise the amount.
+4. **High Powered Advisory Committee (HPAC).** Reviews the proposal and recommends acceptance, revision or rejection.
+5. **Panel of Whole Time Members.** Decides; if accepted, the applicant pays within a set period.
+6. **Settlement order.** Issued after payment, binding on the applicant, "without admitting or denying" findings; proceedings end. If the applicant breaches the terms, SEBI can revive proceedings.
+7. **Exclusions.** Certain grave violations (for example serious fraud or insider trading with large market impact) are generally not eligible, or eligible only in limited circumstances.
+
+## Formulas and numbers (worked example)
+**NSE settlement.** In June 2025 NSE offered ₹1,387.39 crore to settle the co-location (₹1,165 crore) and dark-fibre (₹223 crore) cases. The terms were revised to ₹1,491.21 crore (₹1,223.56 crore and ₹267.65 crore). NSE had already deposited about ₹776 crore with SEBI under earlier orders, so the balance paid was about ₹715 crore. The Supreme Court then closed SEBI's pending appeals.
+
+**Generic illustration.** A broker faces proceedings for a disclosure lapse. The schedule gives a base amount of ₹10 lakh, multiplied by factors for repetition (1.5) and size (1.2) = ₹18 lakh, plus legal costs. After internal committee discussion, the broker pays ₹18 lakh and agrees to strengthen compliance; SEBI passes a settlement order.
+
+## India specifics
+- The 2018 regulations (effective 1 January 2019) replaced the 2014 regulations; SEBI amended them in 2020 and in January 2022, adjusting procedures and settlement terms.
+- SEBI publishes settlement orders; they are a major share of SEBI's enforcement outcomes.
+- In August 2026 SEBI published a draft of new settlement regulations; check whether it has been adopted.
+
+## Real examples and history
+- SEBI's consent mechanism began in 2007 under circulars and became regulations in 2014.
+- Other large settlements have involved mutual funds, brokers and listed companies for disclosure and conduct lapses.
+
+## Edge cases and common mistakes
+- **Settlement is not acquittal.** Applicants cannot later claim innocence on the matters settled.
+- **No admission.** Settlement orders do not establish guilt for use in other proceedings in the same way as a contested order.
+- **Timeliness.** Applications filed late may face higher amounts or rejection.
+- **Revival.** Breach of terms or misrepresentation allows SEBI to restart proceedings.
+- **Criminal proceedings.** Settlement with SEBI does not necessarily end proceedings by other authorities.
+
+## How traders, investors and quants use it
+- Investors read settlement orders to assess a company's or intermediary's compliance record.
+- Analysts estimate potential settlement amounts when valuing companies facing SEBI cases (as with NSE before its IPO).
+- Compliance teams weigh settlement against litigation costs and reputational impact.
+
+## Related concepts
+SEBI enforcement; NSE co-location case; Securities Appellate Tribunal; adjudication penalties; disgorgement.
+</lesson>
+<qa difficulty="medium"><q>What does "without admitting or denying" mean in a SEBI settlement order?</q><a>The applicant settles by paying the agreed amount and accepting conditions, without admitting the alleged violations; but they also cannot later claim they were not guilty of the settled matters.</a></qa>
+<qa difficulty="hard"><q>How much did NSE pay to settle the co-location and dark-fibre cases, and how much was new money?</q><a>₹1,491.21 crore in total (₹1,223.56 crore for co-location and ₹267.65 crore for dark fibre). NSE had already deposited about ₹776 crore with SEBI, so the balance was about ₹715 crore.</a></qa>
+<qa difficulty="hard"><q>Who decides on a settlement application at SEBI?</q><a>An internal committee negotiates terms with the applicant; the High Powered Advisory Committee reviews and recommends; and a panel of SEBI's Whole Time Members decides whether to accept.</a></qa>
+<qa difficulty="medium"><q>Can SEBI reopen a settled case?</q><a>Yes, if the applicant breaches the settlement terms or the settlement was obtained through misrepresentation or suppression of facts.</a></qa>
+<qa difficulty="expert"><q>Why might a regulator prefer settlement even for a serious case like NSE's?</q><a>Contested proceedings had dragged on for years through SAT and the Supreme Court with uncertain outcomes. Settlement gave a large certain payment, closed litigation, and allowed the systemically important exchange to proceed with governance reforms and its IPO, while the facts and SEBI's orders remained on record.</a></qa>
+<qa difficulty="medium"><q>When did the current settlement regulations take effect?</q><a>The SEBI (Settlement Proceedings) Regulations 2018 took effect on 1 January 2019, replacing the 2014 regulations; they were amended in 2020 and 2022.</a></qa>
+<source url="https://corporate.cyrilamarchandblogs.com/2018/09/settling-price-sebi-consent-mechanism-version-4-0/">Settling for a price: the SEBI consent mechanism, version 4.0 (Cyril Amarchand Mangaldas)</source>
+<source url="https://corporate.cyrilamarchandblogs.com/2022/01/amendments-to-sebi-settlement-regime-a-snapshot/">Amendments to SEBI settlement regime: a snapshot (Cyril Amarchand Mangaldas)</source>
+<source url="https://scconline.com/blog/?p=231027">Consent orders: a win-win for all? (SCC Online)</source>
+<source url="https://www.kotakneo.com/news/regulations/sebi-nse-co-location-dark-fibre-settlement-1491-crore-ipo-2026/">SEBI settles NSE co-location and dark fibre cases for Rs 1,491 crore (Kotak Neo)</source>
+<source url="https://www.businesstoday.in/amp/markets/stocks/story/nse-offers-rs-1388-crore-to-sebi-to-settle-co-location-dark-fibre-cases-481738-2025-06-25">NSE offers Rs 1,388 crore to SEBI to settle (Business Today)</source>
+</topic>
+
+<topic id="538">
+<level>expert</level>
+<lesson>
+# Latency arbitrage and fair-access regulation in the US and EU: Reg NMS, SEC data-feed actions and MiFID II clock-synchronisation rules
+
+## Core idea
+When the same stock trades on many venues, and quotes update in microseconds, the fastest traders can profit by reacting to public information before slower participants can update their orders: **latency arbitrage**. Research shows these speed races are frequent and impose a small but real cost on liquidity. Regulators in the US and EU have responded mainly with rules on fair access to data, clock synchronisation and transparency, while some exchanges experiment with speed bumps and alternative auction designs.
+
+## How it works, step by step
+1. **Fragmentation.** In the US, Regulation NMS (2005) linked many exchanges into a national market system, with an order protection rule (no trading through better prices on other venues), an access rule (fair access to quotes, capped access fees) and rules on market data.
+2. **Data feeds.** Exchanges sell fast proprietary feeds directly to subscribers, while the consolidated public feed (SIP) aggregates quotes more slowly. Rule 603(a) of Reg NMS requires exchanges not to provide data to proprietary feeds before sending it to the SIP.
+3. **Races.** When a price changes (for example in futures), fast traders race to pick off stale quotes on other venues and liquidity providers race to cancel them; whoever's message arrives first wins.
+4. **Costs.** Liquidity providers widen spreads to cover the risk of being picked off, which raises costs for all investors.
+5. **Responses:**
+   - **Enforcement** on data distribution (SEC's 2012 action against NYSE).
+   - **Speed bumps** (IEX's 350-microsecond delay).
+   - **Clock synchronisation and timestamps** (MiFID II RTS 25 in the EU).
+   - **Market design proposals** such as frequent batch auctions.
+
+## Formulas and numbers (worked example)
+Research on London Stock Exchange data (Aquilina, Budish and O'Neill):
+- Latency-arbitrage races occur about once a minute per FTSE 100 stock; the typical race lasts 5 to 10 microseconds.
+- Races account for about 20% of trading volume; the top six firms win over 80% of races.
+- The "latency arbitrage tax" is about 0.42 basis points of total traded value (0.53 bps of non-race volume), roughly US$5 billion a year in global equity markets.
+- Designs that remove races, such as frequent batch auctions, could cut investors' cost of liquidity by about 17%.
+
+Investor impact: a fund trading ₹10,000 crore a year pays an implicit latency tax of about 0.42 bps × ₹10,000 crore = ₹4.2 crore a year, if similar dynamics apply.
+
+## India specifics
+- India has two main exchanges (NSE, BSE) rather than many venues, so cross-venue races matter less than in the US, but co-location fairness and data distribution have been central (NSE co-location case).
+- SEBI's measures on co-location, tick-by-tick data access and algorithmic trading address similar fairness concerns.
+- Cash-futures and ETF-index arbitrage still involve speed races.
+
+## Real examples and history
+- **NYSE (2012):** the SEC imposed a $5 million penalty, its first financial penalty against an exchange, for sending data through two proprietary feeds (OpenBook Ultra and PDP Quotes) before the consolidated feed, violating Rule 603(a); NYSE settled without admitting or denying the findings.
+- **IEX:** approved as a US exchange in June 2016, using a 38-mile coil of fibre to delay incoming orders and outgoing data by 350 microseconds, limiting latency arbitrage against its quotes; the SEC said delays under a millisecond could be allowed subject to review.
+- **MiFID II (2018):** requires venues and high-frequency traders to synchronise clocks to UTC within tight tolerances (for example 100 microseconds for HFT) with fine-grained timestamps, enabling surveillance of sequences.
+
+## Edge cases and common mistakes
+- **All HFT is not latency arbitrage.** Much HFT is market making that provides liquidity.
+- **Speed bumps have trade-offs.** They can protect liquidity providers but also create new strategic behaviours.
+- **Measuring races requires message data.** Order book data shows only successful trades, not failed race attempts.
+- **Small per-trade costs, large totals.** A fraction of a basis point summed over trillions of dollars is large.
+
+## How traders, investors and quants use it
+- Institutional investors use execution algorithms and venues designed to reduce exposure to latency arbitrage.
+- Market makers invest in speed partly defensively, to cancel stale quotes in time.
+- Policy researchers use message data to quantify races and evaluate market design reforms.
+
+## Related concepts
+High-frequency trading; NSE co-location case; data dissemination; Reg NMS; MiFID II; frequent batch auctions; market microstructure.
+</lesson>
+<qa difficulty="hard"><q>What is latency arbitrage?</q><a>Profiting from speed advantages by reacting to public information (for example a futures price change) before others can update their quotes, trading against stale quotes. It is a race decided by microseconds, with the fastest firm winning.</a></qa>
+<qa difficulty="hard"><q>According to Aquilina, Budish and O'Neill, how large is the latency arbitrage tax and its global annual cost?</q><a>About 0.42 basis points of total trading volume (0.53 bps of non-race volume), amounting to roughly US$5 billion a year in global equity markets. Races make up about 20% of trading volume, with the top six firms winning over 80% of them.</a></qa>
+<qa difficulty="medium"><q>Why did the SEC penalise NYSE in 2012?</q><a>For sending market data to customers of its proprietary feeds before sending it to the consolidated public feed, violating Rule 603(a) of Regulation NMS. The $5 million penalty was the SEC's first financial penalty against an exchange.</a></qa>
+<qa difficulty="hard"><q>How does IEX's speed bump work, and what problem does it address?</q><a>IEX routes incoming orders and outgoing data through a 38-mile coil of fibre, adding a 350-microsecond delay. Because IEX sees market changes before the delayed orders arrive, it can update certain pegged orders in time, protecting resting liquidity from being picked off by faster traders exploiting stale prices.</a></qa>
+<qa difficulty="expert"><q>Why do frequent batch auctions eliminate latency arbitrage races?</q><a>Instead of continuous matching where the first message wins, orders are collected over short intervals (for example a fraction of a second) and executed together at a single price. Speed differences of microseconds within an interval no longer determine who trades, so the incentive to race disappears and competition shifts to price.</a></qa>
+<qa difficulty="medium"><q>What does MiFID II require on clocks?</q><a>Trading venues and their members must synchronise business clocks to UTC within specified tolerances (for example within 100 microseconds for high-frequency traders) and record timestamps with fine granularity, allowing regulators to reconstruct event order.</a></qa>
+<source url="https://www.nber.org/system/files/working_papers/w29011/w29011.pdf">Quantifying the high-frequency trading "arms race" (NBER working paper 29011)</source>
+<source url="https://corpgov.law.harvard.edu/2021/11/05/quantifying-the-high-frequency-trading-arms-race">Quantifying the HFT arms race (Harvard Law School Forum)</source>
+<source url="https://sec.gov/news/press/2012/2012-189.htm">SEC charges NYSE for improper distribution of market data (SEC press release, 2012)</source>
+<source url="https://en.wikipedia.org/wiki/IEX">IEX (Wikipedia)</source>
+<source url="https://thehedgefundjournal.com/the-sec-approves-the-investors-exchange-speed-bump/">The SEC approves the Investors Exchange speed bump (The Hedge Fund Journal)</source>
+</topic>
+
+<topic id="539">
+<level>intermediate</level>
+<lesson>
+# SEBI nomination framework 2025–26: 10 vs 4 nominees, opt-out, and nominee operation of accounts
+
+## Core idea
+Nomination decides who receives an investor's demat holdings or mutual fund units when the investor dies, avoiding long legal processes for heirs. SEBI revamped nomination in January 2025, allowing up to 10 nominees for demat accounts and mutual fund folios (up from 3). Separately, banking law was amended to allow up to 4 nominees in bank accounts from November 2025. In March 2026 SEBI proposed simplifying its framework again, including reducing the cap to 4 to align with banks and making nomination the default. Investors need to know which rules apply where.
+
+## How it works, step by step
+**SEBI's January 2025 framework (demat and mutual funds):**
+1. Up to 10 nominees per account or folio, with percentage shares specified.
+2. Only the investor can make nominations (not a power-of-attorney holder).
+3. Investors can opt out of nomination, with a declaration.
+4. Details such as nominees' identification are collected to ease transmission.
+5. Provisions for nominees to act on behalf of incapacitated investors in certain cases were discussed, with operational challenges noted by the industry.
+
+**Banking Laws (Amendment) Act 2025 (bank accounts):**
+1. Notified in April 2025; nomination provisions effective 1 November 2025.
+2. Up to 4 nominees for deposit accounts, either simultaneous (shares in specified proportions) or successive (one after another); lockers and safe custody only successive.
+
+**SEBI's March 2026 consultation (proposal):**
+1. Cap nominees at 4 for demat and mutual funds (aligning with banks).
+2. Make nomination the default, with opt-out through a simpler consent process.
+3. Status: proposal; check whether final rules were issued.
+
+## Formulas and numbers (worked example)
+An investor with ₹60 lakh of mutual funds nominates three people: spouse 50%, son 30%, daughter 20%. On death, units are transmitted: spouse ₹30 lakh, son ₹18 lakh, daughter ₹12 lakh worth of units, without waiting for probate or succession certificates (subject to the transmission process).
+
+If the investor had named 6 nominees under the January 2025 rules and a later rule caps nominees at 4, investors would need to follow any transition provisions in the final rules.
+
+Bank account (successive nomination): nominees A, then B. On the depositor's death, A receives the deposit; if A has died, B receives it.
+
+## India specifics
+- Nomination is not the same as inheritance: nominees receive the assets, but legal heirs under a will or succession law may claim from nominees. The 2025 banking amendments were partly aimed at aligning nominations with wills to reduce disputes.
+- Missing nominations had left large amounts unclaimed; SEBI's earlier push (2021 to 2024) required existing investors to nominate or opt out, with deadlines extended several times.
+- Transmission of securities follows separate SEBI procedures (documents, thresholds for simplified transmission).
+
+## Real examples and history
+- SEBI's attempt to force nomination or opt-out for existing demat and MF accounts led to freezing threats and multiple extensions before it was relaxed.
+- Unclaimed shares and dividends ultimately move to the Investor Education and Protection Fund (IEPF), from which heirs must reclaim them through a slower process.
+
+## Edge cases and common mistakes
+- **Nominee versus heir.** A nominee may have to pass assets to legal heirs.
+- **Percentages must add to 100%.** Otherwise default rules apply.
+- **Minor nominees.** A guardian must be named.
+- **Joint holders.** On a joint holder's death, surviving joint holders take precedence over nominees.
+- **Changing rules.** Proposals (like the 4-nominee cap) are not law until notified.
+
+## How traders, investors and quants use it
+- Investors update nominations across demat, MF and bank accounts, consistent with their wills.
+- Financial planners align nominations with estate plans.
+- Intermediaries implement nomination workflows and track compliance.
+
+## Related concepts
+Transmission of securities; IEPF; wills and succession; KYC; joint holding.
+</lesson>
+<qa difficulty="medium"><q>How many nominees did SEBI's January 2025 framework allow for demat accounts and mutual funds?</q><a>Up to 10 nominees, up from 3 earlier, with percentage shares specified by the investor.</a></qa>
+<qa difficulty="medium"><q>How many nominees are allowed for bank deposits after the Banking Laws (Amendment) Act 2025?</q><a>Up to 4 nominees, effective 1 November 2025, either simultaneous (sharing in set proportions) or successive; for lockers and safe custody, only successive nomination.</a></qa>
+<qa difficulty="hard"><q>What did SEBI propose in its March 2026 consultation on nomination?</q><a>To cap nominees at 4 for demat accounts and MF folios, aligning with bank rules, and to make nomination the default with a simpler opt-out (for example a consent pop-up), dropping more burdensome opt-out procedures. It is a proposal until SEBI notifies final rules.</a></qa>
+<qa difficulty="hard"><q>Does a nominee always become the owner of the investments?</q><a>Not necessarily. Nomination ensures the intermediary transfers the assets to the nominee, but the nominee may hold them for the legal heirs determined by the will or succession law, who can claim them. Recent amendments aimed to reduce such conflicts, but investors should keep nominations consistent with their will.</a></qa>
+<qa difficulty="hard"><q>A joint demat account holder dies. Who receives the shares: the nominee or the surviving joint holder?</q><a>The surviving joint holder(s). Nominees come into play only after all joint holders have died.</a></qa>
+<qa difficulty="medium"><q>What is the difference between simultaneous and successive nomination in bank accounts?</q><a>Simultaneous: all nominees receive shares at the same time in specified proportions. Successive: nominees are ranked; the next nominee receives the amount only if the earlier one has died.</a></qa>
+<source url="https://moneylife.in/article/sebi-allows-up-to-10-nominees-in-mutual-funds-demat-accounts/76086.html">SEBI allows up to 10 nominees in mutual funds and demat accounts (Moneylife)</source>
+<source url="https://www.moneylife.in/article/nomination-to-be-default-in-demat-mf-folios-sebi-floats-simpler-framework-lowers-number-of-nominees-to-4-from-10/79983.html">Nomination to be default; SEBI proposes 4 nominees instead of 10 (Moneylife)</source>
+<source url="https://www.taxmann.com/post/blog/banking-laws-amendment-allows-up-to-four-nominees/">Banking Laws Amendment allows up to four nominees from November 1, 2025 (Taxmann)</source>
+<source url="https://www.business-standard.com/amp/finance/personal-finance/bank-nomination-rules-amended-to-align-with-will-avoid-disputes-125102700915_1.html">Bank nomination rules amended to align with will (Business Standard)</source>
+<source url="https://valueresearchonline.com/stories/222782/sebi-revamps-nomination-rules-for-mutual-funds/">SEBI revamps nomination rules for mutual funds (Value Research)</source>
+</topic>
