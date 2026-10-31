@@ -1,0 +1,305 @@
+<topic id="530">
+<level>intermediate</level>
+<lesson>
+# IPF administration: corpus sources, trust structure, claim process and cap history at NSE and BSE
+
+## Core idea
+When a stock broker defaults and cannot return clients' money or securities, investors can claim compensation from the exchange's **Investor Protection Fund (IPF)**, held in a trust separate from the exchange. The IPF pays only the shortfall that remains after the defaulter's own assets are used, and only up to a cap per investor per claim. NSE raised its cap from ₹25 lakh to ₹35 lakh for defaults declared after 13 August 2024.
+
+## How it works, step by step
+1. **Trust structure.** Each exchange sets up an IPF Trust with trustees (including public interest directors and others), keeping the fund separate from the exchange's own money.
+2. **Corpus sources.** Contributions from the exchange (as specified by SEBI, such as a share of listing fees and penalties or fines collected from members), interest earned on the corpus, and other amounts specified in SEBI's framework. SEBI has periodically asked exchanges to review and enlarge corpus sizes.
+3. **Default declaration.** The exchange declares a broker a defaulter (or expels it) after it fails to meet obligations.
+4. **Public notice and claims.** The exchange publishes a notice inviting claims within a set period (typically up to three years from the notice).
+5. **Assessment.** A committee checks each claim: whether the transaction was on the exchange, whether the claim is genuine and within limits, and how much the defaulter's assets (the defaulters' account) can pay.
+6. **Payment.** The IPF pays the shortfall between the admitted claim and what the defaulter's assets provide, up to the per-investor cap.
+7. **Beyond the cap.** Investors with larger claims must pursue the balance through arbitration or civil suits against the defaulter.
+8. **Review.** NSE's byelaws require the exchange, with the IPF Trust, to review and progressively increase the per-claim limit every three years.
+
+## Formulas and numbers (worked example)
+A broker defaults after August 2024. An investor's admitted claim is ₹48 lakh (funds and securities owed). The defaulter's assets cover 30% of admitted claims.
+- From the defaulters' account: ₹48 lakh × 30% = ₹14.4 lakh.
+- Shortfall: ₹33.6 lakh. The IPF pays up to ₹35 lakh per investor per claim; total compensation is limited to the shortfall, so the IPF pays ₹33.6 lakh. The investor recovers the full ₹48 lakh in this case.
+- If the admitted claim were ₹80 lakh, 30% recovery = ₹24 lakh; shortfall ₹56 lakh; IPF pays ₹35 lakh; the investor recovers ₹59 lakh and must pursue ₹21 lakh separately.
+
+## India specifics
+- NSE's limit was ₹25 lakh before the August 2024 increase to ₹35 lakh; BSE has its own limits, historically lower (older reports cite ₹15 lakh), so check BSE's current IPF page.
+- SEBI asked NSE in 2020 to increase its IPF corpus substantially (to about ₹1,500 crore) after a review, reflecting larger trading volumes and recent broker defaults.
+- IPF covers investors' claims arising from trades on the exchange; it does not compensate for market losses or for losses from off-exchange schemes run by brokers.
+
+## Real examples and history
+- Broker defaults such as Karvy Stock Broking (2019 to 2020) and several smaller firms led to IPF claim processes; many clients' securities were recovered directly via depositories, reducing IPF payouts.
+- Earlier defaults (for example Ficus Securities) raised questions about responsibility and the adequacy of IPF coverage.
+
+## Edge cases and common mistakes
+- **Not a guarantee of all losses.** The IPF pays only admitted claims for exchange-related obligations, up to the cap.
+- **Time limits.** Claims must be filed within the notice period.
+- **Off-market deals.** Losses from "assured return" schemes or private arrangements with brokers are usually not covered.
+- **Funds versus securities.** Securities held in the client's own demat account are generally safe from broker default; idle funds with brokers are more exposed, though running-account settlement rules reduce them.
+
+## How traders, investors and quants use it
+- Investors keep minimal idle funds with brokers and rely on demat holdings in their own name.
+- Investors in failed brokers file claims quickly and document transactions.
+- Analysts of exchanges note IPF corpus sizes and contributions as part of investor protection.
+
+## Related concepts
+Broker default procedures; running-account settlement; margin pledge; Karvy case; clearing corporation guarantees; arbitration.
+</lesson>
+<qa difficulty="medium"><q>What does an exchange's Investor Protection Fund pay?</q><a>Compensation to investors with admitted claims against a broker declared a defaulter or expelled, covering the shortfall after the defaulter's own assets are used, up to a maximum per investor per claim (₹35 lakh at NSE for defaults declared after 13 August 2024).</a></qa>
+<qa difficulty="hard"><q>An investor's admitted claim is ₹60 lakh; the defaulter's assets pay 20%. How much does the NSE IPF pay, and what remains unpaid?</q><a>From the defaulter: ₹12 lakh. Shortfall: ₹48 lakh. IPF pays up to ₹35 lakh. Total recovered: ₹47 lakh; ₹13 lakh remains, which the investor can pursue through arbitration or a civil suit.</a></qa>
+<qa difficulty="hard"><q>Why is the IPF held in a separate trust?</q><a>To keep investor-protection money ring-fenced from the exchange's own finances and creditors, so it is available only for its purpose, with trustees overseeing claims independently of the exchange's business interests.</a></qa>
+<qa difficulty="medium"><q>Does the IPF compensate for trading losses?</q><a>No. It compensates for obligations a defaulting broker failed to meet on exchange-traded transactions (unpaid funds or undelivered securities), not for losses from price movements or investment decisions.</a></qa>
+<qa difficulty="hard"><q>Why do investors whose securities sit in their own demat accounts face little risk when a broker defaults?</q><a>Securities in the investor's own demat account belong to the investor and are held by the depository, not the broker. A broker's default does not give its creditors claims on them. Risk arises mainly for funds held with the broker or securities held in broker pool accounts or pledged improperly.</a></qa>
+<qa difficulty="medium"><q>How often must NSE review its IPF per-claim limit?</q><a>Under its byelaws, every three years, in consultation with the IPF Trust, with the aim of progressively increasing the compensation available per claim.</a></qa>
+<source url="https://www.moneylife.in/article/nse-increases-investor-claim-amount-to-rs35-lakh-from-rs25-lakh-per-claim/74911.html">NSE increases investor claim amount to Rs 35 lakh from Rs 25 lakh (Moneylife)</source>
+<source url="https://www.nseindia.com/static/complaints/investor-protection-fund-trust">NSE Investor Protection Fund Trust</source>
+<source url="https://moneylife.in/article/sebi-asks-nse-to-increase-its-ipf-corpus-to-rs1500-crore-from-rs594-crore-at-present/62128.html">SEBI asks NSE to increase its IPF corpus (Moneylife)</source>
+<source url="https://www.business-standard.com/amp/article/markets/market-regulator-asks-bourses-to-increase-the-size-of-ipf-corpus-120111801147_1.html">Market regulator asks bourses to increase size of IPF corpus (Business Standard)</source>
+<source url="https://www.moneylife.in/article/ficus-securities-debacle-who-is-responsible-for-defaults-by-brokers/53396.html">Ficus Securities debacle: who is responsible for defaults by brokers? (Moneylife)</source>
+</topic>
+
+<topic id="531">
+<level>advanced</level>
+<lesson>
+# Insolvency of a stock broker: trust principle, IBC and client claims
+
+## Core idea
+When a stock broker fails, the key question for clients is whether their money and shares are part of the broker's estate (shared with all creditors) or belong to them. Indian rules require brokers to segregate client funds and securities, treating them as held for clients. Courts and tribunals have also held that stock brokers are "financial service providers" outside the ordinary corporate insolvency process of the Insolvency and Bankruptcy Code (IBC). So broker failures are handled mainly through exchange default procedures, SEBI orders and other legal routes, not a standard IBC resolution.
+
+## How it works, step by step
+1. **Segregation.** SEBI rules require client funds to be kept in client bank accounts and client securities in client demat accounts (with pledges only for the client's own margin), separate from the broker's own assets.
+2. **Trust principle.** Client assets are held for the clients' benefit; the broker has no right to use them for its own debts. In the Karvy case, SEBI and the depository returned clients' securities that the broker had pledged for its own loans.
+3. **Exchange default process.** When a broker fails to meet obligations, the exchange declares it a defaulter, takes over its assets with the exchange (deposits, margins), settles obligations to the clearing corporation, and invites client claims, paying from the defaulter's assets and then the Investor Protection Fund.
+4. **IBC.** Section 3(16) and (17) of the IBC treat entities providing financial services under a financial sector regulator's authorisation as financial service providers (FSPs), excluded from the corporate insolvency process unless notified under section 227 (which has so far covered certain NBFCs and housing finance companies). The NCLAT and NCLT benches have held that CIRP applications against stock brokers are not maintainable.
+5. **Other routes.** Winding up under the Companies Act, civil suits, criminal cases for misappropriation, and SEBI enforcement (bans, disgorgement).
+
+## Formulas and numbers (worked example)
+A broker fails with:
+- Client securities properly held in clients' own demat accounts: ₹800 crore → unaffected; clients keep them.
+- Client funds: ₹120 crore owed to clients, but only ₹70 crore in client bank accounts (₹50 crore misused).
+- Broker's own assets: ₹40 crore of deposits with the exchange.
+Clients' claims: the ₹70 crore in client accounts is returned; the exchange uses the defaulter's ₹40 crore to pay admitted claims; the remaining ₹10 crore shortfall is paid from the IPF up to the per-investor cap. Clients with claims above the cap pursue the rest legally.
+
+## India specifics
+- BMA Wealth Creators (2019) was another case where the exchange compared monthly client fund and security balances reported by the broker with depository and bank records, uncovering misuse.
+- After the 2019 failures, SEBI ended pledging of client securities for brokers' borrowing, introduced margin pledge (2020), required running-account settlement of client funds, and moved toward upstreaming client funds to clearing corporations so that brokers do not hold large client balances overnight.
+- The FSP insolvency rules of 2019 apply only to FSPs notified by the government; brokers have not been notified.
+
+## Real examples and history
+- Karvy Stock Broking (2019 to 2020): client securities were returned, lenders lost, and the broker was expelled and banned.
+- Globally, broker failures such as MF Global (2011) and Lehman Brothers' brokerage (2008) showed how client asset segregation and special resolution regimes decide clients' outcomes.
+
+## Edge cases and common mistakes
+- **Assuming IBC protects clients.** IBC proceedings against brokers have been held not maintainable; clients rely on segregation and exchange processes.
+- **Pooled accounts.** Securities in broker pool or beneficiary accounts are more vulnerable than those in clients' own accounts.
+- **Unpaid securities.** Shares bought but not fully paid for may be retained by the broker under rules.
+- **Group company exposure.** Brokers with affiliated NBFCs or wealth businesses may move funds between entities.
+
+## How traders, investors and quants use it
+- Investors prefer brokers with strong financials and clean regulatory records, keep holdings in their own demat accounts, and avoid large idle balances.
+- Investors monitor depository statements and alerts for unauthorised transfers or pledges.
+- Lenders verify that pledged securities are the broker's own, not clients'.
+
+## Related concepts
+Segregation of client assets; Karvy case; Investor Protection Fund; margin pledge; IBC and financial service providers; running-account settlement.
+</lesson>
+<qa difficulty="hard"><q>Why can't a client of a failed broker file a CIRP application under the IBC against the broker?</q><a>Tribunals have held that stock brokers registered with SEBI are financial service providers under section 3(16) of the IBC. FSPs are excluded from the corporate insolvency resolution process unless the government notifies them under section 227, which it has not done for brokers. So CIRP applications against brokers are not maintainable.</a></qa>
+<qa difficulty="medium"><q>What is the trust principle for client assets?</q><a>Client funds and securities held by a broker belong to the clients and are held for their benefit, segregated from the broker's own assets. They are not available to pay the broker's own creditors.</a></qa>
+<qa difficulty="hard"><q>A broker misused ₹30 crore of client funds and has ₹10 crore of its own assets with the exchange. How might affected clients recover?</q><a>The exchange declares the broker a defaulter, uses the ₹10 crore to pay admitted client claims, then pays remaining shortfalls from the Investor Protection Fund up to the per-investor cap. Clients with larger losses can pursue arbitration or civil suits, and criminal complaints may follow for misappropriation.</a></qa>
+<qa difficulty="expert"><q>How do the post-2019 reforms reduce clients' exposure to broker failure?</q><a>Margin pledge keeps securities in clients' accounts; the ban on pledging client securities for brokers' borrowing removes a channel for misuse; running-account settlement returns idle client funds periodically; upstreaming of client funds to clearing corporations limits funds held by brokers; and monthly reconciliation of reported client balances with bank and depository data detects mismatches early.</a></qa>
+<qa difficulty="medium"><q>How was misuse at BMA Wealth Creators detected?</q><a>NSE compared the monthly client funds and securities balances the broker reported with depository and bank records, revealing discrepancies that indicated misuse, which it reported to SEBI.</a></qa>
+<qa difficulty="hard"><q>Why are securities held in the client's own demat account safer than funds held with the broker?</q><a>Securities in the client's demat account are recorded in the client's name at the depository and cannot be moved without authorisation (OTP-based pledges or limited DDPI). Funds with the broker sit in bank accounts the broker controls, which can be misused before reconciliation catches it, and are recoverable only through the default and IPF processes.</a></qa>
+<source url="https://www.barandbench.com/columns/are-stock-brokers-corporate-debtors">Are stock brokers corporate debtors? (Bar and Bench)</source>
+<source url="https://www.livelaw.in/amp/ibc-cases/nclt-delhi-ibc-stock-broker-company-financial-service-provider-234652">Stock broker company is a financial service provider under IBC: NCLT Delhi (LiveLaw)</source>
+<source url="https://conventuslaw.com/report/india-stock-broker-is-a-financial-service-provider-the-nclat-ruling-may-offer-respite/">Stock broker is a financial service provider: the NCLAT ruling (Conventus Law)</source>
+<source url="https://www.business-standard.com/amp/article/pf/how-to-protect-your-interests-when-your-stockbroker-is-headed-for-trouble-119101100532_1.html">How to protect your interests when your stockbroker is headed for trouble (Business Standard)</source>
+</topic>
+
+<topic id="532">
+<level>intermediate</level>
+<lesson>
+# SCORES 2.0 and Smart ODR: conciliation, arbitration, appeals and statistics
+
+## Core idea
+Investors with complaints against listed companies, brokers, mutual funds or other SEBI-regulated entities have two main routes. **SCORES** (SEBI Complaints Redress System) is an online complaint platform; its upgraded version, SCORES 2.0, launched in April 2024 with fixed timelines and two levels of review. **Smart ODR** is SEBI's online dispute resolution system, launched in 2023, which takes disputes through online conciliation and, if needed, arbitration, producing binding outcomes.
+
+## How it works, step by step
+**SCORES 2.0:**
+1. The investor files a complaint online (or through the app), linked to their KYC.
+2. The complaint is automatically routed to the entity concerned.
+3. The entity must submit an action taken report (ATR) within 21 days.
+4. If dissatisfied, the investor can request a first-level review (by the designated body, such as an exchange or depository) within 15 days.
+5. If still dissatisfied, a second-level review by SEBI follows, with similar timelines.
+6. The investor can instead choose online dispute resolution, closing the SCORES complaint.
+
+**Smart ODR (SEBI's 2023 framework):**
+1. The investor (or the entity) first tries to resolve the issue directly with the regulated entity.
+2. If unresolved, a dispute is filed on the Smart ODR portal, which assigns it to an ODR institution empanelled by market infrastructure institutions.
+3. **Conciliation:** an independent conciliator tries to settle the dispute online within a short, fixed period.
+4. **Arbitration:** if conciliation fails, an arbitrator (online) decides, with a binding award within set timelines; fees depend on claim size.
+5. Awards can be challenged only on limited grounds under the Arbitration and Conciliation Act 1996.
+
+## Formulas and numbers (worked example)
+An investor complains that a broker failed to transfer ₹1.8 lakh after a sale.
+- SCORES: complaint filed on day 0; broker's ATR due by day 21. The investor is unhappy with the ATR on day 23 and requests a first-level review (within 15 days). The designated body reviews within its timeline.
+- ODR alternative: the investor files on Smart ODR; conciliation succeeds with the broker agreeing to pay ₹1.8 lakh plus ₹6,000 interest; the case closes without arbitration.
+
+Monthly volumes: SEBI reported resolving about 5,548 SCORES complaints in May 2026 and about 5,037 in June 2026, with pending complaints falling slightly.
+
+## India specifics
+- SCORES was first launched in 2011; SCORES 2.0 added auto-routing, KYC-linked registration, shorter timelines and two-level review.
+- The ODR framework (2023) replaced exchange-run arbitration as the main route for investor disputes with intermediaries and listed companies, covering a broad range of regulated entities.
+- Reported data has shown entities taking a few days on average to submit ATRs, and first-level reviews resolved in about a week, though timings vary by month.
+
+## Real examples and history
+- Before ODR, investors relied on exchange arbitration (for broker disputes) and courts (for others), which could be slow and costly.
+- SEBI publishes monthly statistics of complaints received and resolved, by entity type.
+
+## Edge cases and common mistakes
+- **Not for market losses.** Complaints must concern a service failure or rule breach, not investment losses from price falls.
+- **Time limits.** Complaints and disputes must be filed within limitation periods (for example within a set time from the cause of action).
+- **Direct approach first.** SCORES and ODR usually require the investor to have approached the entity first.
+- **Closure on choosing ODR.** Opting for ODR closes the SCORES complaint.
+- **Evidence.** Keep contract notes, statements and correspondence.
+
+## How traders, investors and quants use it
+- Investors use SCORES for service failures (delays in refunds, transfers, dividends) and ODR for disputes needing a binding decision.
+- Compliance teams at intermediaries track complaint ageing and ATR timelines.
+- Analysts use SEBI's complaint statistics as indicators of service quality across entities.
+
+## Related concepts
+Investor grievance redressal; arbitration; regulated intermediaries; LODR Regulation 13 (investor grievances); Investor Protection Fund.
+</lesson>
+<qa difficulty="medium"><q>How many days does a regulated entity have to respond to a SCORES 2.0 complaint?</q><a>21 days to submit an action taken report (ATR) to the investor through the system.</a></qa>
+<qa difficulty="medium"><q>What are the two review levels in SCORES 2.0?</q><a>If the investor is dissatisfied with the entity's response, they can request a first-level review by the designated body (such as an exchange or depository) within 15 days; if still dissatisfied, a second-level review by SEBI.</a></qa>
+<qa difficulty="hard"><q>What is the difference between SCORES and Smart ODR?</q><a>SCORES is a complaint-redress system where the regulated entity responds and reviews follow, without a binding adjudication. Smart ODR resolves disputes through online conciliation and, if that fails, binding arbitration, giving an enforceable outcome. An investor who opts for ODR closes their SCORES complaint.</a></qa>
+<qa difficulty="hard"><q>A trader lost ₹2 lakh when a stock fell after following a broker's research report. Can SCORES or ODR help?</q><a>Generally not for the loss itself, since market losses from price movements are not a service failure. If the broker or research analyst breached rules (for example giving unregistered advice or misrepresenting), a complaint could address that conduct, but recovery of investment losses is not assured.</a></qa>
+<qa difficulty="medium"><q>How many SCORES complaints did SEBI resolve in May 2026?</q><a>About 5,548, according to SEBI's monthly reporting covered in the press.</a></qa>
+<qa difficulty="hard"><q>Why did SEBI create the Smart ODR framework?</q><a>To give investors a faster, cheaper, online route to binding resolution of disputes with intermediaries and listed companies, replacing slow, fragmented processes. Online conciliation resolves many disputes quickly; arbitration provides a decision when it does not.</a></qa>
+<source url="https://www.share.market/buzz/learn/scores-in-stock-market/">SCORES in stock market (share.market)</source>
+<source url="https://www.angelone.in/news/market-updates/sebi-disposes-5-037-investors-complaints-via-scores-platform-in-june-2026">SEBI disposes 5,037 investor complaints via SCORES in June 2026 (Angel One)</source>
+<source url="https://www.outlookbusiness.com/markets/sebi-resolves-over-5500-investor-complaints-in-may-via-scores-platform">SEBI resolves over 5,500 investor complaints in May via SCORES (Outlook Business)</source>
+<source url="https://www.business-standard.com/markets/news/ahead-of-scores-revamp-on-april-1-complaint-resolution-shows-an-uptick-124033100087_1.html">Ahead of SCORES revamp on April 1, complaint resolution shows an uptick (Business Standard)</source>
+</topic>
+
+<topic id="533">
+<level>intermediate</level>
+<lesson>
+# Exchange enhanced supervision, running account settlement and broker reporting rules
+
+## Core idea
+Brokers hold large amounts of client money and act on clients' securities, so regulators check continuously that client assets are safe. SEBI's **enhanced supervision** framework (2016) standardised how brokers segregate, report and are inspected for client funds and securities. **Running-account settlement** forces brokers to return idle client funds periodically, so money does not pile up in broker accounts. Together with later reforms after the 2019 broker failures, these rules reduce the risk of misuse.
+
+## How it works, step by step
+**Enhanced supervision (SEBI circular of September 2016, later amended):**
+1. Client bank accounts must be named and kept separate from the broker's own accounts; client securities are held in client demat accounts or designated accounts.
+2. Brokers report client fund balances and securities to exchanges regularly (monthly, and in other formats as required); exchanges reconcile reports with bank and depository data.
+3. Exchanges run risk-based inspections and alert systems; mismatches trigger action.
+4. A "net worth" and liquidity check on brokers and restrictions on using client funds.
+
+**Running-account settlement:**
+1. A client can choose quarterly or monthly settlement of their running account.
+2. On the settlement date, the broker returns funds above what is needed for obligations (margin and pending dues), within limits.
+3. Since SEBI's July 2022 circular, settlement dates are the first Friday of the quarter or month (from October 2022); a 2024 change allowed the first Friday or Saturday, with client funds received kept in an upstreaming account so one client's money cannot settle another's.
+4. Settlement of securities in running accounts was discontinued in 2019, so the rules cover funds.
+5. Exchanges publish the annual calendar of settlement dates.
+
+**Upstreaming.** Brokers must move clients' funds to clearing corporations at the end of each day (with limited exceptions), so client money sits with the CC rather than with brokers overnight.
+
+## Formulas and numbers (worked example)
+A client has ₹5,00,000 with a broker on the quarterly settlement date. Margin required for open F&O positions: ₹2,40,000. Brokers may retain margin needed plus a small buffer (for example up to a specified multiple of the day's requirement, or a fixed amount).
+- Retained: ₹2,40,000 (plus allowed buffer, say ₹10,000) = ₹2,50,000.
+- Returned to the client's bank account: ₹2,50,000.
+A client with no open positions and ₹80,000 idle gets the whole amount back.
+
+## India specifics
+- The 2019 failures (Karvy and others) exposed weaknesses: brokers had used client funds and securities for their own purposes. SEBI then banned pledging client securities for broker borrowing, introduced margin pledge (2020), and pushed upstreaming of client funds.
+- Clients receive monthly statements, contract notes and depository alerts as additional checks.
+- Exchanges can declare brokers defaulters, suspend them, or freeze accounts when reconciliation fails.
+
+## Real examples and history
+- BMA Wealth Creators' misuse was flagged when NSE compared reported monthly balances with depository records.
+- Before running-account settlement was enforced, many clients left large balances with brokers for years.
+
+## Edge cases and common mistakes
+- **Clients forgetting settlement dates.** Funds returned on settlement dates may need to be transferred back for trading.
+- **Margin buffer.** Retained amounts depend on positions and rules; check statements.
+- **Choice of monthly or quarterly.** More frequent settlement reduces exposure to broker failure.
+- **Inactive clients.** Funds of clients with no trades for a period must be returned.
+
+## How traders, investors and quants use it
+- Investors choose monthly settlement and avoid leaving idle money with brokers.
+- Brokers' operations teams plan liquidity for settlement dates.
+- Regulators and exchanges use reported data and reconciliations to detect problems early.
+
+## Related concepts
+Segregation of client assets; margin pledge; upstreaming; Karvy case; Investor Protection Fund; broker default.
+</lesson>
+<qa difficulty="medium"><q>What is running-account settlement?</q><a>The periodic (quarterly or monthly, at the client's choice) return of a client's idle funds held by a broker, keeping only the amount needed for obligations and margins, on dates set by exchanges (the first Friday, or since 2024 the first Friday or Saturday, of the quarter or month).</a></qa>
+<qa difficulty="hard"><q>A client has ₹3.2 lakh with a broker, open positions requiring ₹1.1 lakh margin, and a ₹20,000 obligation due tomorrow. Roughly how much should be returned on the settlement date?</q><a>The broker may retain amounts needed for margin (₹1.1 lakh) and pending obligations (₹20,000), plus any permitted buffer. Excluding a buffer, about ₹3.2 − 1.3 = ₹1.9 lakh would be returned.</a></qa>
+<qa difficulty="hard"><q>Why was settlement of securities in running accounts discontinued in 2019?</q><a>Brokers holding clients' securities in their own or pool accounts created opportunities for misuse (pledging for broker borrowing). The reforms required securities to be in clients' demat accounts, with margin given through pledges, so a periodic return of securities was no longer needed.</a></qa>
+<qa difficulty="medium"><q>What is upstreaming of client funds?</q><a>Brokers transferring clients' funds to clearing corporations at the end of each day, so that client money is held with the CC rather than in brokers' bank accounts overnight, reducing the risk of misuse.</a></qa>
+<qa difficulty="hard"><q>How do exchanges use broker reports to detect misuse?</q><a>They compare brokers' reported client fund balances and securities holdings with independent data from banks and depositories. Shortfalls (for example less money in client bank accounts than owed to clients) or securities in unexpected accounts indicate misuse, triggering inspections and action.</a></qa>
+<qa difficulty="medium"><q>Why did SEBI require client funds received around settlement dates to be kept in an upstreaming account?</q><a>To ensure that money received from one client is not used to settle another client's running account, keeping each client's funds identifiable and preventing cross-subsidisation that could hide shortfalls.</a></qa>
+<source url="https://www.business-standard.com/amp/article/economy-policy/sebi-comes-out-with-new-guidelines-on-settlement-of-running-account-122072701217_1.html">SEBI new guidelines on settlement of running accounts (Business Standard, 2022)</source>
+<source url="https://www.outlookbusiness.com/markets/sebi-eases-guidelines-for-settlement-of-running-accounts">SEBI eases guidelines for settlement of running accounts (Outlook Business)</source>
+<source url="https://support.zerodha.com/category/console/profile/articles/what-is-quarterly-settlement">What is quarterly settlement? (Zerodha support)</source>
+<source url="https://cms-resources.groww.in/uploads/1658918676724_1fb54e3c57.pdf">SEBI circular on settlement of running accounts of clients' funds (July 2022)</source>
+<source url="https://www.msei.in/SX-Content/Circulars/2025/April/Circular-17090.pdf">MSEI circular with FY 2025-26 running account settlement calendar</source>
+</topic>
+
+<topic id="534">
+<level>advanced</level>
+<lesson>
+# Market data dissemination: unicast versus multicast, hardware timestamps and equal-length cabling in exchange co-location
+
+## Core idea
+In electronic markets, the order in which traders see data and reach the exchange can decide who profits. Exchanges therefore design their data feeds and co-location facilities to give every participant equal access. Key choices are how market data is sent (**unicast**, one copy per recipient, versus **multicast**, one copy delivered to all at once), how precisely events are timed (**hardware timestamps**), and how physical connections are built (**equal-length cabling** so no co-located server is physically closer). India's NSE co-location case showed what goes wrong when these are not designed for fairness.
+
+## How it works, step by step
+1. **Unicast (for example TCP).** The exchange sends data separately to each subscriber. Messages queue per connection; some recipients get them earlier, depending on order and server load. TCP also retransmits lost packets, which adds delay.
+2. **Multicast (usually UDP).** The exchange sends one stream; network switches replicate it to all subscribers simultaneously. Lost packets are not retransmitted on the main feed; recipients use recovery channels. Delivery is near-simultaneous for all on the same network.
+3. **Equal-length cabling.** In co-location halls, cables from each rack to the exchange's switches are cut to the same length, so light travels the same distance to every participant (about 5 nanoseconds per metre in fibre).
+4. **Hardware timestamps.** Network cards and switches stamp messages at the hardware level with precise, synchronised clocks, allowing exchanges and regulators to reconstruct event sequences to microseconds or better.
+5. **Clock synchronisation rules.** Regulations such as the EU's MiFID II require trading venues and high-frequency traders to synchronise clocks to UTC within tight limits (for example 100 microseconds for HFT) with fine timestamp granularity.
+6. **Fair access policies.** Same products and services available to all at the same price; transparent connection rules; audits.
+
+## Formulas and numbers (worked example)
+Two co-located servers: A's cable is 20 metres, B's is 50 metres. Light in fibre travels about 2 × 10⁸ m/s: A's delay ≈ 100 ns, B's ≈ 250 ns. A sees every message about 150 ns earlier. In a race to react to a price change, A wins whenever processing times are similar. Equal-length cabling removes this physical advantage.
+
+Unicast queueing: if an exchange server sends each message to 100 subscribers in sequence and each send takes 1 microsecond, the last subscriber receives data about 99 microseconds after the first, an enormous gap for fast traders. Multicast avoids this sequential delay.
+
+## India specifics
+- In the NSE co-location case (2015 complaint), NSE's tick-by-tick (TBT) feed was disseminated in a way that let some members connected first, or to less loaded servers, receive data earlier. SEBI found that fair and equitable access had not been designed into the TBT dissemination architecture; NSE was ordered to disgorge about ₹625 crore with interest (2019), and the matter was finally settled in 2025 to 2026 for ₹1,491.21 crore.
+- SEBI separately fined NSE ₹1 crore for failing to ensure a level playing field for TBT subscribers.
+- In 2016 to 2017 SEBI asked exchanges to give market participants fair access to data and consulted on measures for co-location and algorithmic trading (including ideas such as randomisation of order processing and minimum resting times).
+
+## Real examples and history
+- US exchanges adopted equal-length cabling in co-location facilities around 2010 to 2012 after concerns about physical advantages.
+- The US SEC has acted against exchanges that sent data to proprietary feeds faster than to the consolidated public feed, highlighting data-feed fairness.
+
+## Edge cases and common mistakes
+- **Multicast is not perfectly equal.** Differences in network cards, switches and software still create small gaps.
+- **Retransmission.** With UDP, lost packets must be recovered from other channels, which can disadvantage participants with poorer infrastructure.
+- **Outside co-location.** Participants outside the facility always face larger delays; fairness rules apply within access categories.
+- **Speed bumps.** Deliberate delays can level the field but have trade-offs and remain controversial.
+
+## How traders, investors and quants use it
+- HFT firms invest in hardware (FPGAs, kernel-bypass networking) within fair-access rules.
+- Regulators use hardware timestamps for surveillance and reconstruction of events.
+- Researchers measure latency advantages and their effects on market quality.
+
+## Related concepts
+NSE co-location case; high-frequency trading; latency arbitrage; MiFID II clock synchronisation; Reg NMS; algorithmic trading rules.
+</lesson>
+<qa difficulty="hard"><q>How long does light take to travel 35 metres of fibre, and what advantage does a 15-metre shorter cable give?</q><a>At about 2 × 10⁸ m/s, 35 m takes 175 nanoseconds. A cable 15 m shorter saves about 75 nanoseconds, which can decide which of two equally fast traders reacts first.</a></qa>
+<qa difficulty="medium"><q>What is the main fairness advantage of multicast over unicast data dissemination?</q><a>Multicast sends one stream that the network delivers to all subscribers at essentially the same time, whereas unicast sends separate copies in sequence, so some recipients systematically receive data earlier.</a></qa>
+<qa difficulty="hard"><q>What did SEBI find about NSE's tick-by-tick architecture?</q><a>That fair and equitable access had not been built into the design and implementation of NSE's TBT data dissemination: the system allowed some members to receive data earlier depending on connection order and server load, giving them an advantage. SEBI imposed penalties and ordered disgorgement, and the case was later settled.</a></qa>
+<qa difficulty="medium"><q>Why do exchanges use equal-length cables in co-location?</q><a>So that no participant gains a speed advantage merely by having its rack physically closer to the exchange's matching engine or switches; every participant's signals travel the same distance.</a></qa>
+<qa difficulty="hard"><q>Why are hardware timestamps important for regulators?</q><a>Software timestamps can be delayed by operating-system and application processing, distorting the true order of events. Hardware timestamps, taken by network cards with synchronised clocks, record when messages actually arrived or left, allowing precise reconstruction of trading sequences to detect manipulation or unfair access.</a></qa>
+<qa difficulty="expert"><q>Why might a multicast UDP feed still disadvantage some participants?</q><a>UDP does not retransmit lost packets on the main stream; participants who lose packets must recover them from retransmission or snapshot channels, which takes time. Those with better network hardware, more redundancy (for example A and B feeds) and faster recovery processing lose fewer messages and react sooner, so infrastructure quality still matters.</a></qa>
+<source url="https://www.business-standard.com/amp/article/pti-stories/sebi-to-bourses-give-mkt-participants-access-to-data-fairly-117012001259_1.html">SEBI to bourses: give market participants access to data fairly (Business Standard)</source>
+<source url="https://www.business-standard.com/amp/article/markets/sebi-imposes-fines-nse-ramakrishna-narain-in-co-location-case-121021001373_1.html">SEBI imposes fines on NSE, Ramkrishna, Narain in co-location case (Business Standard)</source>
+<source url="https://www.businesstoday.in/magazine/focus/story/sebi-fair-play-doctrine-for-nse-69215-2016-10-02">SEBI's fair play doctrine for NSE (Business Today)</source>
+<source url="https://www.kotakneo.com/news/regulations/sebi-nse-co-location-dark-fibre-settlement-1491-crore-ipo-2026/">SEBI settles NSE co-location and dark fibre cases for Rs 1,491 crore (Kotak Neo)</source>
+</topic>
