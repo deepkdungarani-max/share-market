@@ -1,0 +1,291 @@
+<topic id="674">
+<level>intermediate</level>
+<lesson>
+# SEBI's algo-trading framework: algo IDs, retail API registration, order-to-trade ratios and order-rate limits
+
+## Core idea
+Algorithmic trading in India is regulated at three levels: SEBI sets the framework, exchanges approve and tag algorithms and monitor their order flow, and brokers act as the gatekeepers who connect clients' code to the market. SEBI's circular of 4 February 2025 on safer participation of retail investors in algorithmic trading brought retail API trading inside this structure. Implementation was phased in from October 2025 and became mandatory for brokers from 1 April 2026. Separately, exchanges discourage excessive order messages through order-to-trade ratio (OTR) charges.
+
+## Key elements of the 2025 framework
+1. **Every algo order is tagged.** Exchanges assign IDs: a generic ID for low-frequency API orders and a unique ID for each registered algorithm, so every order can be traced.
+2. **The 10 orders-per-second threshold.** A client's API trading at or below 10 orders per second per exchange does not need separate registration. Above that, the algorithm must be registered with the exchange through the broker and gets its own ID.
+3. **Brokers are responsible.** Brokers must get exchange approval for algos they offer and remain responsible for client algos running through their systems.
+4. **Algo providers.** Third-party providers are empanelled with exchanges and work as agents of brokers.
+5. **White box and black box.** White box algos have disclosed, replicable logic. Black box algos (logic not disclosed) may only be offered by SEBI-registered research analysts, with research records for each strategy.
+6. **API security.** Access through unique client-specific keys, static IP whitelisting (one or two IPs per client), and daily two-factor login; open APIs are not allowed.
+7. **Kill switch.** Brokers and exchanges must be able to stop an algo quickly if it misbehaves.
+
+## Order-to-trade ratio controls
+SEBI's 2013 circular required exchanges to charge for high order-to-trade ratios in algo trading. For example, an NSE structure from 2018 for the equity segment counted every algo order message (entries, modifications and cancellations) against trades. It charged nothing below a ratio of 50, 2 paise per order for 50 to 250, 10 paise per order from 250 upwards. At 500 or more, the member was also barred from placing orders for the first 15 minutes of the next day. The framework was revised in 2020, and later relaxations for options and for market makers have been reported. Check current exchange circulars for live numbers.
+
+## Worked example
+A retail trader runs an options strategy through a broker API.
+- **Order rate:** it normally sends 6 orders per second but bursts to 14 per second near expiry. Because it exceeds 10 per second, it must be registered through the broker with the exchange and receive its own algo ID. Otherwise, the broker must throttle it to 10 per second.
+- **OTR:** in a day it sends 60,000 order messages and gets 200 trades: OTR = 300. Under the 2018 slab structure this would attract 10 paise per order, about ₹6,000 for the day. Reducing needless modifications cuts both cost and surveillance attention.
+
+## What brokers enforce in practice
+- Per-client rate limits on API calls and orders.
+- Pre-trade risk checks: price bands, quantity limits, margin checks.
+- Static IP checks and session expiry before the next day's pre-open.
+- Algo approval records and audit trails.
+
+## Checklist for a retail algo trader
+1. Measure your peak orders per second per exchange, including modifications and cancellations, on busy days such as expiry.
+2. If the peak can exceed 10 per second, ask your broker to register the strategy with the exchange, or throttle it.
+3. Register your static IP with the broker and plan for the daily login.
+4. Track your own order-to-trade ratio and remove needless modifications.
+5. If you use a third-party strategy, confirm the provider is empanelled, and for black-box logic that it is a SEBI-registered research analyst.
+
+## Common mistakes
+- Treating API trading as unregulated: every order is tagged and traceable.
+- Sharing API keys or running a friend's code: keys and IPs are tied to the client.
+- Excessive modifications that drive up the OTR without improving fills.
+- Buying "guaranteed return" black-box algos from unregistered sellers.
+
+## Key takeaways
+SEBI's 2025 framework requires tagging every algo order, registering algos above 10 orders per second per exchange, black-box providers to be registered research analysts, and secure API access through static IPs and daily login. Brokers are accountable for client algos. Exchanges discourage message spam with OTR charges and restrictions, revised over time.
+</lesson>
+<qa difficulty="medium"><q>What is the order-rate threshold in SEBI's 2025 retail algo framework?</q><a>10 orders per second per exchange. API trading above this must be registered as an algorithm with the exchange through the broker and gets a unique algo ID.</a></qa>
+<qa difficulty="medium"><q>What is the difference between white box and black box algos under the framework?</q><a>White box algos have disclosed, replicable logic. Black box algos do not disclose logic and may only be offered by SEBI-registered research analysts who keep research records for each strategy.</a></qa>
+<qa difficulty="medium"><q>Which API security measures does the framework require?</q><a>Unique client-specific API keys, static IP whitelisting, daily two-factor login, no open APIs, and the ability to stop an algo with a kill switch.</a></qa>
+<qa difficulty="hard"><q>How is the order-to-trade ratio computed for algo traders, and why is it penalised?</q><a>It is the count of algo order messages (entries, modifications and cancellations) divided by trades. High ratios load exchange systems and can indicate spoofing-like behaviour, so exchanges levy per-order charges and restrictions above set thresholds.</a></qa>
+<qa difficulty="hard"><q>Under the 2018 NSE slabs, what would 60,000 order messages and 200 trades in a day cost?</q><a>OTR = 300, which falls in the 250-plus slab at 10 paise per order: about ₹6,000. Current charges may differ after later revisions.</a></qa>
+<qa difficulty="expert"><q>Why does SEBI make brokers responsible for retail clients' algorithms?</q><a>Brokers control market access, risk checks and API keys, so they are best placed to approve algos, enforce rate limits and stop faulty code. Making them accountable creates a clear gatekeeper while exchanges trace every order through algo IDs.</a></qa>
+<source url="https://zerodha.com/z-connect/featured/explaining-the-latest-sebi-algo-trading-regulations">Explaining the latest SEBI algo trading regulations (Zerodha)</source>
+<source url="https://www.business-standard.com/markets/capital-market-news/nse-lays-down-new-ground-rules-for-retail-algo-trading-to-boost-safety-and-compliance-125050600690_1.html">NSE lays down new ground rules for retail algo trading (Business Standard)</source>
+<source url="https://fyers.in/notice-board/new-sebi-framework-for-retail-algo-trading-from-april-01-2026/">New SEBI framework for retail algo trading from 1 April 2026 (Fyers)</source>
+<source url="https://www.business-standard.com/amp/article/pti-stories/charges-for-high-algo-otr-to-be-imposed-in-equity-segment-from-jun-29-118062400183_1.html">BSE, NSE to impose charge on high algo OTR in equity segment (Business Standard)</source>
+<source url="https://archives.nseindia.com/content/circulars/SURV45016.pdf">NSE circular on the order-to-trade ratio framework (July 2020)</source>
+</topic>
+
+<topic id="675">
+<level>advanced</level>
+<lesson>
+# Intraday volume curve forecasting and dynamic VWAP
+
+## Core idea
+A VWAP algorithm tries to buy or sell at the day's volume-weighted average price. To do that, it must trade in proportion to market volume through the day, which means forecasting how volume will be distributed. The simple approach uses a fixed historical "volume curve". A dynamic approach updates the forecast during the day as actual volume comes in, reducing tracking error against VWAP.
+
+## The intraday volume curve
+- In most equity markets volume is U-shaped: heavy at the open, lighter at midday, heavy again into the close.
+- India adds its own features: a busy open after the pre-open auction, activity around European market openings and in the last hour, and very different patterns on derivative expiry days, results days and index rebalance days.
+- From August 2026, NSE's closing auction for stocks with derivatives concentrates closing volume in the auction, so the curve's last part moves into a single event.
+
+## Static VWAP
+1. Divide the day into bins (for example 15 minutes).
+2. Estimate each bin's average share of daily volume from history.
+3. Trade the parent order in the same proportions.
+It works on average but fails on unusual days: a big news day may have twice the morning volume, and a static schedule falls behind.
+
+## Dynamic VWAP
+Białkowski, Darolles and Le Fol (2008) split volume into two parts: a seasonal U-shape common across stocks, and a stock-specific dynamic part modelled with time-series models (ARMA or threshold models). The forecast is updated after each bin. Tested on CAC 40 stocks, the dynamic approach tracked end-of-day VWAP better than static curves. Other practical methods scale the remaining curve based on the day's volume surprise so far.
+
+## Worked example
+Forecast daily volume: 10 lakh shares. Six bins with historical shares 25%, 15%, 10%, 10%, 15%, 25%. Parent order: buy 60,000 shares.
+- **Static plan:** 15,000; 9,000; 6,000; 6,000; 9,000; 15,000.
+- **First bin result:** market volume is 3.5 lakh, not the 2.5 lakh forecast, a 40% surprise. Assume half of the surprise persists, so the remaining 7.5 lakh forecast is scaled up 20% to 9 lakh. The new daily forecast is 12.5 lakh.
+- Market share so far = 3.5 ÷ 12.5 = 28% of the day, but the algo has done 15,000 ÷ 60,000 = 25%. It should catch up to 28% (16,800 shares) and re-spread the rest using the remaining bins' shares.
+
+## POV versus VWAP
+- **Percentage of volume (POV):** trades a fixed share of actual volume (for example 10%). It adapts automatically but the finishing time is uncertain.
+- **VWAP:** aims to finish by a set time while matching the volume profile. Dynamic forecasting makes it behave more like POV without losing the deadline.
+
+## Measuring performance
+- VWAP slippage = (average fill price − market VWAP) ÷ market VWAP, signed by side.
+- Measure tracking error separately from cost against arrival: a perfect VWAP track can still be expensive if the price trended.
+- If your order is a large share of volume, you move the VWAP you are tracking, making VWAP a weak benchmark.
+
+## Common mistakes
+- Using one curve for every day: expiry days, results and index events need separate curves.
+- Ignoring the new closing auction: the last bin must now include auction participation.
+- Over-reacting to early volume surprises: partial updating is more robust than full re-scaling.
+
+## Key takeaways
+VWAP execution depends on forecasting the intraday volume curve. Static curves work on average; dynamic models update during the day, splitting volume into a common seasonal shape and a stock-specific component. In India, expiry days, events and the 2026 closing auction need special handling.
+</lesson>
+<qa difficulty="medium"><q>What is the typical shape of intraday volume in equity markets?</q><a>U-shaped: high at the open, lower at midday, and high again into the close.</a></qa>
+<qa difficulty="medium"><q>How does a static VWAP schedule work?</q><a>It splits the day into bins, uses historical average shares of daily volume per bin, and trades the parent order in the same proportions.</a></qa>
+<qa difficulty="hard"><q>What decomposition did Białkowski, Darolles and Le Fol use for dynamic VWAP?</q><a>Volume is split into a seasonal component common across stocks (the U-shape) and a stock-specific dynamic component modelled with ARMA or threshold time-series models, updated during the day.</a></qa>
+<qa difficulty="hard"><q>After the first bin, 3.5 lakh shares traded versus 2.5 lakh forecast. With half the surprise persisting, what is the new daily forecast and target progress for a 60,000-share order?</q><a>The remaining 7.5 lakh is scaled by 1.2 to 9 lakh, so the day forecast is 12.5 lakh. Progress so far is 3.5 ÷ 12.5 = 28%, so the target is 16,800 shares done versus 15,000 executed.</a></qa>
+<qa difficulty="expert"><q>Why can perfect VWAP tracking still be a costly execution?</q><a>VWAP tracking only matches the day's average price. If the price trends against you during the day, the VWAP itself is far from the arrival price. For large orders, your trading also moves the VWAP, so arrival-based costs give a truer picture.</a></qa>
+<qa difficulty="medium"><q>How should a VWAP algorithm adapt to NSE's closing auction?</q><a>Its final bin should include planned participation in the closing auction, sized to expected auction volume, rather than continuous trading in the last minutes.</a></qa>
+<source url="https://ourarchive.otago.ac.nz/bitstream/handle/10523/1540/ImprovingVWAPStrategiesADynamicalVolumeApproach2006.pdf?sequence=3">Improving VWAP strategies: a dynamic volume approach (Białkowski, Darolles and Le Fol)</source>
+<source url="https://alphatrade.readthedocs.io/en/latest/_vwap_2007.html">Summary: Improving VWAP strategies, a dynamic volume approach</source>
+<source url="https://ideas.repec.org/p/hal/journl/hal-01632822.html">Reducing the risk of VWAP orders execution: a new approach to modelling intraday volume</source>
+<source url="https://arxiv.org/pdf/1904.01412">Quintet volume projection (arXiv)</source>
+</topic>
+
+<topic id="676">
+<level>expert</level>
+<lesson>
+# The Cont-Stoikov-Talreja Markov model: fill and mid-move probabilities
+
+## Core idea
+Cont, Stoikov and Talreja ("A Stochastic Model for Order Book Dynamics", Operations Research, 2010) model a limit order book as a set of queues, one per price level. Limit orders, market orders and cancellations arrive as independent Poisson processes, so the book is a continuous-time Markov chain. This simple model gives computable answers to practical questions: the probability that the mid-price moves up before it moves down, and the probability that a limit order is filled before the price moves away.
+
+## Model set-up
+1. Prices lie on a tick grid. At each level there is a queue of orders.
+2. **Limit orders** arrive at a level i ticks away from the opposite best quote at rate λ(i). Empirically λ(i) falls with distance and is fitted as a power law, λ(i) = k ÷ iᵅ.
+3. **Market orders** arrive at rate μ and remove orders from the best queue.
+4. **Cancellations:** each order at distance i is cancelled at rate θ(i), so a queue of n orders loses orders to cancellation at rate n × θ(i).
+5. All events are independent, so the full book follows a Markov chain. The model has a stationary distribution, which gives an average book shape that can be compared with data.
+
+## From queues to probabilities
+- When the spread is one tick, the best ask queue is a birth-death process: births at rate λ(1), deaths at rate μ + n θ(1). The same holds for the best bid.
+- The mid-price rises when the ask queue empties before the bid queue. So P(mid up) is the probability that the ask queue's first-passage time to zero is shorter than the bid queue's.
+- CST compute these first-passage distributions with Laplace transforms (continued fractions for birth-death processes) and invert them numerically. The same method gives the probability that an order at a given queue position executes before the mid moves.
+
+## A useful approximation
+For large, symmetric queues (Cont and de Larrard's diffusion limit), the probability the next mid move is up, with bid queue b and ask queue a, is approximately
+P(up) ≈ (2 ÷ π) × arctan(b ÷ a).
+
+## Worked example
+- Equal queues, b = a = 200: P(up) = (2/π) × arctan(1) = 0.5.
+- Bid 300, ask 100: P(up) = (2/π) × arctan(3) ≈ 0.80.
+- Bid 100, ask 300: P(up) ≈ 0.20.
+A thin ask facing a deep bid is likely to be eaten first, so the mid tends to tick up. This is the logic behind queue-imbalance signals.
+**Fill probability intuition:** an order at the back of a bid queue of 300 needs 300 shares ahead of it to trade or cancel before the bid queue empties from the other side, or the ask runs out and the price moves up. A large queue ahead lowers the chance of a fill before the price moves.
+
+## Uses
+- **Simulation:** a CST-style simulator generates realistic order books for testing strategies.
+- **Short-term prediction:** queue sizes at the best quotes predict the next price move.
+- **Order placement:** fill probabilities help decide whether to join a queue or cross the spread.
+The authors reported that the model captures short-term order book dynamics in high-frequency data.
+
+## Limitations
+- Poisson arrivals ignore clustering; real order flow is self-exciting (see Hawkes models).
+- Rates are not constant; they depend on the state of the book (queue-reactive models address this).
+- Order sizes vary, and hidden or iceberg orders are not modelled.
+- Spreads wider than one tick need extra steps, because new orders can arrive inside the spread.
+
+## Key takeaways
+CST treat the order book as independent Poisson queues forming a Markov chain. Mid-price moves become first-passage races between the best bid and ask queues, computed with Laplace transforms. A diffusion approximation gives P(up) ≈ (2/π) arctan(b/a). The model is a clear starting point for simulators and fill-probability estimates, even though real flow is more clustered and state-dependent.
+</lesson>
+<qa difficulty="medium"><q>What processes drive the Cont-Stoikov-Talreja model?</q><a>Independent Poisson arrivals of limit orders at each distance from the opposite best quote (rate λ(i)), market orders (rate μ) and cancellations (rate θ(i) per resting order).</a></qa>
+<qa difficulty="hard"><q>How does the model turn mid-price moves into a queue problem?</q><a>With a one-tick spread, the best bid and ask queues are birth-death processes. The mid moves up if the ask queue empties first and down if the bid queue empties first, so the probability is a comparison of first-passage times to zero.</a></qa>
+<qa difficulty="hard"><q>What technique do CST use to compute these probabilities?</q><a>Laplace transforms of first-passage times of birth-death processes, expressed as continued fractions and inverted numerically.</a></qa>
+<qa difficulty="expert"><q>Using the diffusion approximation, what is P(next mid move is up) with a bid queue of 300 and ask queue of 100?</q><a>P ≈ (2/π) × arctan(300/100) = (2/π) × 1.249 ≈ 0.80.</a></qa>
+<qa difficulty="hard"><q>Name three limitations of the CST model.</q><a>Poisson arrivals ignore clustering of order flow; rates in reality depend on the book state; order sizes and hidden orders are not modelled; and wider spreads complicate the analysis.</a></qa>
+<qa difficulty="medium"><q>How is the limit order arrival rate fitted as a function of distance?</q><a>As a power law, λ(i) = k ÷ iᵅ, so more orders arrive near the best quotes and fewer further away.</a></qa>
+<source url="https://ideas.repec.org/a/inm/oropre/v58y2010i3p549-563.html">A stochastic model for order book dynamics (Cont, Stoikov and Talreja, Operations Research 2010)</source>
+<source url="https://academicnewsletter.sufe.edu.cn/info/384347">A stochastic model for order book dynamics: summary</source>
+<source url="https://arxiv.org/pdf/1504.00579">A Markov model of a limit order book: thresholds, recurrence and trading strategies (arXiv)</source>
+</topic>
+
+<topic id="677">
+<level>expert</level>
+<lesson>
+# The Avellaneda-Stoikov market-making model and inventory skew
+
+## Core idea
+A market maker earns the spread by quoting bids and offers, but each fill changes its inventory and exposes it to price risk. Avellaneda and Stoikov ("High-frequency trading in a limit order book", 2008) solve for the optimal quotes of a risk-averse market maker. The answer has two parts: a reservation price that shifts away from the mid against current inventory, and a spread that depends on risk aversion, volatility, time left and how sensitive fills are to quote distance.
+
+## Model set-up
+1. The mid-price follows an arithmetic random walk with volatility σ.
+2. The market maker quotes a bid at distance δᵇ below and an ask at δᵃ above a reference price.
+3. Fills arrive as Poisson processes with intensity λ(δ) = A × e^(−kδ): quoting closer gets more fills.
+4. The market maker maximises expected exponential utility of terminal wealth, with risk aversion γ, over horizon T.
+
+## The solution
+- **Reservation price:** r = s − q × γ × σ² × (T − t), where s is the mid and q the inventory. It is the price at which the market maker is indifferent to holding one more unit.
+- **Optimal total spread:** δᵃ + δᵇ = γ σ² (T − t) + (2 ÷ γ) × ln(1 + γ ÷ k).
+- **Quotes:** bid = r − spread ÷ 2, ask = r + spread ÷ 2.
+- **Inventory skew:** long inventory (q above 0) lowers r, so both quotes move down: the ask becomes more attractive (sell more) and the bid less attractive (buy less). Short inventory does the opposite.
+
+## Worked example
+Mid s = ₹100, inventory q = +2 units, risk aversion γ = 0.1, volatility σ = 2 (per unit time), time left T − t = 0.5, fill sensitivity k = 15.
+- Reservation price: r = 100 − 2 × 0.1 × 4 × 0.5 = 100 − 0.4 = ₹99.60.
+- Spread: 0.1 × 4 × 0.5 + (2 ÷ 0.1) × ln(1 + 0.1 ÷ 15) = 0.2 + 20 × 0.00664 ≈ 0.333.
+- Quotes: bid ≈ ₹99.43, ask ≈ ₹99.77.
+Both quotes sit below the mid, so the market maker is likely to sell and reduce inventory. With q = 0 the quotes would be about ₹99.83 and ₹100.17, centred on the mid. In practice quotes are kept within the live book and on the tick grid.
+
+## Intuition for each parameter
+- **Higher volatility or more time left:** more inventory risk, so a larger skew and a wider spread.
+- **Higher risk aversion:** a stronger push to flatten inventory.
+- **Higher k (fills drop off quickly with distance):** a tighter spread, because wide quotes rarely fill.
+- **Near the horizon (T − t small):** the inventory term vanishes, and quotes approach the risk-neutral spread.
+
+## Extensions and practice
+- Guéant, Lehalle and Fernandez-Tapia (2013) added inventory limits and gave closed-form approximations for long horizons.
+- Real market makers add adverse-selection protection (widening when order flow looks informed), signals such as order flow imbalance, and hard inventory limits.
+- Open-source trading tools implement Avellaneda-Stoikov strategies, mapping γ, σ and k to live parameters.
+
+## India context
+- Liquid index options and futures have one-tick spreads much of the time, so the model's spread is clipped at one tick, and the skew decides which side to join.
+- Indian exchanges have no maker rebates, so spread capture must cover all costs, including STT on sells and exchange charges.
+- Exchange market-making schemes in less liquid contracts set quoting obligations (maximum spread, minimum time present) that constrain the optimal quotes.
+
+## Key takeaways
+The Avellaneda-Stoikov market maker quotes around a reservation price r = s − qγσ²(T − t), skewed against inventory, with a spread of γσ²(T − t) + (2/γ) ln(1 + γ/k). Long inventory lowers both quotes; short inventory raises them. Practical versions add inventory caps, adverse-selection signals and market rules such as tick sizes and costs.
+</lesson>
+<qa difficulty="medium"><q>What is the reservation price in the Avellaneda-Stoikov model?</q><a>r = s − q γ σ² (T − t): the mid-price adjusted against inventory q, scaled by risk aversion γ, variance σ² and time remaining.</a></qa>
+<qa difficulty="hard"><q>Give the optimal total spread.</q><a>δᵃ + δᵇ = γ σ² (T − t) + (2/γ) ln(1 + γ/k), where k measures how quickly fill intensity falls with distance from the reference price.</a></qa>
+<qa difficulty="hard"><q>How do quotes change when the market maker is long?</q><a>The reservation price falls below the mid, so both bid and ask move down. The ask becomes more attractive, increasing sales, and the bid less attractive, reducing purchases, which pushes inventory back towards zero.</a></qa>
+<qa difficulty="expert"><q>With s = ₹100, q = 2, γ = 0.1, σ = 2, T − t = 0.5 and k = 15, compute the quotes.</q><a>r = 100 − 2 × 0.1 × 4 × 0.5 = 99.60. Spread = 0.2 + 20 × ln(1.00667) ≈ 0.333. Bid ≈ 99.43, ask ≈ 99.77.</a></qa>
+<qa difficulty="hard"><q>What happens to the inventory skew as the horizon approaches?</q><a>The term γσ²(T − t) shrinks to zero, so the reservation price approaches the mid and the spread approaches (2/γ) ln(1 + γ/k).</a></qa>
+<qa difficulty="medium"><q>What must a practical market maker add to the basic model?</q><a>Inventory limits, adverse-selection protection (widening when flow looks informed), short-term signals, tick-size and cost constraints, and exchange quoting obligations.</a></qa>
+<source url="https://math.nyu.edu/%7Eavellane/HighFrequencyTrading.pdf">High-frequency trading in a limit order book (Avellaneda and Stoikov)</source>
+<source url="https://www.hummingbot.org/academy-content/guide-to-the-avellaneda--stoikov-strategy/">Guide to the Avellaneda and Stoikov strategy (Hummingbot)</source>
+</topic>
+
+<topic id="678">
+<level>advanced</level>
+<lesson>
+# Order flow imbalance, microprice and VPIN toxicity estimation
+
+## Core idea
+Over seconds to minutes, prices move mainly because of the balance of buying and selling pressure at the best quotes. Three widely used tools measure that pressure: order flow imbalance (OFI), which explains short-term price changes; the microprice, which estimates where the mid-price is heading from queue sizes; and VPIN, which tries to measure how "toxic" (informed) order flow is. They underpin many high-frequency signals and market-making risk controls.
+
+## Order flow imbalance
+Cont, Kukanov and Stoikov ("The Price Impact of Order Book Events", Journal of Financial Econometrics, 2014) define an event contribution for each change at the best quotes:
+- A rise in bid size, or a higher bid price, adds positive pressure.
+- A fall in bid size, or a lower bid price, adds negative pressure.
+- A rise in ask size, or a lower ask price, adds negative pressure; a fall in ask size, or a higher ask price, adds positive pressure.
+OFI over an interval is the sum of these contributions. Their finding: price change ≈ β × OFI, linear, with β inversely proportional to market depth. OFI explains short-horizon price moves better than traded volume, and the square-root volume relation can be derived from it with a scaling argument.
+
+## Microprice
+- **Weighted mid (simple version):** with bid size Q_b and ask size Q_a, imbalance I = Q_b ÷ (Q_b + Q_a), and weighted mid W = I × ask + (1 − I) × bid.
+- **Stoikov's micro-price (2018):** the limit of expected future mid-prices given the current imbalance and spread, written as mid + g(I, S), with g estimated from data. It is designed to be a martingale, unlike the weighted mid, which is noisy and autocorrelated.
+
+## Worked example: microprice
+Bid ₹100.00 for 900 shares, ask ₹100.05 for 100 shares.
+- Mid = ₹100.025.
+- I = 900 ÷ 1,000 = 0.9, so W = 0.9 × 100.05 + 0.1 × 100.00 = ₹100.045.
+The deep bid and thin ask suggest the next move is up, and the weighted mid sits near the ask. A calibrated micro-price would usually lie between the mid and W.
+
+## VPIN
+Easley, López de Prado and O'Hara (Review of Financial Studies, 2012) proposed VPIN (volume-synchronised probability of informed trading):
+1. Split trading into buckets of equal volume V (a "volume clock").
+2. Classify each bucket's volume into buys and sells with bulk volume classification: buy share = Φ(ΔP ÷ σ), where ΔP is the price change and Φ the normal distribution.
+3. VPIN = sum of |buy volume − sell volume| over the last n buckets ÷ (n × V).
+High VPIN means one-sided flow, which harms liquidity providers. The authors argued VPIN rose before the 6 May 2010 flash crash.
+
+## Worked example: VPIN
+Five buckets of 10,000 shares with buy volumes 7,000, 6,500, 8,000, 5,000 and 7,500.
+Imbalances: 4,000; 3,000; 6,000; 0; 5,000, totalling 18,000.
+VPIN = 18,000 ÷ 50,000 = 0.36.
+
+## The VPIN debate
+Andersen and Bondarenko tested VPIN with accurate trade classification and concluded it does not reliably measure order flow toxicity. They argued its apparent predictive power comes from its mechanical links to volume and volatility. The original authors maintain it is a useful indicator of toxicity-induced volatility. Treat VPIN as one risk gauge, not a proven crash predictor.
+
+## Using these signals
+- **Market makers** skew or widen quotes when OFI or imbalance turns against them, and reduce size when VPIN-like toxicity measures rise.
+- **Execution algorithms** delay passive orders on the side under pressure and speed up when imbalance favours them.
+- **Horizons are short:** OFI and microprice signals decay within seconds, so latency and data quality matter.
+- **India:** full tick-by-tick depth data from exchanges is needed. Retail feeds with limited depth levels and snapshot updates capture only part of the signal.
+
+## Key takeaways
+OFI measures net pressure from changes at the best quotes, with price change roughly linear in OFI divided by depth. The microprice adjusts the mid towards the thinner side using imbalance, with Stoikov's version calibrated to be a martingale. VPIN measures flow toxicity in volume time but is contested. All three are short-horizon tools that need high-quality, low-latency data.
+</lesson>
+<qa difficulty="medium"><q>What did Cont, Kukanov and Stoikov find about order flow imbalance?</q><a>Short-horizon price changes are explained mainly by order flow imbalance at the best quotes, with a linear relationship whose slope is inversely proportional to market depth.</a></qa>
+<qa difficulty="medium"><q>Compute the weighted mid for bid ₹100.00 × 900 and ask ₹100.05 × 100.</q><a>I = 0.9, so W = 0.9 × 100.05 + 0.1 × 100.00 = ₹100.045, above the mid of ₹100.025.</a></qa>
+<qa difficulty="hard"><q>How does Stoikov's micro-price differ from the weighted mid?</q><a>It is the limit of expected future mid-prices conditional on imbalance and spread, written as mid + g(I, S) with g estimated from data, and is constructed to be a martingale. The weighted mid is a simple formula that is noisy and autocorrelated.</a></qa>
+<qa difficulty="hard"><q>Compute VPIN for five 10,000-share buckets with buy volumes 7,000, 6,500, 8,000, 5,000 and 7,500.</q><a>Absolute imbalances are 4,000, 3,000, 6,000, 0 and 5,000, totalling 18,000. VPIN = 18,000 ÷ 50,000 = 0.36.</a></qa>
+<qa difficulty="expert"><q>What is the main criticism of VPIN?</q><a>Andersen and Bondarenko found that with accurate trade classification VPIN does not reliably measure toxicity; its apparent predictive power comes from mechanical relations with volume and volatility. The original authors dispute this.</a></qa>
+<qa difficulty="medium"><q>Why do OFI and microprice signals need low-latency data?</q><a>Their predictive power decays within seconds, so delayed or snapshot data captures only part of the signal and may arrive after the price has moved.</a></qa>
+<source url="https://arxiv.org/abs/1011.6402">The price impact of order book events (Cont, Kukanov and Stoikov, arXiv)</source>
+<source url="https://ideas.repec.org/a/oup/jfinec/v12y2013i1p47-88.html">The price impact of order book events (Journal of Financial Econometrics)</source>
+<source url="https://papers.ssrn.com/abstract=1695596">Flow toxicity and liquidity in a high-frequency world (Easley, López de Prado and O'Hara, SSRN)</source>
+<source url="https://repec.econ.au.dk/repec/creates/rp/13/rp13_43.pdf">Andersen and Bondarenko: critique of VPIN (CREATES research paper)</source>
+<source url="https://arxiv.org/pdf/2507.09734">Boltzmann price: toward understanding the fair price in high-frequency markets (arXiv, discusses the micro-price)</source>
+</topic>
