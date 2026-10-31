@@ -1,0 +1,328 @@
+<topic id="175">
+<level>advanced</level>
+<lesson>
+# Iron fly vs short straddle vs short strangle: payoff, margin and gap-loss comparison
+
+## Core idea
+The three common ways to sell index premium differ in how much they collect, how wide their profit zone is, how much margin they need and, above all, how much they lose in a gap. A **short straddle** sells ATM call and put: most premium, narrowest profit zone, unlimited loss. A **short strangle** sells OTM call and put: less premium, wider zone, still unlimited loss. An **iron fly** is a straddle with bought wings: less premium than the straddle, capped loss, much lower margin. Choosing between them is a choice about tail risk, not just about expected return.
+
+## How it works, step by step
+For each structure compute:
+1. **Credit** (premium received, net of any wings bought).
+2. **Breakevens** at expiry.
+3. **Maximum loss**: unlimited for straddles and strangles; wing width minus credit for an iron fly.
+4. **Margin**: SPAN plus exposure margin, minus spread benefit for hedged structures; on expiry day add the extra 2% ELM on short options.
+5. **Gap loss**: P&L for scenario moves (±1%, ±2%, ±4%, ±8%) at expiry and immediately after the gap (with IV up).
+6. **Return on margin and return per unit of maximum (or stress) loss.**
+
+## Formulas and numbers (worked example)
+Nifty 25,000, weekly options with about 4 business days left, lot 65 units (from January 2026).
+- **Straddle:** sell 25,000 CE 110 + 25,000 PE 105 = 215. Breakevens 24,785 / 25,215.
+- **Strangle:** sell 25,300 CE 35 + 24,700 PE 40 = 75. Breakevens 24,625 / 25,375.
+- **Iron fly:** straddle plus buy 25,400 CE 18 and 24,600 PE 20: net 177; maximum loss 223. Breakevens 24,823 / 25,177.
+
+Expiry P&L per unit for an index move of:
+- +1% (25,250): straddle 215 − 250 = −35; strangle 75 (both OTM) = +75; iron fly 177 − 250 = −73.
+- +2% (25,500): straddle −285; strangle 75 − 200 = −125; iron fly −223.
+- +4% (26,000): straddle −785; strangle 75 − 700 = −625; iron fly −223.
+- +8% (27,000): straddle −1,785; strangle −1,625; iron fly −223.
+
+Per lot (×65): an 8% gap costs the straddle about ₹1.16 lakh and the strangle ₹1.06 lakh, but the iron fly only ₹14,495.
+
+Margin (indicative, varies with volatility and broker): a naked straddle needs roughly ₹2 lakh or more per Nifty lot, a strangle somewhat less, an iron fly well under half of a straddle. Check a margin calculator for exact current figures.
+
+## India specifics
+- Weekly options exist only on Nifty (NSE, Tuesday expiry) and Sensex (BSE, Thursday) since SEBI's November 2024 changes.
+- Nifty's lot size was cut from 75 to 65, effective for weekly contracts from 6 January 2026, reducing contract value per lot to about ₹16 to ₹17 lakh at current levels.
+- Extra 2% ELM on expiry day makes naked short positions held into expiry day more expensive than hedged ones in absolute terms.
+- STT: 0.1% of premium on option sales; four-leg iron flies pay more spread costs but STT only on the sold legs (plus on intrinsic value of exercised ITM options at expiry).
+
+## Real examples and history
+- Short strangles were the classic retail "theta" trade on Bank Nifty weeklies; large one-day moves (Bank Nifty weekly expiries ended in November 2024) turned months of small gains into losses.
+- On 4 June 2024 Nifty fell about 5.9% in a day; at the 4% to 8% scenarios above, naked sellers lost many weeks of premium while wing-protected positions lost their known maximum.
+
+## Edge cases and common mistakes
+- **Comparing win rates.** Strangles win most often, but win rate says nothing about the size of losses.
+- **Comparing return on margin only.** The iron fly's low margin makes its return on margin look high; compare per unit of maximum loss and stress loss too.
+- **IV moves.** Before expiry, a gap also lifts IV, so mark-to-market losses on straddles and strangles exceed the expiry payoff figures; iron flies are partly offset by the long wings' vega.
+- **Wing liquidity.** Far wings may be illiquid; slippage on four legs adds up.
+- **Adjustments.** Rolling the untested side of a strangle to collect more premium increases risk if the trend continues.
+
+## How traders, investors and quants use it
+- Systematic sellers choose the structure from their risk budget: iron flies or condors when the maximum loss must be known; strangles only with strict stress limits and small size.
+- Quants evaluate each structure across the same historical periods, including crises, and report expected shortfall alongside mean returns.
+- Market makers prefer delta-hedged straddles because they can hedge dynamically; retail traders without that capacity are better served by defined-risk structures.
+
+## Related concepts
+Iron condor; variance risk premium; gamma and gap risk; SPAN margin; ELM; position sizing; skew.
+</lesson>
+<qa difficulty="hard"><q>Using the example prices, at what index level at expiry does the strangle lose exactly as much as the iron fly's maximum loss?</q><a>The strangle's loss beyond 25,300 is (S − 25,300) − 75. Setting it equal to 223: S − 25,300 = 298, so S = 25,598 (about +2.4%). Beyond that the strangle loses more than the iron fly, without limit.</a></qa>
+<qa difficulty="hard"><q>Why might the straddle's mark-to-market loss right after a 4% gap be larger than its expiry P&L of −785 points?</q><a>Immediately after a gap, IV usually rises and time value remains, so both options carry extra value. The short straddle is marked at intrinsic value plus that inflated time value, so the loss can exceed the expiry payoff loss. If the price stays put, time value decays and the loss shrinks toward the expiry figure.</a></qa>
+<qa difficulty="expert"><q>A trader has ₹20 lakh and a stress-loss limit of 10% for an 8% gap. How many lots of each structure can they run (lot 65, example prices)?</q><a>Stress budget ₹2 lakh. Straddle loss at 8% = 1,785 × 65 = ₹1,16,025 per lot → 1 lot. Strangle = 1,625 × 65 = ₹1,05,625 → 1 lot. Iron fly = 223 × 65 = ₹14,495 → 13 lots (subject to margin). The iron fly allows far more size per unit of stress risk, which is why defined-risk structures dominate for small accounts.</a></qa>
+<qa difficulty="medium"><q>Which structure has the widest profit zone at expiry in the example, and why?</q><a>The strangle (24,625 to 25,375): its short strikes are already 300 points away from spot, and its credit adds another 75 points on each side. The straddle and iron fly profit zones are centred on 25,000 with widths of ±215 and ±177.</a></qa>
+<qa difficulty="hard"><q>How does the Nifty lot size cut from 75 to 65 change the rupee risk of one short straddle lot?</q><a>Rupee P&L per point falls by 65/75 = 0.867, so every gain and loss per lot is 13.3% smaller: an 8% gap loss of 1,785 points becomes ₹1,16,025 per lot instead of ₹1,33,875. Points risk per unit is unchanged; traders who keep the same number of lots carry less risk, while those who add lots to keep exposure carry the same.</a></qa>
+<qa difficulty="expert"><q>Why can an iron fly be the better choice even if its average return per trade is lower than a strangle's?</q><a>Selling options earns an average premium but suffers rare large losses. The strangle's higher average comes with unlimited tail loss that forces small position sizes and risks ruin if a crisis hits an oversized book. The iron fly's capped loss allows sizing by a known maximum, so its return per unit of stress risk can be higher, and the trader survives tail events to keep earning the premium.</a></qa>
+<source url="https://optionx.trade/blogs/iron-butterfly-vs-short-straddle">Iron butterfly vs short straddle: same trade, half the margin? (OptionX)</source>
+<source url="https://tradingqna.com/t/is-it-stupid-to-do-an-iron-butterfly-over-a-short-straddle-just-for-the-margin-benefit/190883">Iron butterfly over a short straddle for the margin benefit (TradingQnA)</source>
+<source url="https://zerodha.com/marketintel/bulletin/429705/revision-in-lot-size-of-index-derivative-contracts-from-december-30-2025">Revision in lot size of index derivative contracts from 30 December 2025 (Zerodha)</source>
+<source url="https://www.business-standard.com/amp/markets/news/sebi-announces-six-key-changes-to-curb-speculation-in-derivatives-trading-124100101316_1.html">Sebi rolls out 6 measures to rein in F&O speculation (Business Standard)</source>
+</topic>
+
+<topic id="176">
+<level>advanced</level>
+<lesson>
+# IV crush around elections, budgets and RBI policy: how to measure and trade it
+
+## Core idea
+Before a scheduled event, option buyers bid up implied volatility for expiries that include the event. Once the event is over, that event premium disappears, and IV falls sharply: the **IV crush**. Whether to sell before the event (collect the premium and accept the event move), sell after (avoid the jump, collect less), or buy before (bet on a bigger move than priced) depends on measuring the implied move against the history of realised moves for that type of event.
+
+## How it works, step by step
+1. **Measure the implied event move.** Use the ATM straddle of the first expiry after the event: implied absolute move ≈ straddle price/spot (subtract the normal-day part for the other days to expiry), or extract event variance from two expiries (one before, one after).
+2. **Build a history.** For past events of the same type (Budget days, RBI policy days, election results), record the realised absolute move on the event day and the IV change from the close before to the close after.
+3. **Compare.** If implied moves are consistently above realised moves, event premium is rich on average; if below, cheap.
+4. **Choose the trade:**
+   - Sell before: short straddle or iron fly in the event expiry, ideally delta-hedged, sized for a large surprise.
+   - Calendar spread: short the event expiry, long a later expiry, to isolate event variance with less outright gap risk.
+   - Buy before: when implied moves are below what the event could plausibly produce (rare, but possible after long calm periods).
+   - Sell after: wait for the event, then sell the remaining base IV; less premium, no event jump.
+5. **Measure the crush.** IV change of the event expiry from the pre-event close to the post-event close.
+
+## Formulas and numbers (worked example)
+RBI policy day; Nifty 24,800. Straddle of the expiry two days after policy = 410 points.
+- Normal days: 2 more days at a base daily SD of 0.7% contribute √2 × 0.7% ≈ 0.99% SD.
+- Total implied SD from the straddle ≈ (410/24,800)/0.8 = 2.07%.
+- Event SD = √(2.07² − 0.99²) = √(4.28 − 0.98) = √3.30 ≈ 1.82%.
+- If the last 12 RBI days moved Nifty by an average absolute 0.6% (SD ≈ 0.75%), the market is pricing an RBI move more than twice the historical norm, which favours selling event premium, with protection against a policy surprise.
+- After the policy (a quiet 0.4% move), IV for that expiry falls from about 21% to 13%: a crush of 8 vol points. A straddle seller gains from both the small move and the IV drop.
+
+## India specifics
+- **Elections, 2024:** India VIX climbed through May, rising sharply from its April low; it fell more than 20% on 3 June after exit polls, then jumped on 4 June when the results surprised and Nifty fell about 5.9%. A seller who sold after the exit-poll crush was hit by the real event.
+- **Union Budget:** normally 1 February; markets have held special sessions when it fell on a weekend. Budgets with direct market measures (such as the July 2024 changes to capital gains tax and STT) cause larger moves.
+- **RBI MPC:** six policy meetings a year; surprises in rate decisions or stance cause the largest moves.
+- **US events** (Fed decisions, CPI) land on the next Indian open.
+
+## Real examples and history
+- Event-volatility trading around earnings and macro releases is a standard desk activity worldwide; desks maintain event calendars with historical implied versus realised moves.
+- Indian election results in 2014 and 2019 were followed by sharp falls in VIX; 2024 showed that consensus expectations can be wrong, and that a crush on early information can reverse.
+
+## Edge cases and common mistakes
+- **Selling every event.** The average may favour sellers but a single surprise (June 2024) can erase years of event profits if size is large.
+- **Ignoring the base.** If base volatility rises after the event (a new regime), IV may not fall.
+- **Weekend events.** A Saturday Budget or exit poll adds gap risk on top of the event itself.
+- **Measuring with calendar-time IV.** Weekend and holiday artefacts can masquerade as crush or spikes.
+- **Liquidity.** Spreads widen around events; costs eat much of the theoretical edge.
+
+## How traders, investors and quants use it
+- Volatility traders keep tables of implied versus realised moves per event type and trade the gap between them.
+- Hedgers buy protection before major events only when the implied move is not already excessive, or use spreads to cut cost.
+- Long-term investors avoid buying options just before events at peak IV, when the crush will cost them even if they are right on direction.
+
+## Related concepts
+Event variance; business time; calendar spreads; straddles and iron flies; India VIX; variance risk premium.
+</lesson>
+<qa difficulty="hard"><q>A Budget-day expiry straddle costs 600 points with Nifty at 24,000, and there is one normal day besides the Budget day (base daily SD 0.8%). Estimate the implied Budget-day SD.</q><a>Total SD ≈ (600/24,000)/0.8 = 3.125%. Base day contributes 0.8%. Event SD = √(3.125² − 0.8²) = √(9.77 − 0.64) = √9.13 ≈ 3.02%. The market prices about a 3% standard deviation for Budget day.</a></qa>
+<qa difficulty="hard"><q>Why did selling Nifty options after the 3 June 2024 exit-poll fall in VIX turn out badly?</q><a>The exit polls reduced perceived uncertainty and IV fell more than 20%, so options looked "crushed". But the actual event, the results on 4 June, had not happened yet. When results differed from the exit polls, Nifty fell about 5.9% and VIX jumped. Selling after a crush on preliminary information left sellers exposed to the real event at lower premiums.</a></qa>
+<qa difficulty="expert"><q>Design a trade to sell RBI event premium while limiting directional gap risk.</q><a>Sell the ATM straddle of the expiry that includes the RBI day and buy the ATM straddle of a later expiry in a vega-weighted ratio (a calendar spread), or sell an iron fly in the event expiry. The calendar profits mostly from the event expiry's IV collapsing relative to the later expiry, and the long later-dated options partly offset losses from a big move. Delta-hedge after the announcement if the move is large. Size so that a move of three times the implied event SD is within the risk limit.</a></qa>
+<qa difficulty="medium"><q>What is IV crush?</q><a>The sharp fall in implied volatility of options after a scheduled event passes. Before the event, IV includes the market's premium for the event's possible move; afterwards that uncertainty is gone, so IV falls toward its normal level, reducing option prices even if the underlying moved.</a></qa>
+<qa difficulty="hard"><q>An investor buys a Nifty call before the Budget at an IV of 24%. Nifty rises 1% on Budget day, and IV falls to 14%. Why might the call lose money?</q><a>The call's gain from the 1% rise (delta times the move) can be smaller than its loss from the 10-point IV fall (vega times 10) plus time decay. For a near-dated ATM call, vega is large relative to the price, so the crush outweighs a modest favourable move. The investor was right on direction but paid too much for volatility.</a></qa>
+<qa difficulty="hard"><q>How would you build a table to judge whether RBI event premium is rich or cheap?</q><a>For each past RBI day: record the implied event move (from straddles or term-structure extraction at the prior close), the realised absolute move on the day, and the IV change after. Compute the ratio of implied to realised move and its average, the share of events where the realised move exceeded the implied, and the worst realised/implied ratio. A ratio consistently above 1 suggests rich premium; the worst cases set the stress size.</a></qa>
+<source url="https://www.angelone.in/news/share-market/india-vix-plummets-20-percent-following-exit-poll-results">India VIX plummets over 20% following exit poll results (Angel One)</source>
+<source url="https://www.goodreturns.in/news/bloodshed-continues-on-d-street-rs-40-lakh-crore-eroded-on-june-4-india-vix-jumps-40-relief-soon-1350191.html">June 4, 2024: India VIX jumps 40% (GoodReturns)</source>
+<source url="https://www.angelone.in/news/market-updates/election-result-day-and-market-volatility">Election result day and market volatility: a historical perspective (Angel One)</source>
+<source url="https://www.business-standard.com/markets/stock-market-news/vix-vapour-rising-election-related-anxiety-catches-up-with-the-markets-124050901414_1.html">VIX vapour rising: election anxiety catches up with markets (Business Standard)</source>
+</topic>
+
+<topic id="177">
+<level>advanced</level>
+<lesson>
+# SEBI's 2024–25 F&O reforms: upfront premium, expiry-day ELM, and position limits
+
+## Core idea
+India became the world's largest market for index options by contract volume, driven by retail traders buying and selling very short-dated weekly options. SEBI's studies showed that most individuals lost money: 93% of individual F&O traders lost between FY22 and FY24, with losses above ₹1.8 lakh crore. In October 2024 SEBI announced six measures to curb expiry-day speculation, followed in May 2025 by a new way of measuring open interest and position limits. Together they changed how option selling and buying work for retail traders.
+
+## How it works, step by step
+**The 1 October 2024 circular (six measures):**
+1. **Minimum contract size** raised from ₹5 to 10 lakh to ₹15 to 20 lakh at introduction (from 20 November 2024), with lot sizes set so contract values stay in range.
+2. **One weekly expiry per exchange** on a single benchmark index (from 20 November 2024): Nifty on NSE, Sensex on BSE.
+3. **Extra 2% extreme loss margin (ELM)** on short options on expiry day (from 20 November 2024).
+4. **Upfront collection of option premium** from buyers by brokers (from February 2025, reported as 10 February after an initial 1 February date).
+5. **No calendar-spread margin benefit on expiry day** for positions expiring that day (same date).
+6. **Intraday monitoring of position limits** (from 1 April 2025), at least four snapshots a day.
+
+**The 29 May 2025 circular:**
+- Open interest measured as **future-equivalent (FutEq), delta-based** OI instead of notional, for position limits and market-wide position limits.
+- **Index option position limits** per entity: ₹1,500 crore net FutEq and ₹10,000 crore gross, applied gradually from 1 July 2025 and fully from 6 December 2025.
+- Intraday monitoring of market-wide position limits for single stocks, changes to the F&O ban process, and a pre-open session for F&O.
+- Exchanges must hold expiries on either Tuesday or Thursday; NSE moved to Tuesday and BSE to Thursday from September 2025.
+
+## Formulas and numbers (worked example)
+**Contract value.** Nifty at 25,500, lot 65 (from January 2026): 25,500 × 65 = ₹16.6 lakh, within the ₹15 to 20 lakh band. When lot was 75 at Nifty 26,000, value was ₹19.5 lakh, near the top of the band.
+
+**Expiry-day ELM.** One short lot of Nifty options on expiry day: 2% × ₹16.6 lakh = ₹33,150 extra.
+
+**Delta-based OI.** A trader short 100 lots of Nifty 25,500 calls with delta 0.30, lot 65, index 25,500: notional OI = 100 × 65 × 25,500 = ₹16.6 crore; FutEq OI = 0.30 × ₹16.6 crore = ₹4.97 crore. Deep OTM options count for little; ATM options count for about half; this aligns limits with actual risk.
+
+## India specifics
+- SEBI's July 2024 consultation paper proposed these measures; the final circular modified some (for example, it did not ban weekly options entirely).
+- Bank Nifty, FinNifty, Midcap and Bankex weeklies ended in November 2024; monthly contracts continue.
+- Lot sizes are reviewed so contract values stay in band: Nifty's lot changed to 75 (late 2024) and then to 65 (weekly contracts from 6 January 2026); Bank Nifty's to 30.
+- Brokers had to square off short positions not in multiples of new lot sizes when lots changed.
+- A December 2025 consultation paper proposed further changes to trading member limits in index options using FutEq OI; check whether it was adopted.
+
+## Real examples and history
+- SEBI's January 2023 study had found 89% of individual F&O traders lost money in FY22; the September 2024 study extended this to FY22 to FY24, with over 75% of loss-makers continuing to trade.
+- After November 2024, index option volumes fell sharply from their peaks as weekly expiries were cut and contract sizes rose.
+- The 2025 FutEq and position-limit changes came after concerns about very large positions by a few entities in index options.
+
+## Edge cases and common mistakes
+- **Assuming hedged positions avoid the ELM.** The extra ELM applies to short options on expiry day; spread benefits do not remove it entirely, and calendar spreads lose their benefit on expiry day.
+- **Ignoring upfront premium.** Buyers need the full premium in the account before the order; brokers no longer let premium be funded by expected profits.
+- **Old lot sizes.** Backtests and position sizing using old lot sizes give wrong rupee risks.
+- **Expiry-day assumptions.** Strategies built for Thursday Nifty expiries must be re-tested for Tuesday expiries (the weekend now falls mid-cycle).
+
+## How traders, investors and quants use it
+- Option sellers plan margins for expiry-day ELM, and many close positions before expiry day.
+- Quants rebuild datasets to reflect contract changes (lot sizes, expiry days, index availability) and test whether strategy edges survived the reforms.
+- Large traders monitor FutEq OI intraday against their limits.
+
+## Related concepts
+SPAN and ELM; position limits and MWPL; FutEq OI; lot size reviews; expiry calendars; SEBI F&O studies.
+</lesson>
+<qa difficulty="hard"><q>List the six measures in SEBI's 1 October 2024 circular with their start dates.</q><a>(1) Higher minimum contract size, ₹15 to 20 lakh (20 November 2024). (2) One weekly expiry per exchange (20 November 2024). (3) Extra 2% ELM on short options on expiry day (20 November 2024). (4) Upfront collection of option premium from buyers (February 2025). (5) Removal of calendar-spread benefit on expiry day (February 2025). (6) Intraday monitoring of position limits (1 April 2025).</a></qa>
+<qa difficulty="expert"><q>Why is delta-based (FutEq) OI a better measure of risk than notional OI for options?</q><a>Notional OI treats a deep OTM option and an ATM option of the same size as equal exposure, although the OTM option moves very little with the index. FutEq multiplies notional by delta, so it measures the equivalent futures exposure. Limits based on FutEq constrain actual directional risk, and allow more OTM positions while restricting large near-the-money exposures.</a></qa>
+<qa difficulty="hard"><q>Compute FutEq OI for a portfolio: long 200 lots of Nifty puts with delta −0.25 and short 150 lots of calls with delta 0.40, lot 65, Nifty 25,000.</q><a>Notional per lot = 65 × 25,000 = ₹16.25 lakh. Puts: 200 × 16.25 lakh × (−0.25) = −₹8.125 crore. Short calls: −150 × 16.25 lakh × 0.40 = −₹9.75 crore. Net FutEq = −₹17.875 crore (a net short exposure); gross FutEq = ₹8.125 + ₹9.75 = ₹17.875 crore. Both are far below the ₹1,500 crore net and ₹10,000 crore gross index option limits.</a></qa>
+<qa difficulty="medium"><q>Why did SEBI require upfront collection of option premium from buyers?</q><a>To stop brokers allowing clients to buy options using intraday leverage or credit (for example against expected profits), which let traders take positions larger than their funds. Requiring the premium upfront limits buying to money actually in the account and reduces broker credit risk.</a></qa>
+<qa difficulty="hard"><q>A strategy was backtested on Bank Nifty weekly options expiring on Thursdays from 2020 to 2024. What changes make its results unreliable for 2026?</q><a>Bank Nifty weekly options were discontinued in November 2024; only monthly Bank Nifty contracts remain. Lot sizes changed (now 30), contract sizes and margins rose, expiry-day ELM and upfront premium apply, and the expiry weekday changed (NSE's index expiries moved to Tuesday). The strategy must be redesigned and re-tested on the instruments and rules that exist now.</a></qa>
+<qa difficulty="expert"><q>Why does a single weekly expiry per exchange reduce expiry-day speculation?</q><a>Before November 2024, exchanges offered weekly expiries on several indices on different days, so there was an expiry almost every trading day, letting traders buy or sell zero-day options daily. Limiting each exchange to one benchmark weekly cut expiry days to two a week across both exchanges, reducing the supply of cheap zero-day contracts that attracted most speculative volume.</a></qa>
+<source url="https://www.business-standard.com/amp/markets/news/sebi-announces-six-key-changes-to-curb-speculation-in-derivatives-trading-124100101316_1.html">Sebi rolls out 6 measures to rein in F&O speculation (Business Standard)</source>
+<source url="https://www.business-standard.com/amp/markets/news/two-key-changes-f-o-norms-will-now-take-effect-from-february-10-125010901188_1.html">Two key changes in F&O norms take effect from February 10 (Business Standard)</source>
+<source url="https://www.businesstoday.in/markets/story/sebi-equity-fo-rules-futeq-method-mwpl-risk-management-478321-2025-05-29">Big F&O shake-up: SEBI introduces FutEq OI, tweaks ban rules, position limits (Business Today)</source>
+<source url="https://resources.probe42.in/regulatory-updates/sebi-updates/equity-derivatives-framework-2025/">SEBI equity derivatives framework 2025: FutEq OI, MWPL reforms and position limits (Probe42)</source>
+<source url="https://zerodha.com/marketintel/bulletin/429705/revision-in-lot-size-of-index-derivative-contracts-from-december-30-2025">Revision in lot size of index derivative contracts (Zerodha)</source>
+<source url="https://www.sebi.gov.in/media-and-notifications/press-releases/sep-2024/updated-sebi-study-reveals-93-of-individual-traders-incurred-losses-in-equity-fando-between-fy22-and-fy24-aggregate-losses-exceed-1-8-lakh-crores-over-three-years_86906.html">SEBI study on individual traders' F&O losses, FY22 to FY24</source>
+</topic>
+
+<topic id="178">
+<level>expert</level>
+<lesson>
+# Trading-time variance models and day-of-week IV patterns in Nifty options
+
+## Core idea
+Nifty option implied volatilities show regular patterns by day of the week: quoted (calendar-time) IV tends to sag into Friday and lift on Monday, and short-dated IV behaves differently on expiry days. Most of this comes from the clock used to quote IV rather than from changing risk. A trading-time (business-time) model removes the clock effect, so that what remains is a genuine pattern worth trading or a sign of mispricing.
+
+## How it works, step by step
+1. **Collect a panel** of ATM IVs by expiry and timestamp (for example the close each day), plus spot, days to expiry in calendar and business terms, and India VIX.
+2. **Convert** each calendar IV into business-time IV: σ_b = σ_cal × √(τ_cal/τ_b), using day weights (trading day 1, weekend days small, events larger).
+3. **Regress** IV changes on day-of-week dummies, separately for calendar and business-time IV: ΔIV_t = a + Σ b_d D_d + c × (return_t) + e_t. The return term controls for the usual negative link between returns and IV.
+4. **Interpret.** Significant day dummies in calendar IV but not in business IV mean the pattern is a clock effect. Dummies that survive in business IV are real patterns (for example extra risk pricing before weekends).
+5. **Check option returns.** Compute returns of delta-hedged ATM options held over each day type. If returns over weekends are consistently negative for buyers after business-time adjustment, weekend risk is over-priced.
+
+## Formulas and numbers (worked example)
+A Tuesday-expiry Nifty weekly is observed at Friday close with calendar IV 10.6% and 4 calendar days left; at Monday close calendar IV is 14.2% with 1 calendar day left. Weekend day weight 0.05.
+- Friday business days = 0.05 + 0.05 + 1 + 1 = 2.1. τ_cal/τ_b = (4/365)/(2.1/252) = 0.010959/0.008333 = 1.315. σ_b = 10.6% × √1.315 = 12.16%.
+- Monday: τ_cal/τ_b = (1/365)/(1/252) = 0.6904. σ_b = 14.2% × √0.6904 = 11.80%.
+In business time, IV slightly fell over the weekend (12.16% to 11.80%), although calendar IV "jumped" 3.6 points.
+
+Regression idea: if over 200 weeks the Monday dummy for calendar ΔIV is +2.8 points (t = 9) but for business ΔIV only +0.1 (t = 0.4), the Monday jump is almost entirely the clock.
+
+## India specifics
+- From September 2025, Nifty weeklies expire on Tuesday and Sensex weeklies on Thursday; day-of-week patterns must be studied by position in the weekly cycle (days to expiry) as well as by weekday.
+- India VIX uses calendar minutes to expiry, so it also has clock-driven day-of-week patterns; its level on Fridays and Mondays should not be read naively.
+- Expiry day has its own pattern: ATM IV for the expiring contract can jump around as gamma dominates and liquidity changes, and the extra 2% ELM on short options affects supply.
+- Studies of Indian index returns have found day-of-week effects in some periods and not in others, so patterns need re-checking after structural changes such as the move to T+1 and expiry-day changes.
+
+## Real examples and history
+- French and Roll (1986) established that variance accrues mainly during trading hours, the basis for business time.
+- Jones and Shemesh (2018) found that US option prices did not fully reflect low weekend variance, so option buyers earned unusually negative returns over weekends.
+- Practitioners routinely see "Monday IV pops" and "Friday IV sags" on screens that quote calendar IV, and treat them as artefacts.
+
+## Edge cases and common mistakes
+- **Using the wrong weights.** If weekend weights are too large, business IV shows a false Monday drop.
+- **Event weeks.** Budget, RBI and election weeks swamp day effects; include event dummies or exclude them.
+- **Changing expiry days.** Mixing data from Thursday-expiry and Tuesday-expiry regimes blurs patterns.
+- **Stale quotes.** Closing IVs from illiquid strikes or wide quotes add noise; use mid-quotes of liquid ATM options.
+- **Look-ahead.** Estimating weights on the full sample and testing on the same data overstates any edge.
+
+## How traders, investors and quants use it
+- Market makers quote in business time to avoid repricing every weekend.
+- Quants test whether weekend and expiry-cycle patterns offer edges net of costs, using out-of-sample periods.
+- Option buyers avoid buying on Friday when calendar IV looks "cheap", since in business terms it is not.
+
+## Related concepts
+Business time; weekend variance; GARCH with calendar dummies; India VIX; expiry calendars; option returns around non-trading periods.
+</lesson>
+<qa difficulty="expert"><q>Calendar IV is 11% on Friday with 5 calendar days to a Wednesday expiry (business days: Sat 0.05, Sun 0.05, Mon 1, Tue 1, Wed 1). What is the business-time IV?</q><a>τ_cal = 5/365 = 0.013699; business days = 3.1, τ_b = 3.1/252 = 0.012302. σ_b = 11% × √(0.013699/0.012302) = 11% × √1.1136 = 11% × 1.0553 = 11.61%.</a></qa>
+<qa difficulty="hard"><q>A regression of daily changes in calendar ATM IV on weekday dummies shows a large positive Monday coefficient. Give two explanations and how to tell them apart.</q><a>(1) Clock effect: calendar IV must rise on Monday to keep prices consistent with business-time variance. (2) Genuine risk repricing after weekend news. Re-run the regression using business-time IV: if the Monday coefficient disappears, it was the clock; if it remains, there is genuine repricing (or wrong weekend weights, which you can test by varying them).</a></qa>
+<qa difficulty="hard"><q>Why should the regression include the index return as a control?</q><a>Implied volatility rises when the market falls and eases when it rises (the leverage or fear effect). If certain weekdays tend to have negative returns, their IV changes would look positive for that reason alone. Controlling for returns isolates the weekday effect from the return-volatility link.</a></qa>
+<qa difficulty="medium"><q>Why does India VIX show Friday and Monday patterns?</q><a>India VIX is computed from option prices using calendar minutes to expiry. Over a weekend, calendar time passes while little variance accrues, so the calculation produces lower values into Friday and higher values on Monday, even when risk is unchanged.</a></qa>
+<qa difficulty="hard"><q>How would you test whether weekend risk is over-priced in Nifty options?</q><a>Compute the returns of delta-hedged ATM options (long) held from Friday close to Monday close, and compare with other one-trading-day holding periods, using business time to match the variance exposure. Subtract costs. If long-option weekend returns are significantly more negative than weekday ones, sellers earn an extra premium over weekends. Check out-of-sample and across market regimes.</a></qa>
+<qa difficulty="expert"><q>Why must studies distinguish weekday from days to expiry after September 2025?</q><a>Nifty weeklies now expire on Tuesday, so Monday is the day before expiry, and gamma and theta behaviour on Monday differ from Monday under the old Thursday expiry. A pattern measured by weekday mixes two effects: the weekend and the position in the expiry cycle. Including days-to-expiry dummies (or analysing by cycle position) separates them.</a></qa>
+<source url="https://www-2.rotman.utoronto.ca/~kan/3032/pdf/AssetPricingAnomalies/French_Roll_JFE_1986.pdf">French and Roll (1986), stock return variances over trading and non-trading periods</source>
+<source url="https://www.bostonfed.org/publications/new-england-economic-review/1999-issues/issue-september-october-1999/are-stock-returns-different-over-weekends-a-jump-diffusion-analysis-of-the-weekend-effect.aspx">Fortune (1999), weekend effects (Boston Fed)</source>
+<source url="https://iimidr.ac.in/wp-content/uploads/2019/12/v2010-issue2-The-Behaviour-of-Indias-Volatility-Index.pdf">The behaviour of India's volatility index (IIM Indore)</source>
+</topic>
+
+<topic id="179">
+<level>expert</level>
+<lesson>
+# Zero-DTE (expiry-day) option dynamics and gamma hedging flows
+
+## Core idea
+Zero-days-to-expiry (0DTE) options are options traded on the day they expire. They have almost no time value left, so their prices are extremely sensitive to the index: very high gamma and fast decay. Market makers who take the other side hedge with futures, and their hedging can, in theory, either dampen or amplify intraday moves depending on whether they are net long or short gamma. Evidence on how much this actually drives markets is mixed.
+
+## How it works, step by step
+1. **Gamma per rupee.** ATM gamma ≈ 0.3989/(S σ √τ); as τ shrinks to hours, gamma becomes several times larger than with a day left.
+2. **Dealer gamma exposure (GEX).** Rupee gamma per 1% move = Σ (Γ_i × OI_i × lot × S² × 0.01), with a sign depending on whether dealers are assumed long or short each option.
+3. **Hedging flows.**
+   - Dealers long gamma (they bought options from customers) sell into rallies and buy dips to stay delta-neutral: this damps moves and can pin the index near large strikes.
+   - Dealers short gamma (customers bought options from them) buy into rallies and sell into falls: this amplifies moves.
+4. **Pinning.** Large open interest at a strike plus long dealer gamma tends to hold the index near that strike into the close.
+5. **Acceleration.** When the index breaks through a strike where dealers are short gamma, hedging adds to the move.
+
+## Formulas and numbers (worked example)
+Nifty at 25,000 on expiry morning, σ = 13%, 5 hours left (about 0.8 of a session; √τ = √(0.8/252) = 0.0563).
+- ATM gamma = 0.3989/(25,000 × 0.13 × 0.0563) = 0.3989/183 ≈ 0.00218 per point per unit.
+- Suppose dealers are net short 2,00,000 lots of near-ATM options (straddles bought by customers), lot 65: total units = 1.3 crore. Gamma exposure = 0.00218 × 1.3 crore ≈ 28,300 units of delta per point.
+- A 100-point rise changes dealers' delta by about −28.3 lakh units; to rehedge, they buy 28.3 lakh units of futures, about 43,500 lots, worth roughly ₹7,000 crore. Such buying, if done quickly, pushes the market further in the same direction.
+- If dealers were instead net long that gamma, they would sell the same amount into the rise, damping it.
+
+These figures show the mechanism; real dealer positions are unknown and must be estimated from data.
+
+## India specifics
+- India's weekly index options became the world's most traded options by contracts before SEBI's 2024 reforms, with much activity on expiry days; SEBI's studies found most individual traders lost money.
+- SEBI's 2024 measures cut weekly expiries to one benchmark per exchange (Nifty on Tuesday since September 2025, Sensex on Thursday), added a 2% extra ELM on short options on expiry day, and required upfront premium from buyers.
+- Index options settle in cash on the index's closing value, which NSE computes from the last 30 minutes of trading, so hedging flows near the close affect settlement.
+- In India, individual traders are mostly option buyers on expiry day; proprietary firms and other institutions are typically the sellers and hedgers.
+
+## Real examples and history
+- In the US, 0DTE options on the S&P 500 grew rapidly after daily expiries were introduced (2022), raising fears of a volatility "doom loop". Bank strategists reported that 0DTE positioning was generally balanced and, on average, did not amplify intraday volatility.
+- A 2026 Princeton thesis found 0DTE activity related to intraday volatility, but its evidence did not support dealer gamma hedging as the main channel; several studies find market makers' net 0DTE gamma tends to be positive, which damps volatility on average.
+- Indian expiry days have shown sharp late-session moves in some cases, which motivated SEBI's focus on expiry-day risk and manipulation surveillance.
+
+## Edge cases and common mistakes
+- **Assuming dealers are always short gamma.** Positioning varies: retail buying of options makes dealers short, retail selling makes them long.
+- **Reading GEX from open interest alone.** OI does not reveal who is long or short; estimates rely on assumptions or exchange data by participant category.
+- **Ignoring other flows.** Index arbitrage, FPI flows and news can dwarf hedging flows.
+- **0DTE options as cheap lottery tickets.** Low prices hide a low probability of payoff; most expire worthless.
+- **Selling 0DTE options for "certain" decay.** Gamma means a modest move can produce a large loss within minutes.
+
+## How traders, investors and quants use it
+- Quants estimate gamma exposure by strike using participant-wise OI data and model fits, and watch for "gamma flip" levels where dealer positioning changes sign.
+- Intraday traders watch large open-interest strikes on expiry day for pinning behaviour and breakout acceleration.
+- Risk managers limit 0DTE exposure by gamma and by loss for a given intraday move, not by premium.
+
+## Related concepts
+Gamma and theta; dealer hedging; pin risk; open interest; settlement price; SEBI F&O reforms; expiry-day ELM.
+</lesson>
+<qa difficulty="hard"><q>Compute the ATM gamma of a Nifty option with 30 minutes left (about 0.08 of a session), S = 25,000, σ = 12%.</q><a>τ = 0.08/252 = 0.000317; √τ = 0.0178. Gamma = 0.3989/(25,000 × 0.12 × 0.0178) = 0.3989/53.4 ≈ 0.00747 per point per unit, about 3.5 times the gamma with one full day left (0.00211).</a></qa>
+<qa difficulty="expert"><q>Explain why dealers who are long gamma damp market moves, with an example.</q><a>A long-gamma position's delta rises when the market rises. To stay delta-neutral, the dealer sells futures as the market rises and buys as it falls, trading against the move. For example, if dealers are long gamma of 20,000 units per point and Nifty rises 50 points, their delta rises by 10 lakh units, so they sell about 10 lakh units of futures, adding supply into the rally and slowing it.</a></qa>
+<qa difficulty="hard"><q>Why is it hard to know the true dealer gamma exposure in Nifty options?</q><a>Open interest shows how many contracts exist, not who is long and who is short. Dealer positions must be inferred from participant-wise OI data (clients, proprietary traders, FPIs, DIIs), trade-level data or assumptions about who buys and who sells. Different assumptions can flip the sign of estimated gamma exposure.</a></qa>
+<qa difficulty="medium"><q>What is pinning, and when is it most likely?</q><a>Pinning is the tendency of the underlying to close near a strike with large open interest on expiry day. It is most likely when hedgers are net long gamma at that strike, since their hedging sells rallies and buys dips around it, and when no strong news pushes the market away.</a></qa>
+<qa difficulty="hard"><q>A retail trader buys a Nifty 0DTE call for 8 points that is 150 points out of the money with 2 hours left. What must happen for it to pay off, and why is it a poor bet on average?</q><a>Nifty must rise more than 158 points by the settlement window (strike plus premium). With 2 hours left and daily SD about 0.8% (200 points), the 2-hour SD is about 200 × √(1/3) ≈ 115 points, so a 158-point rise is about 1.4 standard deviations away, roughly an 8% chance. The option's price includes a premium over the fair probability-weighted payoff, plus costs, so the expected value is negative.</a></qa>
+<qa difficulty="expert"><q>US evidence suggests 0DTE trading has not, on average, amplified intraday volatility. Why might this be, and does it carry over to India?</q><a>In the US, 0DTE flows are fairly balanced between buyers and sellers, and market makers' net 0DTE gamma has often been positive, so their hedging damps moves. In India, retail traders are heavy option buyers on expiry day, which could leave sellers (dealers and prop firms) short gamma, but many sellers are also non-dealer participants who do not hedge dynamically. Whether the US finding holds in India must be tested with Indian participant-wise data; it cannot be assumed.</a></qa>
+<source url="https://theses-dissertations.princeton.edu/entities/publication/61115cd1-cb09-4a8b-9230-ff488fc2a386">0DTE options and intraday volatility (Princeton senior thesis, 2026)</source>
+<source url="https://spotgamma.com/volmageddon-no-jpm-bofa-say-0-dte-options-are-suppressing-intraday-vol/">Volmageddon? No: JPM and BofA say 0DTE options are suppressing intraday vol (SpotGamma)</source>
+<source url="https://www.numerix.com/node/664">0DTE options white paper (Numerix)</source>
+<source url="https://www.sebi.gov.in/media-and-notifications/press-releases/sep-2024/updated-sebi-study-reveals-93-of-individual-traders-incurred-losses-in-equity-fando-between-fy22-and-fy24-aggregate-losses-exceed-1-8-lakh-crores-over-three-years_86906.html">SEBI study on individual traders' F&O losses, FY22 to FY24</source>
+<source url="https://www.business-standard.com/amp/markets/news/sebi-announces-six-key-changes-to-curb-speculation-in-derivatives-trading-124100101316_1.html">Sebi rolls out 6 measures to rein in F&O speculation (Business Standard)</source>
+</topic>
