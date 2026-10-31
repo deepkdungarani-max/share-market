@@ -1,0 +1,324 @@
+<topic id="520">
+<level>advanced</level>
+<lesson>
+# Schemes of arrangement (ss.230–232), delisting, and squeeze-out valuation for minority shareholders
+
+## Core idea
+Controlling shareholders often want to merge companies, split them, take them private or buy out minorities. Indian law offers several routes: schemes of arrangement approved by shareholders, creditors and the NCLT (sections 230 to 232 of the Companies Act 2013); voluntary delisting under SEBI's Delisting Regulations 2021; and squeeze-outs of small minorities after reaching 90% (section 236). In each route, the key minority protection is price: valuation reports, fairness opinions, price-discovery mechanisms and, for listed companies, votes in which public shareholders' views decide.
+
+## How it works, step by step
+**Schemes of arrangement (sections 230 to 232):**
+1. Board approves a scheme (merger, demerger, capital restructuring) with a share-exchange ratio based on a registered valuer's report and a fairness opinion.
+2. For listed companies, the scheme goes to the stock exchanges and SEBI for an observation letter before filing with the NCLT.
+3. Meetings of shareholders and creditors: approval needs a majority in number representing three-fourths in value of those voting. For certain listed-company schemes (for example involving promoters or related parties), SEBI requires that votes of public shareholders in favour exceed votes against.
+4. Objections can be raised only by holders of at least 10% of shares or 5% of debt.
+5. NCLT sanctions the scheme, which then binds everyone.
+6. Small and holding-subsidiary mergers can use the fast-track route (section 233).
+
+**Voluntary delisting (SEBI Delisting Regulations 2021, amended 2024):**
+1. Acquirer (usually the promoter) announces intent; board and shareholder approvals (public shareholders' votes in favour must be at least twice those against).
+2. **Reverse book building (RBB):** public shareholders tender at prices they choose above a floor price; the discovered price is the one at which the acquirer's holding reaches 90%. The acquirer can accept, reject, or make a counter-offer within rules.
+3. **Fixed price route (since September 2024):** for frequently traded shares, the acquirer can offer a fixed price at least 15% above the floor price; delisting succeeds if the 90% threshold is reached.
+4. Remaining shareholders can tender for a period after delisting at the final price.
+
+**Squeeze-out (section 236):** an acquirer holding 90% or more can offer to buy the remaining shares at a price determined by a registered valuer; minority holders can also require purchase.
+
+## Formulas and numbers (worked example)
+**RBB delisting.** Promoter holds 75% of 10 crore shares; floor price ₹400. Public bids (cumulative shares tendered at or below each price): 6 lakh at ₹420, 25 lakh up to ₹450, 1.6 crore up to ₹480, 2.2 crore up to ₹520. To reach 90%, the promoter needs 1.5 crore shares from the public (15%). The discovered price is the lowest at which cumulative tenders reach 1.5 crore: ₹480.
+
+**Fixed price alternative.** With a floor of ₹400, the fixed price must be at least ₹460 (15% premium). If public holders tender 1.5 crore shares at ₹460, delisting succeeds at a lower price than RBB, but if they do not, it fails.
+
+**Merger swap ratio.** Target value per share ₹300, acquirer ₹1,200: ratio = 1 acquirer share for 4 target shares.
+
+## India specifics
+- The 2024 amendments added the fixed-price route, changed the floor price computation and adjusted counter-offer rules, after many RBB delistings failed or ended with prices far above expectations because a few shareholders could hold out.
+- Vedanta's 2020 delisting attempt failed under RBB when tendered shares fell short, one of the episodes that drove reforms.
+- Holding-subsidiary mergers (for example HDFC Ltd into HDFC Bank in 2023) used schemes approved by both companies' shareholders and the NCLT.
+
+## Real examples and history
+- Schemes have been used both to restructure groups efficiently and, at times, to transfer value from minorities; SEBI's observation letters and public-shareholder voting rules aim to check this.
+- Selective capital reductions under section 66 have also been used to squeeze out minorities in unlisted companies, with court-approved fair value.
+
+## Edge cases and common mistakes
+- **Swap ratio fairness.** Minority holders should check valuation methods and comparable ratios.
+- **Hold-out strategies in RBB.** Some investors bid very high, hoping the promoter accepts; the counter-offer and fixed-price routes reduce this.
+- **Tax.** Shares received in an amalgamation are generally tax-neutral; cash received in a delisting is taxable as capital gains.
+- **Residual shareholders.** After delisting, illiquid shares remain; the exit window matters.
+- **Deemed approvals.** Count public shareholder votes separately where SEBI requires it.
+
+## How traders, investors and quants use it
+- Special-situation investors buy stocks with likely delistings and estimate discovered prices from shareholding patterns and past cases.
+- Minority investors vote on schemes and delisting proposals, comparing offers with intrinsic value.
+- Analysts compute swap-ratio arbitrage between merging listed companies.
+
+## Related concepts
+Open offers (SAST); minimum public shareholding; section 66 capital reduction; registered valuers; fairness opinions; public shareholder voting.
+</lesson>
+<qa difficulty="hard"><q>A promoter holds 80% and needs 90% to delist. Public tenders (cumulative): 3% up to ₹250, 7% up to ₹270, 11% up to ₹300. What is the discovered price?</q><a>The promoter needs 10% from the public. Cumulative tenders reach 10% only at ₹300 (11%); at ₹270 they are 7%. Discovered price = ₹300.</a></qa>
+<qa difficulty="medium"><q>What approval threshold applies to a scheme of arrangement under section 230?</q><a>A majority in number representing three-fourths in value of the members or creditors (or each class) present and voting, followed by NCLT sanction; for listed companies, SEBI's framework may also require public shareholders' votes in favour to exceed votes against for certain schemes.</a></qa>
+<qa difficulty="hard"><q>What did SEBI's 2024 delisting amendments add?</q><a>A fixed-price route for frequently traded companies, where the acquirer offers a price at least 15% above the floor price instead of reverse book building; changes to floor price computation; and revised counter-offer rules. The aim was to make delisting more predictable and reduce hold-out problems.</a></qa>
+<qa difficulty="expert"><q>Why can reverse book building produce prices far above fair value, and how does the fixed-price route change this?</q><a>In RBB, the discovered price is set by the marginal shareholder needed to reach 90%. With concentrated or strategic holders (or arbitrageurs who bought for the delisting), a few can bid very high, forcing the acquirer to pay a large premium or abandon. The fixed-price route lets the acquirer offer a known premium; shareholders choose to tender or not, removing the price-setting power of the marginal hold-out, though the 90% threshold still applies.</a></qa>
+<qa difficulty="medium"><q>What is a squeeze-out under section 236?</q><a>When an acquirer holds 90% or more of a company's shares, it can buy out the remaining minority at a price determined by a registered valuer, and minority holders can also ask to be bought out at that price.</a></qa>
+<qa difficulty="hard"><q>Why do some schemes need public shareholders' votes in favour to exceed those against?</q><a>In schemes involving promoters or related parties, promoters could approve their own deals using their large holdings. Requiring a majority of public shareholders' votes gives independent shareholders a decisive say and protects them from value transfer.</a></qa>
+<source url="https://www.business-standard.com/amp/markets/news/sebi-amends-rules-introduces-fixed-price-process-for-voluntary-delisting-124092600853_1.html">Sebi amends rules, introduces fixed price process for voluntary delisting (Business Standard)</source>
+<source url="https://www.azbpartners.com/bank/amendments-to-sebi-delisting-of-equity-shares-regulations-2021/">Amendments to SEBI Delisting Regulations 2021 (AZB and Partners)</source>
+<source url="https://trilegal.com/wp-content/uploads/2024/10/Trilegal-Update_Navigating-SEBIs-revamped-delisting-framework.pdf">Navigating SEBI's revamped delisting framework (Trilegal)</source>
+<source url="https://www.irccl.in/post/from-vedanta-to-reform-sebi-s-push-for-a-hassle-free-delisting-process">From Vedanta to reform: SEBI's push for a hassle-free delisting process (IRCCL)</source>
+</topic>
+
+<topic id="521">
+<level>intermediate</level>
+<lesson>
+# Governance risk scoring: promoter pledge, RPT intensity, auditor red flags and proxy-advisor signals
+
+## Core idea
+Many Indian stock disasters were governance failures before they were business failures: promoters pledging most of their shares, money moved through related parties, auditors resigning, and boards ignoring red flags. A governance risk score combines observable signals into a single number that helps investors avoid or size down risky companies. It does not predict fraud with certainty, but stocks with many red flags have historically been far more likely to suffer sudden collapses.
+
+## How it works, step by step
+1. **Choose signals** that are public and measurable:
+   - **Promoter pledge:** pledged shares as a share of promoter holding (from SAST Regulation 31 disclosures and shareholding patterns).
+   - **RPT intensity:** related-party transactions as a share of revenue or assets; size of loans to related parties.
+   - **Auditor red flags:** auditor resignations (with reasons, required since SEBI's October 2019 circular), qualified opinions, emphasis of matter, frequent auditor changes, small audit firms for large companies.
+   - **Board signals:** independent director resignations, low board independence, long-tenured IDs.
+   - **Proxy-advisor signals:** negative recommendations from proxy advisers (IiAS, InGovern, SES) and failed or close votes.
+   - **Regulatory signals:** SEBI orders, exchange SOP fines, surveillance measures.
+2. **Score each signal** (for example 0 to 3) using thresholds.
+3. **Weight and combine** into a total score; test weights on historical data.
+4. **Validate.** Check whether high scores preceded large drawdowns, defaults or regulatory actions, using point-in-time data.
+5. **Use.** Exclude, underweight or demand a higher return for high-score stocks.
+
+## Formulas and numbers (worked example)
+Scoring (0 = fine, 3 = severe):
+- Pledge: under 10% = 0; 10 to 30% = 1; 30 to 60% = 2; above 60% = 3.
+- RPT intensity (RPT/revenue): under 5% = 0; 5 to 15% = 1; 15 to 30% = 2; above 30% = 3.
+- Auditor: no issues = 0; emphasis of matter = 1; qualified opinion = 2; mid-term resignation = 3.
+- ID resignation citing governance concerns in last year: yes = 3.
+- Proxy-advisor "against" on key resolutions in last year: 2.
+Company A: pledge 45% (2), RPT 18% (2), auditor resigned mid-term (3), ID resignation (3), proxy advice against (2): total 12 out of 14 → very high risk.
+Company B: pledge 5% (0), RPT 3% (0), clean audit (0), no resignations (0), proxy concerns on pay (2): total 2 → low risk.
+
+## India specifics
+- SEBI's October 2019 circular requires auditors who resign to complete the limited review or audit for the quarter (and in some cases the next quarter, or the full year) before leaving, and companies must disclose the auditor's reasons within 24 hours; the audit committee must deliberate on the concerns.
+- The circular followed a wave of abrupt auditor resignations in 2018 to 2019 at companies that later faced serious trouble.
+- Proxy advisers are regulated by SEBI (under its research analyst regulations, with procedural guidelines since 2020).
+- Related-party rules (LODR Regulation 23, revised in 2025) and pledge disclosures provide the raw data.
+
+## Real examples and history
+- Cases such as the Satyam fraud (2009), the Essel group's pledge crisis (2019) and many smaller companies showed combinations of high pledging, opaque related-party dealings and auditor changes before collapse.
+- Global studies find that governance scores have weak links to average returns but stronger links to downside risk.
+
+## Edge cases and common mistakes
+- **Signals can be benign.** Pledges for business expansion or auditor rotation can look like red flags.
+- **Look-ahead bias.** Use only information disclosed at the time; restated data and later news must not leak in.
+- **Over-weighting one signal.** Combine signals; single flags create many false alarms.
+- **Ignoring sector norms.** RPT intensity is naturally higher in group structures with captive suppliers.
+- **Static scores.** Update after each disclosure; deterioration matters more than the level.
+
+## How traders, investors and quants use it
+- Fund managers use governance screens to exclude high-risk stocks before fundamental analysis.
+- Quants add governance scores as risk factors or constraints in portfolio optimisation.
+- Credit analysts use the same signals for lending decisions to promoter groups.
+
+## Related concepts
+Promoter pledging; related-party transactions; auditor independence; independent directors; proxy advisers; SEBI SOP fines; surveillance measures.
+</lesson>
+<qa difficulty="medium"><q>What must a listed company disclose when its statutory auditor resigns?</q><a>Under SEBI's October 2019 circular, the reasons for resignation, obtained from the auditor in a prescribed format, within 24 hours of receiving them; the audit committee must deliberate on the auditor's concerns and share its views.</a></qa>
+<qa difficulty="hard"><q>Why is a mid-term auditor resignation a strong red flag?</q><a>Auditors rarely give up clients mid-way; a sudden resignation can mean they could not get information, disagreed with management on accounting, or suspected irregularities. Several Indian companies whose auditors resigned in 2018 to 2019 later faced defaults or investigations, which is why SEBI now requires reasons and completion of the current quarter's review.</a></qa>
+<qa difficulty="hard"><q>Compute RPT intensity for a company with revenue ₹2,400 crore, related-party purchases ₹300 crore and related-party loans ₹180 crore. How would you score it?</q><a>Using transactions relative to revenue: (300 + 180)/2,400 = 20%, in the 15% to 30% band, scoring 2 under the example scheme. Loans to related parties deserve extra scrutiny because they can be a channel for diverting cash.</a></qa>
+<qa difficulty="expert"><q>How would you test whether a governance score has predictive value?</q><a>Build the score each quarter using only data available at that date. Sort stocks into score groups and measure subsequent outcomes: probability of a 50% drawdown, defaults, SEBI actions and average returns, over several years including stress periods. Check that high-score groups have significantly worse outcomes out of sample and that results are not driven by a few sectors.</a></qa>
+<qa difficulty="medium"><q>What role do proxy advisers play in Indian governance?</q><a>They analyse shareholder resolutions (director appointments, RPTs, pay, schemes) and recommend how institutional investors should vote. Their recommendations, regulated by SEBI, influence outcomes, especially where public shareholders' votes are decisive.</a></qa>
+<qa difficulty="hard"><q>A company has 70% promoter pledging but strong cash flows and low RPTs. Should it be avoided?</q><a>High pledging is a serious risk on its own: a price fall can trigger margin calls and forced selling regardless of business quality. Strong cash flows reduce default risk, but the pledge-driven crash risk remains. Many investors would underweight it or require the pledge to fall, and monitor price levels at which margin calls might begin.</a></qa>
+<source url="https://nsearchives.nseindia.com/content/equities/SEBI_Circular_18102019.pdf">SEBI circular of 18 October 2019 on resignation of statutory auditors</source>
+<source url="https://vinodkothari.com/2019/11/sebi-on-resignation-of-auditors/">SEBI tightens its norm on resignation of auditors (Vinod Kothari)</source>
+<source url="https://www.outlookbusiness.com/banks/sebi-issues-stricter-norms-for-auditors-3750">SEBI issues stricter norms for auditors (Outlook Business)</source>
+<source url="https://www.business-standard.com/amp/article/companies/90-of-promoters-stake-in-zee-pledged-with-financial-institutions-119100500938_1.html">90% of promoters' stake in Zee pledged (Business Standard)</source>
+<source url="https://www.taxmann.com/post/blog/sebi-updates-rpt-materiality-thresholds-and-approval-norms/">SEBI updates RPT materiality thresholds (Taxmann)</source>
+</topic>
+
+<topic id="522">
+<level>expert</level>
+<lesson>
+# Stress testing methodologies for MRC: stressed VaR, filtered historical simulation and factor models, with back-testing
+
+## Core idea
+A clearing corporation's Core Settlement Guarantee Fund must be large enough to cover the losses from the default of its largest members in extreme but plausible market moves. The size, the minimum required corpus (MRC), comes from daily stress tests. Choosing the stress scenarios is the hard part: purely historical scenarios may miss new risks; purely hypothetical ones may be arbitrary. Clearing corporations combine methods such as stressed value-at-risk, filtered historical simulation and factor-based scenarios, and check them through back-testing. SEBI revised the equity derivatives stress-testing framework in October 2024.
+
+## How it works, step by step
+1. **Positions.** Take every clearing member's (and its clients') positions at end of day.
+2. **Scenarios.** Generate price moves for all underlyings:
+   - **Historical:** the worst observed moves over a long period (for example the 2008 crisis, March 2020), applied to current positions.
+   - **Stressed VaR:** VaR computed from a stressed window of data (a period of high volatility), at high confidence, over a multi-day period of risk (the time needed to close out a defaulter, for example 2 to 3 days).
+   - **Filtered historical simulation (FHS):** take standardised historical returns (returns divided by their volatility at the time), then rescale by current or stressed volatility. This keeps fat tails and correlations from history while reflecting today's volatility.
+   - **Factor models:** shock a few factors (index level, sector moves, volatility) and map them to each position, allowing hypothetical scenarios (index −15%, IV +50%).
+3. **Losses.** For each member, loss = position value change minus its margins and collateral.
+4. **Cover requirement.** MRC is typically set by the loss from the simultaneous default of the members with the largest stressed exposures (a "cover 2" or similar standard), taking the worst scenario.
+5. **Back-testing.** Compare actual daily P&L of members' portfolios with margins and stress estimates; count breaches; investigate and recalibrate if breaches exceed expectations.
+6. **Governance.** Methods and results are reviewed by risk committees and reported to SEBI.
+
+## Formulas and numbers (worked example)
+**FHS.** Historical day: Nifty fell 5% when its volatility was 40% annualised. Standardised shock = −5%/40% = −0.125. Today's volatility is 14%; stressed volatility assumption 28%. Scenario move = −0.125 × 28% = −3.5% for one day; over a 3-day period of risk (√3 scaling) ≈ −6.1%.
+
+**Member loss.** Member X is net short index puts with a delta-equivalent exposure of ₹4,000 crore and short gamma; a −6.1% move causes a modelled loss of ₹420 crore (₹244 crore from delta, ₹176 crore from gamma and vega). X's margins are ₹300 crore, so the uncovered loss is ₹120 crore. Member Y's uncovered loss is ₹90 crore. If MRC is based on the two largest uncovered losses, MRC = ₹210 crore from this scenario; the final MRC is the maximum across scenarios.
+
+**Back-testing.** At 99% confidence, about 2.5 breaches a year (250 days) are expected; 10 breaches suggests the model underestimates risk.
+
+## India specifics
+- SEBI's circular of 1 October 2024 (SEBI/HO/MRD/MRD-PoD-2/P/CIR/2024/131) revised the equity derivatives stress-testing framework used to set Core SGF MRC, introducing new methodologies applied uniformly across clearing corporations; summaries describe a stressed-VaR approach with a 3-day period of risk.
+- The circular allowed a one-time transfer of surplus from the equity cash segment's Core SGF to meet higher derivatives MRC, with conditions.
+- Commodity derivatives stress tests were revised separately (for example a change in the Z-score threshold in 2026).
+- The original 2014 framework required daily stress tests with both historical and hypothetical scenarios.
+
+## Real examples and history
+- Global standards (CPMI-IOSCO's Principles for Financial Market Infrastructures) require CCPs handling systemic markets to cover at least the default of the two members creating the largest exposures in extreme but plausible conditions.
+- After the 2018 Nasdaq Clearing default, regulators emphasised stress tests that capture concentrated, illiquid positions.
+
+## Edge cases and common mistakes
+- **Correlation breakdowns.** In crises correlations rise; diversified-looking portfolios lose together.
+- **Liquidity and concentration.** Closing out a large position takes longer and moves prices; add concentration add-ons.
+- **Option non-linearity.** Use full revaluation, not delta approximations, for large moves.
+- **Pro-cyclicality.** Raising margins sharply in a crisis can worsen it; floors and buffers smooth margins over time.
+- **Overfitting scenarios** to recent history.
+
+## How traders, investors and quants use it
+- CC risk teams run and validate these models daily.
+- Large trading firms run similar stress tests on their own books to anticipate margin calls.
+- Analysts of exchanges watch MRC changes, which tie up capital.
+
+## Related concepts
+Core SGF and default waterfall; SPAN and VaR margins; extreme loss margin; PFMI; back-testing; pro-cyclicality.
+</lesson>
+<qa difficulty="hard"><q>A historical return of −7% occurred when volatility was 50%. Using FHS with current stressed volatility of 30%, what is today's one-day scenario move, and over a 2-day period of risk?</q><a>Standardised shock = −7/50 = −0.14. One-day scenario = −0.14 × 30% = −4.2%. Over 2 days with square-root scaling: −4.2% × √2 ≈ −5.9%.</a></qa>
+<qa difficulty="expert"><q>Why is filtered historical simulation often preferred over plain historical simulation for stress tests?</q><a>Plain historical simulation applies past returns as they were, so in a calm period it may understate risk if history is mostly calm, or overstate it using old crisis volatility unrelated to today's. FHS standardises past returns by their volatility at the time, preserving fat tails and cross-correlations, and rescales by current or stressed volatility, making scenarios responsive to today's conditions while keeping realistic shapes.</a></qa>
+<qa difficulty="hard"><q>At 99% VaR, a margin model shows 9 breaches in 250 days. What does this suggest?</q><a>Expected breaches = 1% × 250 = 2.5. Nine breaches is far more, suggesting the model underestimates risk (for example volatility, fat tails or correlations). The CC should investigate, recalibrate and possibly add buffers.</a></qa>
+<qa difficulty="medium"><q>What does "cover 2" mean for a CCP?</q><a>The CCP's prefunded resources (margins plus default fund) must cover losses from the simultaneous default of the two clearing members (with affiliates) that would create the largest exposures under extreme but plausible market conditions.</a></qa>
+<qa difficulty="hard"><q>Why should stress tests use full revaluation for options portfolios?</q><a>Options have non-linear payoffs (gamma and vega). For large moves, delta or delta-gamma approximations can badly misstate losses, especially for short options near the money or deep out of the money options that become at the money. Full revaluation reprices each option under the scenario, capturing these effects.</a></qa>
+<qa difficulty="expert"><q>What is pro-cyclicality in margin and stress-testing models, and how is it reduced?</q><a>Models that react strongly to recent volatility raise margins sharply in crises, forcing members to post cash or cut positions exactly when markets are stressed, deepening the crisis; margins fall in calm times, encouraging leverage. It is reduced with margin floors, buffers released in stress, long look-back periods including stress windows, and stressed-VaR components that keep margins from falling too low.</a></qa>
+<source url="https://www.sebi.gov.in/legal/circulars/oct-2024/review-of-stress-testing-framework-for-equity-derivatives-segment-for-determining-the-corpus-of-core-settlement-guarantee-fund_87209.html">SEBI circular: review of stress testing framework for equity derivatives (October 2024)</source>
+<source url="https://assets.kpmg.com/content/dam/kpmg/in/pdf/2024/10/review-of-stress-testing-framework-for-equity-derivatives-segment.pdf">Review of stress testing framework for equity derivatives segment (KPMG)</source>
+<source url="https://www.taxmann.com/post/blog/sebi-revises-stress-testing-framework-for-equity-derivatives-to-enhance-determination-of-core-sgf-corpus/">SEBI revises stress testing framework for equity derivatives (Taxmann)</source>
+<source url="https://dsklegal.com/wp-content/uploads/2025/08/DSK-Legal-Newsletter-November-2024.pdf">DSK Legal newsletter, November 2024</source>
+</topic>
+
+<topic id="523">
+<level>expert</level>
+<lesson>
+# CCP recovery and resolution tools: cash calls, variation-margin gains haircutting, tear-up and the PFMI/FSB resolution regime
+
+## Core idea
+A central counterparty (CCP) is designed so that a member's default is absorbed by the defaulter's margins and the default fund. But what if losses exceed all prefunded resources? A CCP that fails would threaten the whole market. So international standards require CCPs to have **recovery** tools (to restore themselves using predefined loss-sharing) and authorities to have **resolution** powers (to take over and keep critical functions running). These tools allocate losses to surviving members and their clients, and their fairness is hotly debated.
+
+## How it works, step by step
+**Prefunded waterfall (normal default management):** defaulter's margins and default fund contribution → CCP's own capital ("skin in the game") → non-defaulters' default fund contributions.
+
+**Recovery tools (if losses go beyond prefunded resources):**
+1. **Cash calls (assessments):** surviving members must contribute extra funds, usually capped (for example one or two times their default fund contribution).
+2. **Variation margin gains haircutting (VMGH):** the CCP reduces the variation margin it pays to members with gains, using that money to cover losses; members with losses still pay in full.
+3. **Partial tear-up:** the CCP terminates some contracts (for example those of the defaulted member's unbalanced book) at a set price, to rebalance its book when auctions fail.
+4. **Full tear-up:** terminating all contracts in a product or service, effectively closing it.
+5. **Forced allocation:** assigning the defaulter's positions to surviving members (controversial).
+6. **Initial margin haircutting:** using non-defaulters' initial margin; widely opposed and generally not allowed.
+
+**Resolution (by authorities):** if recovery fails or would harm stability, a resolution authority takes control, uses similar tools plus its own powers (transfers, bridge CCPs, write-downs of CCP equity), and must respect the "no creditor worse off than in liquidation" principle.
+
+## Formulas and numbers (worked example)
+After a default, a CCP still faces a ₹600 crore uncovered loss after all prefunded resources.
+- **Cash call:** 40 surviving members, each with a capped assessment of 1× their default fund contribution, totalling ₹400 crore. Remaining loss ₹200 crore.
+- **VMGH:** on the next settlement, members with gains are due ₹1,000 crore of variation margin. Haircut = 200/1,000 = 20%; they receive ₹800 crore. A member due ₹50 crore gets ₹40 crore, losing ₹10 crore although it did nothing wrong.
+- If losses keep growing (auction failure), the CCP may partially tear up contracts to rebalance its book.
+
+## India specifics
+- SEBI's 2014 framework for Indian clearing corporations sets a standard default waterfall: defaulter's resources, insurance, CC's own contribution, Core SGF (with CC, exchange and member contributions), further CC resources, and then capped additional contributions from non-defaulting members, with remaining losses allocated pro rata (for example by haircuts on pay-outs) as a last resort.
+- Indian CCs are also overseen by the RBI for certain segments (and the LPCC for corporate bond repo has RBI authorisation).
+- India's legal framework for CCP resolution is less developed than the EU's dedicated regulation; resolution of market infrastructure would rely on SEBI's powers and specific legislation.
+
+## Real examples and history
+- CPMI-IOSCO published guidance on FMI recovery (2014, updated 2017); the FSB issued guidance on CCP resolution (2017) and later work on financial resources for resolution (2020 onward).
+- The EU adopted a CCP Recovery and Resolution Regulation (2021), giving authorities powers including VMGH and tear-ups.
+- Industry views differ: dealers' associations accept capped VMGH at the end of the waterfall but oppose initial margin haircutting and forced allocation; buy-side firms argue VMGH unfairly penalises "winners".
+
+## Edge cases and common mistakes
+- **Assuming CCPs cannot fail.** Very unlikely, but planning assumes they could.
+- **Clients' exposure.** Clients of clearing members can be affected through VMGH if passed on.
+- **Wrong-way risk.** Losses are largest in crises, when members are also stressed and cash calls are hardest to meet.
+- **Incentives.** Caps on assessments limit members' exposure but shift losses elsewhere.
+- **Legal certainty.** Tools must be in the CCP's rules beforehand to be enforceable.
+
+## How traders, investors and quants use it
+- Clearing members model their contingent exposure to assessments and VMGH in stress scenarios.
+- Buy-side firms review CCP rulebooks to understand potential losses from recovery tools.
+- Regulators run system-wide stress tests linking CCPs and their members.
+
+## Related concepts
+Default waterfall; Core SGF; stress testing; PFMI; FSB key attributes of resolution regimes; interoperability; wrong-way risk.
+</lesson>
+<qa difficulty="medium"><q>What is variation margin gains haircutting?</q><a>A recovery tool in which the CCP pays members with gains only part of the variation margin they are owed, using the withheld amount to cover losses from a default, while members with losses still pay in full.</a></qa>
+<qa difficulty="hard"><q>A CCP must cover a ₹300 crore shortfall through VMGH; gains due to members are ₹1,200 crore. What haircut applies, and what does a member owed ₹90 crore receive?</q><a>Haircut = 300/1,200 = 25%. The member receives 90 × 0.75 = ₹67.5 crore, bearing ₹22.5 crore of the loss.</a></qa>
+<qa difficulty="hard"><q>Why are cash calls usually capped?</q><a>Unlimited calls would expose members to unbounded liabilities, making clearing membership too risky and potentially spreading failure. Caps give members certainty about maximum exposure (for example a multiple of their default fund contribution), while still providing extra resources in a crisis.</a></qa>
+<qa difficulty="expert"><q>Why do many market participants oppose initial margin haircutting?</q><a>Initial margin is posted by non-defaulting members and their clients as protection against their own potential default, often held in segregated or bankruptcy-remote ways. Using it to cover another member's default would undermine that protection, create incentives to withdraw from clearing in stress, and could spread losses to end clients, so most frameworks (and industry associations) reject it.</a></qa>
+<qa difficulty="medium"><q>What is a partial tear-up?</q><a>The CCP terminates (tears up) some contracts, typically the open positions it could not auction from a defaulter's portfolio, along with matching opposite positions of other members, at a set price, to restore a balanced book. It is used when auctions fail to find buyers.</a></qa>
+<qa difficulty="hard"><q>What is the "no creditor worse off" principle in CCP resolution?</q><a>In resolution, no creditor (including members) should bear greater losses than they would have suffered if the CCP had been wound up under normal insolvency law. If they do, they are entitled to compensation. It limits how far authorities can allocate losses using resolution powers.</a></qa>
+<source url="https://www.bis.org/speeches/20160523-interview-risk-magazine">BIS interview on CCP recovery and resolution tools (2016)</source>
+<source url="https://www.isda.org/news/isda-publishes-recommendations-for-ccp-recovery-and-resolution-framework">ISDA recommendations for CCP recovery and resolution</source>
+<source url="https://www.regulationtomorrow.com/2023/09/fsb-consults-on-financial-resources-and-tools-for-central-counterparty-resolution/">FSB consults on financial resources and tools for CCP resolution (Regulation Tomorrow)</source>
+<source url="https://ib.barclays/content/dam/barclaysmicrosites/ibpublic/documents/investment-bank/adscmd/CCP%20Recovery%20and%20Resolution%20Regulation.pdf">EU CCP Recovery and Resolution Regulation disclosure (Barclays)</source>
+<source url="https://www.sebi.gov.in/media/press-releases/aug-2014/sebi-issues-circular-on-core-settlement-guarantee-fund-default-waterfall-and-stress-testing_27859.html">SEBI circular on Core SGF and default waterfall (2014)</source>
+</topic>
+
+<topic id="524">
+<level>advanced</level>
+<lesson>
+# Limited Purpose Clearing Corporation (ICCL's LPCC) Core SGF design for repo and corporate bonds
+
+## Core idea
+India's government bond repo market is deep, but repo in corporate bonds (borrowing cash against corporate bonds as collateral) was tiny, partly because lenders feared counterparty risk. To fix this, SEBI allowed a **Limited Purpose Clearing Corporation (LPCC)** in 2020 to clear and settle repo trades in corporate debt as a central counterparty. The LPCC that was set up is **AMC Repo Clearing Ltd (ARCL)**, funded by mutual fund asset management companies, and authorised by the RBI. It has its own core settlement guarantee fund (SGF) framework, with contributions from the LPCC, clearing members and debt issuers.
+
+## How it works, step by step
+1. **Repo trades.** A borrower sells corporate bonds with an agreement to buy them back later at a higher price; the lender earns the repo rate. In tri-party repo, a third party (the LPCC) manages collateral, valuation and settlement.
+2. **Central counterparty.** The LPCC novates trades, becoming counterparty to both sides, collecting margins (haircuts on collateral) and marking to market daily.
+3. **Core SGF.** Under SEBI's framework (late 2020), the LPCC runs stress tests to determine the fund's required size; contributions come from the LPCC itself, its clearing members and issuers of the debt securities used; shortfalls must be replenished by the LPCC; and part of the LPCC's profits go into the fund.
+4. **Capital.** Mutual fund AMCs contributed capital to set up the LPCC (the working group proposed about ₹150 crore), with SEBI adjusting contribution rules in 2021.
+5. **Access.** Since 2023, SEBI rules allow certain entities (for example mutual funds, insurers, NBFCs) to participate directly in tri-party repo through the LPCC without being stock exchange members.
+6. **Default.** If a member defaults, the LPCC sells collateral and uses margins, then the Core SGF waterfall.
+
+## Formulas and numbers (worked example)
+A mutual fund borrows ₹100 crore for 7 days against AA-rated corporate bonds with market value ₹120 crore (haircut 16.7%). Repo rate 7% a year.
+- Repurchase price = 100 × (1 + 0.07 × 7/365) = ₹100.134 crore.
+- If bond prices fall 5% to ₹114 crore, the collateral still covers the loan; if they fall 20%, the LPCC calls for more collateral.
+- If the borrower defaults, the LPCC sells the bonds; with a 16.7% haircut and margin calls, losses beyond collateral should be rare, but in stress (illiquid bonds, falling prices) they could reach the Core SGF.
+
+## India specifics
+- SEBI approved the LPCC in September 2020, after the 2018 to 2019 credit stress (IL&FS, DHFL) showed how illiquid corporate bond markets were and how mutual funds struggled to raise liquidity.
+- ARCL provides clearing and settlement for corporate debt repo trades executed on NSE and BSE, and holds RBI authorisation under the Payment and Settlement Systems Act 2007 for CCP services in corporate debt repo.
+- Mutual funds can borrow through repo against their corporate bond holdings to meet redemptions instead of selling bonds at distressed prices.
+- Government bond repo is cleared separately through the Clearing Corporation of India Ltd (CCIL).
+
+## Real examples and history
+- Debt mutual fund stress in 2018 to 2020 (including Franklin Templeton's closure of six debt schemes in April 2020) highlighted the need for liquidity tools in corporate bonds.
+- Corporate bond repo volumes have grown from a very low base but remain small compared with government securities repo.
+
+## Edge cases and common mistakes
+- **Collateral quality.** Lower-rated bonds need bigger haircuts and may not be eligible.
+- **Wrong-way risk.** If the borrower is linked to the bond issuer, the collateral may fall exactly when the borrower defaults.
+- **Liquidity of collateral.** In a crisis, selling corporate bonds can be slow and costly, so stress tests must assume longer liquidation periods.
+- **Issuer contributions.** Requiring issuers to contribute to the SGF is unusual; it spreads costs but can discourage some issuers.
+
+## How traders, investors and quants use it
+- Treasury and fund managers use corporate bond repo for short-term liquidity.
+- Risk managers model haircuts and margin calls in stress scenarios.
+- Analysts watch repo market development as a sign of corporate bond market depth.
+
+## Related concepts
+Repo and tri-party repo; central counterparties; Core SGF; haircuts; mutual fund liquidity risk; CCIL; corporate bond market.
+</lesson>
+<qa difficulty="medium"><q>What is the purpose of India's Limited Purpose Clearing Corporation?</q><a>To act as a central counterparty for repo transactions in corporate debt securities, removing counterparty risk between lenders and borrowers and so deepening the corporate bond repo market, which had been small and illiquid.</a></qa>
+<qa difficulty="hard"><q>Compute the repurchase amount for a ₹50 crore, 14-day repo at 6.8% a year.</q><a>Repurchase = 50 × (1 + 0.068 × 14/365) = 50 × 1.002608 = ₹50.13 crore (interest ≈ ₹0.13 crore).</a></qa>
+<qa difficulty="hard"><q>Who contributes to the LPCC's Core SGF under SEBI's framework?</q><a>The LPCC itself, its clearing members, and issuers of the debt securities used in the repo transactions; any shortfall must be replenished by the LPCC up to the level SEBI specifies, and part of its profits are transferred to the fund.</a></qa>
+<qa difficulty="expert"><q>Why is wrong-way risk important in corporate bond repo?</q><a>If the borrower and the bond issuer are related (or exposed to the same risks), the collateral's value is likely to fall when the borrower is most likely to default. The LPCC would then be selling depressed collateral just when it needs it most. Haircuts, eligibility rules and concentration limits must account for this.</a></qa>
+<qa difficulty="medium"><q>How does corporate bond repo help debt mutual funds during redemptions?</q><a>Instead of selling corporate bonds at distressed prices to meet redemptions, a fund can borrow cash against those bonds through repo for a short period, buying time to sell in an orderly way or until inflows return.</a></qa>
+<qa difficulty="hard"><q>A borrower posts bonds worth ₹60 crore for a ₹50 crore repo. Bond prices fall 12%. Is a margin call likely?</q><a>Collateral falls to ₹52.8 crore, still above ₹50 crore, but the required haircut (originally ₹10 crore or about 16.7%) is no longer met: required collateral is about ₹60 crore. The LPCC would call for additional collateral of about ₹7.2 crore to restore the haircut.</a></qa>
+<source url="https://www.drishtiias.com/daily-updates/daily-news-analysis/amc-repo-clearing-limited/print_manually">AMC Repo Clearing Limited (Drishti IAS, August 2023)</source>
+<source url="https://www.business-standard.com/article/pti-stories/sebi-lays-framework-on-core-sgf-stress-testing-for-limited-purpose-clearing-corp-120122101016_1.html">SEBI lays framework on Core SGF and stress testing for limited purpose clearing corporation (Business Standard)</source>
+<source url="https://cafemutual.com/news/industry/21247-sebi-sets-up-limited-purpose-clearing-corporation-lpcc-for-mutual-funds">SEBI sets up limited purpose clearing corporation for mutual funds (Cafemutual)</source>
+<source url="https://www.business-standard.com/amp/article/markets/sebi-modifies-framework-for-limited-purpose-clearing-corporation-by-mfs-121040601140_1.html">SEBI modifies framework for LPCC by mutual funds (Business Standard)</source>
+<source url="https://www.business-standard.com/amp/markets/news/sebi-amends-rule-to-boost-liquidity-in-secondary-market-for-corporate-bonds-123072500384_1.html">SEBI amends rule to boost liquidity in corporate bond secondary market (Business Standard)</source>
+</topic>
