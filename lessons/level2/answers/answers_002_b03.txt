@@ -1,0 +1,304 @@
+<topic id="514">
+<level>advanced</level>
+<lesson>
+# Distressed debt and ARCs: pricing NPAs, swiss challenge and recovery rates under IBC
+
+## Core idea
+When loans go bad, banks can try to recover them themselves, take borrowers to insolvency under the IBC, or sell the loans to asset reconstruction companies (ARCs). ARCs buy non-performing assets (NPAs) at a discount, paying partly in cash and partly in security receipts (SRs) whose value depends on future recoveries. Pricing an NPA means estimating how much will be recovered, when, and at what risk. Recovery data from the IBC and ARCs shows that creditors typically get back only about a third of what is owed.
+
+## How it works, step by step
+1. **Classification.** A loan becomes an NPA when interest or principal is overdue for more than 90 days.
+2. **Sale process.** Banks invite bids from ARCs and others; sales often use a **Swiss challenge**: a bank receives an initial (anchor) offer, publishes it for counter-bids, and the anchor bidder has the right to match the best counter-bid.
+3. **Consideration.** ARCs pay in cash and SRs. Under RBI's October 2022 framework, an ARC must invest in at least the higher of 15% of the SRs held by the selling bank or 2.5% of total SRs issued, so it has skin in the game. Many deals are 15:85 (15% cash, 85% SRs).
+4. **Resolution.** ARCs recover through restructuring, enforcement under the SARFAESI Act 2002, sale of security, or IBC proceedings (ARCs can also be resolution applicants).
+5. **SR redemption.** As recoveries come in, SRs are redeemed; any shortfall is a loss for SR holders (including the selling bank).
+6. **National ARC (NARCL).** Set up in 2021 to take over large legacy NPAs, paying 15% cash and 85% in SRs backed by a government guarantee up to a cap, with the India Debt Resolution Company managing resolutions.
+
+## Formulas and numbers (worked example)
+A bank has a ₹1,000 crore NPA. The ARC estimates recoveries of ₹200 crore in year 2 and ₹250 crore in year 4, and uses a 20% discount rate for risk:
+- PV = 200/1.2² + 250/1.2⁴ = 138.9 + 120.6 = ₹259.5 crore.
+- After costs and a margin, the ARC bids ₹230 crore: 15% cash (₹34.5 crore) and 85% in SRs (₹195.5 crore), most SRs held by the bank.
+- If actual recoveries total ₹380 crore over four years, SR holders are paid from them after fees; the bank's total recovery (cash plus SR redemptions) is roughly ₹345 to 380 crore minus fees, about 35% to 38% of the loan.
+
+Compare with IBC data: as of June 2026, financial creditors had recovered about 30.5% of admitted claims through resolution plans, with resolved cases taking about 633 days on average (excluding excluded time).
+
+## India specifics
+- ARCs are registered with and regulated by the RBI; SARFAESI powers let secured creditors enforce security without court decrees in many cases.
+- CRISIL estimated cumulative SR redemption rates of about 69% to 71% for fiscal 2026, meaning SR holders recover around 70% of the SR face value on average, though SR face values are already discounted from the original loan amounts.
+- RBI's 2022 changes also tightened ARC governance and allowed ARCs to act as resolution applicants under IBC.
+- Recovery rates differ by channel: IBC resolutions yield roughly a third of claims; liquidations far less.
+
+## Real examples and history
+- India's NPA crisis peaked around 2018, with the banking system's gross NPAs above 11% of advances (higher at public sector banks); since then cleanups, IBC resolutions and ARC sales reduced them sharply.
+- Large IBC resolutions (Essar Steel, Bhushan Steel) recovered relatively high shares of claims; many smaller cases ended in liquidation with very low recoveries.
+
+## Edge cases and common mistakes
+- **Confusing SR redemption rates with loan recovery rates.** SRs are issued at the purchase price, already far below the loan; 70% of SR value may be only 20% to 25% of the original loan.
+- **Ignoring time value.** Recoveries years later are worth far less today.
+- **Collateral valuation optimism.** Forced sales of specialised assets fetch much less than book values.
+- **Evergreening through ARCs.** Banks that hold most of the SRs keep the risk; regulators restrict sales that merely move bad loans off books.
+- **Legal delays.** Litigation can extend timelines well beyond plans.
+
+## How traders, investors and quants use it
+- Bank analysts track provisioning coverage and expected recoveries when valuing banks with NPAs.
+- Distressed debt investors buy loans or SRs at discounts and model recovery scenarios.
+- Equity investors in stressed companies estimate what, if anything, will be left for shareholders after creditors' recoveries.
+
+## Related concepts
+IBC and CIRP; SARFAESI Act; provisioning; Merton model; loss given default; bank capital.
+</lesson>
+<qa difficulty="hard"><q>Value expected NPA recoveries of ₹300 crore in year 3 and ₹150 crore in year 5 at an 18% discount rate.</q><a>PV = 300/1.18³ + 150/1.18⁵ = 300/1.643 + 150/2.288 = 182.6 + 65.6 = ₹248.2 crore.</a></qa>
+<qa difficulty="medium"><q>What is a Swiss challenge in NPA sales?</q><a>The seller receives an initial offer from an anchor bidder, publishes it inviting better bids, and the anchor bidder can match the highest counter-offer. It mixes negotiated price discovery with competition.</a></qa>
+<qa difficulty="hard"><q>Under RBI's 2022 rule, how much must an ARC invest in SRs for a ₹500 crore SR issue where the selling bank holds ₹425 crore of SRs?</q><a>Higher of 15% of the bank's SR holding (15% × 425 = ₹63.75 crore) and 2.5% of total SRs (2.5% × 500 = ₹12.5 crore): ₹63.75 crore.</a></qa>
+<qa difficulty="expert"><q>Why can a 70% SR redemption rate be consistent with low recovery on the original loans?</q><a>SRs are issued against the purchase price the ARC paid, often 20% to 40% of the loan's book value. Redeeming 70% of SR face value thus returns only about 14% to 28% of the original loan to SR holders (plus any upfront cash). The two rates measure different bases.</a></qa>
+<qa difficulty="medium"><q>How does NARCL pay for NPAs it acquires?</q><a>15% in cash upfront and 85% in security receipts, which are backed by a government guarantee up to a cap, so selling banks have some protection if recoveries fall short.</a></qa>
+<qa difficulty="hard"><q>Why do IBC recoveries average about a third of admitted claims?</q><a>Companies usually enter insolvency after long periods of decline, so their asset values have fallen far below their debts; delays erode value further; specialised assets fetch low prices; and many cases end in liquidation. Even successful resolution plans pay well below claims, though above liquidation values.</a></qa>
+<source url="https://www.crisil.com/en/home/newsroom/press-releases/2022/10/revised-rbi-guidelines-to-structurally-strengthen-arcs.html">Revised RBI guidelines to structurally strengthen ARCs (CRISIL)</source>
+<source url="https://jsalaw.com/wp-content/uploads/2022/10/JSA-Prism-Finance-October-2022-ARC0698.pdf">RBI's revised ARC framework (JSA Prism, October 2022)</source>
+<source url="https://moneylife.in/article/rbis-revised-guidelines-to-strengthen-arcs-more-net-funding-requirements-may-lead-to-consolidation-report/68647.html">RBI's revised guidelines to strengthen ARCs (Moneylife)</source>
+<source url="https://startupfeed.in/ibbi-june-2026-data-liquidation-recovery-rate/">IBC data: creditors recover 30.52% (June 2026)</source>
+<source url="https://www.drishtiias.com/daily-updates/daily-news-analysis/rbi-guidelines-for-asset-reconstruction-companies/print_manually">RBI guidelines for asset reconstruction companies (Drishti IAS)</source>
+</topic>
+
+<topic id="516">
+<level>advanced</level>
+<lesson>
+# SEBI SAST Regulations 2011: open offers, creeping acquisition, pricing, and exemptions
+
+## Core idea
+When someone buys a large stake or control in a listed company, minority shareholders should get a chance to sell at a fair price. SEBI's Substantial Acquisition of Shares and Takeovers (SAST) Regulations 2011 require an acquirer crossing set thresholds to make an **open offer** to buy at least 26% more of the company from public shareholders, at a minimum price set by formula. They also allow existing large holders to increase stakes slowly ("creeping acquisition") without an offer, and exempt certain transactions.
+
+## How it works, step by step
+1. **Triggers:**
+   - **Regulation 3(1):** acquiring shares or voting rights that take the acquirer (with persons acting in concert, PACs) to 25% or more.
+   - **Regulation 3(2):** a holder with 25% or more (but below the maximum permissible non-public holding, 75%) acquiring more than 5% in a financial year.
+   - **Regulation 4:** acquiring control, regardless of shareholding.
+   - **Regulation 5:** indirect acquisitions (buying a parent that controls a listed company).
+2. **Offer size.** At least 26% of the total shares (Regulation 7), unless the acquirer would breach the 75% maximum, in which case it must later reduce to restore minimum public shareholding.
+3. **Offer price (Regulation 8)** for frequently traded shares: the highest of
+   - the negotiated price under the agreement that triggered the offer,
+   - the volume-weighted average price paid by the acquirer in the 52 weeks before,
+   - the highest price paid by the acquirer in the 26 weeks before,
+   - the volume-weighted average market price over the 60 trading days before the announcement.
+   For infrequently traded shares, a valuation-based price is used.
+4. **Process.** Public announcement, detailed public statement, draft letter of offer to SEBI, tendering period of 10 working days, escrow of offer consideration (25% of the first ₹500 crore and 10% of the rest, with 100% if part of the consideration is in securities, among other rules).
+5. **Exemptions (Regulation 10).** Inter-se transfers among promoters or relatives (with conditions), acquisitions under schemes of arrangement, rights issues within entitlement, buybacks causing passive crossing, insolvency resolution plans, and others; some need reporting, some SEBI approval.
+6. **Disclosure.** Regulations 29 and 31 require continuous disclosures of holdings and encumbrances.
+
+## Formulas and numbers (worked example)
+An acquirer agrees to buy 30% of a company from its promoter at ₹420 a share. Other inputs: the acquirer's highest price paid in the last 26 weeks ₹435; its 52-week VWAP ₹410; the 60-day market VWAP ₹448.
+Offer price = highest of 420, 410, 435 and 448 = ₹448.
+Company has 50 crore shares; open offer for 26% = 13 crore shares × ₹448 = ₹5,824 crore if fully tendered. Escrow: 25% of ₹500 crore + 10% of ₹5,324 crore = ₹125 + ₹532.4 = ₹657.4 crore.
+If the acquirer ends with more than 75% (30% + 26% + existing holdings), it must sell down to restore 25% public float within the time allowed.
+
+## India specifics
+- The 2011 regulations replaced the 1997 code, raising the initial trigger from 15% to 25% and the minimum offer from 20% to 26%.
+- **Adani group and NDTV (2022):** Adani acquired an indirect 29.18% stake through RRPR Holding (by taking over a lender that held warrants convertible into RRPR); the resulting open offer for 26% ran from 22 November to 5 December 2022 at ₹294 a share.
+- **Holcim's Indian cement businesses (2022):** the acquirer of Ambuja Cements and ACC made open offers to public shareholders of both.
+- Open offers often run below market price if the share price has risen after the trigger, so few shares are tendered.
+
+## Real examples and history
+- Creeping acquisition lets promoters with 25% to 75% add up to 5% a year without an offer, often through market purchases.
+- Indirect acquisition rules ensure that buying a foreign parent does not bypass the offer obligation for an Indian listed subsidiary.
+
+## Edge cases and common mistakes
+- **Persons acting in concert.** Holdings of related parties and agreements to act together are aggregated.
+- **Gross versus net acquisitions.** The 5% creeping limit counts gross acquisitions in the year, without netting sales.
+- **Warrants and convertibles.** Conversion of instruments can trigger thresholds.
+- **Price adjustments.** Delays can require interest on the offer price.
+- **Delisting offers** follow separate regulations; combining delisting with an open offer has its own rules.
+
+## How traders, investors and quants use it
+- Event traders compare the offer price with the market price to decide whether tendering is worth it (open offer arbitrage, with acceptance ratios).
+- Investors watch stake building near 25% for possible offers.
+- Analysts check pricing formulas to see if minority shareholders get the same price as the selling promoter.
+
+## Related concepts
+Minimum public shareholding; delisting; SAST disclosures; control premium; schemes of arrangement; IBC resolution plans.
+</lesson>
+<qa difficulty="hard"><q>An acquirer holds 22% and buys another 4% in the market. Does it have to make an open offer?</q><a>Yes. The holding rises to 26%, crossing 25% under Regulation 3(1), which triggers a mandatory open offer for at least 26% of the shares, at a price no lower than the Regulation 8 formula.</a></qa>
+<qa difficulty="hard"><q>A promoter group holding 60% buys 3% in May and 2.5% in December of the same financial year. Is an open offer required?</q><a>Total gross acquisitions in the financial year = 5.5%, above the 5% creeping limit for holders between 25% and 75%. Crossing 5% in December triggers an open offer under Regulation 3(2).</a></qa>
+<qa difficulty="medium"><q>What is the minimum size of an open offer under SAST 2011?</q><a>26% of the total shares of the target company, subject to adjustments so that post-offer holdings do not breach the maximum permissible non-public shareholding of 75%.</a></qa>
+<qa difficulty="expert"><q>Why does the pricing formula include the 60-day market VWAP and the highest price paid in 26 weeks?</q><a>To ensure public shareholders get at least the price the market recently valued their shares at, and no less than the highest price the acquirer paid anyone recently. This prevents an acquirer from paying a premium to the selling promoter while offering minorities a lower price, and blocks manipulation by buying at high prices privately before the trigger.</a></qa>
+<qa difficulty="hard"><q>The open offer price is ₹600, the market price ₹650, and expected acceptance is 40%. Should a shareholder tender?</q><a>Tendering 100 shares sells about 40 at ₹600 (₹24,000) and returns 60, which might be sold at ₹650. Selling all 100 in the market at ₹650 yields ₹65,000, more than tendering. With the offer price below market, it is better to sell in the market or hold, unless the shareholder expects the price to fall below ₹600 after the offer.</a></qa>
+<qa difficulty="medium"><q>Name three transactions exempt from open offers under Regulation 10.</q><a>Inter-se transfers among qualifying promoters or relatives (subject to conditions), acquisitions through schemes of arrangement approved by a court or tribunal, and acquisitions under an IBC resolution plan. Others include acquisitions within rights entitlement and passive increases from buybacks.</a></qa>
+<source url="https://blog.ipleaders.in/open-offer-under-the-sebi-takeover-code-triggers-pricing-and-process/">Open offer under the SEBI takeover code: triggers, pricing and process (iPleaders)</source>
+<source url="https://ksandk.com/capital-markets/open-offer-sebi-takeover-code/">Open offer under SEBI takeover code: triggers, pricing, process, exemptions (King Stubb and Kasiva)</source>
+<source url="https://indiacorplaw.in/2013/01/02/mandatory-offers-and-creeping/">Mandatory offers and creeping acquisitions (IndiaCorpLaw)</source>
+<source url="https://www.taxmann.com/post/blog/warrant-conversion-breaching-5-limit-triggers-open-offer-sebi/">Warrant conversion breaching 5% limit triggers open offer (Taxmann)</source>
+</topic>
+
+<topic id="517">
+<level>advanced</level>
+<lesson>
+# Related-party transactions under s.188 and LODR Reg. 23: approvals, thresholds and the Fifth Amendment
+
+## Core idea
+Related-party transactions (RPTs) are dealings between a company and its promoters, directors, group companies or their relatives. They can be ordinary (a subsidiary buying supplies at market prices) or a way to move value from minority shareholders to controllers (overpaying a promoter-owned firm). Indian law controls RPTs through section 188 of the Companies Act 2013 and Regulation 23 of SEBI's LODR Regulations: audit committee approval for all RPTs, and shareholder approval (with related parties not voting) for material ones. SEBI's Fifth Amendment of 2025 replaced the old single materiality threshold with a scale-based one.
+
+## How it works, step by step
+1. **Identify related parties.** Directors, key managerial personnel and their relatives, promoter group entities, holding, subsidiary and associate companies; SEBI's definition also captures holders of large stakes.
+2. **Audit committee.** Under Regulation 23, all RPTs (and later material modifications) need prior approval of the audit committee, with only independent directors voting on them; omnibus approvals for repetitive transactions are allowed with limits.
+3. **Shareholder approval for material RPTs.** Material RPTs need prior approval of shareholders by ordinary resolution, and related parties cannot vote in favour.
+4. **Materiality.** Until 2025, an RPT was material if it exceeded ₹1,000 crore or 10% of the company's annual consolidated turnover, whichever was lower. The LODR (Fifth Amendment) Regulations 2025, notified on 18 November 2025 and effective from mid-December 2025, introduced scale-based thresholds in a new Schedule XII linked to turnover, raising thresholds for large companies (reported as 10% of turnover for companies up to about ₹20,000 crore, with lower percentages above that and a cap of about ₹5,000 crore). Check Schedule XII for the exact slabs.
+5. **Companies Act section 188.** Covers specified types (sale, purchase or leasing of goods or property, services, appointments to offices of profit, underwriting); board approval is needed unless the transaction is in the ordinary course of business and at arm's length; shareholder approval is needed above thresholds in the rules.
+6. **Disclosure.** Half-yearly RPT disclosures to exchanges, details in notices seeking approval, and annual report disclosures.
+
+## Formulas and numbers (worked example)
+Company with consolidated turnover ₹8,000 crore plans a ₹900 crore supply contract with a promoter-group firm.
+- Old test: lower of ₹1,000 crore and 10% × 8,000 = ₹800 crore → threshold ₹800 crore; ₹900 crore is material → shareholder approval needed.
+- New scale-based test: for turnover in the lowest band, about 10% of turnover (₹800 crore) → still material.
+A company with turnover ₹60,000 crore planning a ₹3,500 crore RPT: under the old test (lower of ₹1,000 crore and ₹6,000 crore) it was material; under the scale-based test with a higher threshold for large companies (capped around ₹5,000 crore), it may not be, so audit committee approval suffices.
+
+Voting: promoters hold 60%, public 40%. On a material RPT with a promoter entity, promoters cannot vote in favour; the resolution needs a majority of votes cast by others.
+
+## India specifics
+- SEBI's 2021 to 2022 changes widened the definition of related parties and related-party transactions (including transactions of subsidiaries with the parent's related parties).
+- Proxy advisory firms often recommend votes against large RPTs that lack clear justification.
+- Some high-profile cases (royalty payments by multinational subsidiaries to parents, group transfers in conglomerates) have drawn minority opposition.
+
+## Real examples and history
+- Minority shareholders have voted down RPT resolutions in some multinational subsidiaries in India, especially over royalty increases.
+- Governance failures involving RPTs (for example funds moved to promoter entities) have featured in many Indian corporate collapses.
+
+## Edge cases and common mistakes
+- **Ordinary course and arm's length** are not automatic exemptions under LODR; they mainly matter under section 188.
+- **Splitting transactions** to stay below thresholds is caught by aggregation (transactions with a party in a year are added together).
+- **Material modifications** of approved RPTs need fresh approval.
+- **Subsidiary transactions** can be RPTs of the listed parent.
+- **Effective dates.** The new thresholds apply from the Fifth Amendment's effective date; earlier approvals were under the old test.
+
+## How traders, investors and quants use it
+- Investors measure RPT intensity (RPTs as a share of revenue or assets) as a governance risk.
+- Proxy voters scrutinise material RPT resolutions.
+- Quants include RPT intensity and approval controversies in governance scores.
+
+## Related concepts
+Audit committees; independent directors; minority shareholder protection; proxy advisors; governance risk scoring; transfer pricing.
+</lesson>
+<qa difficulty="hard"><q>Under the pre-2025 rule, was a ₹700 crore RPT material for a company with ₹5,000 crore turnover?</q><a>Threshold = lower of ₹1,000 crore and 10% × ₹5,000 crore = ₹500 crore. ₹700 crore exceeds it, so it was material and needed shareholder approval with related parties not voting in favour.</a></qa>
+<qa difficulty="medium"><q>Who approves RPTs under LODR Regulation 23?</q><a>All RPTs need prior approval of the audit committee (only independent directors on it vote on RPTs). Material RPTs additionally need prior shareholder approval by ordinary resolution, with related parties not voting in favour.</a></qa>
+<qa difficulty="hard"><q>What did SEBI's LODR Fifth Amendment of 2025 change about RPTs?</q><a>It replaced the uniform materiality threshold (lower of ₹1,000 crore or 10% of consolidated turnover) with scale-based thresholds linked to turnover in a new Schedule XII, effective from December 2025. Larger companies get higher absolute thresholds, so fewer routine transactions need shareholder votes, while audit committee oversight remains.</a></qa>
+<qa difficulty="expert"><q>Why do related parties not vote on material RPT resolutions, and what is the effect in promoter-controlled companies?</q><a>Related parties have a conflict of interest; letting them vote would let controllers approve their own deals. Excluding their votes means approval effectively depends on minority (and other non-related) shareholders, a "majority of the minority" check, which gives public investors a real veto over large RPTs in promoter-controlled companies.</a></qa>
+<qa difficulty="hard"><q>A company signs five separate ₹250 crore contracts with the same promoter firm in a year (turnover ₹10,000 crore, old rule). Is shareholder approval needed?</q><a>Transactions with the same related party in a financial year are aggregated: ₹1,250 crore. The old threshold was the lower of ₹1,000 crore and ₹1,000 crore (10% of turnover) = ₹1,000 crore, so the aggregate is material and needs shareholder approval. Splitting does not avoid it.</a></qa>
+<qa difficulty="medium"><q>When does section 188 of the Companies Act not require board approval for an RPT?</q><a>When the transaction is in the ordinary course of business and at arm's length. Listed companies must still follow LODR Regulation 23's audit committee and shareholder approval requirements.</a></qa>
+<source url="https://www.taxmann.com/post/blog/sebi-updates-rpt-materiality-thresholds-and-approval-norms/">SEBI updates RPT materiality thresholds and approval norms (Taxmann)</source>
+<source url="https://lexplosion.in/sebi-issues-sebi-lodr-fifth-amendment-regulations-2025-introduces-new-thresholds-for-determination-of-materiality-of-related-party-transactions/">SEBI LODR Fifth Amendment 2025: new RPT materiality thresholds (Lexplosion)</source>
+<source url="https://indiacorplaw.in/2025/08/27/sebis-2025-related-party-transactions-overhaul-balancing-ease-of-doing-business-and-investor-protection/">SEBI's 2025 RPT overhaul (IndiaCorpLaw)</source>
+<source url="https://www.business-standard.com/amp/markets/news/sebi-eases-rpt-rules-for-big-firms-125080401397_1.html">Sebi plans to ease RPT rules for big companies (Business Standard)</source>
+<source url="https://www.maheshwariandco.com/press-release/sebi-notifies-fifth-amendment-to-lodr-revised-materiality-framework-for-related-party-transactions/">SEBI notifies Fifth Amendment to LODR (Maheshwari and Co)</source>
+</topic>
+
+<topic id="518">
+<level>advanced</level>
+<lesson>
+# NCLT oppression and mismanagement case law: Tata–Mistry, quasi-partnership and just-and-equitable winding up
+
+## Core idea
+Minority shareholders who believe a company is being run in a way that unfairly harms them can petition the National Company Law Tribunal (NCLT) under sections 241 and 242 of the Companies Act 2013 for relief against "oppression and mismanagement". The Supreme Court's March 2021 judgment in the Tata–Mistry dispute set a high bar: the petitioner must show both prejudice and facts that would justify winding up the company on just and equitable grounds, and removing a director or chairman does not by itself qualify.
+
+## How it works, step by step
+1. **Who can apply (section 244).** Members holding at least 10% of the issued share capital or at least 100 members (or one-tenth of members), with the NCLT able to waive these requirements.
+2. **Grounds (section 241).** Affairs conducted in a manner prejudicial to public interest, oppressive to any member, or prejudicial to the company; or a material change in management or control likely to cause prejudice.
+3. **Test (section 242).** The NCLT must find that winding up would unfairly prejudice members, but that the facts would otherwise justify a just-and-equitable winding-up order. If so, it can grant relief to end the matters complained of.
+4. **Remedies.** Regulating conduct of affairs, buyouts of shares by other members, restrictions on transfers, setting aside transactions, removal of managing directors, and other orders.
+5. **Appeals.** To the National Company Law Appellate Tribunal (NCLAT), then the Supreme Court.
+
+## Formulas and numbers (worked example)
+Eligibility check: a company has 1,000 members and issued capital of ₹10 crore. A group holding ₹0.8 crore (8%) with 60 members does not meet either threshold (10% of capital or 100 members/one-tenth of members) and needs a waiver from the NCLT to file. With ₹1.2 crore (12%) it qualifies.
+
+Valuation in buyout remedies: if the NCLT orders the majority to buy out the minority, fair value might be computed on a going-concern basis without a minority discount, for example ₹500 a share × 24 lakh shares = ₹120 crore, rather than a discounted market price.
+
+## India specifics
+- **Tata Consultancy Services v. Cyrus Investments (Supreme Court, 26 March 2021).** Cyrus Mistry was removed as executive chairman of Tata Sons in October 2016; his family's companies (holding about 18% of Tata Sons) alleged oppression. The NCLT dismissed the petition (2018); the NCLAT reversed and ordered his reinstatement (December 2019); the Supreme Court set aside the NCLAT's order and restored the NCLT's dismissal.
+- **Holdings of the Supreme Court:** relief under sections 241 and 242 requires both oppression or prejudice and a just-and-equitable ground for winding up; mere removal of a director or executive chairman is not oppression; Tata Sons is not a quasi-partnership, so partnership-style "just and equitable" principles did not apply; section 242 does not empower reinstatement of a removed director in such cases; and Tata Sons' articles giving affirmative rights to the Tata Trusts were not oppressive.
+- Critics argue the judgment makes oppression claims harder for minorities to win.
+
+## Real examples and history
+- The just-and-equitable clause comes from partnership law: in small companies run like partnerships (quasi-partnerships) based on mutual trust, a breakdown of trust can justify winding up or a buyout.
+- Earlier Indian cases (for example Needle Industries, 1981) shaped the meaning of oppression as conduct that is burdensome, harsh and wrongful.
+
+## Edge cases and common mistakes
+- **Removal of directors.** Lawful removal by the majority is generally not oppression.
+- **Quasi-partnership claims.** Large companies with professional management are unlikely to be quasi-partnerships.
+- **Delay.** Long delays in complaining can weaken a case.
+- **Remedies are discretionary.** Even when oppression is found, the tribunal chooses the remedy.
+- **Listed companies.** Public shareholders more often rely on SEBI rules and voting; oppression petitions are more common in closely held firms.
+
+## How traders, investors and quants use it
+- Investors in closely held companies understand that legal remedies are limited and slow; governance rights (board seats, affirmative votes, exit clauses) should be negotiated upfront.
+- Event investors track major NCLT disputes for valuation effects (for example holding company discounts).
+- Analysts consider litigation risk in group structures where minority stakes are large.
+
+## Related concepts
+Minority shareholder protection; corporate governance; articles of association and affirmative rights; independent directors; buyout valuation.
+</lesson>
+<qa difficulty="medium"><q>Who can file an oppression and mismanagement petition under section 244?</q><a>Members holding at least 10% of issued share capital, or at least 100 members (or one-tenth of total members, whichever is less), subject to calls being paid; the NCLT can waive these requirements in appropriate cases.</a></qa>
+<qa difficulty="hard"><q>What dual test did the Supreme Court apply in Tata–Mistry?</q><a>Under section 242, the petitioner must show that the company's affairs were conducted in an oppressive or prejudicial manner, and that the facts would justify winding up on just-and-equitable grounds, yet winding up would unfairly prejudice members. Both elements must be proved by the petitioner.</a></qa>
+<qa difficulty="hard"><q>Why did the Supreme Court hold that Tata Sons was not a quasi-partnership?</q><a>Quasi-partnerships are companies formed on personal relationships and mutual trust, typically small, where members expect to participate in management. Tata Sons was a large company with professional management and shareholders whose entry did not rest on such a personal relationship, so partnership principles of trust and confidence did not apply.</a></qa>
+<qa difficulty="medium"><q>Did the Supreme Court reinstate Cyrus Mistry?</q><a>No. It set aside the NCLAT's order that had reinstated him, restored the NCLT's dismissal, and held that section 242 did not empower reinstatement in such a case; Mistry had also not sought reinstatement in his prayer.</a></qa>
+<qa difficulty="hard"><q>Why might the Tata–Mistry ruling make oppression claims harder for minorities?</q><a>It requires proving both oppression and grounds that would justify winding up, treats removal of directors as within the majority's rights, limits quasi-partnership arguments to genuinely partnership-like firms, and narrows remedies. Minorities in large companies must show serious, sustained misconduct, not just loss of influence.</a></qa>
+<qa difficulty="expert"><q>A minority investor in a private company wants protection against being sidelined. What should they negotiate rather than rely on sections 241 and 242?</q><a>Contractual rights in the shareholders' agreement and articles: board seats, affirmative voting rights on key matters, information rights, tag-along and drag-along rights, put options or exit mechanisms at fair value, and dispute resolution clauses. Oppression remedies are slow, discretionary and require a high threshold, so contractual protections are more reliable.</a></qa>
+<source url="https://www.scconline.com/blog/post/2021/05/15/tata-v-mistry-a-case-for-greater-protection-of-minority-shareholders-rights/">Tata v. Mistry: a case for greater protection of minority shareholders' rights (SCC Online)</source>
+<source url="https://cbcl.nliu.ac.in/company-law/conclusion-of-a-corporate-saga-the-tata-mistry-dispute/">Conclusion of a corporate saga: the Tata–Mistry dispute (CBCL, NLIU)</source>
+<source url="https://vinodkothari.com/2021/04/supreme-court-ruling-in-the-tata-mistry-case/">Supreme Court ruling in the Tata–Mistry case (Vinod Kothari)</source>
+<source url="https://www.mondaq.com/india/trusts/1058426/chronicles-of-tata-mistry-how-the-supreme-court-of-india-overturned-a-pyrrhic-victory39-into-an-irenic-victory39">Chronicles of Tata–Mistry (Mondaq)</source>
+</topic>
+
+<topic id="519">
+<level>advanced</level>
+<lesson>
+# Independent directors in India: independence criteria, appointment votes, removal and liability
+
+## Core idea
+Independent directors (IDs) are board members without material ties to the company, its promoters or management. In promoter-controlled Indian companies, they are meant to protect minority shareholders: they chair audit committees, approve related-party transactions and oversee management. Because promoters usually control voting, the rules on how IDs are appointed, removed and held liable decide whether they can be genuinely independent.
+
+## How it works, step by step
+1. **Board composition.** Listed companies must have at least one-third independent directors; at least half if the chair is executive or a promoter (LODR Regulation 17). Key committees (audit, nomination and remuneration) have independent majorities or chairs.
+2. **Independence criteria** (Companies Act section 149(6), LODR Regulation 16(1)(b)): not a promoter or related to promoters or directors; no material pecuniary relationship beyond limits; not a key managerial person or employee (or a relative) in the current or preceding three financial years; no significant shareholding; not a partner of the auditor or legal firms advising the company within set periods; SEBI also requires cooling-off periods for former key managerial persons of the company or group before they can be IDs.
+3. **Databank and test.** IDs must register with the Indian Institute of Corporate Affairs (IICA) databank and pass an online proficiency self-assessment test unless exempt by experience.
+4. **Appointment and removal (LODR Regulation 25(2A)).** Since January 2022, appointment, reappointment and removal of IDs of listed companies need a **special resolution** (75% of votes cast). Since a November 2022 amendment, if a special resolution for appointment fails but votes in favour exceed votes against overall and among public shareholders separately, the appointment is deemed approved.
+5. **Tenure.** Up to two consecutive terms of five years each, with a cooling-off period before reappointment.
+6. **Resignation.** IDs must disclose detailed reasons for resigning; the company must file the resignation letter with exchanges.
+7. **Liability (section 149(12)).** IDs are liable only for acts or omissions that occurred with their knowledge (attributable through board processes) and with their consent or connivance, or where they did not act diligently.
+
+## Formulas and numbers (worked example)
+Promoters hold 55%; public 45%. An ID's appointment gets: promoters 55% yes; public votes cast: 25% yes and 15% no (5% abstain).
+- Overall: yes 80 of 95 cast = 84.2% → special resolution passes.
+Another case: promoters 55% yes, public 10% yes and 30% no. Overall yes = 65/95 = 68.4% → special resolution fails. Votes in favour (65) exceed votes against (30), but public votes in favour (10) are fewer than against (30), so the deemed-appointment route also fails. Public shareholders effectively have a veto.
+
+## India specifics
+- SEBI's 2021 to 2022 reforms (effective January 2022) moved ID appointments to special resolutions to give minorities more influence, then added the dual-majority fallback to avoid deadlock.
+- High-profile ID resignations (for example during governance controversies) often signal trouble; exchanges publish resignation letters with reasons.
+- IDs have faced SEBI orders and prosecutions in fraud cases where they ignored red flags, though the law limits liability to matters within their knowledge.
+
+## Real examples and history
+- The Satyam fraud (2009), where independent directors failed to stop a large accounting fraud, drove the strengthening of independence and audit committee rules in the Companies Act 2013.
+- Clause 49 of the old listing agreement first required independent directors in Indian listed companies in the early 2000s.
+
+## Edge cases and common mistakes
+- **Independent on paper.** Long-tenured IDs or those with business ties can lack real independence.
+- **Promoter control of nominations.** Even with special resolutions, promoters usually propose candidates.
+- **Over-boarding.** Directors with too many board seats may not monitor effectively; limits apply (for example on the number of listed company directorships).
+- **Liability fears.** Excessive fear of liability deters capable people; the law's knowledge test aims to balance this.
+
+## How traders, investors and quants use it
+- Investors check board independence, ID tenure, attendance and resignations as governance signals.
+- Proxy advisers recommend votes on ID appointments; public shareholders' votes matter under the 2022 rules.
+- Quants include sudden ID resignations as negative events in governance risk models.
+
+## Related concepts
+Audit committee; related-party transactions; proxy advisers; corporate governance codes; Satyam case; SEBI LODR.
+</lesson>
+<qa difficulty="hard"><q>Promoters hold 70% and vote yes on an ID's removal; public votes cast are 10% yes and 15% no. Does the removal pass?</q><a>Total votes cast = 95%; yes = 80/95 = 84.2%, above 75%, so the special resolution passes and the ID is removed. (The deemed fallback for failed special resolutions applies to appointments, not removals.)</a></qa>
+<qa difficulty="medium"><q>What fraction of a listed company's board must be independent?</q><a>At least one-third; at least half if the chairperson is an executive director or a promoter (or related to one), under LODR Regulation 17.</a></qa>
+<qa difficulty="hard"><q>Why did SEBI require special resolutions for ID appointments from 2022?</q><a>To give public shareholders more say: with promoters often holding less than 75%, a special resolution needs some public support, so promoters cannot appoint or remove IDs on their own, strengthening IDs' independence from the people they monitor.</a></qa>
+<qa difficulty="expert"><q>Explain the November 2022 fallback for failed ID appointment resolutions and its purpose.</q><a>If a special resolution to appoint an ID fails to get 75%, the appointment is still deemed approved if votes in favour exceed votes against both among all shareholders and among public shareholders separately. This prevents deadlock when promoters and a majority of voting public shareholders support a candidate but a minority blocks the 75% threshold, while keeping public shareholders' majority view decisive.</a></qa>
+<qa difficulty="medium"><q>When is an independent director liable for a company's wrongdoing?</q><a>Under section 149(12), only for acts or omissions committed with their knowledge, attributable through board processes, and with their consent or connivance, or where they did not act diligently.</a></qa>
+<qa difficulty="hard"><q>A former CFO of a listed company left two years ago. Can they become an independent director of that company now?</q><a>No. Key managerial personnel (and employees) of the company in the current or preceding three financial years are not independent, and SEBI's rules add cooling-off periods for former KMP of the company and its group. They must wait until the cooling-off period has passed.</a></qa>
+<source url="https://vinodkothari.com/2022/11/sebi-lodr-amendments/">SEBI LODR amendments: minority say in independent directors (Vinod Kothari)</source>
+<source url="https://taxguru.in/sebi/regulation-25-sebi-lodr-obligations-independent-directors.html">Regulation 25 SEBI LODR: obligations for independent directors (TaxGuru)</source>
+<source url="https://businesstoday.in/latest/corporate/story/sebi-overhauls-rules-to-empower-independent-directors-303624-2021-08-08">SEBI overhauls rules to empower independent directors (Business Today)</source>
+<source url="https://ca2013.com/150-manner-of-selection-of-independent-directors-and-maintenance-of-databank-of-independent-directors/">Section 150: selection of independent directors and databank (CA2013)</source>
+<source url="https://blog.ipleaders.in/independent-director-companies-act-2013-legal-framework-2026/">Independent director under Companies Act 2013: legal framework guide 2026 (iPleaders)</source>
+</topic>
