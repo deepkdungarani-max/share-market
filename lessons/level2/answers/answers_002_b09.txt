@@ -1,0 +1,301 @@
+<topic id="545">
+<level>advanced</level>
+<lesson>
+# IFSC tax regime: s.10(4D)/10(4E)/10(4F) reliefs, the unit-level tax holiday, and GAAR limits
+
+## Core idea
+India's International Financial Services Centre (IFSC) at GIFT City competes with Singapore, Dubai and Hong Kong for offshore financial business. Its main attraction is tax: a 10-year profit-tax holiday for IFSC units, exemptions for specified income of funds and non-residents, and lower minimum alternate tax. These incentives sit in the Income-tax Act 1961 (sections 10(4D), 10(4E), 10(4F), 80LA, 115JB and others) and were carried into the Income-tax Act 2025 from 1 April 2026 under new section numbers. General anti-avoidance rules still apply to arrangements whose main purpose is tax avoidance.
+
+## How it works, step by step
+1. **Unit-level holiday (section 80LA).** An IFSC unit can deduct 100% of eligible profits for any 10 consecutive years out of the first 15, chosen by the unit. (The 2025 Bill version placed this in clause 147.)
+2. **Minimum alternate tax.** IFSC units earning solely in convertible foreign exchange pay MAT at 9% (instead of 15%) under the old regime; MAT credit can be carried forward.
+3. **Section 10(4D).** Exempts specified income of specified funds in IFSC (for example certain funds whose units are held by non-residents), such as gains on transfer of securities on IFSC exchanges, to the extent attributable to non-resident unit holders.
+4. **Section 10(4E).** Exempts income of non-residents from transfer of non-deliverable forward contracts and certain offshore derivatives entered with offshore banking units in IFSC.
+5. **Section 10(4F).** Exempts royalty or interest income of non-residents from leasing aircraft (and ships, under related provisions) to IFSC units.
+6. **Other reliefs.** Exemptions for non-residents on transfer of certain securities on IFSC exchanges, concessional treatment for relocated funds, and exemptions from some transaction taxes on IFSC trades.
+7. **Sunset dates.** Several benefits apply only to units starting operations before a cut-off date; budgets have extended these (reports indicate extension to 2030 in Budget 2025; confirm in the Finance Act).
+8. **GAAR.** India's General Anti-Avoidance Rules (applicable since April 2017 to arrangements with tax benefit above ₹3 crore) let tax authorities deny benefits of arrangements whose main purpose is a tax benefit and which lack commercial substance; IFSC status does not exempt sham structures.
+
+## Formulas and numbers (worked example)
+An IFSC fund manager earns ₹50 crore of profit a year.
+- Without incentives at 25% corporate tax: ₹12.5 crore tax.
+- With section 80LA (100% deduction): normal tax nil; MAT at 9% of book profit: ₹4.5 crore, creditable against future tax after the holiday.
+Over 10 years, savings versus 25% tax: about ₹80 crore (₹125 crore normal tax minus ₹45 crore MAT), before MAT credit use.
+
+A non-resident investor in an IFSC fund earns a $1 million gain on securities traded on an IFSC exchange: exempt under section 10(4D) to the extent attributable to non-resident unit holders, versus taxable at Indian rates if earned onshore.
+
+## India specifics
+- The Income-tax Act 2025 (in force from 1 April 2026) renumbered these provisions; the IFSC deduction appears in the 2025 Act's equivalent of section 80LA.
+- IFSC units also benefit from GST and stamp duty concessions and from operating in foreign currency.
+- The IFSCA regulates entities; tax benefits depend on meeting both IFSCA and tax conditions.
+
+## Real examples and history
+- Aircraft leasing in GIFT City grew rapidly after section 10(4F) and other exemptions, with lessors moving from Ireland and Singapore for India-related leases.
+- Fund management and banking units (IBUs) form the largest share of GIFT City activity.
+
+## Edge cases and common mistakes
+- **Ten consecutive years.** The holiday must be continuous within the 15-year window; skipping years is not allowed.
+- **Only eligible income.** Income from non-IFSC operations is not covered.
+- **MAT still applies** under the old regime, though at a lower rate.
+- **Substance.** Entities need real operations (staff, offices) in IFSC; shell structures risk GAAR and other challenges.
+- **Section numbers changed in 2026.** Use the 2025 Act's numbering for tax year 2026-27 onward.
+
+## How traders, investors and quants use it
+- Fund managers compare IFSC and overseas domiciles for after-tax returns.
+- Foreign investors consider IFSC funds and exchanges for India exposure with tax efficiency.
+- Tax advisers structure IFSC operations with substance to withstand GAAR scrutiny.
+
+## Related concepts
+IFSCA regulations; GIFT Nifty; LRS and resident access to IFSC; GAAR; Income-tax Act 2025; MAT.
+</lesson>
+<qa difficulty="medium"><q>What is the profit-tax holiday for IFSC units under section 80LA?</q><a>A 100% deduction of eligible profits for any 10 consecutive years out of the first 15 years from the relevant start year, at the unit's option.</a></qa>
+<qa difficulty="hard"><q>An IFSC unit has book profit of ₹30 crore and claims the full section 80LA deduction. What MAT applies under the old regime?</q><a>MAT at 9% of book profit = ₹2.7 crore (plus surcharge and cess as applicable), creditable against future regular tax. Without IFSC status, MAT would be 15%.</a></qa>
+<qa difficulty="hard"><q>What does section 10(4F) exempt?</q><a>Royalty or interest income of a non-resident on account of leasing an aircraft (and related assets) to a unit in the IFSC, making IFSC-based leasing attractive for foreign lessors and financiers.</a></qa>
+<qa difficulty="expert"><q>Can a company set up a thin IFSC unit to route domestic profits and claim the tax holiday? Explain GAAR's role.</q><a>No. The deduction covers only income from eligible IFSC operations, and arrangements whose main purpose is a tax benefit and which lack commercial substance can be challenged under GAAR (for benefits above ₹3 crore) and under specific anti-abuse provisions. A unit without real operations (staff, decision-making, activity in IFSC) risks denial of benefits.</a></qa>
+<qa difficulty="medium"><q>Why must IFSC units choose ten consecutive years for the holiday carefully?</q><a>Profits are often low in early years; starting the holiday too early wastes it on low or loss years. Units choose the 10-year window within 15 years to cover their most profitable years.</a></qa>
+<qa difficulty="hard"><q>How did the Income-tax Act 2025 affect IFSC incentives?</q><a>It carried the incentives forward from 1 April 2026 under new section numbers (for example the unit-level deduction moved from section 80LA to a new provision in the 2025 Act), keeping the 10-out-of-15-years structure. Taxpayers must cite the new sections for tax year 2026-27 onward and check any Finance Act changes.</a></qa>
+<source url="https://www.mondaq.com/india/leasing/1157312/budget-buzz-tax-incentives-to-international-financial-services-centre-ifsc">Budget buzz: tax incentives to IFSC (Mondaq)</source>
+<source url="https://ifsca.gov.in/Document/10_EY-GIFT_tax_benefits_050225.pdf">GIFT IFSC tax benefits (EY presentation hosted by IFSCA, February 2025)</source>
+<source url="https://www.vjmglobal.com/blog/tax-implications-units-established-indias-first-international-finance-service-centre-ifsc">Tax implications on units established in GIFT City IFSC (VJM Global)</source>
+<source url="https://studycafe.in/tax-incentives-to-international-financial-services-centre-ifsc-78319.html">Tax incentives to IFSC (StudyCafe)</source>
+</topic>
+
+<topic id="546">
+<level>intermediate</level>
+<lesson>
+# LRS, overseas portfolio investment rules and resident access to IFSC exchanges
+
+## Core idea
+Resident Indians can invest abroad, but within limits. The RBI's **Liberalised Remittance Scheme (LRS)** allows each resident individual to remit up to US$250,000 per financial year for permitted purposes, including investing in foreign shares and funds. The **Overseas Investment Rules and Regulations of 2022** under FEMA define what residents can buy (overseas portfolio investment, OPI). Remittances above a threshold attract **tax collected at source (TCS)**. Residents can also use LRS to invest through IFSC (GIFT City) platforms in US dollars.
+
+## How it works, step by step
+1. **Limit.** US$250,000 per person per financial year across all LRS purposes (travel, education, gifts, investment).
+2. **Process.** The investor remits through an authorised bank, declaring the purpose; the bank reports it.
+3. **Permitted investments (OPI).** Listed foreign shares, foreign mutual funds and ETFs, units of investment funds, and other permitted securities; unlisted shares only within specific conditions.
+4. **TCS.** Banks collect TCS on LRS remittances above ₹10 lakh per financial year (threshold raised from ₹7 lakh from 1 April 2025); for investments the rate above the threshold is 20%. TCS is not a final tax: it is credited against the investor's income tax or refunded.
+5. **IFSC access.** Residents can open accounts with IFSC brokers and trade permitted products on IFSC exchanges (for example US stocks through IFSC platforms), funded under LRS in US dollars.
+6. **Reporting and tax.** Foreign assets must be disclosed in the income tax return (Schedule FA), and foreign income and gains are taxed in India, with credit for foreign taxes under treaties where applicable.
+
+## Formulas and numbers (worked example)
+An investor remits ₹25 lakh in FY 2026-27 to buy US stocks:
+- TCS-free threshold: ₹10 lakh.
+- TCS on the excess ₹15 lakh at 20% = ₹3 lakh collected by the bank (shown in the investor's tax credit statement).
+- If the investor's final tax liability for the year is ₹5 lakh, the ₹3 lakh TCS is adjusted against it; if liability is lower, the excess is refunded after filing the return.
+LRS check: ₹25 lakh at ₹85 per US$ ≈ $29,400, well within $250,000.
+
+## India specifics
+- LRS limits have risen over time (from $25,000 in 2004 to $250,000 since 2015).
+- The 2022 overseas investment framework replaced older FEMA regulations, clarifying OPI versus overseas direct investment (ODI).
+- Budget 2025 removed TCS on education remittances funded by loans and raised the general threshold to ₹10 lakh; later changes (for example reported reductions for education and medical remittances in 2026) should be checked in the current Finance Act.
+- Resident investment in IFSC is under LRS, with IFSC entities treated as foreign for FEMA purposes.
+
+## Real examples and history
+- Interest in US stocks among Indian retail investors grew after 2020 through app-based platforms, many routing through GIFT City or overseas brokers.
+- In 2022, SEBI asked mutual funds to pause overseas investments when the industry-wide limit ($7 billion) was reached, pushing some investors to direct LRS routes.
+
+## Edge cases and common mistakes
+- **TCS is not an extra tax.** It is creditable, though it ties up cash until adjusted.
+- **Per person limit.** Family members each have their own $250,000 limit.
+- **Unspent funds.** Money remitted for investment should be invested within RBI timelines or repatriated.
+- **Schedule FA.** Failing to disclose foreign assets can attract heavy penalties under the Black Money Act.
+- **Currency risk.** Returns in rupees depend on USD/INR.
+
+## How traders, investors and quants use it
+- Investors diversify internationally through LRS, accounting for TCS cash flow and taxes.
+- Platforms offering US stocks structure accounts through IFSC or foreign brokers within LRS.
+- Financial planners track each family member's LRS usage.
+
+## Related concepts
+FEMA; IFSC; GIFT Nifty; TCS and income tax credits; Schedule FA; currency risk.
+</lesson>
+<qa difficulty="medium"><q>What is the LRS limit for a resident individual?</q><a>US$250,000 per financial year, covering all permitted current and capital account purposes, including investment abroad.</a></qa>
+<qa difficulty="hard"><q>A resident remits ₹18 lakh in a year for foreign stock investment. How much TCS is collected?</q><a>The first ₹10 lakh is TCS-free; on the excess ₹8 lakh, TCS at 20% = ₹1.6 lakh. This is credited against the investor's income tax for the year or refunded.</a></qa>
+<qa difficulty="medium"><q>Is TCS on LRS remittances a final tax?</q><a>No. It is tax collected in advance; it appears in the investor's tax credit statement and is adjusted against total tax liability, with any excess refunded after filing the return.</a></qa>
+<qa difficulty="hard"><q>A family of four wants to invest $600,000 abroad this year. Can they?</q><a>Yes, if each member uses their own limit: four × $250,000 = $1,000,000 capacity. Each remittance is in the individual's name and counts against their own limit, subject to TCS and source-of-funds checks.</a></qa>
+<qa difficulty="hard"><q>Why must residents disclose foreign assets in Schedule FA?</q><a>Indian residents are taxed on worldwide income and must report foreign assets and income in their return. Non-disclosure can attract penalties and prosecution under the Black Money (Undisclosed Foreign Income and Assets) Act 2015, even if the assets were bought legally under LRS.</a></qa>
+<qa difficulty="medium"><q>How do residents access IFSC exchanges?</q><a>By remitting funds under LRS to an account with an IFSC-registered broker and trading permitted products in US dollars; IFSC is treated as outside India for exchange-control purposes.</a></qa>
+<source url="https://itatonline.org/digest/articles/foreign-remittances-tcs-provisions-under-union-budget-2025">Foreign remittances and TCS provisions under Union Budget 2025 (itatonline)</source>
+<source url="https://www.rsm.global/india/insights/tax-insights/rationalizing-tcs-on-lrs-reform-for-budget-2025">Rationalising TCS on LRS (RSM India)</source>
+<source url="https://wise.com/in/blog/tcs-foreign-remittance">Complete guide to TCS when sending money abroad (Wise)</source>
+<source url="https://studycafe.in/tcs-limit-hiked-for-foreign-remittances-in-budget-2025-364911.html">TCS limit hiked for foreign remittances in Budget 2025 (StudyCafe)</source>
+</topic>
+
+<topic id="547">
+<level>expert</level>
+<lesson>
+# GIFT Nifty basis, quanto adjustment and overnight gap forecasting
+
+## Core idea
+GIFT Nifty futures trade in GIFT City in US dollars for about 21 hours a day, including hours when NSE is closed. Traders watch GIFT Nifty to predict where Nifty will open. But GIFT Nifty's price differs from the Nifty index for three reasons: the normal cost of carry (futures versus spot), a **quanto adjustment** (the contract pays in dollars on a rupee index, with a fixed dollar multiplier), and news arriving while NSE is shut. Separating these gives a cleaner forecast of the next day's gap.
+
+## How it works, step by step
+1. **Contract.** GIFT Nifty futures settle in USD with a fixed dollar value per index point, so gains and losses depend on the Nifty level in points, not on USD/INR: a quanto contract.
+2. **Fair value (carry).** Domestic futures fair value F = S × e^((r − q)T), where r is the rupee interest rate and q the dividend yield.
+3. **Quanto adjustment.** Because payoffs are in dollars, the fair value is adjusted by the covariance between Nifty and the rupee's dollar value: F_quanto ≈ F × e^(−ρ σ_S σ_X T), where ρ is the correlation between Nifty and the rupee's USD value (often positive: the rupee tends to weaken when Indian stocks fall), σ_S Nifty's volatility, σ_X the rupee's volatility. With positive ρ, quanto fair value is slightly below domestic fair value.
+4. **Basis at NSE close.** At 3:30 pm, GIFT Nifty minus Nifty ≈ carry plus quanto adjustment (plus noise).
+5. **Overnight change.** Movement in GIFT Nifty after NSE closes reflects global news (US markets, Asian open).
+6. **Forecasting the open.** Expected Nifty open ≈ Nifty close × (GIFT Nifty at 9:00 am / GIFT Nifty at 3:30 pm previous day), adjusted for any change in carry; or regress the actual opening gap on the GIFT Nifty change.
+
+## Formulas and numbers (worked example)
+Nifty closes at 25,000. Rupee interest rate 6.5%, dividend yield 1.3%, near-month contract with 20 days to expiry (T = 20/365 = 0.0548).
+- Carry = 25,000 × (e^(0.052 × 0.0548) − 1) ≈ 25,000 × 0.00285 ≈ 71 points.
+- Quanto adjustment with ρ = 0.4, σ_S = 14%, σ_X = 5%: 0.4 × 0.14 × 0.05 × 0.0548 = 0.000153 → about 4 points lower.
+- Fair GIFT Nifty at NSE close ≈ 25,000 + 71 − 4 = 25,067.
+Overnight GIFT Nifty moves from 25,067 to 25,280 by 9:00 am (+0.85%). Forecast Nifty open ≈ 25,000 × 1.0085 ≈ 25,212.
+If historically the slope of opening gaps on GIFT Nifty changes is 0.95, the forecast is 25,000 × (1 + 0.95 × 0.0085) ≈ 25,202.
+
+## India specifics
+- GIFT Nifty replaced SGX Nifty after trading migrated to NSE International Exchange in July 2023; it trades in two sessions covering Asian, European and US hours.
+- Domestic Nifty futures and GIFT Nifty can show different bases because of rupee versus dollar interest rates, quanto effects and different participants.
+- The pre-open session (9:00 to 9:15 am) sets Nifty's opening price, often close to GIFT Nifty-implied levels.
+
+## Real examples and history
+- On days with major US moves overnight, GIFT Nifty's move has typically been a good guide to the Nifty open, though Indian-specific news after the GIFT session and pre-open order imbalances cause deviations.
+- Quanto adjustments are standard in pricing products like Nikkei futures traded in dollars on the CME.
+
+## Edge cases and common mistakes
+- **Comparing GIFT Nifty with spot directly.** Remove the carry and quanto basis first.
+- **Contract rolls.** Near-month and next-month GIFT contracts have different carry.
+- **Indian news after GIFT trading.** Policy announcements before 9:00 am may not be in GIFT Nifty yet.
+- **Thin liquidity in late sessions.** GIFT Nifty quotes at odd hours may be less reliable.
+- **Overestimating quanto.** It is usually small for short maturities.
+
+## How traders, investors and quants use it
+- Day traders use GIFT Nifty to plan opening trades and hedges.
+- Quants build gap forecasts from GIFT Nifty, US index moves and currency moves, testing out of sample.
+- Foreign investors hedge Indian equity exposure in dollars through GIFT Nifty.
+
+## Related concepts
+Futures fair value; quanto derivatives; overnight gap risk; pre-open session; NSE IFSC Clearing; LRS.
+</lesson>
+<qa difficulty="hard"><q>Nifty closes at 24,500; the near GIFT Nifty contract has 15 days left; r − q = 5%. Ignoring quanto, what is the fair GIFT Nifty at the close?</q><a>T = 15/365 = 0.0411. Carry ≈ 24,500 × (e^(0.05 × 0.0411) − 1) ≈ 24,500 × 0.00206 ≈ 50 points. Fair value ≈ 24,550.</a></qa>
+<qa difficulty="expert"><q>Why does a positive correlation between Nifty and the rupee's dollar value make the quanto futures fair value lower?</q><a>The contract pays a fixed dollar amount per Nifty point. When Nifty rises, the rupee tends to strengthen, so a rupee-based holder of the index gains more in dollar terms than the quanto contract pays; when Nifty falls, the rupee tends to weaken, and the quanto contract avoids that extra loss. Pricing under the dollar measure shifts the expected index level by −ρσ_Sσ_X per unit time, lowering the fair futures price slightly.</a></qa>
+<qa difficulty="hard"><q>Compute the quanto adjustment in points for ρ = 0.3, σ_S = 16%, σ_X = 6%, T = 30 days, Nifty 25,000.</q><a>T = 30/365 = 0.0822. Adjustment = 0.3 × 0.16 × 0.06 × 0.0822 = 0.000237, i.e. 0.0237% × 25,000 ≈ 6 points lower than the domestic fair value.</a></qa>
+<qa difficulty="hard"><q>GIFT Nifty was 25,150 at NSE's close (fair basis 60 points) and 24,900 at 9:00 am. Forecast the Nifty open if Nifty closed at 25,090.</q><a>GIFT Nifty fell 250 points, about −0.994%. Forecast open ≈ 25,090 × (1 − 0.00994) ≈ 24,841. Alternatively, subtract the basis: 24,900 − 60 = 24,840, giving the same answer.</a></qa>
+<qa difficulty="medium"><q>Why is GIFT Nifty useful for traders in India?</q><a>It trades for about 21 hours, while NSE is closed, so its price reflects overnight global news and gives an indication of where Nifty is likely to open.</a></qa>
+<qa difficulty="expert"><q>How would you test whether GIFT Nifty fully predicts the Nifty opening gap?</q><a>Regress the Nifty opening gap (ln(open/previous close)) on the GIFT Nifty change between NSE close and 9:00 am (adjusted for carry), with a long sample. A slope near 1 and intercept near 0 indicate full transmission; check residuals for patterns related to Indian news, US data timing and pre-open imbalances, and test out of sample.</a></qa>
+<source url="https://getbelong.com/blog/how-gift-nifty-futures-settlement-works-in-us-dollars/">How GIFT Nifty futures settlement works in US dollars (Belong)</source>
+<source url="https://nseindia.com/nseint_clearing/nse-international-clearing-overview">NSE International Clearing overview</source>
+<source url="https://www-2.rotman.utoronto.ca/~kan/3032/pdf/AssetPricingAnomalies/French_Roll_JFE_1986.pdf">French and Roll (1986), variance over trading and non-trading periods</source>
+</topic>
+
+<topic id="548">
+<level>advanced</level>
+<lesson>
+# IFSCA regulations for funds, GCMUs, family investment funds and capital market intermediaries
+
+## Core idea
+The International Financial Services Centres Authority (IFSCA) regulates all financial activity in GIFT City's IFSC. For fund management and capital markets, its key frameworks are the **Fund Management Regulations 2025** (for fund management entities and their schemes, including family investment funds), the **Capital Market Intermediaries Regulations 2025** (for brokers, research entities and others), and frameworks for global in-house centres of financial groups. These aim to make GIFT City a competitive base for funds and intermediaries serving global and Indian clients in foreign currency.
+
+## How it works, step by step
+**Fund Management Regulations 2025 (in force February 2025, replacing the 2022 regulations):**
+1. **Fund management entities (FMEs)** must register with IFSCA before operating, meeting net worth, key personnel (principal officer, compliance officer with at least 5 years' relevant experience) and governance requirements.
+2. **Scheme types:** venture capital schemes, restricted schemes (for accredited or high-value investors, similar to alternative investment funds), retail schemes (open to wider investors with stricter rules), plus ETFs and other structures.
+3. **Minimum corpus.** For venture capital and restricted schemes, reduced from US$5 million to US$3 million in April 2025; open-ended schemes can start investing with US$1 million and reach the minimum within 12 months.
+4. **Family investment funds (FIFs).** Self-managed funds pooling money of a single family, with a high minimum corpus, allowing family offices to invest globally from IFSC.
+5. **Custody, valuation, disclosure** rules, with amendments in December 2025 including a migration window for appointing IFSC-based custodians.
+
+**Capital Market Intermediaries Regulations 2025 (April 2025):** register broker-dealers, clearing members, depository participants, investment advisers and a new category of research entities, with capital and conduct rules.
+
+**Global in-house centres (GICs).** Financial groups can set up IFSC units providing services to group entities; IFSCA approved new GIC rules in December 2025. The topic list refers to "GCMUs"; in IFSCA's published frameworks the closest category is these global in-house centres, so check the current IFSCA regulation for the exact term.
+
+## Formulas and numbers (worked example)
+A manager launches a restricted scheme in GIFT City:
+- Minimum corpus: US$3 million; it raises $20 million from 25 investors (minimum investment per investor as specified, for example $150,000 for accredited investors).
+- Management fee 1.5% = $300,000 a year; IFSC unit profits eligible for the 10-year tax holiday.
+- Non-resident investors' income from specified securities transactions may be exempt under IFSC tax provisions.
+A family investment fund for one family with $50 million can invest in global equities, private funds and real estate from IFSC under LRS for resident family members (subject to limits).
+
+## India specifics
+- GIFT City funds can also relocate from overseas jurisdictions with tax-neutral relocation provisions.
+- IFSC schemes operate in foreign currency; Indian residents invest through LRS within limits.
+- IFSCA has progressively eased rules to attract managers (lower corpus, faster launches) while strengthening governance.
+
+## Real examples and history
+- Fund management is one of the fastest-growing segments in GIFT City since 2020, along with banking and aircraft leasing.
+- The 2022 regulations created the first comprehensive framework; the 2025 rewrite simplified and updated it.
+
+## Edge cases and common mistakes
+- **Transition.** Schemes filed under old rules have specific transition paths.
+- **Investor eligibility.** Restricted schemes are for accredited or high-value investors only.
+- **Resident investors.** LRS limits apply to Indian residents.
+- **Terminology.** Regulations change names and categories; use current IFSCA texts.
+- **Substance.** Tax benefits need genuine IFSC operations.
+
+## How traders, investors and quants use it
+- Fund managers choose IFSC for India-focused funds with foreign investors, or global funds for Indian investors.
+- Wealth managers use FIFs for family offices.
+- Analysts track GIFT City's growth in assets under management and registrations.
+
+## Related concepts
+IFSC tax regime; LRS; NSE IFSC Clearing; GIFT Nifty; AIF regulations; family offices.
+</lesson>
+<qa difficulty="medium"><q>When did IFSCA's Fund Management Regulations 2025 take effect, and what did they replace?</q><a>They took effect in February 2025 (gazette date about 19 February 2025), replacing the IFSCA Fund Management Regulations 2022.</a></qa>
+<qa difficulty="hard"><q>What was the minimum corpus change for venture capital and restricted schemes in April 2025?</q><a>IFSCA reduced it from US$5 million to US$3 million; open-ended schemes can begin investing with US$1 million and have 12 months to reach the full minimum.</a></qa>
+<qa difficulty="medium"><q>What is a family investment fund in IFSC?</q><a>A self-managed fund that pools the money of a single family to invest in permitted assets globally from IFSC, subject to a minimum corpus and IFSCA rules.</a></qa>
+<qa difficulty="hard"><q>Why do Indian managers set up funds in GIFT City instead of Singapore or Mauritius?</q><a>GIFT City offers tax incentives (unit-level holiday, exemptions for non-resident investors on specified income), operation in foreign currency, proximity to India, a single regulator (IFSCA) and relocation provisions, often with lower costs than overseas jurisdictions.</a></qa>
+<qa difficulty="medium"><q>What new category did IFSCA's 2025 Capital Market Intermediaries Regulations introduce?</q><a>A research entity category for providing equity research and advisory services, alongside registrations for broker-dealers, clearing members and other intermediaries.</a></qa>
+<qa difficulty="hard"><q>What key personnel requirement applies to fund management entities under the 2025 regulations?</q><a>The principal officer, compliance officer and other key managerial personnel must have at least 5 years' experience in related activities in the securities market or financial products.</a></qa>
+<source url="https://www.taxmann.com/post/blog/ifsca-issues-fund-management-regulations-mandates-registration-for-fund-managers-before-operations-in-ifsc/">IFSCA issues Fund Management Regulations 2025 (Taxmann)</source>
+<source url="https://mondaq.com/india/fund-management-reits/1593048/key-reforms-introduced-under-the-international-financial-services-centre-authority-fund-management-regulations-2025">Key reforms under the IFSCA Fund Management Regulations 2025 (Mondaq)</source>
+<source url="https://ifsca.gov.in/Document/Legal/press-release-notification-of-ifsca-fund-management-regulations-202519022025091920.pdf">IFSCA press release on Fund Management Regulations 2025</source>
+<source url="https://www.business-standard.com/amp/markets/news/ifsca-relaxes-norms-fund-management-entities-new-gic-rules-2025-125122301137_1.html">IFSCA eases norms for fund managers, approves new GIC rules (Business Standard)</source>
+<source url="https://treelife.in/finance/ifsca-regulatory-newsletter-april-2025-to-november-2025/">IFSCA regulatory newsletter, April to November 2025 (Treelife)</source>
+</topic>
+
+<topic id="549">
+<level>intermediate</level>
+<lesson>
+# NSE Clearing internal shortage auctions: rules, fees and broker close-out policies
+
+## Core idea
+When a seller fails to deliver shares on settlement day, the buyer must still be protected. NSE Clearing handles such **short deliveries** by running a buying-in **auction** on the settlement day, buying shares from other sellers at the defaulter's cost. If no shares are found, the trade is **closed out** at a punitive price. Shortages can also be **internal**, when a broker's own selling client fails to deliver to its own buying client; since late 2025 these are also closed out at the clearing member level under NSE Clearing's process.
+
+## How it works, step by step
+1. **Short delivery.** A seller sells shares it does not deliver (for example selling shares not yet received, or BTST sales where the purchase failed).
+2. **Auction (T+1).** After pay-out on the settlement day, NSE Clearing conducts a buying-in auction in the trading system for the short quantity.
+3. **Auction price.** Sellers bid in the auction; the defaulting seller pays the auction price; if it exceeds the original sale price, the seller bears the difference.
+4. **Close-out if auction fails.** If no shares are bought in the auction, the trade is closed out in cash at the **higher of** (a) the highest price on the exchange from the trade day to the auction day, or (b) 20% above the official closing price on the auction day. The buyer receives this amount instead of shares.
+5. **Internal shortages.** When the buying and selling clients belong to the same broker, the broker historically handled them through internal auctions or close-outs under its policy. NSE Clearing's November 2025 framework has the CC execute close-out for both CC and internal shortages at the clearing member level, which members pass to the short-delivering and receiving clients.
+6. **Corporate actions.** If shortages span a record date, entitlements are handled separately (for example cash compensation for dividends).
+
+## Formulas and numbers (worked example)
+A client sells 500 shares at ₹400 but fails to deliver.
+- **Auction succeeds** at ₹412: the defaulter pays 500 × (412 − 400) = ₹6,000 extra plus charges.
+- **Auction fails:** the highest price from trade day to auction day was ₹430; the auction-day close is ₹405, so 20% above is ₹486. Close-out price = max(430, 486) = ₹486. The defaulter pays 500 × (486 − 400) = ₹43,000 to the buyer (beyond the sale proceeds it doesn't receive), a heavy penalty.
+- The buyer gets ₹486 × 500 = ₹2.43 lakh instead of shares, a windfall relative to the ₹400 purchase if the price is ₹405.
+
+## India specifics
+- Shortages often arise from BTST (buy today, sell tomorrow) trades when the purchase leg fails to deliver, from corporate actions, or from errors.
+- Under T+1, the auction occurs on the settlement day itself, after pay-out.
+- Brokers publish internal shortage policies, often matching the exchange's close-out rate.
+
+## Real examples and history
+- Shortages in stocks with sharp price rises (especially small caps or stocks in upper circuit) can lead to very large close-out costs for short sellers who could not deliver.
+- The 20% markup has existed for years to deter deliberate short delivery.
+
+## Edge cases and common mistakes
+- **Selling shares in transit.** Selling shares bought the previous day can fail if the earlier seller defaults (BTST risk).
+- **Pledged or frozen shares.** Shares that are pledged or blocked cannot be delivered, causing shortage.
+- **Upper circuit stocks.** No sellers in the auction leads to close-out at punitive rates.
+- **Buyers' surprise.** Buyers may receive cash instead of shares and miss gains above the close-out price.
+
+## How traders, investors and quants use it
+- Traders avoid selling shares they do not have free and clear; brokers block sales of unsettled holdings in risky cases.
+- Buyers of BTST shares understand the risk that their own buy may fail.
+- Event-driven traders note that close-out rules make naked short selling in cash markets costly.
+
+## Related concepts
+Settlement cycles (T+1); BTST; clearing corporations; SLB; corporate action shortage handling; circuit limits.
+</lesson>
+<qa difficulty="hard"><q>A seller fails to deliver 300 shares sold at ₹250. The auction fails; the highest price from trade day to auction day was ₹270, and the auction-day close is ₹240. What is the close-out price and the seller's cost?</q><a>20% above ₹240 = ₹288; highest price = ₹270. Close-out price = max(270, 288) = ₹288. The seller pays the difference 300 × (288 − 250) = ₹11,400 (beyond not receiving sale proceeds), plus charges.</a></qa>
+<qa difficulty="medium"><q>When does NSE Clearing run the shortage auction under T+1?</q><a>On the T+1 settlement day, after the pay-out is completed, through the NSE trading system.</a></qa>
+<qa difficulty="hard"><q>What changed for internal shortages under NSE Clearing's November 2025 framework?</q><a>Close-out for internal shortages (where buying and selling clients are with the same broker) is executed by the clearing corporation at the clearing member level, as for CC-level shortages, and members pass the close-out to the short-delivering and receiving clients, standardising treatment instead of leaving it to each broker's policy.</a></qa>
+<qa difficulty="medium"><q>Why is the close-out price set at a premium (up to 20% above the closing price)?</q><a>To penalise failure to deliver and discourage deliberate short selling without shares, and to compensate buyers for not receiving shares they paid for.</a></qa>
+<qa difficulty="hard"><q>Why can BTST trades lead to short deliveries?</q><a>In BTST, the investor sells on T+1 shares bought on T, before receiving them. If the original seller fails to deliver on T+1, the investor does not receive the shares and cannot deliver to their own buyer, creating a shortage passed down the chain.</a></qa>
+<qa difficulty="medium"><q>A buyer's purchase is closed out at a price above the market. Is the buyer better or worse off?</q><a>Usually better off in cash terms if the close-out price exceeds the current market price, since they receive more than the shares are worth; but they lose the position, which matters if the stock later rises above the close-out price.</a></qa>
+<source url="https://www.nseindia.com/static/products-services/equity-market-shortages-handling">NSE: equity market shortages handling</source>
+<source url="https://www.kotaksecurities.com/support/what-happens-when-theres-a-short-delivery-of-shares-and-the-exchange-finds-no-fresh-sellers-in-the-auction-markets">What happens when there's a short delivery and no fresh sellers in the auction (Kotak Securities)</source>
+<source url="https://nirmalbang.com/Internal-Shortage-Policy.pdf">Internal shortage policy (Nirmal Bang)</source>
+<source url="https://support.zerodha.com/category/trading-and-markets/trading-faqs/articles/what-is-short-delivery-and-what-are-its-consequences">What is short delivery and its consequences (Zerodha support)</source>
+</topic>
