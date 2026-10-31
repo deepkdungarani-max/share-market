@@ -1,0 +1,316 @@
+<topic id="170">
+<level>advanced</level>
+<lesson>
+# Iron butterflies and defined-risk weekly option selling in India
+
+## Core idea
+A short straddle sells an at-the-money call and put and collects the most premium, but its loss is unlimited if the market gaps. An **iron butterfly** (iron fly) is a short straddle plus a bought out-of-the-money call and put (the "wings"). The wings cap the loss, cut the margin needed and make position sizing simple, at the price of a smaller credit. For weekly index options in India, where gap risk and expiry-day margins are high, the iron fly and its wider cousin the iron condor are the standard defined-risk ways to sell premium.
+
+## How it works, step by step
+1. **Build it.** With the index at K: sell the K call and the K put; buy the K + W call and the K − W put (W = wing width).
+2. **Payoff at expiry.** Net credit C. Maximum profit C, if the index settles exactly at K. Maximum loss W − C, if it settles beyond either wing. Breakevens K − C and K + C.
+3. **Iron condor.** Sell an OTM put and call (K1 below, K2 above), buy further OTM wings. Wider profit zone, smaller credit.
+4. **Margin.** NSE's SPAN system recognises the hedge, so margin is far below that of a naked straddle; brokers' calculators show total margin as SPAN plus exposure minus spread benefit.
+5. **Management.** Many sellers take profits at 40 to 60% of the maximum credit, or close before expiry day to avoid expiry-day gamma and margin; some adjust by rolling the untested side.
+
+## Formulas and numbers (worked example)
+Nifty at 25,000, Tuesday weekly expiry, entered on Wednesday:
+- Sell 25,000 CE at 110 and 25,000 PE at 105: credit 215.
+- Buy 25,400 CE at 18 and 24,600 PE at 20: cost 38.
+- Net credit C = 177 points. W = 400. Maximum loss = 400 − 177 = 223 points. Breakevens 24,823 and 25,177.
+- Per lot (multiply by the current lot size, for example 65 units): maximum profit 177 × 65 = ₹11,505; maximum loss 223 × 65 = ₹14,495.
+
+Compared with the naked straddle (credit 215), the iron fly gives up 38 points of credit (18%) to cap the loss. A 3% gap (750 points) would cost the straddle about 750 − 215 = 535 points at expiry, but the iron fly only 223.
+
+Position sizing: with a risk budget of 1% of ₹30 lakh = ₹30,000 per trade, the number of lots = 30,000/14,495 ≈ 2 lots.
+
+## India specifics
+- Since 20 November 2024, each exchange has kept weekly expiries for only one benchmark index: Nifty on NSE (Tuesday since September 2025) and Sensex on BSE (Thursday). Bank Nifty and other weeklies ended.
+- SEBI's October 2024 package also added an extra 2% extreme loss margin on short options on expiry day, required upfront collection of option premium from buyers, removed the calendar-spread margin benefit on expiry day, and moved to intraday monitoring of position limits (from April 2025).
+- Indicative broker figures put a Nifty short straddle at roughly ₹2.5 lakh of margin per lot versus about ₹1 lakh for an iron fly, though this varies with volatility, wing width and lot size. Check a margin calculator for current numbers.
+- Costs: four legs mean four bid-ask spreads; STT is 0.1% of premium on option sales (from 1 October 2024), and exercised in-the-money options at expiry attract STT on intrinsic value.
+
+## Real examples and history
+- After SEBI's September 2024 study showed that 93% of individual F&O traders lost money between FY22 and FY24 (₹1.8 lakh crore in total), its measures targeted expiry-day speculation; selling naked premium on expiry day became more expensive in margin.
+- Traders report using iron flies mainly for the margin benefit, running more lots on the same capital. That raises risk again: capped risk per lot does not cap total risk if the number of lots grows.
+
+## Edge cases and common mistakes
+- **Buying wings too close.** Narrow wings cost a lot of credit; too wide and the maximum loss is large. A common choice is wings near the expected move or at 10 to 15 delta.
+- **Skew.** OTM puts on Nifty are priced at higher IV than calls, so the put wing costs more; this eats part of the variance risk premium you are trying to earn.
+- **Early exit costs.** Closing four legs before expiry costs four spreads; in illiquid wings this can be large.
+- **Settlement near a short strike.** The final settlement price is set from the closing prices of the last half hour; a position near K can swing between maximum profit and loss in the last minutes.
+- **Leverage creep.** Lower margin per lot tempts larger size; size by maximum loss, not by margin.
+
+## How traders, investors and quants use it
+- Systematic sellers run weekly iron flies or condors with fixed rules for entry day, wing delta, profit target and stop.
+- Quants backtest them with actual historical option prices, all four legs' spreads and taxes, and report results per unit of maximum loss.
+- Discretionary traders prefer iron condors when they expect a range and iron flies when they expect pinning near a strike.
+
+## Related concepts
+Short straddle and strangle; iron condor; SPAN and exposure margin; skew; variance risk premium; expiry-day ELM; position sizing by maximum loss.
+</lesson>
+<qa difficulty="hard"><q>An iron fly is built at 24,500 with wings at 24,100 and 24,900 for a net credit of 162. What are the breakevens and the maximum loss, and what is the P&L if Nifty settles at 24,700?</q><a>Breakevens 24,500 ± 162 = 24,338 and 24,662. Maximum loss = 400 − 162 = 238 points. At 24,700 the short 24,500 call loses 200, other legs expire worthless, so P&L = 162 − 200 = −38 points per unit.</a></qa>
+<qa difficulty="expert"><q>Why does buying the put wing of a Nifty iron fly reduce the variance risk premium the strategy earns?</q><a>Nifty skew prices OTM puts at higher implied volatility than ATM options, because investors pay extra for crash protection. The variance risk premium is concentrated in those OTM puts. When you buy the put wing you pay that rich premium yourself, giving back part of the premium earned on the ATM legs. The cost is the price of capping the tail.</a></qa>
+<qa difficulty="hard"><q>Compare the loss of a short straddle (credit 215) and an iron fly (credit 177, wings ±400) if Nifty settles 600 points above the strike.</q><a>Straddle: call loses 600, net 215 − 600 = −385 points. Iron fly: short call loses 600, long 25,400 call gains 200, net = 177 − 600 + 200 = −223 points (the maximum loss). The wings save 162 points in this scenario.</a></qa>
+<qa difficulty="medium"><q>How should you size an iron fly position, by margin or by maximum loss?</q><a>By maximum loss. Margin depends on the exchange's risk model and can change; maximum loss (W − C per unit times lot size) is fixed when you enter. Choose the number of lots so that the total maximum loss is within your risk budget per trade.</a></qa>
+<qa difficulty="hard"><q>Which SEBI measures from October 2024 changed the economics of expiry-day option selling?</q><a>An extra 2% extreme loss margin on short options on expiry day (from 20 November 2024); upfront collection of option premium from buyers; removal of the calendar-spread margin benefit on expiry day; one weekly benchmark per exchange; larger contract sizes; and intraday monitoring of position limits from April 2025. Together they raised capital needed and reduced the number of weekly expiries.</a></qa>
+<qa difficulty="expert"><q>An iron condor sells 24,700 PE and 25,300 CE (credit 95) and buys 24,400 PE and 25,600 CE (cost 22). Give max profit, max loss, breakevens and the reward-to-risk ratio.</q><a>Net credit = 73. Wing width = 300 on each side. Maximum loss = 300 − 73 = 227. Breakevens = 24,700 − 73 = 24,627 and 25,300 + 73 = 25,373. Reward-to-risk = 73/227 ≈ 0.32. The trade wins more often than an iron fly but each win is smaller relative to the maximum loss.</a></qa>
+<source url="https://tradingqna.com/t/is-it-stupid-to-do-an-iron-butterfly-over-a-short-straddle-just-for-the-margin-benefit/190883">Is it stupid to do an iron butterfly over a short straddle just for the margin benefit? (TradingQnA)</source>
+<source url="https://optionx.trade/blogs/iron-butterfly-vs-short-straddle">Iron butterfly vs short straddle: same trade, half the margin? (OptionX)</source>
+<source url="https://www.business-standard.com/amp/markets/news/sebi-announces-six-key-changes-to-curb-speculation-in-derivatives-trading-124100101316_1.html">Sebi rolls out 6 measures to rein in F&O speculation (Business Standard)</source>
+<source url="https://www.sebi.gov.in/media-and-notifications/press-releases/sep-2024/updated-sebi-study-reveals-93-of-individual-traders-incurred-losses-in-equity-fando-between-fy22-and-fy24-aggregate-losses-exceed-1-8-lakh-crores-over-three-years_86906.html">SEBI study: 93% of individual traders incurred losses in equity F&O between FY22 and FY24</source>
+<source url="https://www.fidelity.com/learning-center/investment-products/options/options-strategy-guide/short-iron-butterfly-spread">Short iron butterfly spread (Fidelity)</source>
+</topic>
+
+<topic id="171">
+<level>expert</level>
+<lesson>
+# Trading-time variance models and the weekend effect in Nifty implied volatility
+
+## Core idea
+Variance does not arrive evenly through calendar time. It arrives mostly while the market trades, with a burst at the open (overnight news) and smaller amounts over weekends and holidays. Trading-time variance models measure this and turn it into day weights for option pricing. Whether the market's option prices correctly charge for weekends is an empirical question: if they over-charge, weekend decay is a real edge for sellers; if they charge fairly, the apparent "free" Friday-to-Monday decay is an illusion, and the seller is simply paid for gap risk.
+
+## How it works, step by step
+1. **Decompose realised variance.** For each day: overnight return (previous close to open) and intraday return (open to close). Total daily variance = overnight variance + intraday variance (plus a covariance term).
+2. **Compare by day type.** Monday overnight (covering the weekend) versus Tuesday to Friday overnight; Monday intraday versus other days.
+3. **Fit a variance model** with calendar effects, for example GARCH(1,1) with dummies: σ²_t = ω + α ε²_t−1 + β σ²_t−1 + δ_Mon D_Mon + δ_hol D_postholiday + δ_event D_event. δ terms give the extra variance after non-trading periods and events.
+4. **Convert to day weights.** Weight of a weekend day ≈ (excess Monday variance over a normal day)/2 divided by a normal day's variance.
+5. **Test the option market.** Compare the business-time weights implied by option prices (how much IV in calendar terms changes from Friday to Monday for the same expiry) with those estimated from realised data. Measure the returns of delta-hedged short options held over weekends versus weekdays.
+
+## Formulas and numbers (worked example)
+Suppose over five years of Nifty data:
+- Average weekday close-to-close variance = (0.85%)² = 0.7225 %².
+- Tuesday to Friday overnight variance = (0.35%)² = 0.1225 %².
+- Monday overnight (weekend) variance = (0.50%)² = 0.25 %².
+Excess weekend variance over a normal overnight = 0.25 − 0.1225 = 0.1275 %². As a share of a full day = 0.1275/0.7225 = 0.176, i.e. the two weekend days add about 0.18 of a trading day; about 0.09 each. (Numbers are illustrative; estimate them on your own data.)
+
+With these weights, an option priced in calendar time should show its calendar IV fall on Friday and rise on Monday. If market IVs fall by less than the weights imply on Friday, options are relatively expensive over weekends, and short-option holders earn more than fair.
+
+## India specifics
+- Since September 2025, Nifty weeklies expire on Tuesday, so every weekly includes a weekend about two-thirds of the way through its life; Sensex weeklies on BSE expire on Thursday.
+- Indian studies have found day-of-week effects in Nifty returns and opening-jump effects at the start of the session. A GARCH study found day-of-the-week effects before the move to T+2 rolling settlement that weakened afterwards. Results depend strongly on the period studied.
+- India VIX, calculated with calendar minutes, typically drops into Friday close and rebounds on Monday, partly as a clock artefact.
+
+## Real examples and history
+- French and Roll (1986) showed that US stock variance over weekends and holidays is far less than calendar time implies; later work found weekend variance only about 10 to 20% above a single weekday.
+- Jones and Shemesh (2018, Journal of Finance) studied US options and found unusually negative returns to holding options over non-trading periods, suggesting option prices did not fully decline ahead of weekends: a measurable weekend edge for sellers in that market. Whether it exists in Nifty options must be tested with Indian data.
+
+## Edge cases and common mistakes
+- **Ignoring jumps.** A few weekends with huge news (Covid lockdowns, election exit polls) dominate weekend variance; estimates are unstable and need long samples or robust methods.
+- **Mixing event weekends with normal ones.** Budget or exit-poll weekends should be modelled as events.
+- **Bad open data.** Gaps are measured from the open; data with filled opens understates overnight variance.
+- **Changing market structure.** Expiry-day changes (Thursday to Tuesday), SEBI margins and trading hours shift patterns; re-estimate after structural changes.
+- **Confusing return effects with variance effects.** A positive Monday mean return does not mean low Monday risk.
+
+## How traders, investors and quants use it
+- Market makers set business-time weights per day and update them with realised data.
+- Quant sellers test whether holding hedged short options over weekends earns more per unit of risk than over weekdays, after costs and with gap tails included.
+- Risk managers use the excess weekend variance and event dummies to scale weekend position limits.
+
+## Related concepts
+Business time; GARCH; realised variance; overnight returns; event variance; India VIX methodology; short gamma.
+</lesson>
+<qa difficulty="expert"><q>Estimate a weekend day weight from these numbers: weekday overnight variance 0.09 %², Monday overnight variance 0.20 %², average full-day variance 0.64 %².</q><a>Excess weekend variance = 0.20 − 0.09 = 0.11 %². As a fraction of a full trading day: 0.11/0.64 = 0.172 for the whole weekend, about 0.086 per weekend day. So a weekend day carries under a tenth of a trading day's variance.</a></qa>
+<qa difficulty="hard"><q>Write a GARCH(1,1) variance equation with a Monday effect and explain how to interpret its coefficient.</q><a>σ²_t = ω + α ε²_t−1 + β σ²_t−1 + δ D_Mon,t, where D_Mon is 1 on Mondays (or the first session after any non-trading day). δ is the additional conditional variance on those days, beyond what normal GARCH dynamics predict. A positive, significant δ measures the extra variance from news accumulated over the weekend; dividing δ by the average daily variance gives the weekend's weight.</a></qa>
+<qa difficulty="expert"><q>What did Jones and Shemesh (2018) find, and why would it matter to a Nifty option seller?</q><a>They found that US option returns are unusually negative over non-trading periods such as weekends, consistent with option prices not falling enough before weekends to reflect the low variance that occurs when markets are closed. For a seller, that means holding short options over weekends earned extra return in that market. A Nifty seller should test whether the same mispricing exists in Indian options, net of costs and gap risk, rather than assume it.</a></qa>
+<qa difficulty="hard"><q>Why should exit-poll and Budget weekends be modelled separately when estimating weekend weights?</q><a>They carry scheduled, large information flows, so their variance is far higher than a normal weekend's. Including them with ordinary weekends inflates the average weekend weight, making normal weekends look riskier than they are, and treating them as normal underestimates their own risk. A separate event dummy or event weight handles both.</a></qa>
+<qa difficulty="medium"><q>How can you split a day's realised variance into overnight and intraday parts?</q><a>Overnight return r_on = ln(open_t/close_t−1); intraday return r_id = ln(close_t/open_t). Total close-to-close return = r_on + r_id. Variance of the total ≈ variance of r_on + variance of r_id + 2 × covariance. Averaging squared returns by day type gives each part's contribution.</a></qa>
+<qa difficulty="hard"><q>Since September 2025 Nifty weeklies expire on Tuesday. How does this change the weekend's role in a weekly option's life?</q><a>An option opened at the start of the cycle (Wednesday) now passes through a weekend before its final two sessions (Monday and Tuesday). In calendar time the weekend is two of seven days; in business time it is a small fraction of the variance. Sellers who open positions on Friday hold gap risk with little decay; most of the remaining variance and theta fall on Monday and Tuesday, including expiry day with its extra margin.</a></qa>
+<source url="https://www-2.rotman.utoronto.ca/~kan/3032/pdf/AssetPricingAnomalies/French_Roll_JFE_1986.pdf">French and Roll (1986), stock return variances over trading and non-trading periods</source>
+<source url="https://www.bostonfed.org/-/media/Documents/Workingpapers/PDF/wp98_6.pdf">Weekends can be rough: revisiting the weekend effect in stock prices (Boston Fed)</source>
+<source url="https://indianjournalofentrepreneurship.com/index.php/IJF/article/view/175875">Weekend effect in the banking and financial services sector: evidence from India</source>
+</topic>
+
+<topic id="172">
+<level>expert</level>
+<lesson>
+# Delta-hedging a short straddle: hedge frequency, transaction costs and gamma P&L attribution
+
+## Core idea
+A short straddle earns premium and loses when the market moves a lot. Delta hedging (trading futures to keep the position direction-neutral) converts it into a bet on volatility: the seller profits if realised volatility is below the implied volatility sold, and loses if it is above. But hedging is not free: every rebalance costs spread, taxes and slippage, and hedging less often leaves more random P&L. The art lies in choosing when to hedge and in attributing P&L correctly to gamma, theta and vega.
+
+## How it works, step by step
+1. **Daily P&L of a delta-hedged option position** (short gamma): P&L ≈ −½ Γ S² (r² − σ_i² Δt) − Vega × ΔIV − costs, where r is the realised return over the period, σ_i the implied volatility sold and Γ the position's gamma.
+   - The term ½ Γ S² σ_i² Δt is the theta earned; ½ Γ S² r² is the gamma loss.
+   - The breakeven daily move is S × σ_i × √Δt: smaller moves make money, larger ones lose.
+2. **Hedge with futures** (Nifty futures for Nifty options), in whole lots, so some residual delta always remains.
+3. **Choose a hedging rule:**
+   - Time-based: every hour, every day, at the close.
+   - Band-based (Whalley-Wilmott): rehedge only when delta drifts outside a band around zero; the optimal band widens with transaction costs and narrows with gamma, scaling roughly with (cost × Γ²)^(1/3).
+4. **Account for costs.** Leland's (1985) approach adjusts the volatility used for a short option to σ_L = σ × √(1 + √(2/π) × k/(σ√Δt)), where k is the round-trip cost rate and Δt the rehedge interval. Hedging more often raises the effective cost.
+5. **Hedging error.** With N rebalances over the option's life, Derman's approximation gives the standard deviation of P&L ≈ √(π/4) × Vega × σ/√N: halving the error needs four times as many rehedges.
+
+## Formulas and numbers (worked example)
+Short ATM Nifty straddle, S = 25,000, IV 13%, straddle gamma 0.0025 per point (per unit).
+- Breakeven daily move = 25,000 × 0.13/√252 = 25,000 × 0.00819 ≈ 205 points.
+- Theta earned per day ≈ ½ × 0.0025 × 205² ≈ 52 points.
+- If Nifty moves 250 points (1%): gamma loss ½ × 0.0025 × 250² ≈ 78 points. Net ≈ −26 points before costs.
+- If it moves 120 points: gamma loss 18 points, net ≈ +34 points.
+- If IV rises from 13% to 14% and the straddle's vega is 18 points per vol point, vega loss = 18 points.
+
+Leland with a round-trip cost k = 0.04% (spread plus taxes on futures), σ = 13%:
+- Daily rehedging: σ√Δt = 0.13 × 0.063 = 0.00819; Le = 0.798 × 0.0004/0.00819 = 0.039; σ_L = 13% × √1.039 = 13.25%.
+- Hourly (6 a day): σ√Δt = 0.00334; Le = 0.0956; σ_L = 13% × √1.0956 = 13.61%.
+The seller needs to sell at least about 13.6% IV to break even if hedging hourly with 13% realised volatility.
+
+## India specifics
+- Nifty futures are the usual hedge; STT on futures is 0.02% on the sell side (from 1 October 2024); add brokerage, exchange charges, GST, stamp duty and slippage.
+- Since lot sizes are large, residual delta after rounding to whole lots can be significant for small books.
+- Expiry-day gamma is extreme, and since November 2024 short options carry an extra 2% extreme loss margin on expiry day, which affects whether to hold hedged shorts into expiry.
+- India VIX gives the market's 30-day implied level; weekly options trade at their own IVs, often different from VIX.
+
+## Real examples and history
+- Leland (1985) first showed that with transaction costs, continuous hedging is impossible and costs grow without bound as hedging becomes more frequent.
+- Whalley and Wilmott derived asymptotically optimal no-trade bands, which in practice cut hedging costs more than Leland-style volatility adjustments.
+- Desk practice: option traders review daily P&L split into gamma, theta, vega and residual; a large residual signals model or data problems.
+
+## Edge cases and common mistakes
+- **Confusing delta hedging with risk removal.** Gamma and vega remain; a gap still causes a gamma loss.
+- **Over-hedging.** Hedging every small move pays costs without reducing much variance.
+- **Hedging on gaps.** After a gap, hedging locks in the loss; it cannot prevent it.
+- **Path dependence.** Same realised volatility can give different P&L, because gamma is highest near the strike; moves when the price is near the strike cost more.
+- **Ignoring vega.** IV spikes often coincide with big moves, so short straddle losses come from both gamma and vega.
+
+## How traders, investors and quants use it
+- Volatility traders sell straddles when IV is high relative to their forecast of realised volatility, and hedge with bands sized to costs.
+- Risk systems attribute P&L each day to gamma, theta, vega and costs to check whether profits come from the intended edge (IV above realised) or from luck.
+- Quants simulate hedging rules on historical intraday data to choose band widths.
+
+## Related concepts
+Variance risk premium; gamma and theta; Leland's model; Whalley-Wilmott bands; business-time volatility; expiry-day gamma; transaction costs.
+</lesson>
+<qa difficulty="hard"><q>A delta-hedged short option position has gamma −0.004 per point (per unit), S = 24,000, IV 15%. What is the breakeven daily move and the P&L for a 300-point move?</q><a>Breakeven = 24,000 × 0.15/√252 = 24,000 × 0.00945 ≈ 227 points. P&L = ½ × 0.004 × (227² − 300²) = 0.002 × (51,529 − 90,000) = 0.002 × (−38,471) ≈ −77 points per unit, before vega and costs.</a></qa>
+<qa difficulty="expert"><q>Using Leland's formula, what effective volatility should a seller use if realised volatility is 12%, round-trip costs are 0.05% and hedging is daily?</q><a>σ√Δt = 0.12 × √(1/252) = 0.12 × 0.063 = 0.00756. Le = √(2/π) × k/(σ√Δt) = 0.798 × 0.0005/0.00756 = 0.0528. σ_L = 12% × √1.0528 = 12.31%. The seller must sell options at or above about 12.3% IV just to break even.</a></qa>
+<qa difficulty="expert"><q>By Derman's approximation, how many rehedges are needed to halve the hedging error of an option position that you currently rehedge 20 times over its life?</q><a>The error scales with 1/√N. To halve it, N must quadruple: 80 rehedges. Costs rise roughly in proportion to the number of rehedges, so halving the error quadruples hedging costs, which is why bands are used instead.</a></qa>
+<qa difficulty="hard"><q>Why does a short straddle often lose from vega at the same time as from gamma?</q><a>Large index moves, especially falls, usually come with rising implied volatility (the market reprices risk), so a short-volatility position loses from the realised move (gamma) and from the higher IV (vega) together. This correlation makes losses larger than either effect alone would suggest.</a></qa>
+<qa difficulty="medium"><q>What is a hedging band and why does it save costs?</q><a>Instead of rehedging on a fixed schedule, you rehedge only when the position's delta moves outside a band around zero. Small fluctuations that would reverse anyway are not traded, so fewer trades and lower costs, while large delta drifts are still corrected. Optimal band width grows with costs and shrinks with gamma.</a></qa>
+<qa difficulty="hard"><q>Decompose a day's P&L: a short straddle with gamma 0.003, S = 25,000, IV 12%, vega 20 points per vol point. Nifty moves 150 points, IV falls by 0.5 point, and costs are 3 points.</q><a>Theta earned ≈ ½ × 0.003 × (25,000 × 0.12/√252)² = 0.0015 × (189.0)² ≈ 53.6 points. Gamma loss = 0.0015 × 150² = 33.75 points. Vega gain = 20 × 0.5 = 10 points. Costs −3. Total ≈ 53.6 − 33.75 + 10 − 3 ≈ +26.9 points per unit.</a></qa>
+<source url="https://users.ox.ac.uk/~ofrcinfo/pages_mfpapers/1999mf09.htm">Optimal hedging of options with small transaction costs (Whalley and Wilmott, Oxford)</source>
+<source url="https://ar5iv.arxiv.org/html/1103.2013">Conservative delta hedging under transaction costs (arXiv)</source>
+<source url="https://www.maths.tcd.ie/EMIS/journals/EJDE/Volumes/2014/165/florescu.pdf">Option pricing with transaction costs and Leland's approach (EJDE 2014)</source>
+<source url="https://www.business-standard.com/amp/markets/news/sebi-announces-six-key-changes-to-curb-speculation-in-derivatives-trading-124100101316_1.html">Sebi rolls out 6 measures to rein in F&O speculation (Business Standard)</source>
+</topic>
+
+<topic id="173">
+<level>advanced</level>
+<lesson>
+# Expiry-day gamma, pin risk and the 2% ELM: margin and liquidity effects on Nifty and Sensex expiry
+
+## Core idea
+On expiry day, at-the-money options have very little time left, so their gamma becomes enormous: a small move in the index can swing an option from near-worthless to valuable within minutes. Sellers collect the last bit of premium but carry this explosive risk. **Pin risk** is the uncertainty, near a strike, about whether an option will settle in or out of the money. SEBI added a 2% extra extreme loss margin (ELM) on short options on expiry day from 20 November 2024 to curb speculative selling on these days.
+
+## How it works, step by step
+1. **Gamma near expiry.** For an ATM option, Γ ≈ φ(0)/(S σ √τ) = 0.3989/(S σ √τ). As τ shrinks, Γ rises with 1/√τ.
+2. **Settlement.** Index options in India are cash-settled at the final settlement price, which is the index's closing value on expiry day. NSE's closing prices are based on the weighted average of trades in the last 30 minutes, so prices can still move the outcome until 3:30 pm.
+3. **Pin risk.** A short straddle at strike K is most profitable if the index closes at K, but with huge gamma a move of a few tens of points decides the outcome. For physically settled stock options, pin risk also means not knowing whether you will have to deliver or take delivery of shares.
+4. **Margins on expiry day.** Short options in contracts expiring that day pay an additional 2% ELM (of contract value). Calendar-spread margin benefit is not given on expiry day (from February 2025). Option buyers' premiums are collected upfront.
+5. **Liquidity.** Expiry-day volumes are dominated by very short-dated options; wider spreads appear in the final minutes and after big moves.
+
+## Formulas and numbers (worked example)
+Nifty at 25,000, σ = 12%.
+- One trading day left (τ = 1/252, √τ = 0.063): ATM call gamma = 0.3989/(25,000 × 0.12 × 0.063) ≈ 0.00211.
+- One hour left (about one-sixth of a session in variance terms, √τ ≈ 0.0257): gamma ≈ 0.3989/(25,000 × 0.12 × 0.0257) ≈ 0.00517, about 2.5 times higher.
+- A short ATM straddle with one hour left is worth about 0.8 × 25,000 × 0.12 × 0.0257 ≈ 62 points. Its gamma is about 0.0103. A 100-point move costs about ½ × 0.0103 × 100² ≈ 52 points (the approximation overstates large moves; at expiry the loss is 100 − 62 = 38 points net).
+
+ELM: contract value per lot at Nifty 25,000 with 65 units = ₹16.25 lakh. The extra 2% ELM = ₹32,500 per short lot on expiry day, on top of SPAN and normal exposure margin.
+
+## India specifics
+- From September 2025, Nifty weekly options expire on Tuesdays (NSE) and Sensex weeklies on Thursdays (BSE), so each exchange has one weekly expiry day.
+- SEBI's October 2024 package also limited weekly expiries to one benchmark per exchange and raised contract size to ₹15 to ₹20 lakh at introduction.
+- Lot sizes are reviewed periodically so contract values stay in range; check the current lot size before computing margins.
+- Stock options are physically settled; in-the-money stock options at expiry result in delivery, with STT on the intrinsic value of exercised contracts.
+
+## Real examples and history
+- SEBI's September 2024 study found that 93% of individual F&O traders lost money between FY22 and FY24, with aggregate losses above ₹1.8 lakh crore; the regulator's measures aimed especially at expiry-day speculation in index options.
+- Before the reforms, exchanges offered weekly expiries on several indices, so there was an expiry almost every day of the week; the 2024 rules cut this to one weekly per exchange.
+
+## Edge cases and common mistakes
+- **"It's only 5 rupees of premium."** Selling far OTM options for tiny premiums on expiry day has a small chance of a very large loss relative to premium.
+- **Holding shorts to the close.** The settlement price is computed from the last half hour; a position safe at 3:00 pm can be in the money at 3:30 pm.
+- **Margin shortfall.** The extra 2% ELM applies on expiry day; positions carried into expiry day need more margin, or brokers may square them off.
+- **Wide spreads.** Exiting near the close can cost far more than the theoretical value.
+- **Stock options.** Being short an ITM stock option at expiry means delivering or receiving shares, requiring stock or full funds.
+
+## How traders, investors and quants use it
+- Many professional sellers close or hedge short options before expiry day, accepting smaller premium to avoid gamma and the extra margin.
+- Expiry-day traders size positions by the loss from a move equal to the day's expected range, not by premium.
+- Quants model expiry-day gamma exposure of the whole market (dealer gamma) to anticipate pinning near large open-interest strikes or accelerations when large positions are breached.
+
+## Related concepts
+Gamma and theta; zero-days-to-expiry options; settlement price methodology; SPAN and ELM; physical settlement; SEBI F&O reforms; open interest.
+</lesson>
+<qa difficulty="hard"><q>Compute ATM gamma for Nifty at 24,000 with σ = 14% and 2 hours (about one-third of a session in variance terms) left.</q><a>τ = (1/3)/252 = 0.001323; √τ = 0.03637. Gamma = 0.3989/(24,000 × 0.14 × 0.03637) = 0.3989/122.2 ≈ 0.00326 per point per unit for one ATM option (double for a straddle).</a></qa>
+<qa difficulty="medium"><q>What is the extra ELM per short lot on expiry day if Nifty is at 25,500 and the lot is 65 units?</q><a>Contract value = 25,500 × 65 = ₹16,57,500. 2% of that = ₹33,150 per short lot, in addition to SPAN and normal exposure margin.</a></qa>
+<qa difficulty="hard"><q>Why is the index's settlement price not simply the last traded value at 3:29:59 pm?</q><a>NSE computes closing prices of the index constituents from the weighted average of trades in the last 30 minutes of the session, and the index's closing value is derived from those. Using an average reduces manipulation and noise at a single instant, but it means the outcome is shaped by the whole last half hour.</a></qa>
+<qa difficulty="expert"><q>A trader sells a Nifty 25,000 straddle with one hour left for 62 points. Nifty then moves 150 points against them. Estimate the loss at expiry and explain why the gamma approximation is misleading here.</q><a>At expiry, the straddle is worth 150 points (intrinsic value of the call), so loss = 150 − 62 = 88 points per unit. The gamma approximation (½ × 0.0103 × 150² ≈ 116 points) overstates the loss because gamma falls as the option moves away from the money; for large moves near expiry, use payoff values, not gamma.</a></qa>
+<qa difficulty="hard"><q>What is pin risk for a physically settled stock option?</q><a>If the stock closes very near the strike on expiry day, the holder of a short option does not know whether it will finish in the money and be assigned. If assigned, they must deliver shares (short call) or take delivery and pay (short put). A tiny move near the close changes this, so they may end up with an unwanted stock position or a funds shortfall over the settlement period.</a></qa>
+<qa difficulty="hard"><q>Why might a professional seller close a short straddle the day before expiry instead of collecting the last day's premium?</q><a>The last day's premium is small compared with the risk: gamma is at its highest, a modest move can turn the position into a loss, and from November 2024 short options carry an extra 2% ELM on expiry day, raising capital cost. Closing earlier gives up a little theta to remove the period of greatest risk and margin.</a></qa>
+<source url="https://www.business-standard.com/amp/markets/news/sebi-announces-six-key-changes-to-curb-speculation-in-derivatives-trading-124100101316_1.html">Sebi rolls out 6 measures to rein in F&O speculation (Business Standard)</source>
+<source url="https://www.angelone.in/news/market-updates/sebi-strengthens-index-derivative-rules">SEBI's new F&O rules effective 20 November 2024 (Angel One)</source>
+<source url="https://www.business-standard.com/amp/markets/news/two-key-changes-f-o-norms-will-now-take-effect-from-february-10-125010901188_1.html">Two key changes in F&O norms take effect from February 10 (Business Standard)</source>
+<source url="https://www.sebi.gov.in/media-and-notifications/press-releases/sep-2024/updated-sebi-study-reveals-93-of-individual-traders-incurred-losses-in-equity-fando-between-fy22-and-fy24-aggregate-losses-exceed-1-8-lakh-crores-over-three-years_86906.html">SEBI study on individual traders' F&O losses, FY22 to FY24</source>
+</topic>
+
+<topic id="174">
+<level>expert</level>
+<lesson>
+# Variance risk premium in Indian index options: evidence, tail risk and position sizing
+
+## Core idea
+Selling Nifty options earns, on average, the variance risk premium (VRP): implied volatility tends to be higher than the volatility that follows. But the payoff is like selling insurance: many small gains and rare, very large losses. Whether a premium-selling book survives depends less on the average edge than on how it is sized against those rare losses. This lesson covers the evidence and the main sizing methods.
+
+## How it works, step by step
+1. **Measure the edge.** Average weekly or monthly P&L of the strategy after realistic costs, from historical option prices.
+2. **Measure the tail.** Worst week and month in history, expected shortfall (average of the worst 1% or 5% of outcomes) and stress scenarios larger than anything in the sample (for example a 10% index gap with IV doubling).
+3. **Choose a sizing rule:**
+   - **Stress-loss cap:** size so that the stress loss is at most a set share of capital (say 10 to 20%).
+   - **Fixed fraction of maximum loss** for defined-risk structures (iron flies): risk 1 to 2% of capital per trade.
+   - **Kelly fraction:** n* = C × μ/σ² (lots) for small edges, but it assumes thin tails; with negatively skewed payoffs use a small fraction of Kelly, or not at all.
+   - **Volatility scaling:** reduce size when realised volatility or VIX is high, or when VIX is very low (thin premium relative to gap risk).
+4. **Respect margin.** Margin requirements (SPAN, exposure, extra ELM on expiry day) set the maximum size; never size to the maximum.
+5. **Diversify carefully.** Different expiries and underlyings help in normal times but become correlated in crashes.
+
+## Formulas and numbers (worked example)
+A weekly Nifty short straddle strategy, per lot (65 units): mean P&L after costs ₹1,235 a week, standard deviation ₹5,850, worst historical week −₹58,500. Capital ₹50 lakh.
+- **Naive Kelly:** n* = 50,00,000 × 1,235/(5,850²) = 6,17,50,00,000/3,42,22,500 ≈ 180 lots. In the worst historical week that would lose 180 × 58,500 = ₹1.05 crore, more than the capital. Kelly with thin-tail assumptions is dangerous here.
+- **Stress cap:** suppose a stress week of 2,000 points (an 8% gap) costs about ₹1,30,000 per lot. To keep stress loss at 10% of capital (₹5 lakh): 5,00,000/1,30,000 ≈ 3.8, so 3 lots.
+- Expected annual return at 3 lots: 3 × 1,235 × 52 ≈ ₹1.93 lakh, or 3.9% of capital: modest, because the tail dominates.
+- With iron-fly wings capping loss at 223 points (₹14,495 per lot) and a 2% risk per trade (₹1 lakh), the trader could run about 6 lots with a known worst case.
+
+## India specifics
+- A study of daily Nifty 50 and India VIX data from April 2021 to July 2025 reports a consistently positive and significant VRP, and evaluates short VIX futures, synthetic variance swaps and delta-hedged straddles to capture it.
+- Other Indian research suggests that heavy retail participation may change how variance risk is priced, and that past continuous variance helps forecast variance swap returns while jumps do not.
+- SEBI's September 2024 study: 93% of more than one crore individual F&O traders lost money from FY22 to FY24, with average losses of about ₹2 lakh each including costs; individuals spent about ₹50,000 crore on transaction costs over the period, and over 75% of loss-making traders kept trading. A positive VRP for well-run sellers does not contradict this: costs, poor sizing and buying lottery-like options explain most retail losses.
+- SEBI's measures from November 2024 (larger contracts, fewer weeklies, extra expiry-day ELM, upfront premium collection) raised the capital needed per position.
+
+## Real examples and history
+- **March 2020:** India VIX rose above 80 and Nifty swung by several percent daily; naked option sellers suffered huge losses, and some well-known short-volatility traders and funds globally (for example funds hit in February 2018's "Volmageddon" in the US) had shown the same pattern.
+- **4 June 2024:** Nifty fell about 5.9% on election results after IV had already been crushed by exit polls; short-volatility positions opened after the exit-poll fall were hit hard.
+
+## Edge cases and common mistakes
+- **Sizing by recent history.** A calm two-year sample hides the tail; include crisis periods or use stress scenarios.
+- **Selling more when premiums look low.** Low VIX means thin premium for the same gap risk.
+- **Doubling down after losses.** The classic way premium sellers blow up.
+- **Ignoring margin spikes.** Exchanges raise margins in volatile markets, forcing liquidation at bad prices.
+- **Counting wings as free.** Wings cost premium but are what make sizing safe.
+
+## How traders, investors and quants use it
+- Professional sellers set a maximum stress loss per book and size each strategy within it, buy tail protection, and scale exposure to the level of premium relative to forecast realised volatility.
+- Allocators judge premium-selling managers by drawdowns and behaviour in crises, not by Sharpe ratios from calm periods.
+- Individual traders who want exposure to the VRP use defined-risk structures and small size, and keep enough cash for margin spikes.
+
+## Related concepts
+Variance risk premium measurement; India VIX; Kelly criterion; expected shortfall; stress testing; iron flies and condors; SEBI F&O rules; margin calls.
+</lesson>
+<qa difficulty="expert"><q>Why does the Kelly formula n* = Cμ/σ² overstate the right size for a short-straddle strategy?</q><a>The formula comes from a second-order approximation of log growth that assumes moderate, roughly symmetric returns. Short options have strong negative skewness and fat left tails: rare losses many standard deviations large. These dominate log growth, so the true growth-optimal size is much smaller, and any error in estimating μ (which is small and noisy) pushes the formula toward ruinous leverage. Practitioners use stress caps or a small fraction of Kelly.</a></qa>
+<qa difficulty="hard"><q>With ₹40 lakh capital and a stress-loss limit of 15%, how many lots of a strategy can you run if the stress loss per lot is ₹1.2 lakh?</q><a>Stress budget = 15% × 40,00,000 = ₹6,00,000. Lots = 6,00,000/1,20,000 = 5 lots. Margin must also allow 5 lots with a buffer for margin increases.</a></qa>
+<qa difficulty="hard"><q>How can SEBI find that 93% of individual F&O traders lost money while research finds a positive variance risk premium for option sellers?</q><a>The VRP is an average edge for those who sell options systematically, at scale and at low cost. SEBI's figures cover all individuals, many of whom buy short-dated options (paying the premium), trade frequently with high transaction costs (about ₹50,000 crore over three years in total) and size poorly. Even sellers can lose if a tail event hits an oversized book. The two findings describe different groups and behaviours.</a></qa>
+<qa difficulty="expert"><q>Compute expected shortfall at 5% from these 20 weekly P&L results (₹ thousand): 4, 3, 5, −2, 4, 6, 3, −60, 2, 5, 4, 3, −8, 5, 4, 2, 6, 3, 4, 5.</q><a>The worst 5% of 20 outcomes is the single worst week: −60. Expected shortfall (5%) = −₹60,000. The mean is (sum = 4+3+5−2+4+6+3−60+2+5+4+3−8+5+4+2+6+3+4+5 = −2) ÷ 20 = −₹100 a week. One tail week turned 17 profitable weeks into a net loss, which is why the tail, not the win rate, decides sizing.</a></qa>
+<qa difficulty="hard"><q>Why might a seller reduce size when India VIX is unusually low, not only when it is high?</q><a>When VIX is very low, premiums are thin while the possibility of a sudden gap remains. The ratio of premium collected to potential tail loss worsens, and volatility often jumps from low levels. Sizing by expected loss relative to premium argues for smaller positions in very calm markets too.</a></qa>
+<qa difficulty="medium"><q>What does a stress-loss cap protect against that a historical maximum drawdown does not?</q><a>History contains only the crises that happened in the sample; the next crisis can be larger. A stress-loss cap sizes against a deliberately severe hypothetical scenario (for example an 8 to 10% gap with IV doubling), so the book survives events worse than the historical worst.</a></qa>
+<source url="https://www.sebi.gov.in/media-and-notifications/press-releases/sep-2024/updated-sebi-study-reveals-93-of-individual-traders-incurred-losses-in-equity-fando-between-fy22-and-fy24-aggregate-losses-exceed-1-8-lakh-crores-over-three-years_86906.html">SEBI study: 93% of individual traders incurred losses in equity F&O, FY22 to FY24</source>
+<source url="https://www.taxmann.com/post/blog/93-of-1-crore-fo-traders-saw-rs-2l-avg-loss-while-top-3-5-faced-rs-28l-avg-loss-incl-costs-sebi/">93% of 1 crore F&O traders saw Rs 2 lakh average loss (Taxmann)</source>
+<source url="https://researcher.manipal.edu/en/publications/dynamics-of-variance-risk-premium-evidence-from-india/">Dynamics of variance risk premium: evidence from India (Manipal)</source>
+<source url="https://www.goodreturns.in/news/bloodshed-continues-on-d-street-rs-40-lakh-crore-eroded-on-june-4-india-vix-jumps-40-relief-soon-1350191.html">June 4, 2024: India VIX jumps 40% (GoodReturns)</source>
+<source url="https://www.5paisa.com/index.php/blog/india-vix-vs-historical-volatility">India VIX vs historical volatility (5paisa)</source>
+</topic>
