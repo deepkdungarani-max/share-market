@@ -1,0 +1,347 @@
+<topic id="146">
+<level>advanced</level>
+<lesson>
+# Bonus stripping and dividend stripping rules (s.94) for mutual fund units and shares
+
+## Core idea
+Dividend stripping and bonus stripping are tax-avoidance trades built around a record date. In **dividend stripping**, an investor buys just before the record date, receives a dividend, and sells just after it at a lower price, creating a capital loss to offset other gains while the dividend itself is tax-free or lightly taxed. In **bonus stripping**, an investor buys before the record date, receives free bonus units or shares, sells the originals at a loss, and keeps the bonus units, which have nil cost, for a later long-term gain. Section 94(7) and section 94(8) of the Income-tax Act 1961 neutralise these losses. The Income-tax Act 2025 carries the same rules forward from 1 April 2026 under new section numbers.
+
+## How it works, step by step
+**Section 94(7), dividend stripping.** The loss is ignored up to the amount of the dividend when all three conditions hold:
+1. the securities or units were bought within 3 months before the record date;
+2. they were sold within 3 months after the record date (securities) or within 9 months after it (units); and
+3. the dividend or income received on them is exempt.
+Only the loss up to the dividend is ignored; any excess loss is allowed.
+
+**Section 94(8), bonus stripping.** When:
+1. securities or units are bought within 3 months before the record date for a bonus;
+2. bonus securities or units are allotted on them; and
+3. all or any of the original holding is sold within 9 months after the record date while the bonus holding is still kept,
+then the loss on the originals is ignored, and is instead treated as the cost of the bonus securities or units still held. The loss is deferred to when the bonus holding is sold, not destroyed.
+
+**Scope changes.** Section 94(8) applied only to mutual fund units until the Finance Act 2022 extended it to securities, including shares, from AY 2023-24 (FY 2022-23). The same amendment widened "unit" to cover units of business trusts (REITs, InvITs) and alternative investment funds.
+
+## Formulas and numbers (worked example)
+**Bonus stripping on shares.** On 1 March you buy 1,000 shares at ₹600 (₹6,00,000). Record date for a 1:1 bonus: 20 March. The price adjusts to about ₹300. On 15 June you sell the original 1,000 shares at ₹305: proceeds ₹3,05,000, loss ₹2,95,000.
+- Without section 94(8): a ₹2,95,000 short-term capital loss, set off against other gains, while the 1,000 bonus shares (nil cost) are held for more than 12 months and later taxed at 12.5% above the exemption.
+- With section 94(8): the ₹2,95,000 loss is ignored this year, and the 1,000 bonus shares get a cost of ₹2,95,000 (₹295 each). When they are later sold at, say, ₹340: gain = 1,000 × (340 − 295) = ₹45,000.
+
+**Dividend stripping.** You buy units at ₹15 just before a ₹2 exempt distribution and sell at ₹13 within the window: the ₹2 loss per unit is ignored because it does not exceed the ₹2 distribution. If you sold at ₹12.50, the loss is ₹2.50; ₹2 is ignored and ₹0.50 is allowed.
+
+## India specifics
+- **Dividends became taxable in 2020.** From 1 April 2020, dividend distribution tax was abolished and dividends are taxed in the investor's hands. Since section 94(7) applies when the dividend is exempt, its practical scope narrowed. Commentators disagree on how far it still reaches taxable dividends, and at least one tribunal is reported to have applied it more widely, so treat the point as contested.
+- **Where 94(7) still clearly matters:** distributions that remain exempt, such as certain REIT and InvIT distributions, which is why the 2022 amendment brought those units within the definition.
+- **History.** In *CIT v. Walfort Share and Stock Brokers* (2010) the Supreme Court held that, for years before section 94(7) existed, a dividend-stripping loss could not be disallowed just because the transaction was tax-motivated. Section 94(7), effective from AY 2002-03, was Parliament's targeted fix.
+- **Mutual fund bonus stripping** was common in the early 2000s, when funds declared bonus units and investors used the trade to generate short-term losses; section 94(8) was introduced for units from AY 2005-06.
+
+## Real examples and history
+- Before 2022, investors could still bonus-strip shares (not units). After large Indian bonus announcements, articles explained how to buy before the record date, sell the originals at a loss and keep the bonus shares. The Finance Act 2022 closed this.
+- Indian event studies report positive returns around bonus ex-dates followed by weakness, which some authors attribute partly to bonus-stripping trades.
+
+## Edge cases and common mistakes
+- **Only originals bought within 3 months are covered.** Shares held for years before the record date are outside section 94(8), even if sold at a loss after a bonus.
+- **Selling the bonus shares too.** Section 94(8) requires that the bonus holding is still held when the originals are sold; if both are sold, the provision's condition is not met and the ordinary rules apply.
+- **Timing windows differ.** For dividend stripping, 3 months after the record date for securities but 9 months for units. For bonus stripping, 9 months after the record date for both.
+- **Loss deferred, not lost.** Under section 94(8) the ignored loss becomes the cost of the bonus holding.
+- **FIFO interaction.** Within one demat account, FIFO decides which shares are treated as sold; a sale may be matched to older lots outside the 3-month window.
+
+## How traders, investors and quants use it
+- Investors check the 3-month and 9-month windows before selling around corporate actions to avoid a surprise disallowance.
+- Tax-aware backtests of event strategies around bonus record dates must apply section 94(8) cost shifting, or after-tax returns are overstated.
+- Advisers use the provisions when explaining why buying "for the bonus" does not create free tax losses.
+
+## Related concepts
+Record date and ex-date; nil cost of bonus shares (section 55(2)(aa)); FIFO under section 45(2A); set-off of capital losses; dividend taxation after 2020; REIT and InvIT distributions; Income-tax Act 2025.
+</lesson>
+<qa difficulty="hard"><q>You buy 2,000 units of a fund on 10 January, a 1:1 bonus has record date 25 January, and you sell the 2,000 original units on 30 September at a loss of ₹1,20,000, keeping the bonus units. Does section 94(8) apply?</q><a>Yes. The purchase was within 3 months before the record date, bonus units were allotted and are still held, and the sale on 30 September is about 8 months and 5 days after 25 January, within the 9-month window. So the ₹1,20,000 loss is ignored and becomes the cost of the 2,000 bonus units (₹60 each).</a></qa>
+<qa difficulty="hard"><q>Same facts, but you sell the originals on 30 November. What changes?</q><a>30 November is more than 9 months after 25 January, so section 94(8)'s condition is not met. The ₹1,20,000 is an ordinary capital loss (short-term or long-term depending on the holding period), and the bonus units keep nil cost.</a></qa>
+<qa difficulty="expert"><q>Why did the Finance Act 2022 extend section 94(8) from units to securities, and what trade did it stop?</q><a>Until then only mutual fund units were covered, so investors could bonus-strip listed shares: buy before a large bonus record date, sell the originals after the ex-date at roughly half the price to book a short-term loss against other gains, and keep the nil-cost bonus shares for a later long-term gain at a lower rate. Extending the rule to securities from AY 2023-24 makes such a loss the cost of the bonus shares instead of an immediate deduction.</a></qa>
+<qa difficulty="expert"><q>An investor buys REIT units 1 month before a record date, receives an exempt distribution of ₹8 per unit and sells 2 months after the record date at a loss of ₹11 per unit. How much loss is allowed?</q><a>All three section 94(7) conditions hold: purchase within 3 months before the record date, sale within 9 months after it (units), and an exempt distribution (REIT units have been within section 94(7)'s "unit" definition since the 2022 amendment). The loss is ignored up to the distribution: ₹8 of the ₹11 is ignored and ₹3 per unit is allowed as a capital loss.</a></qa>
+<qa difficulty="hard"><q>What did the Supreme Court decide in CIT v. Walfort Share and Stock Brokers (2010), and why does section 94(7) matter for it?</q><a>The Court held that for assessment years before section 94(7) applied, the loss from a dividend-stripping transaction could not be disallowed just because the transaction was designed to save tax, and expenditure could not be apportioned to exempt dividend income on that basis. Section 94(7), from AY 2002-03, is the specific rule Parliament introduced to disallow such losses up to the dividend.</a></qa>
+<qa difficulty="medium"><q>Does section 94(8) permanently deny the loss on the original shares?</q><a>No. It ignores the loss in the year of sale but adds it to the cost of the bonus shares still held, so it reduces the gain (or increases the loss) when those bonus shares are sold later.</a></qa>
+<source url="https://learn.quicko.com/bonus-stripping-section-94-8-income-tax-act">Bonus stripping under section 94(8) (Quicko)</source>
+<source url="https://learn.quicko.com/dividend-stripping-section-94-7-income-tax-act">Dividend stripping under section 94(7) (Quicko)</source>
+<source url="https://aiftponline.org/journal/2022/february-2022/proposal-relating-to-capital-gains-under-finance-bill-2022/">Proposals relating to capital gains under Finance Bill 2022: bonus and dividend stripping (AIFTP Journal)</source>
+<source url="https://itatonline.org/archives/cit-vs-walfort-share-stock-brokers-supreme-court-pre-s-947-dividend-stripping-loss-cannot-be-disallowed-transaction-cannot-be-ignored-on-ground-that-it-is-for-tax-planning/">CIT vs. Walfort Share and Stock Brokers, Supreme Court (itatonline)</source>
+<source url="https://cleartax.in/s/dividend-stripping-india/">Dividend stripping in India (ClearTax)</source>
+</topic>
+
+<topic id="147">
+<level>advanced</level>
+<lesson>
+# Ex-date price discovery, base price reset and order handling during corporate actions on NSE/BSE
+
+## Core idea
+On the ex-date of a corporate action, yesterday's closing price no longer describes today's share. Exchanges handle this in two ways. For simple ratio events (bonus, split, consolidation, rights), the exchange adjusts the stock's base price mechanically, and normal trading proceeds with price bands on the adjusted base. For schemes of arrangement such as demergers, where nobody knows the new value in advance, NSE and BSE run a **special pre-open session (SPOS)**: a call auction that lets the market discover the price before continuous trading starts. Brokers, margin systems and derivative contracts all have their own rules for the transition.
+
+## How it works, step by step
+**Ratio events (bonus, split, consolidation, rights).**
+1. The exchange computes the adjusted base price from the last cum close, e.g. close/2 for a 1:1 bonus.
+2. Daily price bands (circuit limits) apply around the adjusted base.
+3. The stock opens in the normal pre-open session and trades normally.
+
+**Ordinary dividends.** The base price is generally not changed; the stock simply opens lower by about the dividend because buyers no longer get it.
+
+**Schemes of arrangement (demergers, some mergers).**
+1. On the ex-date the stock enters a special pre-open session (in the Reliance case, 9:00 to 10:00 am) instead of the normal one.
+2. The base price is the last cum date close, and **no price bands apply** during the session.
+3. Orders are collected and a single equilibrium price is found by call auction. If no equilibrium price is found, outstanding orders are cancelled and the stock continues in the special pre-open session until a price is determined.
+4. Continuous trading then starts with bands around the discovered price.
+5. The value of the demerged business is implied as the difference between the last cum close and the discovered price. Index providers use this to give the spun-off company a constant price inside the index until it lists.
+
+**Derivatives and margin.** For schemes of arrangement, NSE's recent practice is to expire existing F&O contracts early on the last cum date with physical settlement, run no pre-open session in futures on the ex-date, and launch new contracts with strikes based on the price discovered in the SPOS. Margin trading funding (MTF) positions in such stocks are typically squared off a day before the ex-date (not for bonus, split, dividend or rights).
+
+**Brokers.** Many brokers cancel pending GTT or good-till-cancelled orders on stocks going ex-bonus, ex-split or ex-demerger, because trigger prices set on the old basis would be wrong.
+
+## Formulas and numbers (worked example)
+**Bonus.** Last cum close ₹1,284, 1:1 bonus. Adjusted base = ₹642. With a 10% band, the stock can trade between about ₹577.80 and ₹706.20 on the ex-date.
+
+**Demerger.** Reliance closed ₹2,841.85 on 19 July 2023. In the SPOS on 20 July the discovered price was ₹2,580. Implied value of Jio Financial Services = 2,841.85 − 2,580 = ₹261.85 per share. The index providers included Jio Financial at that constant price until it listed.
+
+**Dividend.** Cum close ₹480, dividend ₹12. No base price adjustment; with bands of 20% around ₹480, an opening near ₹468 is normal and reflects the dividend, not news.
+
+## India specifics
+- SPOS is also used for IPO listing days and for re-listed securities.
+- NSE Indices changed its methodology in April 2023 so that a company undergoing a demerger stays in its indices, with the demerged entity added at the derived constant price and removed after it lists. Jio Financial Services was included this way and later excluded (in September 2023, after several postponements because it hit circuit limits).
+- The new listing of a demerged entity also starts with a special pre-open session, and its first days often have tight price bands.
+- With T+1, the ex-date is the record date, so the price change and the eligibility cut-off happen on the same day.
+
+## Real examples and history
+- **Reliance and Jio Financial, July 2023:** the first large demerger handled with the revised index methodology and SPOS. The discovered value of ₹261.85 was well above most brokers' estimates of ₹120 to ₹200.
+- **Tata Motors (October 2025), Hindustan Unilever (December 2025), ABFRL (May 2025), Vedanta (2026):** demergers handled with SPOS on the ex-date and early F&O expiry.
+
+## Edge cases and common mistakes
+- **Reading the ex-date drop as a crash.** Charts that are not adjusted show a gap; scanners using raw prices can fire false signals.
+- **No price bands in SPOS.** Large market orders can execute far from the previous close; use limit orders.
+- **GTT and stop orders.** Check whether your broker cancelled them; re-enter on the new price basis.
+- **Futures holders on demergers.** Positions expire early and settle physically; an unprepared futures holder can end up with a delivery obligation.
+- **Assuming the demerged company's value is known.** The SPOS price can differ greatly from analyst estimates.
+- **Dividend and F&O.** A dividend of 2% or more of the price triggers strike and futures adjustments; below that, nothing changes in the contracts.
+
+## How traders, investors and quants use it
+- Traders read the exchange's corporate action calendar and SPOS notices before the ex-date and avoid market orders in the session.
+- Arbitrageurs compare the SPOS-implied value of the spun-off business with its eventual listing price.
+- Quants record the SPOS price as the parent's ex-date reference and use the implied value as the adjustment factor input for historical series.
+
+## Related concepts
+Call auction and pre-open sessions; price bands and circuit filters; demerger accounting and index treatment; F&O corporate action adjustments; record date and ex-date under T+1; GTT orders.
+</lesson>
+<qa difficulty="hard"><q>A stock closes ₹3,150 on the last cum date and goes ex-split from ₹10 to ₹2 face value. What is the adjusted base price, and what are the band limits on a 10% band?</q><a>Split factor 5, adjusted base = 3,150/5 = ₹630. A 10% band allows trading from ₹567 to ₹693 on the ex-date (subject to tick rounding).</a></qa>
+<qa difficulty="expert"><q>Why does NSE use a call auction without price bands for demerger ex-dates, instead of a mechanical base price adjustment as for a bonus?</q><a>For a bonus or split, the new fair price is known exactly from the ratio. For a demerger, the value of the business being spun off is unknown until the market prices it, so any mechanical base price would be a guess. A call auction gathers all orders and finds one equilibrium price, and removing bands avoids blocking trading if the market's view is far from estimates. The implied value of the spun-off business then comes from the difference between the last cum close and the discovered price.</a></qa>
+<qa difficulty="hard"><q>The parent of a demerger closed ₹1,020 on the last cum date. The SPOS discovers ₹935. The demerger ratio is 1 new share for every 2 parent shares. What is the implied value per new share?</q><a>Value per parent share removed = 1,020 − 935 = ₹85. Each parent share entitles the holder to 0.5 new shares, so the implied value per new share = 85/0.5 = ₹170.</a></qa>
+<qa difficulty="hard"><q>A trader holds 2 lots of futures in a stock with a demerger ex-date tomorrow. What happens under NSE's recent practice?</q><a>The existing contracts expire early, on the last cum date (today), and are settled physically: a long futures holder must take delivery of 2 lots of shares at the settlement price and pay for them; a short must deliver. New futures and options are introduced from the ex-date with strikes based on the SPOS price. The trader must arrange funds or shares, or close the position before expiry.</a></qa>
+<qa difficulty="medium"><q>Why do some brokers cancel GTT orders on a stock going ex-bonus?</q><a>GTT triggers are set at prices on the old basis. After a 1:1 bonus the price halves, so a stop-loss trigger at ₹900 on a stock now at ₹500 would fire immediately and sell shares by mistake, or a buy trigger would execute at a wrong level. Cancelling forces the investor to re-enter orders at adjusted prices.</a></qa>
+<qa difficulty="expert"><q>How did NSE Indices treat Jio Financial Services between the Reliance ex-date and its exclusion?</q><a>Under the methodology changed in April 2023, Reliance stayed in the indices after the demerger, and Jio Financial Services was added as an extra constituent at a constant price equal to the value implied by the SPOS (₹261.85), so the index level did not jump. After Jio Financial listed, it was to be excluded after a few days; the exclusion was postponed because it hit circuit limits, and it was removed in September 2023, with index funds selling it at that time.</a></qa>
+<source url="https://www.nseindia.com/static/products-services/equity-market-special-pre-open-session">NSE: Equity market special pre-open session</source>
+<source url="https://www.business-standard.com/amp/markets/news/nse-to-hold-special-pre-open-session-for-ril-on-july-20-amid-its-demerger-123071701034_1.html">NSE to hold special pre-open session for RIL on July 20 (Business Standard)</source>
+<source url="https://www.business-standard.com/amp/markets/news/nse-indices-tweaks-methodology-ahead-of-ril-jio-fs-demerger-123042601070_1.html">NSE Indices tweaks methodology ahead of RIL-Jio FS demerger (Business Standard)</source>
+<source url="https://zerodha.com/marketintel/bulletin/414040/scheme-of-arrangement-in-abfrl">Scheme of arrangement in ABFRL (Zerodha bulletin, May 2025)</source>
+<source url="https://5paisa.com/news/jio-financial-services-to-be-excluded-from-nse-indices-from-7-sept-2023">Jio Financial Services to be excluded from NSE indices from 7 September 2023 (5paisa)</source>
+<source url="https://www.businesstoday.in/markets/company-stock/story/ril-share-price-settles-at-rs-2580-in-special-pre-open-session-jio-financial-at-rs-26185-390530-2023-07-20">RIL settles at Rs 2,580 in special pre-open session, Jio Financial at Rs 261.85 (Business Today)</source>
+</topic>
+
+<topic id="148">
+<level>advanced</level>
+<lesson>
+# NSE F&O contract adjustment methodology for splits, bonuses, rights and demergers with worked examples
+
+## Core idea
+NSE's goal when adjusting stock futures and options for a corporate action is that nobody gains or loses from the event itself: the value of each position just after the adjustment equals its value just before. For ratio events it rescales strikes, futures prices and lot sizes with an adjustment factor. Demergers are handled differently today: the existing contracts end early and new ones start. This lesson works through each case with numbers, including rounding effects.
+
+## How it works, step by step
+1. **Timing.** Adjustments take effect after the close of the last cum date; positions open on the ex-date in the adjusted contracts.
+2. **Ratio events (bonus, split, consolidation):** adjustment factor AF = new shares per old share. New strike = old strike / AF; new lot = old lot × AF; futures base price / AF.
+3. **Rights:** AF = (P − E)/P, where E is the benefit per share. New strike = old strike × AF; new lot = old lot / AF.
+4. **Extraordinary dividend** (2% or more of price): strike and futures price reduced by the dividend; lot unchanged.
+5. **Rounding.** Strikes and futures prices to the tick; lots to the nearest whole share. For ratios that create awkward fractions, NSE's methodology lists an alternative approach to keep fractional settlements small.
+6. **Demergers (schemes of arrangement).** No factor. Existing contracts expire early, on the last cum date, with physical settlement. New contracts start on the ex-date, with strikes based on the special pre-open session price.
+
+## Formulas and numbers (worked example)
+**Example 1: 1:5 bonus (NTPC, March 2019 style).** AF = (1 + 5)/5 = 1.2. Suppose lot 4,800 and a 160 CE: new strike = 160/1.2 = 133.33, rounded to 133.35; new lot = 4,800 × 1.2 = 5,760. Exposure before: 4,800 × 160 = ₹7,68,000; after: 5,760 × 133.35 = ₹7,68,096. The ₹96 difference is a rounding effect.
+
+**Example 2: split ₹10 to ₹1 (AF = 10).** Futures at ₹4,512.40, lot 125: new futures price ₹451.24, rounded to the tick (451.25 with a ₹0.05 tick); new lot 1,250. A long futures position's mark-to-market continues from ₹451.25.
+
+**Example 3: rights 3:25 at ₹1,800, last cum close ₹2,516.80 (a 2025 NSE case).**
+- C = (2,516.80 − 1,800) × 3 = ₹2,150.40 per entitlement.
+- E = 2,150.40/(3 + 25) = ₹76.80 per share.
+- AF = (2,516.80 − 76.80)/2,516.80 = 0.969485.
+- Lot 300 becomes 300/0.969485 = 309.4, rounded to 309. A 2,500 CE becomes 2,500 × 0.969485 = 2,423.71, rounded to the tick (2,423.70).
+
+**Example 4: bonus with an awkward ratio, 3:7.** AF = 10/7 = 1.428571. Lot 1,000 becomes 1,428.57: rounding to 1,429 changes each lot's exposure by 0.43 shares. For ratios like this NSE's methodology page describes an alternative calculation to minimise fractional settlement; check the case circular for the exact strikes and lot.
+
+**Example 5: demerger.** A trader is short 1 lot (say 700 shares) of futures at ₹950 in a company with a demerger ex-date on Thursday. On Wednesday (last cum date) the contract expires and settles physically at the settlement price, say ₹962: the trader must deliver 700 shares and has a mark-to-market loss of 700 × 12 = ₹8,400 on Wednesday. On Thursday, new contracts start with strikes set around the SPOS price.
+
+## India specifics
+- NSE Clearing publishes a circular for each case with the factor, new strikes, lot and any special handling.
+- The extraordinary-dividend threshold has been 2% of the market value since June 2022 (5% from 2018, 10% earlier).
+- Recent demergers handled by early expiry and new contracts: Reliance (July 2023), ABFRL (May 2025), Tata Motors (October 2025), Hindustan Unilever (December 2025) and Vedanta (2026).
+- Stock F&O in India settle physically, so early expiry for a demerger means delivery.
+
+## Real examples and history
+- Wipro 1:3 bonus (2019): 380 CE, lot 2,400 became 285 CE, lot 3,200.
+- HDFC Bank 2:1 split (2019): strike 2,200 became 1,100, lot 250 became 500.
+- Reliance rights (2020): AF 0.990610, 1,400 CE became 1,386.85 CE, lot 505.
+- Early expiry and new contracts avoid holding contracts whose underlying changes character overnight, and avoid off-grid strikes.
+
+## Edge cases and common mistakes
+- **Using the bonus formula for rights.** Rights reverse the direction: strike × AF, lot ÷ AF.
+- **Ignoring rounding.** Adjusted lots and strikes do not exactly preserve exposure.
+- **Holding futures into a demerger.** Positions settle physically a day early.
+- **Option Greeks.** Delta per contract scales with lot size. After a 1:1 bonus, delta per share halves but shares per lot double, so position delta in shares doubles while rupee delta stays the same.
+- **Spread positions across adjusted and new series.** Strikes may not line up; a vertical spread may end up with legs at odd strikes.
+- **Margins.** Span and exposure margins are recomputed on the new contract specifications, sometimes changing margin needs.
+
+## How traders, investors and quants use it
+- Option sellers read the circular before the ex-date and recompute position Greeks.
+- Quants adjust historical option and futures data with the same factors; otherwise implied volatility and open interest series break.
+- Arbitrageurs watch rounding on lots, since small mismatches between cash and futures quantities appear after adjustments.
+
+## Related concepts
+Theoretical ex-rights price; physical settlement; special pre-open session; extraordinary dividends; option Greeks scaling; open interest continuity.
+</lesson>
+<qa difficulty="hard"><q>A stock with lot 900 and a 720 PE has a 1:2 bonus (1 new for every 2 held). Compute the new strike and lot and check exposure.</q><a>AF = (1 + 2)/2 = 1.5. New strike = 720/1.5 = 480; new lot = 900 × 1.5 = 1,350. Exposure before: 900 × 720 = ₹6,48,000; after: 1,350 × 480 = ₹6,48,000. No rounding is needed here.</a></qa>
+<qa difficulty="expert"><q>Rights 1:7 at ₹420 when the last cum close is ₹540. Lot 1,000. Compute E, AF, the new lot and the new strike for a 560 CE.</q><a>C = (540 − 420) × 1 = ₹120. E = 120/(1 + 7) = ₹15. AF = (540 − 15)/540 = 0.972222. New lot = 1,000/0.972222 = 1,028.57, rounded to 1,029. New strike = 560 × 0.972222 = 544.44, rounded to the tick (544.45).</a></qa>
+<qa difficulty="hard"><q>Why does NSE expire contracts early for demergers instead of adjusting them with a factor?</q><a>After a demerger the parent is a different business, and the value removed is known only after the special pre-open session discovers the new price, so a factor would have to be computed from the ex-date price itself. Early expiry with physical settlement on the last cum date, and new contracts based on the discovered price, gives clean contracts on the new parent without guesswork or odd strikes.</a></qa>
+<qa difficulty="expert"><q>A trader is long 10 lots of a 1,000 CE with lot 250 and delta 0.6 before a 1:1 bonus. What are the position delta in shares and in rupee terms before and after (ignoring any change in the option's own delta)?</q><a>Before: 10 × 250 × 0.6 = 1,500 shares; at a share price near ₹1,000, rupee delta ≈ ₹15 lakh. After: strike 500, lot 500, share price halves to about ₹500; the option's delta in moneyness terms is unchanged at 0.6, so position delta = 10 × 500 × 0.6 = 3,000 shares, and rupee delta = 3,000 × ₹500 ≈ ₹15 lakh. Share count doubles; economic exposure is unchanged.</a></qa>
+<qa difficulty="hard"><q>A stock at ₹350 declares a ₹9 dividend. What happens to a 340 PE and to the lot?</q><a>9/350 = 2.57%, above the 2% threshold, so it is an extraordinary dividend: the strike becomes 340 − 9 = 331 PE and the futures price is reduced by ₹9. The lot size is unchanged.</a></qa>
+<qa difficulty="medium"><q>After a split with AF = 5, a futures price of ₹2,187.65 becomes what, with a ₹0.05 tick?</q><a>2,187.65/5 = 437.53, rounded to the nearest tick of ₹0.05 = ₹437.55.</a></qa>
+<source url="https://www.nseindia.com/static/products-services/equity-derivatives-corporate-actions-adjustments">NSE: Equity derivatives corporate actions adjustments</source>
+<source url="https://archives.nseindia.com/content/circulars/FAOP53548.pdf">NSE circular FAOP53548: F&O adjustment and rounding</source>
+<source url="https://zerodha.com/marketintel/bulletin/414040/scheme-of-arrangement-in-abfrl">Scheme of arrangement in ABFRL: early expiry and new contracts (Zerodha bulletin)</source>
+<source url="https://fyers.in/notice-board/early-expiry-of-tata-motors-futures-and-options-contracts-due-to-demerger/">Early expiry of Tata Motors futures and options contracts due to demerger (Fyers)</source>
+<source url="https://tradingqna.com/t/wipro-goes-ex-bonus-in-the-ratio-1-3-on-march-06-2019-here-s-how-it-impacts-your-equity-holdings-and-f-o-positions/55252">Wipro goes ex-bonus 1:3 (TradingQnA)</source>
+<source url="https://support.zerodha.com/category/trading-and-markets/trading-faqs/f-otrading/articles/adjustment-f-o-contracts">What is the impact of corporate actions on futures and options? (Zerodha support)</source>
+</topic>
+
+<topic id="149">
+<level>advanced</level>
+<lesson>
+# Reverse splits and capital reduction: Indian law, delisting avoidance and US evidence
+
+## Core idea
+A reverse split (consolidation) merges several shares into one: 10 shares of ₹1 become 1 share of ₹10, and the price rises tenfold. Like a split, it changes no cash flows. Companies do it to escape a low share price: in the US, mainly to avoid delisting under exchange minimum-price rules. A capital reduction is different: it actually reduces share capital, to write off losses, return capital or cancel some shareholders' shares. Indian law treats the two very differently. Evidence from the US shows reverse splits are usually followed by poor returns.
+
+## How it works, step by step
+**Consolidation in India (section 61(1)(b), Companies Act 2013).**
+1. The Articles must authorise it.
+2. Ordinary resolution in general meeting alters the capital clause of the Memorandum.
+3. If the consolidation changes shareholders' voting percentage (fractions are cancelled), approval of the National Company Law Tribunal (NCLT) is required.
+4. File SH-7 with the Registrar within 30 days. For a listed company, the exchange sets the record date and a new ISIN is issued.
+
+**Capital reduction (section 66).**
+1. Special resolution.
+2. Petition to the NCLT, with notice to the central government, the Registrar, SEBI (for listed companies) and creditors, who can object.
+3. NCLT confirmation; the order is filed with the Registrar.
+Uses: writing off accumulated losses against capital, returning surplus capital, reducing face value, and selective reductions that cancel a group of shareholders' shares for cash.
+
+**US delisting rules.** Nasdaq requires a minimum bid price of $1. After 30 consecutive business days below $1 a company gets a deficiency notice and 180 calendar days to regain compliance (closing at $1 or more for at least 10 consecutive business days), with a possible second period for some companies. Rule changes approved in October 2024 and January 2025 limit the use of reverse splits: a reverse split that causes another listing deficiency does not cure the price deficiency, a company that falls below $1 within a year after a reverse split gets no compliance period, and companies that do not regain compliance after the compliance periods face suspension during appeals.
+
+## Formulas and numbers (worked example)
+**US consolidation.** A stock at $0.40 with 500 million shares does a 1-for-20 reverse split: 25 million shares, price about $8.00, market value $200 million unchanged. A holder of 1,030 shares gets 51 shares and cash for 0.5 of a share.
+
+**India, below-par price.** A company has 1,000 crore shares of ₹10 face value trading at ₹7. Section 53 forbids issuing shares at a discount to face value, so it cannot raise fresh equity at market price. Options:
+- reduce face value to ₹1 under section 66 (capital reduction), writing ₹9 per share off capital against accumulated losses (₹9,000 crore), then issue at market price; or
+- issue at par (₹10), above the market price, which only a strategic investor or the government would accept.
+
+## India specifics
+- **Reverse splits are rare in India.** There is no exchange rule forcing a minimum price, so Indian companies seldom need to consolidate.
+- **The below-par problem is the Indian analogue.** When Vodafone Idea's share price was below its ₹10 face value, the conversion of government dues into equity in 2023 was done at par, ₹10 per share, because section 53 prevents a discount issue.
+- **Selective capital reduction.** Courts have upheld reductions that cancel only minority shareholders' shares when fair value is paid and the process is fair (for example *Sandvik Asia v. Bharat Kumar Padamsi*, Bombay High Court, 2009). For listed companies, SEBI requires schemes and reductions to go through the exchanges' observation process, and using a reduction to bypass delisting rules draws scrutiny.
+- **Writing off losses.** Companies with large accumulated losses reduce capital to clean their balance sheet before raising money or paying dividends.
+
+## Real examples and history
+- **US evidence.** A study of over 1,600 US reverse splits over 40 years found significantly negative abnormal returns over the following three years, though transaction costs and short-sale constraints limit the ability to profit. Desai and Jain (1997) found negative one-year drift after reverse splits. Heavily shorted reverse-splitters show negative abnormal returns in the 20 days after the split. Studies in other markets (Indonesia, Brazil) also mostly find negative returns.
+- **Why negative:** a reverse split signals that management has no better way to lift the price; it is common among distressed companies. Some companies do it repeatedly, which led to Nasdaq's 2024 to 2025 rule changes.
+
+## Edge cases and common mistakes
+- **Confusing consolidation with reduction.** Consolidation leaves capital unchanged; reduction changes it and needs the NCLT.
+- **Fractional entitlements.** Holders of small odd lots may be cashed out; this is why the NCLT must approve consolidations that change voting percentages.
+- **Options and futures.** Consolidation adjustments are the inverse of a split: strikes are multiplied and lots divided.
+- **Assuming a higher price means value.** A reverse split creates no value; it often precedes further falls.
+- **Indices and liquidity.** A higher price with fewer shares can reduce liquidity for small investors.
+
+## How traders, investors and quants use it
+- In the US, traders treat reverse-split announcements as negative signals and screen for repeated reverse splits.
+- In India, analysts watch for capital reduction schemes (loss write-offs, face-value reductions) as signs of restructuring, and for selective reductions that affect minority holders.
+- Quants handle consolidations as inverse splits in price-adjustment engines.
+
+## Related concepts
+Section 61 consolidation; section 66 reduction of capital; section 53 (no issue at a discount); stock splits; delisting regulations; signalling; corporate action adjustment factors.
+</lesson>
+<qa difficulty="hard"><q>An investor holds 2,345 shares of ₹1 face value. The company consolidates 10 into 1 of ₹10. What does the investor end up with, and when is NCLT approval needed?</q><a>2,345/10 = 234.5, so the investor gets 234 shares and a fraction of 0.5 share is cancelled or pooled and sold, with cash paid. Because fractions change shareholders' voting percentages, section 61(1)(b) requires the Tribunal's approval for such a consolidation.</a></qa>
+<qa difficulty="expert"><q>Why can't an Indian company with a ₹10 face value and a market price of ₹6 simply issue new shares at ₹6, and what are its options?</q><a>Section 53 of the Companies Act 2013 forbids issuing shares at a discount to face value (except sweat equity). Options: reduce the face value through a section 66 capital reduction (special resolution plus NCLT confirmation), typically writing the reduction off against accumulated losses, and then issue at market price; or issue at par to an investor willing to pay above market, as the government did when converting Vodafone Idea's dues at ₹10 per share in 2023.</a></qa>
+<qa difficulty="hard"><q>A US stock has traded below $1 for 30 business days. Describe its compliance path under Nasdaq's rules and the limits on reverse splits.</q><a>It receives a deficiency notice and has 180 calendar days to regain compliance by closing at $1 or more for at least 10 consecutive business days; some companies can get a second 180-day period. A reverse split can cure the deficiency, but under the 2024 changes it does not count if it causes another listing deficiency (such as too few publicly held shares), and if the company falls below $1 within a year after a reverse split, it gets no compliance period and goes straight to delisting procedures.</a></qa>
+<qa difficulty="hard"><q>Why do reverse splits tend to be followed by negative returns?</q><a>They are usually done by firms in distress whose price has fallen a long way, so the announcement signals that management cannot lift the price through results. Studies of over 1,600 US reverse splits find negative abnormal returns over three years. The higher nominal price can also reduce retail interest, and many such firms later raise dilutive equity.</a></qa>
+<qa difficulty="expert"><q>A company proposes a selective capital reduction cancelling all shares held by public shareholders at ₹500 each. What protections exist in India?</q><a>Section 66 requires a special resolution and NCLT confirmation; creditors and regulators get notice and can object. The NCLT checks that the process is fair and the price is fair value, usually with an independent valuation; courts have upheld selective reductions when these conditions are met (for example the Bombay High Court in Sandvik Asia, 2009). For listed companies, SEBI and the exchanges review the scheme, and attempts to use a reduction to avoid delisting regulations face scrutiny.</a></qa>
+<qa difficulty="medium"><q>How are F&O contracts adjusted for a 1-for-5 consolidation?</q><a>It is the inverse of a split: AF = 1/5 = 0.2. New strike = old strike/0.2 = old strike × 5; new lot = old lot × 0.2. A 120 CE with lot 5,000 becomes a 600 CE with lot 1,000.</a></qa>
+<source url="https://www.efmaefm.org/0efmameetings/EFMA%20ANNUAL%20MEETINGS/2006-Madrid/papers/568563_full.pdf">Long-run performance of reverse stock splits (EFMA 2006 paper)</source>
+<source url="https://www.goodwinlaw.com/en/insights/blogs/2024/10/sec-approves-nasdaq-rule-change-on-using-reverse-stock-splits-to-regain-minimum-bid-price-compliance">SEC approves Nasdaq rule change on reverse stock splits (Goodwin)</source>
+<source url="https://www.sec.gov/files/rules/sro/nasdaq/2025/34-102245.pdf">SEC order on Nasdaq bid price compliance periods, January 2025</source>
+<source url="https://bhattandjoshiassociates.com/alteration-of-share-capital-an-in-depth-look/">Alteration of share capital under Section 61 (Bhatt and Joshi Associates)</source>
+<source url="https://www.lawrbit.com/companies-act-procedures/sub-division-or-consolidation-of-share-capital/">Sub-division or consolidation of share capital (Lawrbit)</source>
+</topic>
+
+<topic id="150">
+<level>expert</level>
+<lesson>
+# Event studies of stock splits and bonus announcements: abnormal returns, signalling and liquidity effects
+
+## Core idea
+The question "do splits and bonus issues create value?" is answered with event studies, and the answer depends on careful design. A good study separates what the announcement itself tells investors (signalling) from what the lower price does to trading (liquidity), and avoids the traps that make simple averages misleading. This lesson focuses on how to design and read such studies, especially with Indian data, where bonus issues are common.
+
+## How it works, step by step
+1. **Sample.** Collect announcements with exact timestamps from exchange filings (board meeting outcomes). Remove events with same-day results, dividends or other news, or flag them.
+2. **Benchmark.** Market model on an estimation window (e.g. days −250 to −30), or market-adjusted returns. For thinly traded Indian stocks, Dimson or Scholes-Williams betas reduce bias.
+3. **Announcement effect.** CAR over (−1, +1), and separately over the period from the board meeting intimation to the announcement, because prior intimation leaks information.
+4. **Signalling tests.** Regress announcement CARs on firm features. The signalling view predicts larger reactions for larger split or bonus factors, smaller and less-followed firms, and firms whose earnings later improve. McNichols and Dravid (1990) found the split factor related to later earnings surprises; Asquith, Healy and Palepu (1989) found splits follow earnings increases that turn out to be permanent.
+5. **Liquidity tests.** Compare before and after the ex-date: proportional bid-ask spread, turnover, the Amihud illiquidity ratio (absolute return divided by rupee volume), number of shareholders (from quarterly shareholding patterns) and the share of retail holders.
+6. **Long-run tests.** Calendar-time portfolios or matched-firm BHARs, never a simple 3-year average of raw returns.
+
+## Formulas and numbers (worked example)
+**Cross-sectional signalling test.** For 150 Indian bonus announcements, regress CAR(−1,+1) in % on the bonus factor (new shares per old) and log market capitalisation:
+CAR = 1.10 + 0.80 × factor − 0.25 × ln(market cap in ₹ crore)
+- A 1:1 bonus (factor 1) in a ₹2,000 crore firm (ln ≈ 7.60): CAR = 1.10 + 0.80 − 1.90 = 0.00%.
+- A 3:1 bonus (factor 3) in a ₹300 crore firm (ln ≈ 5.70): CAR = 1.10 + 2.40 − 1.43 = 2.07%.
+Positive coefficients on the factor and negative on size would support signalling, since small firms have more information asymmetry. (These coefficients are illustrative, not estimates.)
+
+**Amihud illiquidity.** Daily |return| = 1.2%, rupee volume ₹4 crore: ILLIQ = 0.012/4 = 0.003 per crore. If after the split it becomes 0.012/6 = 0.002, liquidity improved by one third.
+
+## India specifics
+- Bonus issues are far more frequent than splits, and many firms do both together, which makes it hard to separate effects.
+- Indian studies disagree: one found significant announcement returns for splits but not bonuses (2011); another found bonus announcements significant and splits and rights not, in the pandemic period; another found positive split returns over 1999 to 2019. Differences in samples, windows and benchmarks explain much of this.
+- Some Indian studies report positive returns around the bonus ex-date and negative returns afterwards, possibly reflecting bonus stripping (restricted for shares by section 94(8) since FY 2022-23).
+- Prior intimation of board meetings under SEBI LODR means the "event" may start days before the announcement.
+- Quarterly shareholding patterns let researchers measure changes in the number of retail shareholders after a split or bonus.
+
+## Real examples and history
+- **US announcement effects:** Grinblatt, Masulis and Titman (1984) found positive announcement returns for splits and stock dividends even without other news, supporting signalling.
+- **Liquidity:** Copeland (1979) found lower proportional volume and wider spreads after splits, against a simple liquidity story. Muscarella and Vetsuypens (1996) studied ADR "solo splits" (where only the ADR ratio changes, with no signalling content) and found positive returns and better liquidity, supporting a liquidity effect.
+- **Trading range:** Lakonishok and Lev (1987) found firms split to return to a normal price range after strong performance.
+- **Long run:** Ikenberry, Rankine and Stice (1996) reported post-split drift; Byun and Rozeff (2003) found it not robust under careful methods.
+
+## Edge cases and common mistakes
+- **Treating the ex-date as the event.** The news arrives on the announcement date; the ex-date is a mechanical change.
+- **Ignoring confounding announcements.** Bonus issues are often announced with quarterly results in India.
+- **Cross-sectional dependence.** Many bonus issues cluster in bull markets; standard errors must account for it.
+- **Survivorship.** Firms delisted later must stay in the sample.
+- **Data adjustment.** Returns must be adjusted for the bonus or split, or the ex-date shows a false loss.
+- **Retail flows.** Bonus news attracts retail buying, which may cause temporary price pressure that later reverses; a short window can mistake this for value creation.
+
+## How traders, investors and quants use it
+- Event traders look for announcements with signalling features (small firms, large factors, good recent earnings) but expect small, fast reactions.
+- Quants build features such as "days since bonus announcement" and test them with calendar-time regressions and point-in-time data.
+- Investors interpret a bonus or split as a mild positive signal at most, never as value created by the split itself.
+
+## Related concepts
+Market model; calendar-time portfolios; Amihud illiquidity; signalling theory; optimal trading range; bonus stripping; post-split drift; information leakage before board meetings.
+</lesson>
+<qa difficulty="expert"><q>Why are ADR "solo splits" useful for separating liquidity effects from signalling?</q><a>In a solo split only the ADR ratio changes, while the underlying shares in the home market are not split. Management's decision to change an ADR ratio carries little information about the company's prospects, so a positive price reaction and improved liquidity can be attributed to the lower price itself rather than a signal. Muscarella and Vetsuypens (1996) found such effects, supporting a liquidity explanation.</a></qa>
+<qa difficulty="hard"><q>Compute the Amihud illiquidity ratio for a stock with daily absolute returns of 1.5%, 0.8% and 2.1% and rupee volumes of ₹3 crore, ₹2 crore and ₹6 crore.</q><a>Daily ratios: 0.015/3 = 0.0050, 0.008/2 = 0.0040, 0.021/6 = 0.0035. Average ILLIQ = (0.0050 + 0.0040 + 0.0035)/3 = 0.004167 per ₹ crore. A lower value after a split or bonus would mean better liquidity (less price impact per rupee traded).</a></qa>
+<qa difficulty="expert"><q>An Indian study finds CAR(−1,+1) of 2.5% for bonus announcements, but 60% of the announcements came with quarterly results. How should the researcher respond?</q><a>The 2.5% may reflect earnings news rather than the bonus. The researcher should split the sample into announcements with and without results, include earnings surprise as a control in a cross-sectional regression, or exclude confounded events. Reporting only the pooled figure would overstate the bonus effect if results tended to be good when bonuses were announced.</a></qa>
+<qa difficulty="hard"><q>What evidence supports signalling as an explanation of split announcement returns?</q><a>Positive announcement returns for splits and stock dividends without other news (Grinblatt, Masulis and Titman 1984); the split factor predicting later earnings surprises (McNichols and Dravid 1990); and splits following earnings increases that prove permanent (Asquith, Healy and Palepu 1989). These suggest managers split when they expect performance to hold up.</a></qa>
+<qa difficulty="hard"><q>Why should a long-run study of Indian bonus issues use calendar-time portfolios rather than average 3-year BHARs?</q><a>Bonus issues cluster in time, so the 3-year returns of different firms overlap and are correlated, and BHARs are skewed and sensitive to the benchmark. A monthly calendar-time portfolio of all firms with a bonus in the past 36 months, regressed on a factor model, gives an alpha whose standard error reflects the cross-correlation, avoiding the inflated t-statistics of averaged BHARs.</a></qa>
+<qa difficulty="medium"><q>Why should an Indian event study consider the board meeting intimation date and not just the announcement date?</q><a>Under SEBI LODR, a listed company must give prior intimation of a board meeting that will consider a bonus or split. Investors may anticipate the outcome, so part of the price reaction happens between the intimation and the announcement. Measuring only the announcement window would understate the total effect.</a></qa>
+<source url="https://archives.nseindia.com/research/content/RP_12_Jan2014.pdf">NSE research project on stock split announcements (RP 12, January 2014)</source>
+<source url="https://businessperspectives.org/journals/investment-management-and-financial-innovations/issue-360/impact-of-splits-on-stock-splits-ratios-around-announcement-day-empirical-evidence-from-india">Impact of splits around announcement day: evidence from India (Investment Management and Financial Innovations)</source>
+<source url="https://www.iupindia.in/111/IJAF_Market_Reaction_to_Bonus_Issues_54.html">Market reaction to bonus issues (IUP Journal of Applied Finance)</source>
+</topic>
