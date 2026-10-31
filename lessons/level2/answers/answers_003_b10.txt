@@ -1,0 +1,312 @@
+<topic id="684">
+<level>intermediate</level>
+<lesson>
+# Flash crashes and algo failures: 6 May 2010, Knight Capital, Emkay 2012, and the regulatory responses
+
+## Core idea
+Most of today's pre-trade controls exist because something specific went wrong. Three episodes stand out. In the US "flash crash" of 6 May 2010, a large automated sell order met a fragile market. At Knight Capital on 1 August 2012, faulty software flooded markets with orders. At Emkay Global on 5 October 2012, a typing error crashed India's Nifty in seconds. Each led to new rules on order checks, circuit breakers and broker responsibility.
+
+## 6 May 2010: the US flash crash
+1. A mutual fund complex (widely reported as Waddell & Reed) started an automated program to sell 75,000 E-mini S&P 500 futures, worth about $4.1 billion, targeting 9% of trading volume without regard to price or time.
+2. High-frequency traders bought and quickly resold contracts, pushing up volume, so the algorithm sold even faster.
+3. Liquidity vanished. US stocks and futures plunged within minutes, and some shares traded at absurd prices, as low as one cent, against "stub quotes".
+4. Prices recovered most of the fall within about 20 minutes.
+**Responses:** single-stock circuit breakers, later replaced by the Limit Up-Limit Down bands; revised market-wide circuit breakers; clearer rules for cancelling erroneous trades; a ban on stub quotes; and SEC Rule 15c3-5 (the market access rule), requiring brokers to run pre-trade risk controls on all orders they send to markets.
+
+## 1 August 2012: Knight Capital
+1. Knight deployed new trading code, but it was not installed on one of its servers, where an old, unused function (called "Power Peg") was accidentally reactivated.
+2. In the first 45 minutes after the open, Knight's router sent more than 4 million orders while trying to fill just 212 customer orders, building huge unwanted positions.
+3. The loss was more than $460 million by the SEC's account. Knight needed rescue financing and later merged with another firm.
+**Response:** the SEC's first enforcement action under the market access rule, with a $12 million penalty in October 2013. It emphasised deployment controls, automated kill switches and monitoring.
+
+## 5 October 2012: Emkay Global and the Nifty
+1. A dealer at Emkay Global meant to sell a Nifty basket worth ₹17 lakh but entered 17 lakh as the quantity, creating orders worth about ₹980 crore.
+2. Trades worth over ₹650 crore executed before limits stopped them. The Nifty fell about 15.5% within seconds.
+3. The index circuit filter was triggered and the cash market halted.
+4. NSE refused to annul the trades, citing the member's gross negligence and weak internal controls. SAT upheld NSE in 2014, and SEBI also criticised NSE's own risk systems.
+**Responses:** stricter order-value and quantity checks at brokers and exchanges, limits on orders that can move indices, and tighter exchange-level controls.
+
+## What the three have in common
+- No effective cap on order value or quantity relative to normal size.
+- Automation running faster than human oversight.
+- Markets where liquidity can vanish in seconds.
+
+## Worked example: a control that would have stopped Emkay
+A broker's pre-trade rule: reject any single basket order above ₹50 crore, or above 10 times the client's usual order size. Emkay's ₹980 crore basket breaks both limits and is rejected before reaching the exchange. A second rule, a price collar of 1% from the last trade for each stock in a basket, would have stopped orders from sweeping deep into the book.
+
+## Controls in India today
+- Broker-level order value, quantity and price checks.
+- Exchange checks: limit price protection, dynamic price bands, freeze quantities in derivatives.
+- Market-wide and stock-specific circuit breakers.
+- Algo approval, algo IDs and kill switches under SEBI's algo frameworks.
+
+## Key takeaways
+The 2010 flash crash, Knight Capital and Emkay show three failure types: a large unsupervised algorithm, broken software deployment, and a human input error. Responses were pre-trade risk controls (the US market access rule, Indian broker checks), better circuit breakers, erroneous-trade rules and kill switches. In India, Emkay led directly to tighter order checks.
+</lesson>
+<qa difficulty="medium"><q>What triggered the 6 May 2010 flash crash according to the SEC-CFTC report?</q><a>An automated program to sell 75,000 E-mini futures (about $4.1 billion) at 9% of volume without regard to price or time, in an already fragile market where liquidity disappeared.</a></qa>
+<qa difficulty="medium"><q>What went wrong at Knight Capital on 1 August 2012?</q><a>New code was not deployed to one server, where old unused functionality was reactivated. Its router sent more than 4 million orders in 45 minutes while trying to fill 212 customer orders, causing losses of more than $460 million.</a></qa>
+<qa difficulty="medium"><q>What caused the Nifty flash crash of 5 October 2012?</q><a>An Emkay Global dealer entered 17 lakh as the quantity instead of ₹17 lakh as the value of a Nifty basket sell order, creating orders of about ₹980 crore. Over ₹650 crore traded and the Nifty fell about 15.5% in seconds.</a></qa>
+<qa difficulty="hard"><q>Why did NSE refuse to annul Emkay's trades, and what did SAT decide?</q><a>NSE found gross negligence, non-compliance and weak internal controls at Emkay, and counterparties had traded in good faith. SAT upheld NSE's decision in 2014.</a></qa>
+<qa difficulty="hard"><q>What is SEC Rule 15c3-5 and how is it linked to Knight Capital?</q><a>The market access rule, adopted in 2010, requires brokers to run pre-trade risk controls on orders they send to markets. Knight's case was the SEC's first enforcement action under it, with a $12 million penalty in 2013.</a></qa>
+<qa difficulty="expert"><q>Design two broker-level checks that would have stopped the Emkay order.</q><a>A maximum single order value (for example ₹50 crore) or a multiple of the client's normal size (for example 10 times), and a price collar for each basket constituent (for example 1% from the last trade) so orders cannot sweep deep into the book.</a></qa>
+<source url="https://www.businesstoday.in/markets/stocks/story/emkay-global-admits-error-in-nifty-flash-crash-36707-2012-10-08">Emkay Global admits error in Nifty flash crash (Business Today)</source>
+<source url="https://nsearchives.nseindia.com/content/press/05102012.htm">NSE press release, 5 October 2012</source>
+<source url="https://www.business-standard.com/amp/article/markets/nse-rejects-emkay-plea-for-cancellation-of-erroneous-trade-113050200929_1.html">NSE rejects Emkay plea for cancellation of erroneous trade (Business Standard)</source>
+<source url="https://www.sec.gov/news/press-release/2013-222">SEC charges Knight Capital with violations of market access rule (SEC)</source>
+<source url="https://www.csmonitor.com/Business/2010/1001/Flash-crash-report-A-tale-of-how-not-to-make-a-big-trade">Flash crash report: a tale of how not to make a big trade (Christian Science Monitor)</source>
+<source url="https://www.jrvarma.in/blog/Y2013/Knight-Capital.html">SEC order explains Knight Capital systems failure (J. R. Varma)</source>
+</topic>
+
+<topic id="685">
+<level>intermediate</level>
+<lesson>
+# Broker-level risk management systems for algo trading: pre-trade checks, kill switches and order-rate limits
+
+## Core idea
+Every order from a client, human or algorithm, passes through the broker's risk management system (RMS) before it reaches the exchange. The RMS is the first line of defence against errors like Emkay's 2012 order and runaway algorithms like Knight's. SEBI's algo frameworks (from 2012, and the retail framework of February 2025, mandatory from 1 April 2026) require brokers to run pre-trade checks, throttle order rates and be able to stop any algorithm instantly with a kill switch.
+
+## Pre-trade checks in an RMS
+1. **Margin check:** enough funds and collateral for the order.
+2. **Order value and quantity limits:** maximum value and quantity per order, and per client per day.
+3. **Price checks:** limit prices within a band of the last price, within exchange limit price protection ranges and circuit limits.
+4. **Exchange limits:** freeze quantities in derivatives, position limits and market-wide position limits.
+5. **Cumulative exposure:** total open order value and net position limits.
+6. **Order-rate throttles:** caps on orders per second for each client and algo (10 per second per exchange is the line above which a retail algo needs exchange registration).
+
+## Kill switches
+- A kill switch cancels all open orders and blocks new ones for a client, an algorithm or the whole broker.
+- Under the 2025 framework, brokers must be able to stop orders from a particular algo ID, and exchanges keep their own ability to halt algos that malfunction.
+- Triggers can be manual (a risk officer) or automatic (loss limits, order-rate breaches, unusual rejection rates).
+
+## Post-trade monitoring
+- Real-time profit and loss and margin utilisation.
+- Auto square-off when losses or margin shortfalls cross limits.
+- Surveillance alerts for patterns like high order-to-trade ratios or self-trades.
+- Audit trails: logs of every order, modification and algo decision.
+
+## Worked example: an RMS configuration
+A retail algo client has:
+- Maximum order value ₹10 lakh; maximum quantity per order equal to the exchange freeze limit.
+- Maximum total open order value ₹50 lakh.
+- Daily loss limit ₹1 lakh, triggering the kill switch.
+- Order rate cap 10 per second.
+Events:
+- The algo sends 5,000 units at ₹300 = ₹15 lakh. The RMS rejects it (above ₹10 lakh).
+- A bug sends 25 orders in one second. The first 10 pass; the rest are throttled or rejected, and an alert fires.
+- By 1:30 pm the loss reaches ₹1.05 lakh. The kill switch cancels all open orders and blocks new entries, allowing only exits.
+
+## Design principles
+- **Fail safe:** if the RMS cannot check an order (data lag, system error), reject rather than pass.
+- **Layering:** broker checks, exchange checks and client-side checks each catch different errors.
+- **Calibrate to normal behaviour:** limits based on each client's usual size catch typing errors better than fixed limits.
+- **Test changes:** many failures, like Knight's, come from deployments, so use staged roll-outs and pre-production testing.
+
+## India-specific points
+- Static IP whitelisting and daily two-factor login tie each API session to a known client.
+- Algo orders carry exchange-issued IDs, so a kill switch can target one strategy without stopping others.
+- Exchanges add limit price protection, dynamic price bands and order-to-trade ratio penalties on top of broker checks.
+
+## Common mistakes
+- Setting limits so high that they never bind.
+- Allowing "temporary" overrides that become permanent.
+- Not testing the kill switch until a crisis.
+
+## Key takeaways
+A broker RMS runs margin, value, quantity, price, exposure and rate checks before every order. Kill switches can stop a single algo, a client or the broker, manually or automatically. SEBI's frameworks require these controls, which exist to prevent repeats of Emkay and Knight. Good RMS design fails safe, layers checks and is tested regularly.
+</lesson>
+<qa difficulty="medium"><q>Name five pre-trade checks in a broker's RMS.</q><a>Any five of: margin sufficiency, order value limits, quantity limits, price bands around the last price, exchange limit price protection and freeze quantities, position limits, cumulative exposure limits and order-rate throttles.</a></qa>
+<qa difficulty="medium"><q>What does a kill switch do, and at which levels can it act?</q><a>It cancels open orders and blocks new ones. It can act on a single algorithm (by algo ID), a client, or the whole broker, triggered manually or automatically.</a></qa>
+<qa difficulty="hard"><q>An algo with a ₹10 lakh order value limit sends 5,000 units at ₹300. What happens?</q><a>The order value is ₹15 lakh, above the limit, so the RMS rejects it before it reaches the exchange.</a></qa>
+<qa difficulty="hard"><q>What does "fail safe" mean for an RMS?</q><a>If the system cannot complete a check, for example because of stale data or an error, it rejects the order instead of letting it through unchecked.</a></qa>
+<qa difficulty="expert"><q>Why are limits based on each client's normal behaviour better at catching errors than fixed limits?</q><a>A typing error usually produces an order far larger than the client's normal size but possibly within a generous fixed limit. Relative limits (for example 10 times the usual order) flag unusual orders even for small clients, while still allowing large clients to trade normally.</a></qa>
+<qa difficulty="medium"><q>What happens when a daily loss limit triggers the kill switch in the example?</q><a>All open orders are cancelled and new entries are blocked, while exits are still allowed so the client can reduce risk.</a></qa>
+<source url="https://moneylife.in/article/sebi-introduces-new-framework-for-safer-algo-trading-for-investors/76294.html">SEBI introduces new framework for safer algo trading (Moneylife)</source>
+<source url="https://www.marketcalls.in/market-regulations/sebis-2025-regulations-for-retail-algo-trading-the-ultimate-compliance-checklist.html">SEBI's 2025 retail algo regulations: compliance checklist (Marketcalls)</source>
+<source url="https://www.5paisa.com/news/sebi-tightens-algo-trading-rules-with-mandatory-2fa-and-audit-trails-from-april-1">SEBI tightens algo rules with mandatory 2FA and audit trails from 1 April (5paisa)</source>
+<source url="https://www.sec.gov/news/press-release/2013-222">SEC charges Knight Capital under the market access rule (SEC)</source>
+</topic>
+
+<topic id="686">
+<level>intermediate</level>
+<lesson>
+# Market-wide and stock-specific circuit breakers on NSE and BSE: thresholds, halts and history
+
+## Core idea
+Circuit breakers stop or limit trading when prices move too far, giving participants time to absorb news and preventing panic cascades. India has two kinds. Market-wide circuit breakers halt all equity and equity derivatives trading when the Nifty 50 or Sensex moves 10%, 15% or 20%. Stock-specific price bands limit how far an individual share can move in a day. They are the after-the-fact complement to pre-trade checks.
+
+## Market-wide circuit breakers
+Introduced by SEBI's circular of 28 June 2001 and revised since, they trigger on either the Nifty 50 or the Sensex, in either direction, measured from the previous close.
+- **10%:** before 1:00 pm, a 45-minute halt; from 1:00 pm to 2:30 pm, 15 minutes; after 2:30 pm, no halt.
+- **15%:** before 1:00 pm, a 1 hour 45 minute halt; from 1:00 pm to 2:00 pm, 45 minutes; after 2:00 pm, trading stops for the day.
+- **20%:** trading stops for the rest of the day, whenever it happens.
+- After a halt, trading resumes with a 15-minute call auction pre-open session.
+Some broker guides describe the 10% time cut-offs slightly differently; confirm against current exchange circulars.
+
+## Worked example
+Nifty's previous close is 24,000.
+- 10% level: 21,600 (down) or 26,400 (up).
+- 15% level: 20,400 or 27,600.
+- 20% level: 19,200 or 28,800.
+If the Nifty falls to 21,600 at 11:00 am, trading halts until 11:45 am, then a 15-minute call auction runs before continuous trading resumes.
+
+## History of market-wide halts
+- **17 May 2004:** after the general election result, a crash triggered halts twice in one day.
+- **22 January 2008:** a global sell-off triggered the lower circuit.
+- **18 May 2009:** after the election result, the Sensex rose so fast that it hit the upper circuit and trading stopped for the day.
+- **13 March 2020 and 23 March 2020:** COVID-19 panic triggered the 10% lower circuit, halting trading for 45 minutes each time.
+The 20% level has never been triggered.
+
+## Stock-specific price bands
+- **Non-F&O stocks:** fixed daily bands of 2%, 5%, 10% or 20%, set by exchanges based on liquidity, surveillance status and volatility. When a stock hits its band, it can trade only at or within the limit, often with one side empty ("upper circuit" with only buyers).
+- **F&O stocks:** no fixed bands; dynamic price bands that flex after cooling-off periods, under SEBI's May 2024 harmonised rules.
+- **Index futures and options:** operating ranges and limit price protection on each order.
+- **New listings:** special pre-open auctions and post-open bands.
+
+## Do circuit breakers work?
+- **Benefits:** time to process information, verify erroneous orders and meet margin calls; reduced panic selling.
+- **Criticisms:** "magnet effect," where prices accelerate towards the trigger as traders rush to trade before a halt; delayed price discovery; trapped positions (unable to exit at the band).
+Evidence is mixed. Most markets keep breakers but calibrate them to avoid frequent triggers.
+
+## Practical points for traders
+- Stop-loss orders do not protect you through a halt or a locked band; the price may reopen far away.
+- In derivatives, halts stop hedging too, so positions should be sized for gap risk.
+- After a halt, the reopening call auction sets the price; market orders can fill at surprising levels.
+
+## Key takeaways
+India's market-wide breakers halt trading at 10%, 15% and 20% index moves, with halt length depending on time of day, followed by a 15-minute call auction. They were triggered in 2004, 2008, 2009 and twice in March 2020. Individual stocks have fixed bands (2% to 20%) or, for F&O stocks, dynamic bands. Breakers add stability but create gap and magnet-effect risks.
+</lesson>
+<qa difficulty="medium"><q>What are India's market-wide circuit breaker levels?</q><a>10%, 15% and 20% moves in the Nifty 50 or Sensex, in either direction, measured from the previous close.</a></qa>
+<qa difficulty="medium"><q>How long is the halt if the Nifty falls 10% at 11:00 am?</q><a>45 minutes, followed by a 15-minute call auction pre-open session before normal trading resumes.</a></qa>
+<qa difficulty="hard"><q>What happens if a 15% move occurs at 2:15 pm?</q><a>Trading stops for the rest of the day, because a 15% breach after 2:00 pm halts the market until the close.</a></qa>
+<qa difficulty="medium"><q>When were the market-wide circuit breakers triggered in 2020?</q><a>On 13 March 2020 and 23 March 2020, both times at the 10% lower level, halting trading for 45 minutes.</a></qa>
+<qa difficulty="hard"><q>How do price limits differ for F&O and non-F&O stocks?</q><a>Non-F&O stocks have fixed daily bands of 2%, 5%, 10% or 20%. F&O stocks have dynamic bands that flex in steps after cooling-off periods under SEBI's 2024 rules.</a></qa>
+<qa difficulty="expert"><q>What is the "magnet effect" and why does it matter?</q><a>As prices approach a circuit level, traders rush to trade before a halt, accelerating the move towards the trigger. It can make breakers self-fulfilling and shows that halt design involves trade-offs.</a></qa>
+<source url="https://www.sebi.gov.in/legal/circulars/jun-2001/index-based-market-wide-circuit-breaker-in-compulsory-rolling-settlement_17986.html">SEBI: index-based market-wide circuit breaker (June 2001)</source>
+<source url="https://www.5paisa.com/finschool/stock-market-circuit-breakers-in-india/">Stock market circuit breakers in India (5paisa Finschool)</source>
+<source url="https://thewire.in/economy/coronavirus-lockdown-market-sensex-nifty">Coronavirus, lockdown and the market crash (The Wire)</source>
+<source url="https://kotaksecurities.com/share-market/what-is-circuit-breaker">What is a circuit breaker? (Kotak Securities)</source>
+</topic>
+
+<topic id="687">
+<level>advanced</level>
+<lesson>
+# History of NSE and BSE shortage handling and close-out rules: from weekly settlement to T+1
+
+## Core idea
+When a seller fails to deliver shares, the clearing corporation must still deliver to the buyer. Indian exchanges handle this with an auction to buy the missing shares and, if the auction fails, a cash close-out at a penalty price. The rules have changed as settlement cycles shortened from weekly account periods to T+5, T+3, T+2 and T+1. Many secondary sources quote older versions, so this lesson stresses what is consistent and how to check the current circular.
+
+## Timeline of settlement cycles
+1. **Before 2001:** weekly account-period settlement, with carry-forward (badla) at BSE.
+2. **July 2001:** compulsory rolling settlement at T+5.
+3. **April 2002:** T+3.
+4. **April 2003:** T+2, which lasted almost two decades.
+5. **February 2022 to January 2023:** phased move to T+1 for all stocks.
+Each step brought the shortage auction closer to the trade date.
+
+## How shortage handling works today (T+1)
+1. **Pay-in on T+1.** The clearing corporation identifies shortages at the pay-in deadline.
+2. **Valuation debit.** The short seller's broker is debited at a valuation price, typically the previous day's close, as security for the shortage.
+3. **Auction.** The clearing corporation runs a buy-in auction on T+1 through the trading system, buying the shares from willing sellers.
+4. **Auction settlement.** Shares bought in the auction are delivered to the buyer on the following day. The short seller pays the auction price (plus any difference) and penalties.
+5. **Close-out.** If the auction cannot buy the shares, the trade is closed out in cash at a close-out price. The buyer gets money instead of shares.
+
+## The close-out price
+The formula most widely cited for NSE is the higher of:
+- the highest price traded on the exchange from the trade day to the auction day; or
+- 20% above the closing price on the auction day.
+BSE's self-auction page uses a similar structure, applying the 20% to the settlement price on T+1. Variations exist:
+- NSE Clearing applies a 5% markup over the settlement price for overnight and liquid ETFs.
+- For shortages around corporate actions, some brokers describe close-outs at the highest price across exchanges.
+- Older rules (for example a 2011 regional exchange notice and T+2-era guides) used different reference days.
+Because the reference day and percentage vary by instrument and period, read the current NSE Clearing or BSE circular for the security involved.
+
+## Worked example
+A client sells 100 shares on Monday without holding them. The close on Monday is ₹500; the stock trades as high as ₹530 between Monday and Tuesday and closes at ₹520 on Tuesday (auction day).
+- Valuation debit on Tuesday: 100 × ₹500 = ₹50,000.
+- If the auction buys at ₹525, the seller pays ₹52,500 plus penalties and costs, a loss of at least ₹2,500 compared with the sale price.
+- If the auction fails, the close-out price is the higher of ₹530 (highest traded) and 20% above ₹520 = ₹624, so ₹624. The seller pays 100 × ₹624 = ₹62,400, a loss of at least ₹12,400 on a ₹50,000 sale.
+
+## Why the rules are deliberately harsh
+- Short delivery without borrowing is effectively naked short selling, which Indian rules do not permit for institutions and discourage for everyone.
+- A penalty price high enough to make shortages costly encourages sellers to deliver or use the securities lending scheme.
+- Faster auctions under T+1 limit how long a buyer waits.
+
+## Brokers' internal shortage policies
+Brokers often handle shortages between their own clients internally before they reach the exchange, at their own published rates (for example a markup over the close or a provisional debit). These internal policies are separate from exchange rules.
+
+## Key takeaways
+Shortages lead to a valuation debit, a buy-in auction and, if that fails, a cash close-out at a penalty price, most often cited as the higher of the highest traded price from trade day to auction day or 20% above the auction-day close. The process tightened as India moved from weekly settlement to T+1. Details vary by instrument and over time, so primary circulars should be checked.
+</lesson>
+<qa difficulty="medium"><q>List India's settlement cycle changes since 2001.</q><a>T+5 rolling settlement from July 2001, T+3 from April 2002, T+2 from April 2003, and a phased move to T+1 from February 2022 to January 2023.</a></qa>
+<qa difficulty="medium"><q>What are the main steps after a short delivery under T+1?</q><a>The shortage is identified at pay-in on T+1, the seller's broker is debited at a valuation price, the clearing corporation runs a buy-in auction, and if the auction fails the trade is closed out in cash at a close-out price.</a></qa>
+<qa difficulty="hard"><q>State the most widely cited NSE close-out formula.</q><a>The higher of the highest price traded from the trade day to the auction day, and 20% above the closing price on the auction day.</a></qa>
+<qa difficulty="hard"><q>With a ₹500 sale price, a highest traded price of ₹530 and an auction-day close of ₹520, what is the close-out price for 100 shares?</q><a>The higher of ₹530 and 1.2 × ₹520 = ₹624, so ₹624. The seller pays ₹62,400 against a ₹50,000 sale, a loss of at least ₹12,400.</a></qa>
+<qa difficulty="expert"><q>Why do sources disagree about close-out rules?</q><a>The rules changed as settlement cycles shortened, differ between NSE and BSE in their reference price (auction-day close versus T+1 settlement price), and vary by instrument (for example 5% for overnight and liquid ETFs) and by situation (such as corporate-action shortages). Brokers' internal policies add further variation.</a></qa>
+<qa difficulty="medium"><q>Why are close-out prices set well above market prices?</q><a>To make failing to deliver costly, discouraging naked short selling and encouraging sellers to deliver or borrow shares through securities lending.</a></qa>
+<source url="https://www.nseindia.com/static/products-services/equity-market-shortages-handling">NSE: shortages handling</source>
+<source url="https://bseindia.com/static/markets/equity/EQReports/tra_Self-AuctionCloseout.aspx">BSE: self-auction and close-out</source>
+<source url="https://nsearchives.nseindia.com/content/circulars/CMPT76188.pdf">NSE Clearing circular on close-out for overnight and liquid ETFs</source>
+<source url="https://craytheon.com/articles/short-selling-nse-bse-auction-process.php">Short selling and the NSE and BSE auction process (Craytheon)</source>
+<source url="https://www.cse-india.com/upload/CSE%20Notices%20&%20Circulars/2011/Notice201011_3.htm">Calcutta Stock Exchange notice on shortages (2011)</source>
+</topic>
+
+<topic id="688">
+<level>advanced</level>
+<lesson>
+# Settlement Guarantee Fund, Core SGF and the default waterfall
+
+## Core idea
+A clearing corporation guarantees settlement of every trade it clears. If a clearing member defaults, the clearing corporation must still pay and deliver to everyone else. To do that, it uses a set order of resources called the default waterfall. Its centrepiece is the Core Settlement Guarantee Fund (Core SGF), created under SEBI's circular of 27 August 2014 on Core SGF, default waterfall and stress testing. Unlike margins, the Core SGF is a fund against which no trading exposure is given, so it is always available.
+
+## The Core SGF
+- **One per segment:** for example equity cash, equity derivatives and currency derivatives.
+- **Size (minimum required corpus):** set through regular stress tests that estimate losses from the default of the largest clearing members under extreme but plausible scenarios, in line with international principles.
+- **Contributors (2014 framework):** the clearing corporation (at least half), the stock exchange (at least a quarter) and clearing members (up to a quarter, in cash).
+- **Stress testing:** daily credit stress tests, plus liquidity and reverse stress tests. SEBI issued further stress-testing guidance for equity derivatives in October 2024.
+
+## The default waterfall, in order
+1. **The defaulter's own resources:** margins, deposits and other assets of the defaulting member.
+2. **Insurance,** if any.
+3. **The clearing corporation's own "skin in the game":** resources equal to 5% of the segment's minimum required corpus.
+4. **The segment's Core SGF,** used in a set order: penalties collected, then the clearing corporation's contribution, then the remaining contributions (stock exchange and non-defaulting members) in proportion.
+5. **Further clearing corporation resources,** in proportion to the segment's share of total corpus, and then other segments' surplus as allowed.
+6. **Limited additional contributions from non-defaulting members,** capped.
+7. **Any residual loss** allocated to non-defaulting members, for example by haircutting payouts.
+A 2020 amendment gave non-defaulting members a 30-calendar-day window after a default notice that limits their liability.
+
+## Worked example
+A clearing member defaults with an unpaid obligation of ₹500 crore. Its margins and deposits are ₹300 crore. The segment's minimum required corpus is ₹2,000 crore.
+- Step 1: margins cover ₹300 crore; ₹200 crore remains.
+- Step 3: the clearing corporation's 5% skin in the game = ₹100 crore; ₹100 crore remains.
+- Step 4: penalties in the Core SGF of ₹20 crore; ₹80 crore remains, covered by the clearing corporation's own contribution to the Core SGF.
+Non-defaulting members' contributions are untouched. Only a far larger default would reach their money.
+
+## Why the order matters
+- **Defaulter pays first:** the person who created the risk bears it before others.
+- **Skin in the game:** the clearing corporation's own money comes early, giving it an incentive to set margins carefully.
+- **Mutualisation last:** non-defaulting members share losses only after the defaulter's and clearing corporation's resources are used, and their extra liability is capped.
+
+## Indian context
+- Each clearing corporation (for example NSE Clearing and Indian Clearing Corporation) publishes its Core SGF size, contributions and stress-test results, which members can use to judge the system's resilience.
+- Investor Protection Funds are separate: they compensate clients of failed brokers, while the Core SGF protects the clearing system and counterparties.
+- Limited Purpose Clearing Corporations for corporate bond repos have their own Core SGF rules (2020 and 2024 circulars).
+
+## Common misconceptions
+- "The SGF is just margins." Margins belong to members' positions; the Core SGF is separate, has no exposure against it and is available at all times.
+- "Investors are paid from the SGF." The SGF ensures settlement between clearing members; investor claims against brokers go to the IPF.
+- "Members can be called on without limit." Additional contributions are capped.
+
+## Key takeaways
+The Core SGF, created in 2014, is a segment-wise fund sized by stress tests and funded mainly by the clearing corporation and the exchange, with members contributing too. On a default, losses flow through a waterfall: defaulter's resources, insurance, the clearing corporation's 5% skin in the game, the Core SGF in set order, further clearing corporation resources, capped member contributions, then haircuts. This keeps settlement guaranteed while limiting surprises for non-defaulting members.
+</lesson>
+<qa difficulty="medium"><q>What is the Core SGF and how does it differ from margins?</q><a>A segment-wise fund created under SEBI's 2014 framework to guarantee settlement if a member defaults. No trading exposure is given against it, so it is always available, unlike margins, which support members' positions.</a></qa>
+<qa difficulty="medium"><q>Who contributes to the Core SGF under the 2014 framework?</q><a>The clearing corporation (at least half of the minimum required corpus), the stock exchange (at least a quarter) and clearing members (up to a quarter, in cash).</a></qa>
+<qa difficulty="hard"><q>List the default waterfall layers in order.</q><a>Defaulter's margins and assets; insurance if any; the clearing corporation's resources equal to 5% of the segment's corpus; the Core SGF (penalties, then the clearing corporation's contribution, then remaining contributions pro rata); further clearing corporation resources; capped additional contributions from non-defaulting members; then residual loss allocation such as payout haircuts.</a></qa>
+<qa difficulty="hard"><q>A ₹500 crore default with ₹300 crore margins and a ₹2,000 crore corpus: which layers are used?</q><a>Margins cover ₹300 crore; the clearing corporation's 5% skin in the game covers ₹100 crore; Core SGF penalties of ₹20 crore and then the clearing corporation's own Core SGF contribution cover the last ₹80 crore. Non-defaulting members' contributions are not touched.</a></qa>
+<qa difficulty="expert"><q>Why does the waterfall place the clearing corporation's own money before mutualised member contributions?</q><a>It gives the clearing corporation "skin in the game", an incentive to set margins and risk controls carefully, and protects non-defaulting members, who bear losses only after the defaulter's and the clearing corporation's resources are used.</a></qa>
+<qa difficulty="medium"><q>How is the Core SGF different from an Investor Protection Fund?</q><a>The Core SGF guarantees settlement between clearing members and the clearing corporation. The IPF compensates clients of a defaulted broker for dues from exchange trades, up to a cap.</a></qa>
+<source url="https://www.sebi.gov.in/media/press-releases/aug-2014/sebi-issues-circular-on-core-settlement-guarantee-fund-default-waterfall-and-stress-testing_27859.html">SEBI press release: Core SGF, default waterfall and stress testing (August 2014)</source>
+<source url="https://www.business-standard.com/amp/article/news-cm/sebi-sets-norms-for-core-settlement-guarantee-fund-114082800238_1.html">SEBI sets norms for core settlement guarantee fund (Business Standard)</source>
+<source url="https://www.scconline.com/blog/post/2020/01/04/amendments-made-to-guidelines-pertaining-to-core-settlement-guarantee-fund-default-waterfall-for-clearing-corporations/">Amendments to Core SGF and default waterfall guidelines (SCC Online)</source>
+<source url="https://nsearchives.nseindia.com/web/sites/default/files/inline-files/Policy%20on%20Composition%20and%20Contribution%20to%20Core-%20SGF.pdf">NSE Clearing: policy on composition and contribution to Core SGF</source>
+</topic>
