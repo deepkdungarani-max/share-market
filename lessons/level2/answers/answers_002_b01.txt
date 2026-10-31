@@ -1,0 +1,321 @@
+<topic id="420">
+<level>advanced</level>
+<lesson>
+# Clearing corporations, novation and the settlement guarantee fund
+
+## Core idea
+When you buy shares on NSE, you never face the seller's credit risk. A clearing corporation (CC) steps in between buyer and seller, becoming the buyer to every seller and the seller to every buyer. This is **novation**. The CC guarantees settlement even if a member defaults, so it must hold enough resources to cover defaults. Those resources are arranged in a fixed order, the **default waterfall**, with the **Core Settlement Guarantee Fund (Core SGF)** at its centre.
+
+## How it works, step by step
+1. **Trade and novation.** Trades matched on the exchange are passed to the CC (NSE Clearing for NSE, Indian Clearing Corporation for BSE, MCX Clearing for MCX). The CC replaces the original counterparties.
+2. **Clearing.** The CC nets each clearing member's obligations (funds and securities) across trades and computes pay-in and pay-out.
+3. **Risk management.** Members post initial margin (SPAN or VaR based), extreme loss margin and mark-to-market losses; positions are monitored intraday.
+4. **Settlement.** On settlement day (T+1 for equities), members pay in funds and securities; the CC pays out. Shortfalls in securities go to auction or close-out.
+5. **Default.** If a member fails, the CC uses resources in the waterfall order until the loss is covered.
+
+**Core SGF (SEBI framework of August 2014, revised since):**
+- Each CC runs daily stress tests; the result sets the **minimum required corpus (MRC)**, the money needed to cover the default of large members under extreme but plausible conditions. MRC is reviewed and the fund replenished monthly.
+- Contributions: CC at least 50% of the MRC, the stock exchange at least 25%, clearing members up to 25% (in practice CCs and exchanges have carried most of it).
+- No exposure is given against the Core SGF: it must be available immediately and unconditionally.
+
+**Default waterfall (in order):**
+1. The defaulter's margins, collateral and other monies with the CC.
+2. Insurance, if any.
+3. The CC's own resources up to a set amount ("skin in the game", a share of the MRC).
+4. The Core SGF: penalties, then the CC's contribution, then the exchange's, then non-defaulting members' primary contributions pro rata.
+5. Further CC resources as set in its rules, then capped calls on non-defaulting members, and finally loss allocation (for example haircuts on pay-outs) if all else is exhausted.
+
+## Formulas and numbers (worked example)
+Stress tests show that the simultaneous default of the two members with the largest stressed exposure would leave a loss of ₹3,000 crore after their margins. MRC = ₹3,000 crore.
+- CC contributes at least ₹1,500 crore, the exchange at least ₹750 crore; members up to ₹750 crore.
+
+A member defaults with a loss of ₹1,200 crore beyond its pay-in obligation:
+- Its margins and collateral cover ₹900 crore. Remaining ₹300 crore.
+- CC's skin in the game (say ₹150 crore, 5% of MRC) covers ₹150 crore. Remaining ₹150 crore.
+- Core SGF covers the remaining ₹150 crore, starting with the CC's contribution. Non-defaulting members lose nothing.
+- The CC must then replenish the Core SGF to the MRC.
+
+## India specifics
+- SEBI's circular of 27 August 2014 (CIR/MRD/DRMNP/25/2014) created the Core SGF, stress testing and the standard default waterfall; SEBI revised the equity derivatives stress-testing method on 1 October 2024 and the commodity method in May 2023.
+- Since 2019, clearing corporations are interoperable: a member can clear trades from different exchanges through one CC, which raises cross-CC exposures and links CCs together.
+- Limited-purpose clearing corporations (for corporate bond repo) have their own SGF rules.
+- SEBI asked NSE in 2016 to refund about ₹250 crore of clearing members' SGF contributions, reflecting the shift to CC and exchange funding of the Core SGF.
+
+## Real examples and history
+- Before CCs and novation, Indian markets suffered settlement crises when brokers defaulted, and trades were often unsettled or delayed.
+- The Karvy Stock Broking default (2019 to 2020), involving misuse of client securities, tested how exchanges and depositories protect clients; CC guarantees covered settlement obligations, while client claims went through other mechanisms.
+- Globally, central counterparty failures are rare, but stress events (the 2018 default of a Nasdaq Clearing member whose losses ate into the default fund) show why waterfalls matter.
+
+## Edge cases and common mistakes
+- **CC guarantee versus broker failure.** The CC guarantees settlement between clearing members; it does not guarantee money a client gave a broker that the broker misused.
+- **Stress tests are scenarios, not certainty.** A default larger than modelled can exceed the Core SGF.
+- **Concentration.** A few large members can dominate stress losses; CCs set extra margins for concentrated positions.
+- **Replenishment.** After a default, the fund must be rebuilt; a second default before replenishment is a key risk.
+- **Interoperability.** Exposure between CCs adds a new channel for stress.
+
+## How traders, investors and quants use it
+- Investors rely on novation to trade without checking counterparties; understanding its limits helps them choose brokers carefully.
+- Risk analysts at CCs run daily stress tests and back-test margin models.
+- Analysts of listed exchanges (BSE, and NSE after listing) consider SGF contributions as a use of capital and a risk.
+
+## Related concepts
+Margin systems (SPAN, VaR, ELM); default management; interoperability; stress testing; investor protection funds; PFMI principles for financial market infrastructures.
+</lesson>
+<qa difficulty="medium"><q>What is novation in clearing?</q><a>The clearing corporation legally replaces the original buyer and seller as counterparty to each, becoming the buyer to every seller and the seller to every buyer. Each member then faces only the CC's credit risk, which is backed by margins and the guarantee fund.</a></qa>
+<qa difficulty="hard"><q>Stress tests give an MRC of ₹2,400 crore. What are the minimum contributions of the CC and the stock exchange?</q><a>CC at least 50% = ₹1,200 crore; stock exchange at least 25% = ₹600 crore. Clearing members may contribute up to 25% (₹600 crore); if they contribute less, the CC and exchange cover the rest.</a></qa>
+<qa difficulty="hard"><q>A defaulter leaves a loss of ₹500 crore beyond its margins. The CC's skin in the game is ₹120 crore. Who bears the loss?</q><a>After the defaulter's margins are used, the CC's skin-in-the-game resources absorb ₹120 crore. The remaining ₹380 crore comes from the Core SGF, starting with penalties and the CC's contribution, then the exchange's contribution, then non-defaulting members' contributions pro rata if needed. The CC then replenishes the fund.</a></qa>
+<qa difficulty="expert"><q>Why does the waterfall put the CC's own resources before non-defaulting members' contributions?</q><a>It gives the CC "skin in the game": its own capital is at risk before other members', creating an incentive to set adequate margins, monitor members and manage defaults well. If losses fell first on non-defaulting members, the CC could under-margin to attract business at their expense.</a></qa>
+<qa difficulty="hard"><q>Why doesn't the CC guarantee protect clients when a broker misuses their securities?</q><a>The guarantee covers settlement obligations between the CC and clearing members on trades executed on the exchange. Misuse of client securities or funds by a broker (for example pledging client shares for the broker's own borrowing) is a breach between the client and the broker, outside exchange settlement. Clients' recourse is through exchange investor protection funds, arbitration and legal recovery, not the SGF.</a></qa>
+<qa difficulty="medium"><q>How often is the Core SGF's minimum required corpus assessed?</q><a>Stress tests run daily, and the MRC is determined from them, with the fund reviewed and replenished monthly so it stays at least at the required level.</a></qa>
+<source url="https://www.sebi.gov.in/media/press-releases/aug-2014/sebi-issues-circular-on-core-settlement-guarantee-fund-default-waterfall-and-stress-testing_27859.html">SEBI press release: circular on Core SGF, default waterfall and stress testing (August 2014)</source>
+<source url="https://www.business-standard.com/amp/article/news-cm/sebi-sets-norms-for-core-settlement-guarantee-fund-114082800238_1.html">Sebi sets norms for core settlement guarantee fund (Business Standard)</source>
+<source url="https://nsearchives.nseindia.com/web/sites/default/files/inline-files/Policy%20on%20Composition%20and%20Contribution%20to%20Core-%20SGF.pdf">NSE Clearing policy on composition and contribution to Core SGF</source>
+<source url="https://www.taxmann.com/post/blog/sebi-revises-stress-testing-framework-for-equity-derivatives-to-enhance-determination-of-core-sgf-corpus/">SEBI revises stress testing framework for equity derivatives (Taxmann)</source>
+<source url="https://www.business-standard.com/amp/article/markets/sebi-asks-nse-to-refund-rs-250-crore-to-clearing-members-from-sgf-contribution-116061300108_1.html">NSE returns Rs 250 crore to clearing members (Business Standard)</source>
+</topic>
+
+<topic id="421">
+<level>intermediate</level>
+<lesson>
+# Badla, carry-forward and the move from account-period to rolling settlement (T+5 to T+1)
+
+## Core idea
+Until 2001, Indian stock exchanges settled trades in weekly or fortnightly "account periods", and on BSE traders could carry forward positions to the next period by paying or receiving a charge called **badla**. This mixed cash trading with informal leveraged forward contracts and fed speculation and crises. SEBI ended badla in July 2001 and moved to rolling settlement, where every day's trades settle a fixed number of days later. The cycle has since shortened from T+5 to T+1, with an optional T+0 introduced in 2024.
+
+## How it works, step by step
+**Account-period settlement (before 2001):**
+1. All trades during a period (for example Monday to Friday) were netted and settled together the following week.
+2. A trader could buy on Monday and sell on Friday of the same period without ever paying or delivering; only net positions settled.
+
+**Badla (carry-forward):**
+1. At the end of the period, a buyer who did not want to pay could carry the position into the next period.
+2. Financiers (badla financiers) provided the money, earning a badla charge (an interest-like return); if sellers wanted to carry short positions, they paid "undha badla" to borrow shares.
+3. Positions could be rolled repeatedly, so traders held leveraged positions without margin systems like today's.
+
+**Rolling settlement:**
+1. Each day's trades settle separately after a fixed number of days: T+5 from July 2001, then shortened in steps to T+2 by April 2003.
+2. T+1 was introduced in phases from 2022 and covered all stocks from 27 January 2023.
+3. An optional T+0 settlement began as a beta for 25 stocks on 28 March 2024, alongside T+1.
+4. Leverage moved into regulated products: stock and index futures and options, margin trading funding (MTF), and securities lending and borrowing (SLB).
+
+## Formulas and numbers (worked example)
+**Badla.** A trader holds 10,000 shares bought at ₹200 (₹20 lakh) at the end of a settlement week and wants to carry it. The badla rate is 0.4% for the week. Charge = ₹20 lakh × 0.4% = ₹8,000 for one week, about 21% a year (0.4% × 52). Rolled for 10 weeks: ₹80,000 of financing cost, with no initial margin like today's.
+
+**T+1 versus T+2.** A buyer on Monday receives shares on Tuesday under T+1 (Wednesday under T+2). The exposure between trade and settlement halves, reducing the margin and capital tied up in the system.
+
+## India specifics
+- SEBI first banned badla in 1993 after the Harshad Mehta scam, allowed a regulated version from October 1995, and oscillated between banning and allowing it until its board decided in May 2001 that all deferral products, including badla, would cease; rolling settlement started in July 2001.
+- The 2001 Ketan Parekh scam, involving manipulation and payment crises on the Calcutta and Bombay exchanges, accelerated the change.
+- Exchange-traded derivatives began in 2000 to 2001: index futures in June 2000, index options and stock options in 2001 and stock futures in November 2001, which gave leveraged trading a regulated home. Single-stock futures became unusually popular in India, partly as a replacement for badla.
+- India became one of the first major markets to settle fully on T+1 (January 2023), before the US moved to T+1 in May 2024.
+
+## Real examples and history
+- Account-period settlement allowed "short-term speculation without money": positions bought and sold within a period never needed funds, making it easy to build large unbacked positions.
+- Payment crises occurred when large carried-forward positions could not be settled; exchanges sometimes closed or extended settlements.
+
+## Edge cases and common mistakes
+- **Thinking badla was simply margin lending.** Badla mixed lending, stock borrowing and forward contracting within cash market settlement, without central risk management.
+- **Assuming T+1 removed all risk.** Intraday and derivatives leverage remain; settlement risk is reduced, not eliminated.
+- **T+0 participation.** T+0 is optional and for a limited list of stocks; most trading remains T+1.
+- **Record dates under different cycles.** The ex-date equals the record date under T+1; under T+2 it was a day earlier.
+
+## How traders, investors and quants use it
+- Historians and regulators use the badla era as a lesson on unregulated leverage.
+- Traders today use regulated leverage (futures, MTF, SLB) with margin rules.
+- Quants handling long Indian data series must account for changes in settlement cycles when using record dates and when modelling liquidity.
+
+## Related concepts
+Rolling settlement; clearing corporations; single-stock futures; margin trading funding; SLB; record dates; Harshad Mehta and Ketan Parekh scams.
+</lesson>
+<qa difficulty="medium"><q>What was badla?</q><a>A carry-forward system on BSE where traders could defer settlement of positions to the next account period by paying (for long positions) or receiving (for lenders of funds) a charge called badla, with financiers funding the carry. It provided informal leverage within the cash market.</a></qa>
+<qa difficulty="hard"><q>A trader carried ₹50 lakh of long positions for 8 weeks at a badla rate of 0.35% a week. What did it cost, and what annual rate does this imply?</q><a>Cost per week = ₹50 lakh × 0.35% = ₹17,500; for 8 weeks = ₹1,40,000. Annual rate ≈ 0.35% × 52 = 18.2% (simple), higher if compounded.</a></qa>
+<qa difficulty="hard"><q>Why did SEBI link the end of badla to the move to rolling settlement?</q><a>Badla depended on account-period settlement: positions accumulated through the period and could be carried forward at its end. Rolling settlement settles each day's trades separately, leaving no account period to carry over, and derivatives provided a regulated alternative for leveraged positions. So introducing rolling settlement in July 2001 allowed badla to be ended cleanly.</a></qa>
+<qa difficulty="medium"><q>When did India complete the move to T+1 settlement?</q><a>T+1 was introduced in phases from 2022 and applied to all stocks from 27 January 2023. An optional T+0 settlement began on 28 March 2024 for 25 stocks.</a></qa>
+<qa difficulty="expert"><q>Why are single-stock futures unusually popular in India compared with many other markets?</q><a>They were introduced in 2001 just as badla was abolished, giving traders a regulated way to take leveraged positions in individual stocks that badla had previously provided. The trading habit and demand for leveraged stock positions moved into single-stock futures, which therefore became a major segment in India.</a></qa>
+<qa difficulty="hard"><q>How does a shorter settlement cycle reduce systemic risk?</q><a>Between trade and settlement, counterparties are exposed to each other's default and to price changes. Shortening from T+2 to T+1 halves that window, reducing the amount of unsettled trades outstanding at any time, the margins needed to cover them, and the potential losses if a member defaults.</a></qa>
+<source url="https://casi.sas.upenn.edu/node/278">Badla and the curious popularity of single-stock futures in India (CASI, University of Pennsylvania)</source>
+<source url="https://www.business-standard.com/article/markets/brokers-bid-badla-a-fond-farewell-101063001054_1.html">Brokers bid badla a fond farewell (Business Standard, 2001)</source>
+<source url="https://rsdebate.nic.in/bitstream/123456789/19738/1/PQ_193_24072001_S35_p49_p51.pdf">Rajya Sabha question on rolling settlement and badla (July 2001)</source>
+<source url="https://www.angelone.in/news/share-market/sebi-introduces-beta-version-t-plus-0-rolling-settlement-cycle">SEBI introduces a beta version of T+0 rolling settlement (Angel One)</source>
+<source url="https://www.business-standard.com/amp/markets/news/bse-announces-25-stocks-eligible-for-t-0-settlement-cycle-from-thursday-124032700502_1.html">BSE announces 25 stocks eligible for T+0 settlement (Business Standard)</source>
+</topic>
+
+<topic id="422">
+<level>advanced</level>
+<lesson>
+# NSE co-location and dark-fibre case: SEBI orders, penalties and settlement
+
+## Core idea
+Co-location lets trading firms place their servers inside an exchange's data centre to cut latency. Fairness requires that every co-located member gets the same access at the same speed. Between about 2010 and 2014, NSE's tick-by-tick (TBT) data system sent market data to members one after another, and some brokers allegedly got faster or earlier access than others. A related "dark-fibre" case involved unauthorised fast connections for a few brokers. The cases became India's defining market-structure scandal, delayed NSE's IPO for years, and were finally settled with SEBI for ₹1,491.21 crore in 2026.
+
+## How it works, step by step
+1. **The architecture.** NSE's TBT feed used a TCP-based system in which data reached members in sequence. A member that connected first to a less loaded server could receive data marginally earlier.
+2. **Allegation.** A 2015 whistle-blower complaint alleged that some brokers (notably OPG Securities) exploited this, logging in first and connecting to secondary servers, gaining a consistent speed advantage, possibly with help from NSE staff.
+3. **Dark fibre.** Separately, a few brokers were connected to NSE's co-location facility through dark-fibre links laid by a service provider without the required approvals, allegedly with NSE officials' knowledge, giving them faster connectivity.
+4. **SEBI orders (April 2019).** SEBI held that NSE failed to ensure fair and equitable access, ordered it to disgorge about ₹625 crore with 12% interest, barred it from raising money in markets for six months, and directed former leaders to disgorge part of their salaries. NSE appealed to the Securities Appellate Tribunal (SAT).
+5. **Appeals.** SAT gave NSE partial relief; SEBI appealed to the Supreme Court. In September 2024, SEBI closed a later set of proceedings against NSE and its officials, citing insufficient evidence.
+6. **Settlement.** In June 2025 NSE applied to settle both cases for ₹1,387.39 crore (₹1,165 crore for co-location and ₹223 crore for dark fibre). The amount was revised to ₹1,491.21 crore (₹1,223.56 crore and ₹267.65 crore); NSE completed payment, and the Supreme Court closed SEBI's appeals in 2026, clearing the way for NSE's IPO in September 2026.
+
+## Formulas and numbers (worked example)
+Why microseconds matter: if a broker receives price data 5 microseconds before others, and 1,000 trading opportunities a day each yield an average of ₹500 to the fastest participant, the edge is worth ₹5 lakh a day, about ₹12 crore a year (250 days), from speed alone, without better analysis.
+
+Settlement arithmetic: ₹1,223.56 crore + ₹267.65 crore = ₹1,491.21 crore. NSE had earlier deposited about ₹776 crore with SEBI; the balance was paid to complete the settlement.
+
+## India specifics
+- SEBI settlement regulations allow a party to settle proceedings by paying an amount and agreeing to terms, without admitting or denying findings; the amount is determined by a formula and an internal committee, and is approved by SEBI's panel.
+- After the case, SEBI tightened rules on co-location fairness, tick-by-tick data distribution (moving to multicast with fair-access controls), algorithmic trading oversight and MII governance.
+- The case also led to criminal investigations of former NSE executives, separate from SEBI's civil proceedings.
+
+## Real examples and history
+- Globally, latency advantages led to regulatory responses such as equal-length cabling in co-location facilities and rules on data feeds (US SEC actions and MiFID II clock-synchronisation rules in Europe).
+- NSE's IPO, planned since 2016, was delayed largely by these cases; it finally came in September 2026 as an offer for sale listed on BSE.
+
+## Edge cases and common mistakes
+- **Co-location is legal.** The issue was unequal access, not co-location itself.
+- **SEBI's 2024 closure versus settlement.** The 2024 closure related to a later set of proceedings; the main co-location and dark-fibre matters were settled in 2025 to 2026.
+- **Settlement is not acquittal or admission.** Under SEBI's settlement rules, parties neither admit nor deny findings.
+- **TCP versus multicast.** TCP delivery in sequence creates ordering advantages; multicast sends data to all at once, but fairness still depends on cabling and network design.
+
+## How traders, investors and quants use it
+- Market-structure analysts use the case to understand fairness in data distribution and the value of latency.
+- Investors in exchange shares consider regulatory risk, which weighed on NSE's valuation and listing for years.
+- HFT firms follow fair-access rules on co-location, cabling and data feeds.
+
+## Related concepts
+Co-location; tick-by-tick data; multicast versus unicast; high-frequency trading; SEBI settlement regulations; MII governance; latency arbitrage.
+</lesson>
+<qa difficulty="medium"><q>What was the core allegation in the NSE co-location case?</q><a>That NSE's tick-by-tick data system did not give all co-located members equal access: data was disseminated in sequence over TCP, and some brokers, notably OPG Securities, gained consistently faster access by connecting first to less loaded servers, allegedly with insiders' help, in breach of fair-access requirements.</a></qa>
+<qa difficulty="hard"><q>What did SEBI order in April 2019?</q><a>NSE was to disgorge about ₹625 crore with 12% interest, was barred from accessing the securities market (for example raising money) for six months, and former senior executives were directed to disgorge a portion of their salaries. NSE appealed to SAT.</a></qa>
+<qa difficulty="hard"><q>How much did NSE pay to settle the co-location and dark-fibre cases, and how was it split?</q><a>₹1,491.21 crore under the revised settlement terms: ₹1,223.56 crore for co-location and ₹267.65 crore for dark fibre. NSE's initial June 2025 offer had been ₹1,387.39 crore. After payment, the Supreme Court closed SEBI's appeals.</a></qa>
+<qa difficulty="expert"><q>Why does sequential TCP dissemination create unfairness, and how does multicast help?</q><a>With TCP, the exchange sends each message to each connected member one after another; members earlier in the sequence, or on less loaded servers, get the data slightly earlier. In fast markets even microseconds matter. Multicast sends one stream that the network delivers to all subscribers simultaneously, removing ordering by connection; remaining differences come from network paths, which exchanges equalise with equal-length cabling.</a></qa>
+<qa difficulty="medium"><q>What was the dark-fibre case about?</q><a>Some brokers had fast point-to-point dark-fibre connections to NSE's co-location facility, laid by a service provider without required approvals and allegedly with NSE officials' knowledge, giving those brokers a connectivity advantage over others.</a></qa>
+<qa difficulty="hard"><q>Why did the case matter for NSE's IPO?</q><a>SEBI's no-objection to an exchange's IPO depends on resolving serious regulatory proceedings and governance concerns. The pending co-location and dark-fibre cases and appeals blocked NSE's listing for years; settling them in 2025 to 2026 and the Supreme Court closing the appeals removed the obstacle, and the IPO followed in September 2026.</a></qa>
+<source url="https://www.businesstoday.in/latest/corporate/story/co-location-case-sebi-bars-nse-from-securities-market-6-months-fine-rs-625-cr-188651-2019-04-30">Co-location case: SEBI bars NSE from securities market for 6 months, Rs 625 crore (Business Today)</source>
+<source url="https://www.businesstoday.in/amp/markets/stocks/story/nse-offers-rs-1388-crore-to-sebi-to-settle-co-location-dark-fibre-cases-481738-2025-06-25">NSE offers Rs 1,388 crore to SEBI to settle co-location and dark fibre cases (Business Today)</source>
+<source url="https://www.kotakneo.com/news/regulations/sebi-nse-co-location-dark-fibre-settlement-1491-crore-ipo-2026/">SEBI settles NSE co-location and dark fibre cases for Rs 1,491 crore (Kotak Neo)</source>
+<source url="https://www.moneylife.in/article/sc-disposes-of-sebis-pleas-against-nse-after-1500-crore-settlement-report/81559.html">SC disposes of SEBI's pleas against NSE after settlement (Moneylife)</source>
+<source url="https://www.businesstoday.in/amp/markets/top-story/story/sebi-disposes-proceedings-against-nse-others-in-co-location-case-445839-2024-09-13">SEBI closes proceedings against NSE in co-location case (Business Today, September 2024)</source>
+</topic>
+
+<topic id="423">
+<level>advanced</level>
+<lesson>
+# Anchor investors, book-building and OFS mechanics, using the NSE 2026 IPO
+
+## Core idea
+Most large Indian IPOs use **book building**: the company and its bankers set a price band, investors bid within it, and the final price is chosen from demand. Large institutions can commit a day early as **anchor investors**, signalling confidence. An IPO can sell new shares (fresh issue, money to the company) or existing shares (offer for sale, money to selling shareholders). NSE's own IPO in September 2026 was a pure offer for sale of about ₹22,562 crore, a useful case to understand the mechanics.
+
+## How it works, step by step
+1. **Price band.** Set before the issue opens; the cap can be at most 120% of the floor (and at least 105%).
+2. **Allocation categories (Regulation 6(1) issuers):** up to 50% to qualified institutional buyers (QIBs), at least 15% to non-institutional investors (NIIs) and at least 35% to retail individual investors (bids up to ₹2 lakh). NII is split: one-third for bids of ₹2 to 10 lakh, two-thirds above ₹10 lakh. Employee and shareholder reservations may apply.
+3. **Anchor investors.** Up to 60% of the QIB portion can go to anchors, who bid one working day before the issue opens with a minimum application of ₹10 crore. A part of the anchor portion is reserved for domestic mutual funds (and, after 2025 changes, for insurers and pension funds). If the final issue price is above the anchor price, anchors pay the difference; if lower, they do not get a refund. Lock-in: half for 30 days, half for 90 days.
+4. **Bidding.** Investors bid through ASBA (funds blocked in bank accounts) or UPI mandates for three working days.
+5. **Pricing and allotment.** Retail bids at the cut-off price are accepted at the final price; oversubscribed retail categories allot by lottery so that as many applicants as possible get the minimum lot.
+6. **Listing.** Under SEBI's mandatory T+3 timeline (from December 2023), shares list three working days after the issue closes.
+7. **OFS versus fresh issue.** In an OFS, selling shareholders receive the money; the company's share count does not change.
+
+## Formulas and numbers (worked example)
+NSE IPO (September 2026): price band ₹1,700 to ₹1,785; lot 8 shares; issue size about 12.64 crore shares (₹22,562 crore at the top of the band), all OFS. Issue open 17 to 21 September 2026; listed on BSE on 24 September 2026.
+Allocation under Regulation 6(1), at ₹22,562 crore:
+- QIB up to 50% = up to ₹11,281 crore; anchors up to 60% of that = up to ₹6,769 crore.
+- NII at least 15% = ₹3,384 crore (one-third for ₹2 to 10 lakh bids, two-thirds above).
+- Retail at least 35% = ₹7,897 crore. Minimum retail bid = 8 × ₹1,785 = ₹14,280; maximum retail = 14 lots (112 shares, ₹1,99,920) under the ₹2 lakh limit.
+Listing: opened at ₹1,800, a 0.8% premium over ₹1,785.
+
+## India specifics
+- NSE's shares listed on BSE because an exchange cannot list on its own platform.
+- NSE received SEBI's no-objection in August 2026 after settling its co-location and dark-fibre cases.
+- Reported subscription figures for the NSE IPO differ by source; check final exchange data.
+- Anchor rules were revised over time: lock-ins extended to 30 and 90 days in 2022; reservations within the anchor portion were adjusted in 2025.
+
+## Real examples and history
+- Book building replaced fixed-price issues for most large IPOs in the 2000s; fixed-price issues remain common on SME platforms.
+- Very large OFS-only IPOs (LIC in 2022, NSE in 2026) raise no money for the company; investors should read them as partial exits by existing shareholders.
+
+## Edge cases and common mistakes
+- **Reading anchor demand as a guarantee.** Anchors can sell after lock-ins expire; anchor participation is a signal, not a promise.
+- **Assuming oversubscription means listing gains.** NSE's IPO listed at only a small premium.
+- **Retail bidding above ₹2 lakh.** Larger bids move into the NII category with different allotment rules.
+- **Forgetting that OFS proceeds go to sellers.** The company's balance sheet does not change.
+- **Grey market premiums** are unofficial and unreliable predictors of listing prices.
+
+## How traders, investors and quants use it
+- Investors read the red herring prospectus for price band, objects, selling shareholders and anchor list.
+- Traders watch category-wise subscription, especially QIB demand, as a quality signal.
+- Quants study listing returns by subscription levels, anchor quality and market conditions.
+
+## Related concepts
+ICDR Regulation 6; QIBs; ASBA and UPI; T+3 listing; lock-ins; SECC Regulations; minimum public shareholding.
+</lesson>
+<qa difficulty="hard"><q>For a ₹10,000 crore Regulation 6(1) IPO, what is the maximum anchor allocation?</q><a>QIB portion is up to 50% = ₹5,000 crore; anchors can get up to 60% of the QIB portion = ₹3,000 crore, i.e. up to 30% of the total issue.</a></qa>
+<qa difficulty="medium"><q>With NSE's price band top of ₹1,785 and a lot of 8 shares, how many lots can a retail investor apply for?</q><a>Each lot costs 8 × ₹1,785 = ₹14,280. The retail limit is ₹2 lakh, so the maximum is 14 lots (₹1,99,920); 15 lots (₹2,14,200) would exceed it and fall into the NII category.</a></qa>
+<qa difficulty="hard"><q>An anchor bought at ₹500; the final issue price is ₹520. What does the anchor pay? What if the final price were ₹480?</q><a>If the issue price (₹520) is higher than the anchor price, the anchor pays the difference of ₹20 per share. If the issue price is lower (₹480), the anchor still pays the anchor price of ₹500, with no refund of the difference.</a></qa>
+<qa difficulty="medium"><q>Why did NSE's IPO raise no money for NSE?</q><a>It was entirely an offer for sale: existing shareholders sold their shares to new investors. The money went to the selling shareholders, and NSE's share count stayed the same.</a></qa>
+<qa difficulty="hard"><q>How are oversubscribed retail portions allotted?</q><a>Retail allotment aims to give the minimum bid lot to as many applicants as possible. If the number of valid applicants exceeds the number of lots available, a computerised lottery decides who gets one lot; remaining shares, if any, are distributed proportionally.</a></qa>
+<qa difficulty="expert"><q>What does a 0.8% listing premium after a well-subscribed IPO suggest?</q><a>That the price band captured most of the demand, leaving little "money on the table": the issue was priced close to where the market valued the shares. For selling shareholders this is efficient pricing; for IPO investors it means returns depend on the company's long-term performance rather than listing gains.</a></qa>
+<source url="https://www.kotakneo.com/news/ipos/nse-ipo-shares-list-at-a-modest-premium/">NSE IPO shares list at a 0.8% premium (Kotak Neo)</source>
+<source url="https://www.mstock.com/articles/nse-ipo-issue-date-allotment-date-price-everything-you-need-to-know">NSE IPO 2026: issue date, price, allotment (m.Stock)</source>
+<source url="https://ticker.finology.in/ipo/nse">NSE IPO: date, price, financials (Finology)</source>
+<source url="https://oga-prod.angelone.in/news/ipos/nse-files-drhp-for-ipo-nearly-6-offer-for-sale-listing-on-bse-and-other-key-details">NSE files DRHP: offer for sale, listing on BSE (Angel One)</source>
+</topic>
+
+<topic id="424">
+<level>intermediate</level>
+<lesson>
+# Evolution of Indian derivatives: 2000 index futures to weekly expiries and the SEBI 2024–25 curbs
+
+## Core idea
+India's exchange-traded equity derivatives market started in 2000 with index futures and grew into the world's largest by number of contracts traded, driven by cheap, short-dated index options bought and sold by retail traders. Regulators responded first by expanding products and later, from 2024, by restricting weekly options and raising contract sizes and margins. The history explains today's market structure.
+
+## How it works, step by step (timeline)
+1. **2000 to 2001: launch.** Index futures began in June 2000 (Sensex on BSE, Nifty on NSE), followed in 2001 by index options, stock options and stock futures (November 2001). Badla was abolished in July 2001, and single-stock futures absorbed much of that leveraged trading.
+2. **2000s: growth.** Volumes grew rapidly; NSE dominated derivatives trading.
+3. **2016: weekly options.** NSE launched weekly Bank Nifty options in 2016; Nifty weeklies followed in 2019, and weeklies on other indices later. Weekly options made very cheap, short-dated bets possible.
+4. **2018 to 2019: physical settlement.** Stock futures and options moved from cash settlement to physical settlement (delivery of shares), phased in from July 2018.
+5. **2020 to 2024: retail boom.** Low brokerage, mobile apps and pandemic-era retail participation sent index option volumes to record levels, mostly in near-expiry weekly contracts. BSE relaunched Sensex derivatives in 2023 and gained share with Friday expiries. Exchanges offered weekly expiries on several indices, so there was an expiry almost every day.
+6. **2023 to 2024: evidence of losses.** SEBI's studies found 89% of individual traders lost money in FY22, and 93% over FY22 to FY24 (₹1.8 lakh crore in total).
+7. **October 2024 onward: curbs.** One weekly expiry per exchange (Nifty, Sensex), contract size ₹15 to 20 lakh, extra 2% ELM on expiry day, upfront premium collection, no calendar-spread benefit on expiry day, intraday position-limit monitoring. In 2025: delta-based (FutEq) open interest, new position limits, expiry days fixed to Tuesday (NSE) or Thursday (BSE) from September 2025. Nifty's lot changed to 65 from January 2026.
+
+## Formulas and numbers (worked example)
+Contract size change for Nifty:
+- Before November 2024: lot 25, Nifty ~24,000 → ₹6 lakh per lot.
+- From November 2024: lot 75 → ₹18 lakh per lot.
+- From January 2026: lot 65, Nifty ~25,500 → ₹16.6 lakh per lot.
+Margin for a short futures position at roughly 12% of contract value rose from about ₹72,000 to ₹2.16 lakh per lot in November 2024, a threefold increase in minimum capital.
+
+## India specifics
+- Index options dominate Indian derivatives by number of contracts; much of the volume historically came in the last days, often on expiry day.
+- Stock F&O eligibility is restricted to large, liquid stocks (about 200), with criteria reviewed by SEBI.
+- Physical settlement of stock derivatives means traders holding in-the-money positions at expiry must deliver or take delivery.
+- India's settlement cycle (T+1) and margin systems (SPAN, ELM, peak margin rules from 2020 to 2021) form the background to derivatives trading.
+
+## Real examples and history
+- BSE's earlier derivatives launches failed to attract liquidity; its 2023 relaunch with smaller lots and Friday expiry succeeded, turning BSE into a significant options venue until SEBI's 2024 limits on weeklies.
+- Peak margin rules (2020 to 2021) ended intraday leverage beyond margins collected upfront, an earlier step in tightening.
+
+## Edge cases and common mistakes
+- **Assuming rules are fixed.** Lot sizes, expiry days and margin rules have changed often; old strategies and backtests may not apply.
+- **Volume versus value.** Contract counts are huge partly because option premiums are small; notional and premium turnover tell different stories.
+- **Weekly versus monthly.** Only one benchmark weekly per exchange remains; other indices have monthly contracts.
+- **Physical settlement surprises.** Holding stock options in the money at expiry leads to delivery obligations.
+
+## How traders, investors and quants use it
+- Traders must follow current contract specifications and margin rules.
+- Quants account for regime changes when building historical datasets.
+- Policy analysts debate the balance between market depth (hedging and price discovery) and retail losses from speculation.
+
+## Related concepts
+SEBI F&O reforms; lot sizes and contract values; physical settlement; options Greeks; retail participation; settlement cycles.
+</lesson>
+<qa difficulty="medium"><q>When did exchange-traded equity derivatives start in India, and with which product?</q><a>In June 2000, with index futures on the Sensex (BSE) and the Nifty (NSE). Index options, stock options and stock futures followed in 2001.</a></qa>
+<qa difficulty="hard"><q>Why did weekly index options attract so much retail trading?</q><a>Weekly options near expiry have low premiums, so traders could buy them with little money for large potential payoffs, like lottery tickets; with several indices each expiring on different days, there was an expiry almost every day. Low brokerage and mobile apps made frequent trading easy. SEBI's studies later showed most individuals lost money.</a></qa>
+<qa difficulty="hard"><q>Compute how much the money needed per Nifty lot changed from lot 25 to 75 at Nifty 24,000, with margin at 12% of contract value.</q><a>Lot 25: contract value ₹6 lakh, margin ₹72,000. Lot 75: contract value ₹18 lakh, margin ₹2,16,000. The minimum capital per lot tripled.</a></qa>
+<qa difficulty="medium"><q>Why were stock derivatives moved to physical settlement?</q><a>To link derivatives more closely to the cash market and reduce manipulation of the closing price used for cash settlement. With physical settlement, in-the-money positions at expiry lead to actual delivery of shares, so traders must be prepared to deliver or pay, discouraging speculative positions held to expiry without intent to settle.</a></qa>
+<qa difficulty="hard"><q>List four SEBI measures from 2024 to 2025 that changed index options trading.</q><a>One weekly expiry per exchange on a single benchmark; minimum contract size of ₹15 to 20 lakh; an extra 2% extreme loss margin on short options on expiry day; upfront collection of option premiums. Also: removal of calendar-spread benefit on expiry day, intraday position-limit monitoring, delta-based open interest and new position limits, and expiry days restricted to Tuesday or Thursday.</a></qa>
+<qa difficulty="expert"><q>Why did single-stock futures become unusually important in India?</q><a>They were introduced in November 2001, just after badla was abolished, providing a regulated substitute for the carry-forward leverage traders were used to. The demand for leveraged positions in individual stocks shifted into futures, which became a large segment, unlike in many markets where single-stock futures never gained traction.</a></qa>
+<source url="https://casi.sas.upenn.edu/node/278">Badla and the curious popularity of single-stock futures in India (CASI)</source>
+<source url="https://www.business-standard.com/amp/markets/news/sebi-announces-six-key-changes-to-curb-speculation-in-derivatives-trading-124100101316_1.html">Sebi rolls out 6 measures to rein in F&O speculation (Business Standard)</source>
+<source url="https://www.sebi.gov.in/media-and-notifications/press-releases/sep-2024/updated-sebi-study-reveals-93-of-individual-traders-incurred-losses-in-equity-fando-between-fy22-and-fy24-aggregate-losses-exceed-1-8-lakh-crores-over-three-years_86906.html">SEBI study on individual traders' F&O losses</source>
+<source url="https://www.businesstoday.in/markets/story/sebi-equity-fo-rules-futeq-method-mwpl-risk-management-478321-2025-05-29">SEBI introduces FutEq OI and new position limits (Business Today)</source>
+<source url="https://zerodha.com/marketintel/bulletin/429705/revision-in-lot-size-of-index-derivative-contracts-from-december-30-2025">Revision in lot size of index derivative contracts (Zerodha)</source>
+</topic>
