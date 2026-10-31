@@ -1,0 +1,309 @@
+<topic id="540">
+<level>intermediate</level>
+<lesson>
+# Transmission of securities: simplified documentation, thresholds and quick transmission
+
+## Core idea
+When a shareholder dies, their securities pass to nominees, surviving joint holders or legal heirs through **transmission**, which is different from a transfer by sale. Transmission used to require heavy documentation such as succession certificates or probate, causing long delays and many unclaimed holdings. SEBI has progressively simplified it; its July 2026 circular, effective 19 August 2026, standardised documents, raised thresholds for simplified documentation, removed the mandatory requirement of probate, and created a fast-track route for small claims.
+
+## How it works, step by step
+1. **Who receives.** Surviving joint holders first; then nominees; if there is no nominee, legal heirs.
+2. **Basic documents.** Request form, death certificate, KYC of the claimant, and identification of the holding.
+3. **With a nominee.** Transmission to the nominee needs minimal documents; the nominee may hold for legal heirs as required by law.
+4. **Without a nominee, simplified route.** For holdings up to the threshold, legal heirs can use simplified documents (affidavit, indemnity, no-objection from other heirs) instead of a succession certificate or probate:
+   - Thresholds under the July 2026 circular: ₹10 lakh per listed entity for physical securities (companies may set higher) and ₹30 lakh for demat holdings, up from ₹5 lakh and ₹15 lakh.
+5. **Above the thresholds.** Legal documents such as a succession certificate or letter of administration are still needed; probate of a will is no longer mandatory.
+6. **Quick Transmission Processing (QTP).** A fast-track route for low-value claims with minimal documentation.
+7. **Timeline.** Intermediaries (listed companies, registrars, depository participants, asset management companies) must process complete requests within a set period (21 days under the new framework).
+
+## Formulas and numbers (worked example)
+A deceased investor held, with no nominee:
+- Demat holdings of ₹22 lakh: below the ₹30 lakh demat threshold, so heirs can use simplified documents (affidavit, indemnity, NOCs from other legal heirs).
+- Physical shares of one company worth ₹14 lakh: above the ₹10 lakh physical threshold (unless the company has set a higher limit), so a succession certificate or similar document is needed.
+- A small demat holding of ₹25,000 in another account would qualify for quick transmission.
+
+## India specifics
+- SEBI's earlier circulars (2022 to 2024) had set the simplified thresholds at ₹5 lakh (physical, per listed entity) and ₹15 lakh (demat); a December 2025 circular raised the limit for duplicate share certificates to ₹10 lakh.
+- Unclaimed holdings eventually move to the Investor Education and Protection Fund (IEPF), making recovery slower; easier transmission aims to reduce this.
+- Mutual fund units follow similar rules through AMCs and registrars.
+
+## Real examples and history
+- Many families discovered old physical share certificates years after a death and faced complex procedures, often across multiple companies; standardisation aims to make the process uniform across intermediaries.
+- Nomination reforms in 2025 and 2026 complement transmission rules.
+
+## Edge cases and common mistakes
+- **Thresholds are per entity (physical) or per account (demat).** Large estates spread across companies may each fall below thresholds.
+- **Disputes among heirs.** Simplified routes need NOCs; disputes require court documents.
+- **Physical shares.** Must be dematerialised after transmission to be traded.
+- **Joint holders.** Surviving joint holders take precedence over nominees.
+- **Rules change.** Use the current circular's thresholds and forms.
+
+## How traders, investors and quants use it
+- Investors keep nominations updated and hold securities in demat to simplify transmission.
+- Families use the simplified route for moderate holdings.
+- Registrars and DPs implement standardised workflows.
+
+## Related concepts
+Nomination; IEPF; dematerialisation; succession law; KYC.
+</lesson>
+<qa difficulty="medium"><q>Who receives securities on the death of a sole holder with a valid nomination?</q><a>The nominee, through transmission with minimal documents; the nominee may hold them on behalf of legal heirs if succession law requires.</a></qa>
+<qa difficulty="hard"><q>Under the July 2026 framework, can heirs with no nominee use simplified documents for demat holdings of ₹28 lakh?</q><a>Yes. The simplified documentation threshold for demat holdings is ₹30 lakh, so ₹28 lakh qualifies: heirs can submit affidavits, indemnity and no-objection certificates from other legal heirs instead of a succession certificate.</a></qa>
+<qa difficulty="hard"><q>What changed in the July 2026 SEBI transmission circular?</q><a>It standardised documents across intermediaries, raised simplified-documentation thresholds to ₹10 lakh for physical securities (per listed entity) and ₹30 lakh for demat holdings, removed the mandatory requirement of probate of a will, introduced Quick Transmission Processing for low-value claims, and set a processing timeline (effective 19 August 2026).</a></qa>
+<qa difficulty="medium"><q>What is the difference between transfer and transmission of securities?</q><a>Transfer is a voluntary change of ownership (for example by sale or gift) between living persons. Transmission is the passing of securities by operation of law on the death (or insolvency) of the holder to nominees, joint holders or heirs.</a></qa>
+<qa difficulty="hard"><q>Why do regulators want to simplify transmission?</q><a>Complex, costly procedures led heirs to abandon small holdings, which then became unclaimed and moved to the IEPF, from where recovery is slow. Simplification reduces unclaimed wealth, saves families time and cost, and standardises practices across companies and registrars.</a></qa>
+<qa difficulty="medium"><q>Physical shares of one company worth ₹12 lakh are held by a deceased investor without nomination. Can heirs use the simplified route?</q><a>Not under the default ₹10 lakh threshold for physical securities, unless the company has set a higher threshold. They would need a succession certificate or similar legal document.</a></qa>
+<source url="https://www.outlookbusiness.com/news/sebi-simplifies-transmission-of-securities-introduces-fast-track-route-for-low-value-claims">SEBI simplifies transmission of securities, fast-track route for low-value claims (Outlook Business)</source>
+<source url="https://www.livelawbiz.com/securities-law/sebi/securities-and-exchange-board-of-india-simplifies-standardises-framework-transmission-of-securities-circular-542633">SEBI simplifies transmission of securities (LiveLaw Biz)</source>
+<source url="https://www.kotakneo.com/news/regulations/sebi-securities-transmission-fast-track-probate-removed-august-2026/">SEBI simplifies securities transmission process (Kotak Neo)</source>
+<source url="https://www.business-standard.com/amp/markets/capital-market-news/sebi-eases-procedure-for-issuing-duplicate-securities-hikes-limit-to-rs-10-lakh-125122600223_1.html">SEBI eases procedure for duplicate securities, hikes limit to Rs 10 lakh (Business Standard)</source>
+<source url="https://www.taxmann.com/post/blog/sebi-proposes-easier-transmission-of-securities-claims/">SEBI proposes easier transmission of securities claims (Taxmann)</source>
+</topic>
+
+<topic id="541">
+<level>intermediate</level>
+<lesson>
+# Margin pledge and re-pledge flow: UCC, haircut, collateral caps and invocation
+
+## Core idea
+Every trading client in India has a Unique Client Code (UCC) linking their trading account, PAN and demat account. When a client pledges shares for margin, the pledge is recorded against that identity, re-pledged up to the clearing corporation, and valued with a haircut. Collateral rules limit how much margin can come from shares (cash must form at least half of F&O margin) and how concentrated collateral can be. If the client fails to meet obligations, the pledge is invoked and shares are sold.
+
+## How it works, step by step
+1. **UCC and mapping.** The broker registers each client's UCC with the exchange, linked to PAN and demat account; pledges and collateral are tracked against it.
+2. **Pledge.** The client marks a pledge on selected securities in favour of the broker's client securities margin pledge account, authorised by OTP.
+3. **Re-pledge.** The broker re-pledges to its clearing member, which re-pledges to the clearing corporation (CC). The CC accepts only approved securities.
+4. **Valuation and haircut.** The CC values collateral at market price minus a haircut (based on VaR and ELM, typically 10% to 50% depending on volatility and liquidity). Haircuts update with market conditions.
+5. **Collateral composition.** At least 50% of the margin requirement must be met with cash or cash equivalents (cash, fixed deposits, government securities, liquid fund units); the rest can be securities. CCs may cap acceptance of a single security or issuer to limit concentration.
+6. **Margin use.** The collateral value after haircut counts toward the client's margin.
+7. **Invocation.** If the client fails to pay obligations, the broker (or CC, in a member default) invokes the pledge; with 2025 automation, invocation and release for pay-in flow through depository functions.
+
+## Formulas and numbers (worked example)
+Client pledges:
+- 1,000 shares of Stock A at ₹1,500 (₹15 lakh) with a 15% haircut → ₹12.75 lakh collateral value.
+- 2,000 shares of Stock B at ₹200 (₹4 lakh) with a 40% haircut → ₹2.4 lakh.
+Total non-cash collateral = ₹15.15 lakh.
+Cash in account: ₹5 lakh.
+F&O margin requirement: ₹16 lakh. Cash must cover at least ₹8 lakh; the client has ₹5 lakh, so cash-equivalent shortfall = ₹3 lakh, even though total collateral (₹20.15 lakh) exceeds the requirement. The client must add ₹3 lakh in cash or pledge liquid fund units (treated as cash equivalents) to comply.
+
+## India specifics
+- Margin pledge has been the only way to provide securities as collateral since September 2020.
+- The 50% cash-equivalent rule (50:50) limits leverage from pledged stocks.
+- The June 2025 SEBI circular automated pledge release for pay-in and invocation flows, effective 10 October 2025.
+- Shares bought under margin trading funding (MTF) are pledged separately to the broker as security for the funding.
+
+## Real examples and history
+- Brokers previously took collateral by title transfer; misuse in the Karvy case drove the move to pledges.
+- In volatile markets, CCs raise haircuts quickly, causing margin calls even without price drops.
+
+## Edge cases and common mistakes
+- **Ignoring the 50% cash rule.** Large pledges do not replace cash margin.
+- **Pledging illiquid stocks.** May not be accepted or get high haircuts.
+- **Concentration.** A single stock making up most collateral may be capped.
+- **Corporate actions.** Bonus or split shares may need fresh pledges to count as collateral.
+- **Invocation at bad prices.** Unmet margin calls can lead to forced sales in falling markets.
+
+## How traders, investors and quants use it
+- Traders pledge long-term holdings and liquid fund units to meet margins while keeping cash small.
+- Brokers' risk systems monitor collateral, haircuts and cash ratios in real time.
+- Risk models stress haircut increases to anticipate margin calls.
+
+## Related concepts
+Depository pledge workflow; peak margin; SPAN and VaR margins; Karvy case; MTF; UCC and KYC.
+</lesson>
+<qa difficulty="hard"><q>A client has ₹6 lakh cash and pledged shares worth ₹20 lakh after haircut. F&O margin required is ₹14 lakh. Is the client compliant?</q><a>Cash must cover at least 50% of the requirement: ₹7 lakh. The client has ₹6 lakh, a ₹1 lakh cash-equivalent shortfall, even though total collateral (₹26 lakh) is ample. The client must add ₹1 lakh in cash or cash equivalents (for example pledged liquid fund units).</a></qa>
+<qa difficulty="medium"><q>What is a haircut on pledged collateral?</q><a>A percentage deduction from the market value of pledged securities to account for possible price falls and liquidity risk; collateral value = market value × (1 − haircut). Haircuts are set by the clearing corporation, often based on VaR and ELM.</a></qa>
+<qa difficulty="hard"><q>Why do clearing corporations cap the share of a single security in collateral?</q><a>A concentrated collateral pool is exposed to one stock's crash; if many clients pledge the same stock and it falls sharply, collateral value collapses just when margin is needed, and selling it would be hard. Caps diversify collateral and protect the CC.</a></qa>
+<qa difficulty="medium"><q>What is a UCC?</q><a>A Unique Client Code assigned by the broker and registered with the exchange for each client, linked to the client's PAN and demat account, used to identify the client's trades, margins and collateral.</a></qa>
+<qa difficulty="hard"><q>A client's pledged stock falls 10% and the CC raises its haircut from 20% to 35%. If the stock was worth ₹10 lakh, what happens to its collateral value?</q><a>Before: ₹10 lakh × 0.80 = ₹8 lakh. After: price ₹9 lakh × 0.65 = ₹5.85 lakh. Collateral value drops by ₹2.15 lakh (27%), much more than the 10% price fall, possibly triggering a margin call.</a></qa>
+<qa difficulty="medium"><q>Which instruments count as cash equivalents for the 50% rule?</q><a>Cash, bank fixed deposits (in prescribed forms), government securities and units of liquid and overnight mutual funds, subject to haircuts, are typically treated as cash equivalents.</a></qa>
+<source url="https://www.sebi.gov.in/legal/circulars/jun-2025/margin-obligations-to-be-given-by-way-of-pledge-re-pledge-in-the-depository-system_94363.html">SEBI circular on margin obligations by pledge and re-pledge (June 2025)</source>
+<source url="https://www.mstock.com/articles/new-pledge-and-repledge-system">New pledge and re-pledge system (m.Stock)</source>
+<source url="https://www.shareindia.com/?p=75379">Share pledging explained: margin pledge, SEBI rules and risks (Share India)</source>
+<source url="https://ksandk.com/md/corporate/sebi-automates-margin-pledge-and-invocation-process/">SEBI automates margin pledge and invocation process (King Stubb and Kasiva)</source>
+</topic>
+
+<topic id="542">
+<level>intermediate</level>
+<lesson>
+# ISIN lifecycle: issuance, RE ISINs, splits, demergers and mapping in security masters
+
+## Core idea
+Every security in India's depositories is identified by a 12-character International Securities Identification Number (ISIN). An ISIN is created when a security is issued, changes when the security's terms change (for example a split changes face value), and is suspended or deactivated when the security ceases to exist (after a merger or redemption). For anyone building data systems, knowing how ISINs are born, change and die is essential to keep price histories and holdings correct.
+
+## How it works, step by step
+1. **Issuing agency.** In India, NSDL allots ISINs for most securities (as the national numbering agency appointed by SEBI); government securities ISINs are allotted under RBI's framework.
+2. **Structure (12 characters):**
+   - "IN" country code;
+   - one character for issuer type: E for companies (INE), F for mutual funds (INF), 9 for partly paid shares (IN9), 0 for central government securities (IN0), others for other types;
+   - four characters identifying the issuer;
+   - two characters for the security type (for example 01 equity shares, 03 preference shares, 20 rights entitlements);
+   - two characters as a serial number;
+   - one check digit computed with a modified Luhn algorithm (letters converted to numbers).
+3. **Lifecycle events:**
+   - **New issue:** a new ISIN at IPO or new instrument.
+   - **Split or consolidation:** face value changes, so a new ISIN replaces the old one.
+   - **Bonus:** usually credited to the existing ISIN (since 2024 directly, without a temporary ISIN).
+   - **Rights issue:** rights entitlements get a separate RE ISIN (security type 20); partly paid shares may get an IN9 ISIN until fully paid.
+   - **Demerger:** the new company's shares get a new ISIN; the parent's ISIN may continue or change depending on structure.
+   - **Merger or delisting:** the old ISIN is suspended or deactivated after the effective date.
+4. **Mapping.** Security masters link old and new ISINs through corporate action events, so histories continue across changes.
+
+## Formulas and numbers (worked example)
+Reading an ISIN: INF789F01XA0
+- IN: India; F: mutual fund; 789F: issuer code (an AMC); 01: security type; XA: serial; 0: check digit.
+
+Lifecycle: a company with ISIN INExxxxx01xx splits ₹10 shares into ₹2 shares. The old ISIN is debited and a new one credited with 5 times the quantity. A price-data system must record: old ISIN until the day before the ex-date, new ISIN from the ex-date, with a split factor of 5 linking them.
+
+## India specifics
+- HDFC Bank's 2019 split from ₹2 to ₹1 face value created a new ISIN; Reliance's 2020 partly paid rights shares traded under a separate partly paid ISIN.
+- Rights entitlements in demat form (since 2020) have their own ISINs and can be traded on exchanges during the renunciation period.
+- Exchanges also use symbols, which can change on name changes; ISINs and symbols must both be mapped.
+
+## Real examples and history
+- Open datasets of Indian ISINs (built from NSDL lists) show the structure and allow mapping of issuers and security types.
+- Global ISINs follow ISO 6166; each country's national numbering agency issues them.
+
+## Edge cases and common mistakes
+- **Using ISIN as a permanent key.** ISINs change on splits and other events; use an internal permanent ID.
+- **Symbol changes without ISIN changes** (name changes) and ISIN changes without symbol changes (splits) both occur.
+- **Partly paid shares.** Trade under separate ISINs until converted.
+- **Suspended ISINs.** Holdings in suspended ISINs (for example after a merger) need conversion into the acquirer's shares.
+
+## How traders, investors and quants use it
+- Data engineers build security masters mapping ISINs, symbols and corporate actions.
+- Investors use ISINs to identify exactly which security they hold (for example a fund's direct versus regular plan).
+- Back offices reconcile holdings by ISIN across depositories and custodians.
+
+## Related concepts
+Corporate action adjustment factors; point-in-time databases; rights entitlements; demergers; depositories.
+</lesson>
+<qa difficulty="medium"><q>Which agency allots ISINs for company securities in India?</q><a>NSDL, appointed by SEBI as the national numbering agency for most securities; government securities ISINs follow RBI's framework.</a></qa>
+<qa difficulty="hard"><q>Why does a stock split create a new ISIN but a 1:1 bonus usually does not?</q><a>An ISIN identifies a security with specific terms, including face value. A split changes face value, creating a different security, so a new ISIN is needed. A bonus issues more shares with the same terms, so they are credited to the existing ISIN.</a></qa>
+<qa difficulty="medium"><q>What do the characters "INE" and "INF" indicate at the start of an ISIN?</q><a>"IN" is India's country code; "E" indicates a company (corporate securities) and "F" a mutual fund.</a></qa>
+<qa difficulty="hard"><q>How should a backtest database handle a stock whose ISIN changed after a split?</q><a>Store both ISINs under one permanent internal security ID, with valid-from and valid-to dates, and record the split event with its factor. Price and holdings history then continue across the ISIN change, with adjustment factors applied for the split.</a></qa>
+<qa difficulty="medium"><q>What is a rights entitlement ISIN?</q><a>A separate ISIN (security type code 20 for companies) under which rights entitlements are credited to shareholders' demat accounts, allowing them to be traded or renounced before the rights issue closes.</a></qa>
+<qa difficulty="expert"><q>Why is a check digit used in ISINs, and how is it computed?</q><a>It detects errors such as mistyped characters. Letters are converted to numbers (for example A = 10 to Z = 35), producing a string of digits on which a Luhn (mod 10) calculation is performed; the result is the 12th character. A wrong character usually produces a mismatched check digit.</a></qa>
+<source url="https://git.captnemo.in/nemo/india-isin-data/src/commit/c3387f29618cdb84bf010e72ddb33aa9e873b50a">India ISIN data: ISIN format explained (open dataset)</source>
+<source url="https://www.basunivesh.com/how-your-dmat-mutual-funds-and-shares-isin-structured/">How demat mutual funds and shares ISINs are structured (BasuNivesh)</source>
+<source url="https://cleartax.in/s/isin-code">ISIN code explained (ClearTax)</source>
+<source url="https://tradingqna.com/t/hdfc-bank-goes-ex-split-in-the-ratio-2-1-on-september-19-2019-here-s-how-it-impacts-your-equity-holdings-and-f-o-positions/63025">HDFC Bank goes ex-split 2:1 (TradingQnA)</source>
+</topic>
+
+<topic id="543">
+<level>intermediate</level>
+<lesson>
+# IEPF: unclaimed dividends and shares, and the IEPF-5 claim process
+
+## Core idea
+When shareholders do not claim dividends for seven consecutive years, the money, and the shares on which dividends went unclaimed, are transferred by the company to the **Investor Education and Protection Fund (IEPF)**, run by an authority under the Ministry of Corporate Affairs. The investor (or their heirs) does not lose ownership forever: they can reclaim shares and dividends by filing Form IEPF-5. But the process is slower and more document-heavy than claiming from the company directly.
+
+## How it works, step by step
+1. **Unpaid dividend account.** Dividends not claimed within 30 days of declaration go to a company's unpaid dividend account.
+2. **Seven-year rule (section 124 of the Companies Act 2013).** If unclaimed for seven years, the amount (with any interest) is transferred to the IEPF; shares on which dividends were unclaimed for seven consecutive years are also transferred to the IEPF's demat account, after notice to shareholders.
+3. **Corporate benefits.** Bonus shares and other benefits on IEPF-held shares also go to the IEPF; voting rights are frozen.
+4. **Entitlement letter.** Under the current process, the claimant first obtains an entitlement letter from the company confirming the holdings and amounts transferred.
+5. **Form IEPF-5.** The claimant files the web form online with documents (identity, proof of entitlement, demat account details, and for heirs, transmission documents), now with documents largely submitted at the time of filing.
+6. **Company verification.** The company (through its nodal officer and registrar) verifies the claim and sends a report to the IEPF Authority.
+7. **Approval and refund.** The authority approves and refunds dividends to the bank account and credits shares to the claimant's demat account.
+
+## Formulas and numbers (worked example)
+An investor held 500 shares of a company paying ₹12 a year in dividends but stopped claiming dividends after moving house. After seven years of unclaimed dividends:
+- Dividends transferred: 7 × 500 × ₹12 = ₹42,000.
+- 500 shares (now worth, say, ₹1,800 each = ₹9 lakh) transferred to the IEPF.
+- Any 1:1 bonus issued later: another 500 shares to the IEPF.
+The claimant files IEPF-5 to recover ₹42,000 and 1,000 shares; the process takes months.
+
+## India specifics
+- Reports indicate over 75,000 claims approved in two years, with about ₹77.82 crore of dividends refunded, a small fraction of amounts held by the IEPF.
+- The IEPF Authority has consulted on simplifying refunds based on company verification, and the substituted IEPF-5 form shifts document submission to the filing stage.
+- Transmission simplification and nomination reforms aim to reduce future transfers to the IEPF.
+
+## Real examples and history
+- Large listed companies transfer thousands of shareholders' shares to the IEPF every year, often belonging to deceased shareholders whose heirs were unaware of holdings.
+- Before demat accounts, many investors held physical certificates and changed addresses, leading to lost dividends.
+
+## Edge cases and common mistakes
+- **Assuming the shares are lost.** They can be reclaimed, including benefits.
+- **Heirs.** Must complete transmission documentation as part of the claim.
+- **Multiple companies.** A separate claim is needed for each company.
+- **Bank and address updates.** Keep KYC current to receive dividends directly.
+- **Fraudulent claims.** Verification steps are strict to prevent identity fraud.
+
+## How traders, investors and quants use it
+- Investors keep KYC, bank details and nominations updated to avoid transfers to the IEPF.
+- Families of deceased investors search company and IEPF records for unclaimed holdings.
+- Analysts note that IEPF holdings are part of non-promoter shareholding but not freely traded.
+
+## Related concepts
+Transmission of securities; nomination; dematerialisation; corporate actions; Companies Act section 124 and 125.
+</lesson>
+<qa difficulty="medium"><q>When are shares transferred to the IEPF?</q><a>When dividends on them have remained unpaid or unclaimed for seven consecutive years; the company transfers the shares to the IEPF's demat account after notifying shareholders, along with the unclaimed dividend amounts.</a></qa>
+<qa difficulty="hard"><q>An investor's 800 shares and seven years of unclaimed dividends of ₹8 per share per year went to the IEPF; later the company issued a 1:2 bonus. What can the investor reclaim?</q><a>Dividends: 7 × 800 × ₹8 = ₹44,800. Shares: 800 original plus 400 bonus shares (1 for every 2) = 1,200 shares, along with any other benefits credited to the IEPF, by filing IEPF-5 with the company's entitlement letter and supporting documents.</a></qa>
+<qa difficulty="medium"><q>What is the first step in claiming from the IEPF under the current process?</q><a>Obtaining an entitlement letter from the company confirming the shares and dividends transferred to the IEPF, then filing Form IEPF-5 online with the required documents.</a></qa>
+<qa difficulty="hard"><q>Why is it better to claim dividends directly from the company than to wait for IEPF transfer?</q><a>Before transfer, dividends can be claimed from the company's unpaid dividend account with simple documentation. After transfer to the IEPF, the claimant must get an entitlement letter, file IEPF-5, wait for company verification and authority approval, which takes months and involves more documents.</a></qa>
+<qa difficulty="medium"><q>Can shares held by the IEPF vote at shareholder meetings?</q><a>No. Voting rights on shares transferred to the IEPF are frozen until they are returned to the rightful owner.</a></qa>
+<qa difficulty="hard"><q>How do nomination and transmission reforms reduce IEPF transfers?</q><a>Many IEPF transfers involve deceased investors whose heirs did not claim holdings. Easier nomination (more nominees, default nomination proposals) and simpler transmission (higher simplified thresholds, quick processing) let heirs claim holdings promptly, so dividends are paid and fewer shares become unclaimed for seven years.</a></qa>
+<source url="https://legalmantra.net/blog-detail/iepf-claims-form-iepf-5-latest-legal-position-procedural-changes-and-emerging-judicial-trends">IEPF claims, Form IEPF-5: latest legal position and procedural changes (Legal Mantra)</source>
+<source url="https://www.outlookmoney.com/personal-finance/unclaimed-funds-in-iepf-over-75000-claims-approved-in-two-years-rs-7782-crore-dividend-refunded">Unclaimed funds in IEPF: over 75,000 claims approved in two years (Outlook Money)</source>
+<source url="https://taxguru.in/corporate-law/steps-iepf-refund.html">Application to the authority for claiming amounts and shares from IEPF (TaxGuru)</source>
+<source url="https://www.tcs.com/content/dam/tcs/pdf/discover-tcs/investor-relations/faq/iepf-process-to-claim-may-2025.pdf">IEPF process to claim (TCS investor FAQ, May 2025)</source>
+</topic>
+
+<topic id="544">
+<level>advanced</level>
+<lesson>
+# NSE IFSC Clearing Corporation: margin methodology, default fund and USD settlement banking
+
+## Core idea
+GIFT City's International Financial Services Centre (IFSC) in Gujarat hosts exchanges that trade in US dollars under a separate regulator, the International Financial Services Centres Authority (IFSCA). NSE International Exchange (NSE IX) is where GIFT Nifty futures trade, and the **NSE IFSC Clearing Corporation (NICCL)** clears and guarantees those trades. Its design mirrors domestic clearing corporations (novation, margins, default waterfall) but with USD settlement through clearing banks and IFSCA rules.
+
+## How it works, step by step
+1. **Regulation.** NICCL has been regulated by IFSCA since 1 October 2020 (previously by SEBI).
+2. **Novation and guarantee.** NICCL becomes the counterparty to every trade on NSE IX, guaranteeing settlement.
+3. **Margins.** Portfolio-based initial margin (SPAN-style scenario margining) plus extreme loss and other margins, collected in USD (or approved collateral), with mark-to-market settled daily in USD.
+4. **Settlement banks.** Clearing banks link clearing members and NICCL for USD funds settlement; members hold USD accounts with them.
+5. **Default waterfall.** Defaulter's margins and contributions, NICCL's own resources, a core settlement guarantee fund (with contributions from NICCL and members), and further loss allocation rules, following global practices.
+6. **Products.** GIFT Nifty (index futures on Nifty 50 and other indices) and other derivatives; also INR-USD currency contracts since 2020.
+
+## Formulas and numbers (worked example)
+A trader is long 2 GIFT Nifty futures with a contract multiplier of $2 per index point (check current specs), Nifty at 25,000:
+- Notional = 2 × 25,000 × $2 = $100,000.
+- Initial margin at, say, 6% = $6,000, paid in USD to the clearing member and on to NICCL.
+- If GIFT Nifty falls 300 points, mark-to-market loss = 2 × 300 × $2 = $1,200, debited in USD the same day.
+
+Currency effect: a resident Indian using the Liberalised Remittance Scheme funds this in USD; P&L in rupees also depends on the USD/INR rate.
+
+## India specifics
+- GIFT Nifty began full trading at NSE IX in July 2023, after the migration of SGX Nifty trading from Singapore, and trades for about 21 hours a day across Asian, European and US hours.
+- NICCL's core settlement guarantee fund was about USD 1.34 million in 2021 (a dated figure; it would have grown with volumes).
+- Credit rating agencies note NICCL's default waterfall based on global practices and its parent support from the NSE group.
+- IFSC entities enjoy tax incentives and operate in foreign currency, outside the domestic rupee settlement system.
+
+## Real examples and history
+- SGX Nifty had been the main offshore Nifty derivative for two decades; the 2023 move to GIFT City brought that liquidity under Indian jurisdiction.
+- NICCL adopted a single settlement mechanism from May 2022.
+
+## Edge cases and common mistakes
+- **Contract specs differ from NSE.** Multipliers, trading hours and settlement differ from domestic Nifty futures.
+- **USD exposure.** Margins and P&L are in USD; currency moves affect rupee results.
+- **Resident access.** Residents can trade under LRS and IFSC rules; check eligibility and limits.
+- **Default fund size.** Smaller than domestic CCs; concentration of members matters.
+
+## How traders, investors and quants use it
+- Traders use GIFT Nifty to trade Indian equity exposure outside Indian hours and to anticipate the domestic open.
+- Foreign investors hedge India exposure in USD without onshore accounts.
+- Quants model basis between GIFT Nifty and domestic Nifty, including currency effects.
+
+## Related concepts
+Clearing corporations and novation; default waterfall; LRS; IFSC tax regime; GIFT Nifty basis; IFSCA regulations.
+</lesson>
+<qa difficulty="medium"><q>Which regulator oversees NSE IFSC Clearing Corporation?</q><a>The International Financial Services Centres Authority (IFSCA), since 1 October 2020.</a></qa>
+<qa difficulty="hard"><q>A trader is short 3 GIFT Nifty contracts at $2 per point. Nifty rises 150 points. What is the daily mark-to-market?</q><a>Loss = 3 × 150 × $2 = $900, debited in USD through the clearing member and settlement bank.</a></qa>
+<qa difficulty="hard"><q>Why does NICCL need clearing banks for USD settlement?</q><a>IFSC trades settle in US dollars, outside India's rupee payment systems. Clearing banks hold USD accounts for clearing members and NICCL and move funds for pay-in and pay-out, linking members to the clearing corporation.</a></qa>
+<qa difficulty="medium"><q>What happened to SGX Nifty in 2023?</q><a>Its trading moved from Singapore to NSE International Exchange in GIFT City, where it trades as GIFT Nifty, cleared by NSE IFSC Clearing Corporation, with full-scale operations from July 2023.</a></qa>
+<qa difficulty="hard"><q>How does NICCL's default protection compare with domestic CCs?</q><a>It follows the same principles (novation, margins, default waterfall with a core settlement guarantee fund funded by the CC and members, plus CC skin in the game), adapted for USD and IFSCA rules. Its fund size is smaller in absolute terms, reflecting lower volumes and a smaller membership than NSE's domestic segments.</a></qa>
+<qa difficulty="expert"><q>A resident Indian makes a $1,000 profit on GIFT Nifty when USD/INR moves from 83 to 85. What is the rupee value of the profit, and what currency risk exists on margin?</q><a>$1,000 at 85 = ₹85,000 (₹2,000 more than at 83). The margin posted in USD (for example $6,000) also changes in rupee value: at 85 it is worth ₹5.1 lakh versus ₹4.98 lakh at 83. The trader is exposed to USD/INR on both P&L and margin.</a></qa>
+<source url="https://nseindia.com/nseint_clearing/nse-international-clearing-overview">NSE International Clearing overview</source>
+<source url="https://www.careratings.com/upload/CompanyFiles/PR/202509130926_NSE_IFSC_Clearing_Corporation_Limited.pdf">CARE Ratings note on NSE IFSC Clearing Corporation (September 2025)</source>
+<source url="https://nsearchives.nseindia.com/web/sites/default/files/inline-files/NICCL_Annual_Report_2021_0.pdf">NICCL Annual Report 2021</source>
+<source url="https://getbelong.com/blog/how-gift-nifty-futures-settlement-works-in-us-dollars/">How GIFT Nifty futures settlement works in US dollars (Belong)</source>
+</topic>
