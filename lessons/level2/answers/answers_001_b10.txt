@@ -1,0 +1,309 @@
+<topic id="415">
+<level>advanced</level>
+<lesson>
+# Free-float market cap, index inclusion rules and passive flow estimation for Nifty and Sensex
+
+## Core idea
+When a stock enters or leaves a major index like the Nifty 50 or Sensex, every fund that tracks the index must buy or sell it on the same day. Because the rules and review dates are public, traders try to predict changes and estimate the size of the resulting "passive flows". Doing this well needs three things: the index's eligibility and selection rules, each stock's free-float market capitalisation, and the amount of money tracking the index.
+
+## How it works, step by step
+**Nifty 50 (NSE Indices):**
+1. **Universe:** Nifty 100 stocks that are available for trading in NSE's F&O segment.
+2. **Liquidity:** average impact cost of 0.50% or less for 90% of observations over six months, for a ₹10 crore portfolio, and 100% trading frequency.
+3. **Selection:** top 50 by six-month average free-float market capitalisation.
+4. **Replacement buffer:** a new stock enters only if its average free-float market cap is at least 1.5 times that of the smallest existing constituent (the exact reference is set out in the methodology), which reduces churn.
+5. **Reviews:** semi-annual, in March and September, using six-month data to 31 January and 31 July, with changes announced about four weeks before they take effect.
+
+**Sensex (BSE):** 30 large, liquid stocks selected by free-float market cap, liquidity and sector representation, reviewed semi-annually (June and December), maintained by BSE's index company.
+
+**Passive flow estimate:**
+Flow into stock i = Σ over indices (passive assets tracking the index × change in stock i's weight).
+For an inclusion: new weight × passive assets. For an exclusion: old weight × passive assets (selling).
+
+## Formulas and numbers (worked example)
+Assume ₹3,00,000 crore of passive money (index funds, ETFs, including EPFO's ETF investments) tracks the Nifty 50, whose total free-float market cap is ₹1,20,00,000 crore (₹120 lakh crore).
+- Stock X joins with free-float market cap ₹1,80,000 crore: weight = 1.5%; passive buying = 1.5% × ₹3,00,000 crore = ₹4,500 crore.
+- If X's average daily traded value is ₹900 crore, the buying equals 5 days of normal volume, executed mostly at the closing auction on the effective date.
+- The stock it replaces, with weight 0.6%, sees selling of ₹1,800 crore.
+- Other constituents' weights fall slightly; funds sell small amounts of each.
+
+## India specifics
+- Passive assets in India have grown fast (EPFO's ETF investments since 2015, retail index funds, and ETFs), so index changes now cause measurable flows.
+- Inclusion in global indices (MSCI, FTSE) often matters more for foreign flows; MSCI India changes can bring flows of hundreds of millions of dollars in a stock.
+- Since August 2026, closing prices of F&O stocks come from a closing auction, where index funds execute their rebalancing trades.
+- Free-float factors come from shareholding patterns; a promoter stake sale can raise a stock's free-float cap enough to qualify it.
+
+## Real examples and history
+- Index inclusion announcements in India have often been followed by price rises before the effective date and partial reversals afterwards, as traders who bought early sell to index funds.
+- The Nifty switched to free-float weighting in 2009; the Sensex in 2003.
+
+## Edge cases and common mistakes
+- **Using total market cap.** Selection and weights use free-float market cap.
+- **Ignoring the buffer rule.** A stock may rank in the top 50 but not enter if it fails the 1.5× test.
+- **Stale passive AUM.** Estimate tracking assets from recent AMFI and ETF data; numbers grow fast.
+- **Front-running crowding.** When everyone expects an inclusion, much of the price effect happens before the effective date.
+- **Other indices.** Funds track many indices (Nifty Next 50, Nifty 100, sector indices); a change in one stock can affect several.
+
+## How traders, investors and quants use it
+- Event traders predict review outcomes from published rules and data, and estimate flows relative to daily volume.
+- Index funds plan execution at the closing auction to minimise tracking error.
+- Long-term investors avoid buying just before inclusion when prices are inflated by expected flows.
+
+## Related concepts
+Investible weight factors; impact cost; closing auction; MSCI and FTSE reviews; passive investing; minimum public shareholding.
+</lesson>
+<qa difficulty="hard"><q>Passive assets of ₹2,50,000 crore track an index. A stock's weight rises from 1.2% to 1.6% after an IWF change. Estimate the passive buying.</q><a>Weight change 0.4% × ₹2,50,000 crore = ₹1,000 crore of buying, spread over funds that rebalance on the effective date.</a></qa>
+<qa difficulty="medium"><q>What are the liquidity and selection criteria for Nifty 50?</q><a>Stocks must be in the Nifty 100 and available in NSE's F&O segment, with average impact cost of 0.50% or less for 90% of observations over six months for a ₹10 crore portfolio and 100% trading frequency. The top 50 by six-month average free-float market cap are selected, with a buffer requiring a new entrant to be at least 1.5 times as large (by average free-float market cap) as the reference smallest constituent.</a></qa>
+<qa difficulty="hard"><q>Why does the Nifty 50 use a 1.5× buffer for new entrants?</q><a>Without a buffer, stocks near the cut-off would enter and leave at every review as their market caps fluctuate, forcing index funds to trade repeatedly and raising costs and tracking error. The buffer means only clearly larger stocks replace existing constituents.</a></qa>
+<qa difficulty="expert"><q>A stock's expected inclusion buying is ₹4,500 crore and its daily traded value is ₹900 crore. Why might the price effect on the effective date be smaller than this ratio suggests?</q><a>Traders anticipating the inclusion buy in advance and sell to index funds on the effective date, supplying liquidity. Some passive funds trade before or after the date. Active funds may already hold the stock and sell into the demand. The closing auction concentrates liquidity. So much of the price impact occurs before the effective date and is partly offset by anticipatory supply.</a></qa>
+<qa difficulty="medium"><q>When are Nifty 50 reviews held and which data are used?</q><a>Semi-annually in March and September, using six-month average data up to 31 January and 31 July respectively; changes are announced about four weeks before they take effect.</a></qa>
+<qa difficulty="hard"><q>Why do index inclusion price gains often partly reverse after the effective date?</q><a>Pre-effective-date gains reflect temporary demand pressure from anticipated passive buying and speculative positioning. After the index funds have bought and the speculators have sold to them, the extra demand disappears, so some of the price rise unwinds. The permanent part reflects improved liquidity and visibility.</a></qa>
+<source url="https://www.niftyindices.com/Factsheet/Ind_Nifty50.pdf">Nifty 50 factsheet and methodology summary (NSE Indices)</source>
+<source url="https://www.niftyindices.com/docs/default-source/indices/nifty-50/nifty-50-whitepaper-2024.pdf">Nifty 50 white paper 2024 (NSE Indices)</source>
+<source url="https://www.tatamutualfund.com/blogs/how-does-nifty-50-rebalance-learn-how-stocks-enter-exit-and-change-weight-index">How does Nifty 50 rebalance (Tata Mutual Fund)</source>
+<source url="https://www.niftyindices.com/resources/investible-weight-factors">Investible weight factors (NSE Indices)</source>
+</topic>
+
+<topic id="416">
+<level>advanced</level>
+<lesson>
+# Promoter pledging: loan-against-shares mechanics, margin calls, invocation cascades and SEBI's rules
+
+## Core idea
+Promoters often borrow money by pledging their shares as collateral. This is legal and common, but it creates a dangerous link: if the share price falls, lenders demand more collateral or repayment; if promoters cannot pay, lenders sell (invoke) the pledged shares, pushing the price down further, which triggers more margin calls. This feedback loop has wiped out shareholder value and even control of companies. SEBI's disclosure rules aim to make the risk visible.
+
+## How it works, step by step
+1. **Loan against shares.** A promoter pledges shares to a bank or NBFC through the depository system. The lender lends a fraction of the market value: the loan-to-value (LTV) ratio. RBI caps LTV on NBFC loans against shares at 50%, so ₹100 of shares supports at most ₹50 of loan.
+2. **Margin maintenance.** The agreement sets a minimum cover (for example 2× the loan). If the price falls and cover drops below it, the lender asks for top-up shares or cash (a margin call).
+3. **Invocation.** If the promoter cannot top up, the lender invokes the pledge: the shares move to the lender, which sells them in the market (or holds them).
+4. **Cascade.** Selling pressure lowers the price; other lenders' covers fall; more invocations follow. Retail and funds sell on news of invocations.
+5. **Disclosure.** Under SAST Regulation 31, promoters disclose creation, invocation and release of encumbrances within seven working days; if encumbrance exceeds 50% of their holding or 20% of the company's capital, they must disclose reasons. Quarterly shareholding patterns show pledged percentages.
+
+## Formulas and numbers (worked example)
+A promoter owns 20 crore shares at ₹300 (₹6,000 crore) and pledges 10 crore shares (₹3,000 crore) for a ₹1,200 crore loan. Required cover 2× (₹2,400 crore).
+- Current cover = 3,000/1,200 = 2.5×.
+- Price at which cover hits 2×: 10 crore × P = 2,400 crore → P = ₹240 (a 20% fall).
+- At ₹200, cover = 2,000/1,200 = 1.67×. Top-up needed: shares worth ₹400 crore more, i.e. 2 crore shares at ₹200.
+- If the promoter cannot top up, the lender sells; selling 3 crore shares into a market trading 50 lakh shares a day means six days of volume, and the price may fall to ₹170, triggering further calls on the remaining pledges.
+
+## India specifics
+- Pledge levels are published quarterly and in SAST disclosures; exchanges and data providers flag stocks with high promoter pledging.
+- **Essel group and Zee Entertainment (2019):** after Zee's share price crashed in January 2019, the group reached a standstill with most lenders holding pledged shares (they agreed not to treat price falls as defaults). Some lenders outside the agreement, including Bank of Baroda and Credit Suisse, sold pledged shares in early February 2019. By October 2019 about 90% of the promoters' stake was pledged; in November 2019 the promoters sold a 16.5% stake and became minority shareholders.
+- SEBI's 2019 rules required mutual funds lending against shares (through debt instruments backed by promoter pledges) to keep at least 4× cover, after several funds were hit by falls in pledged shares.
+- Client margin pledges (shares pledged by investors to brokers for trading margin since 2020) are different from promoter pledges and do not appear as promoter encumbrance.
+
+## Real examples and history
+- Many mid-cap collapses (2018 to 2020) involved high promoter pledging followed by invocation cascades.
+- Global examples include margin calls on founders' pledged stakes that forced sales during market falls.
+
+## Edge cases and common mistakes
+- **Non-disposal undertakings (NDUs).** Promoters may promise not to sell shares instead of pledging them; these count as encumbrances under SEBI rules.
+- **Group-level pledges.** Shares pledged for loans to other group companies tie the stock's fate to the group's debt.
+- **Pledge for company borrowings.** Sometimes promoters pledge to support the company's own loans; risk still exists if the company defaults.
+- **Falling pledge percentage is not always good.** It may reflect invocation (lenders selling), not repayment.
+- **High pledges in rising markets look safe.** The risk appears only when prices fall.
+
+## How traders, investors and quants use it
+- Investors avoid or size down stocks with promoter pledges above, say, 30 to 50% of their holding, especially in leveraged groups.
+- Quants use pledge ratios and changes as risk factors, and test their link to future crash risk.
+- Analysts compute the price at which margin calls begin (from disclosed loan terms where available) to judge vulnerability.
+
+## Related concepts
+SAST Regulation 31; loan-to-value; margin calls; forced selling and liquidity; corporate governance; credit risk in mutual funds.
+</lesson>
+<qa difficulty="hard"><q>A promoter pledges 5 crore shares at ₹500 for a loan of ₹1,000 crore with a required cover of 2×. At what price is a margin call triggered?</q><a>Collateral value must be at least ₹2,000 crore. 5 crore × P = 2,000 crore → P = ₹400. A fall of 20% from ₹500 triggers a margin call.</a></qa>
+<qa difficulty="hard"><q>Why can a promoter's pledged percentage fall while the stock is collapsing?</q><a>Because lenders invoke pledges and sell the shares, reducing both the promoter's total holding and the pledged amount. The pledge percentage falls not because loans were repaid but because collateral was seized, a negative signal.</a></qa>
+<qa difficulty="medium"><q>What does SEBI require promoters to disclose about pledges?</q><a>Under SAST Regulation 31, creation, invocation and release of any encumbrance (pledge, lien, non-disposal undertaking) within seven working days. If encumbered shares exceed 50% of the promoter group's holding or 20% of the company's capital, they must disclose the reasons. Pledge levels also appear in quarterly shareholding patterns.</a></qa>
+<qa difficulty="expert"><q>Explain the invocation cascade and why it can overshoot fundamental value.</q><a>A price fall reduces collateral cover, prompting margin calls. When promoters cannot meet them, lenders sell pledged shares regardless of value, because their goal is recovering the loan. The selling pushes the price down, triggering calls on other pledges and panic selling by other holders. Since the sellers are forced and insensitive to value, and buyers are scarce in thin markets, prices can fall well below fundamental value before the selling ends.</a></qa>
+<qa difficulty="hard"><q>Why did SEBI require 4× cover for mutual fund investments backed by pledged shares in 2019?</q><a>Several debt funds had lent to promoter entities against pledged shares; when the shares fell sharply, collateral was insufficient and funds took losses or had to segregate portfolios. Requiring 4× cover makes it much less likely that a fall in share prices leaves the fund under-collateralised.</a></qa>
+<qa difficulty="medium"><q>What is a non-disposal undertaking, and why does SEBI treat it as an encumbrance?</q><a>An NDU is a promoter's promise to a lender not to sell or transfer certain shares. Although no formal pledge exists, it restricts the shares in the same way and gives the lender leverage, so SEBI counts it as an encumbrance that must be disclosed.</a></qa>
+<source url="https://vinodkothari.com/2020/09/sebi-automates-continual-disclosures-under-pit-regulations/">SEBI automates continual disclosures under PIT and SAST regulations (Vinod Kothari)</source>
+<source url="https://nsearchives.nseindia.com/content/equities/SEBI_Circular_28052018.pdf">SEBI circular of 28 May 2018 on system-driven disclosures</source>
+<source url="https://www.business-standard.com/amp/article/companies/bank-of-baroda-credit-suisse-sell-zee-entertainment-pledged-shares-119020300591_1.html">Bank of Baroda, Credit Suisse sell Zee Entertainment pledged shares (Business Standard, February 2019)</source>
+<source url="https://www.business-standard.com/amp/article/companies/90-of-promoters-stake-in-zee-pledged-with-financial-institutions-119100500938_1.html">90% of promoters' stake in Zee pledged with financial institutions (Business Standard)</source>
+<source url="https://www.business-standard.com/amp/article/companies/subhash-chandra-to-become-minority-shareholder-in-zee-after-stake-sale-119112001509_1.html">Subhash Chandra to sell 16.5% stake in Zee, become minority shareholder (Business Standard)</source>
+<source url="https://www.business-standard.com/amp/article/companies/india-tycoons-running-out-of-time-with-debt-dagger-hanging-over-stocks-119092400182_1.html">India tycoons running out of time with debt dagger hanging over stocks (Business Standard)</source>
+</topic>
+
+<topic id="417">
+<level>advanced</level>
+<lesson>
+# FPI regime in India: categories, 10% single-investor limit, sectoral caps, FDI reclassification and the beneficial-owner disclosure rules
+
+## Core idea
+Foreign portfolio investors (FPIs) are foreign funds and entities investing in Indian listed securities without seeking control. They are among the largest owners of Indian stocks and often drive market direction. SEBI's FPI Regulations 2019, together with foreign exchange rules, set who can invest, how much each can hold, and what they must disclose about their own owners. Limits matter because breaching them forces sales or reclassification, and disclosure rules matter because hidden concentrated ownership can hide manipulation or evasion of shareholding rules.
+
+## How it works, step by step
+1. **Registration.** FPIs register with SEBI through designated depository participants.
+2. **Categories (2019 Regulations):**
+   - **Category I:** government and government-related investors (central banks, sovereign wealth funds), and appropriately regulated entities such as pension funds, insurers, banks and regulated funds from jurisdictions meeting set standards.
+   - **Category II:** all other eligible FPIs (unregulated funds, corporate bodies, family offices, individuals).
+3. **Individual limit.** An FPI together with its investor group must hold less than 10% of a company's paid-up equity (on a fully diluted basis). If it crosses 10%, it must sell down below 10% within five trading days, or its entire holding is reclassified as foreign direct investment (FDI), subject to FDI rules.
+4. **Aggregate limit.** Since April 2020, the aggregate FPI limit in a company is the sectoral cap for FDI in that sector (100% in most sectors, lower in banking, insurance, defence and others), unless the company lowers it.
+5. **Beneficial ownership disclosure.** Since 2023, FPIs that hold more than 50% of their Indian equity assets in a single corporate group, or that hold Indian equity above a size threshold, must disclose granular details of all entities with ownership, economic interest or control, down to natural persons. The size threshold was raised from ₹25,000 crore to ₹50,000 crore in 2025.
+
+## Formulas and numbers (worked example)
+A company has 100 crore shares. FPI A and its investor group hold 9.2 crore shares (9.2%). A buys 1.3 crore more: holding 10.5 crore (10.5%).
+- A breaches the 10% limit. Within five trading days it must sell at least 0.5 crore + one share (bringing it below 10%), or its whole 10.5% is treated as FDI.
+- If reclassified, the holding is subject to FDI conditions (sectoral rules, pricing guidelines for future transfers) and A can no longer treat it as a portfolio investment.
+
+Aggregate limit: a private bank with a 74% FDI cap has FPIs holding 71%. Room left = 3%. If FPIs reach 74% minus a buffer, depositories announce that the limit is near, and further FPI buying is restricted; FPIs then buy from other FPIs at a premium, a known pattern in some bank stocks.
+
+## India specifics
+- The 2023 granular-disclosure rules came after concerns about opaque offshore funds with concentrated holdings in single business groups, highlighted during the 2023 Hindenburg episode.
+- In March 2025, SEBI's board doubled the size threshold for granular disclosure to ₹50,000 crore, citing that many large public and sovereign funds were already exempt and that the threshold had become outdated with market growth; critics argued this weakened monitoring.
+- FPI flows are published daily by NSDL; they are watched closely as drivers of Indian market moves.
+- Taxes for FPIs follow capital gains rates (20% short-term, 12.5% long-term on listed equity from July 2024), subject to tax treaties.
+
+## Real examples and history
+- Before 2019, FPIs were in three categories; the 2019 Regulations simplified them into two.
+- FPI ownership of Indian stocks peaked around the early 2020s and then declined in share as domestic mutual funds and SIP flows grew.
+- Several large FPI holdings have been reclassified or sold down after breaching individual limits, especially in mid caps where 10% is a small amount.
+
+## Edge cases and common mistakes
+- **Investor group aggregation.** Holdings of FPIs with common ownership above set thresholds are combined for the 10% limit.
+- **Fully diluted basis.** Convertible instruments count toward the limit.
+- **Sectoral caps differ.** Check each sector's cap and any company-specific limit.
+- **Disclosure exemptions.** Many government-related and diversified funds are exempt from granular disclosure; the rules target concentrated or large opaque holders.
+- **Reclassification is not automatic exit.** A reclassified holding remains but is treated as FDI.
+
+## How traders, investors and quants use it
+- Traders watch FPI headroom in banks and other capped sectors; nearing the limit can create premiums and later selling when limits rise or fall.
+- Analysts track FPI holdings changes in shareholding patterns and daily FPI flow data.
+- Governance analysts look for concentrated FPI holdings in single groups as a risk sign.
+
+## Related concepts
+FDI policy and sectoral caps; shareholding patterns; beneficial ownership; minimum public shareholding; capital flows; SAST disclosures.
+</lesson>
+<qa difficulty="hard"><q>An FPI group holds 9.8% of a company and buys 0.4% more. What must it do?</q><a>Its holding becomes 10.2%, above the 10% limit. Within five trading days it must sell enough to go below 10%, or its entire holding is reclassified as FDI and becomes subject to FDI rules.</a></qa>
+<qa difficulty="medium"><q>What is the difference between Category I and Category II FPIs?</q><a>Category I covers government-related investors (central banks, sovereign wealth funds) and appropriately regulated entities such as pension funds, insurers, banks and regulated funds; Category II covers all other eligible FPIs, such as unregulated funds, corporates, family offices and individuals. Category I faces lighter conditions.</a></qa>
+<qa difficulty="hard"><q>What triggers the granular beneficial-ownership disclosure for FPIs after March 2025?</q><a>Holding more than 50% of the FPI's Indian equity assets in a single corporate group, or Indian equity holdings above the size threshold, raised from ₹25,000 crore to ₹50,000 crore in 2025. Such FPIs must disclose all entities with ownership, economic interest or control, down to natural persons, unless exempt.</a></qa>
+<qa difficulty="expert"><q>Why did SEBI introduce look-through disclosure for concentrated FPIs in 2023?</q><a>Concentrated holdings by opaque offshore funds in one group's companies could hide that promoters or related parties held more shares than disclosed, undermining minimum public shareholding, takeover thresholds and free-float calculations, and possibly enabling price manipulation. Requiring disclosure of ultimate owners makes such arrangements visible.</a></qa>
+<qa difficulty="hard"><q>A bank has a 74% foreign investment cap and FPIs already hold 72%. What happens in the market?</q><a>Headroom is only 2%. Depositories monitor and announce when holdings approach the cap; once a trigger level is reached, new FPI purchases are restricted and FPIs can buy only from other FPIs, often at a premium to the domestic price. If the cap rises or FPIs sell, the restriction eases.</a></qa>
+<qa difficulty="medium"><q>Since when has the aggregate FPI limit equalled the sectoral cap?</q><a>Since 1 April 2020, the aggregate FPI investment limit in a company is the sectoral cap for foreign investment in that sector, unless the company passes a resolution to set a lower limit.</a></qa>
+<source url="https://www.business-standard.com/amp/markets/capital-market-news/sebi-board-raises-disclosure-threshold-for-fpis-from-rs-25000-crore-to-rs-50000-crore-125032401006_1.html">SEBI board raises disclosure threshold for FPIs to Rs 50,000 crore (Business Standard)</source>
+<source url="https://moneylife.in/article/sebi-proposes-increasing-threshold-for-fpis-granular-disclosures-to-rs50000-crore/76094.html">SEBI proposes raising threshold for FPIs' granular disclosures (Moneylife)</source>
+<source url="https://indiacorplaw.in/2025/05/11/sebis-fpi-disclosure-shift-overhaul-viability-of-the-trade-off/">SEBI's FPI disclosure shift: viability of the trade-off (IndiaCorpLaw)</source>
+<source url="https://www.outlookbusiness.com/markets/sebi-eases-fpis-disclosure-norms-doubles-assets-threshold-to-rs-50000-crore">SEBI eases FPIs' disclosure norms (Outlook Business)</source>
+</topic>
+
+<topic id="418">
+<level>intermediate</level>
+<lesson>
+# Reading monthly mutual fund portfolio disclosures, SIP flows and AMFI data alongside the SHP
+
+## Core idea
+Domestic mutual funds have become the biggest steady buyers of Indian equities, powered by monthly SIP (systematic investment plan) contributions above ₹30,000 crore. Their monthly portfolio disclosures and the Association of Mutual Funds in India's (AMFI) monthly data show where that money goes, faster than companies' quarterly shareholding patterns (SHP). Combining the two gives an early view of institutional behaviour: which stocks funds are buying, which sectors they are crowding into, and how much new money is arriving.
+
+## How it works, step by step
+1. **Monthly portfolio disclosures.** Every scheme publishes its full portfolio monthly (holdings by security, quantity, value, % of net assets) on the AMC's and AMFI's websites, within about 10 days of month end.
+2. **AMFI monthly data.** Net inflows and outflows by category (large, mid, small, flexi cap, sectoral, index, ETF, debt, hybrid), total assets (AUM), SIP contributions, number of SIP accounts and folios.
+3. **Shareholding pattern (SHP).** Each listed company discloses holdings by category (promoters, FPIs, mutual funds, insurers, retail) every quarter within 21 days of quarter end.
+4. **Combine.** Sum all schemes' holdings of a stock each month to get total mutual fund ownership; compare with the latest SHP; estimate quarter-to-date changes before the next SHP.
+5. **Interpret flows.** Strong inflows into small-cap funds force managers to buy small caps (or hold cash); outflows force selling. Track cash levels and concentration.
+
+## Formulas and numbers (worked example)
+A stock has 50 crore shares. Monthly disclosures show mutual funds together held 3.2 crore shares at the end of June and 3.9 crore at the end of August.
+- MF ownership rose from 6.4% to 7.8% (+1.4 percentage points) within the quarter, before the September SHP is published.
+- If the stock trades ₹80 crore a day, the 0.7 crore additional shares at ₹600 (₹420 crore) equals about 5 days of volume bought over two months.
+
+Flow arithmetic: SIP contributions of ₹32,000 crore a month, with about 70% going to equity schemes and most of it invested, means roughly ₹22,000 crore of monthly buying power, before lump sums and redemptions.
+
+## India specifics
+- **SIP flows:** monthly SIP contributions reached a record ₹32,490 crore in September 2026 (₹31,002 crore in December 2025), with about 9.9 crore active SIP accounts by mid-2026.
+- **AUM:** industry AUM was about ₹82.6 lakh crore at the end of September 2026, after a 5.1% fall that month as markets declined.
+- SEBI's 2017 categorisation fixes what each category can hold (for example small-cap funds at least 65% in small caps), so category flows translate into predictable buying in market-cap segments.
+- In 2024 SEBI asked small and mid-cap funds to publish stress tests on liquidity; some AMCs limited lump-sum inflows into small-cap funds when valuations ran high.
+
+## Real examples and history
+- SIP flows grew from under ₹5,000 crore a month in 2016 to over ₹30,000 crore by 2025 and 2026, making domestic institutions a counterweight to FPI selling.
+- In periods of heavy FPI selling (for example 2022 and late 2024), steady domestic fund inflows absorbed much of the selling and limited market falls.
+
+## Edge cases and common mistakes
+- **Confusing SIP inflows with net flows.** SIP contributions are gross; redemptions and lump-sum flows decide net flows.
+- **Market moves versus buying.** A rise in MF holding value can reflect price gains, not buying; use share counts.
+- **ETFs and index funds.** Passive flows follow index weights, not views; separate them from active fund buying.
+- **Window dressing.** Some funds may adjust holdings around month end; compare several months.
+- **SHP categories.** The SHP gives category totals, but names individual holders only above 1%; small positions of many schemes appear only in the total.
+
+## How traders, investors and quants use it
+- Analysts track monthly MF buying and selling by stock and sector to spot crowding and changes in institutional views.
+- Quants build features from changes in MF ownership (breadth of funds holding a stock, net buying) and test their predictive power.
+- Investors watch SIP trends as a gauge of retail confidence and of the market's domestic support.
+
+## Related concepts
+Shareholding pattern; AMFI data; SEBI fund categorisation; FPI flows; small-cap liquidity stress tests; passive investing.
+</lesson>
+<qa difficulty="hard"><q>A stock has 80 crore shares. MF holdings rise from 5.6 crore to 6.4 crore shares between month-end disclosures. What is the change in MF ownership?</q><a>From 5.6/80 = 7.0% to 6.4/80 = 8.0%: an increase of 1.0 percentage point (0.8 crore shares).</a></qa>
+<qa difficulty="medium"><q>How are monthly portfolio disclosures more timely than the shareholding pattern?</q><a>Fund portfolios are published every month within about 10 days of month end, while the SHP is quarterly and published within 21 days of quarter end. Monthly data shows changes up to two months before the next SHP.</a></qa>
+<qa difficulty="hard"><q>Why might a rise in the market value of MF holdings in a stock not mean funds bought it?</q><a>Market value equals shares held times price. If the price rose 15% and share count was unchanged, value rises 15% with no buying. Use the number of shares held across schemes to measure buying or selling.</a></qa>
+<qa difficulty="expert"><q>Small-cap funds receive ₹5,000 crore of net inflows in a month while small-cap stocks trade ₹40,000 crore a day in aggregate. Discuss the market impact.</q><a>₹5,000 crore is about one-eighth of a day's small-cap turnover, spread over a month, so on aggregate the flow is absorbable. But funds concentrate in a subset of liquid, well-researched small caps, where their buying can be a much larger share of volume, pushing those prices up and valuations higher. If flows reverse, the same concentration makes selling costly, which is why SEBI asked for liquidity stress tests.</a></qa>
+<qa difficulty="medium"><q>What did AMFI data show for SIP contributions in September 2026?</q><a>A record ₹32,490 crore in monthly SIP contributions, slightly above August's ₹32,297 crore, even as industry AUM fell 5.1% to about ₹82.6 lakh crore with market declines.</a></qa>
+<qa difficulty="hard"><q>Why are domestic SIP flows seen as a counterweight to FPI selling?</q><a>SIPs are regular monthly investments that continue regardless of short-term market moves. Mutual funds receiving them must invest, so they buy steadily even when FPIs sell. In years of heavy FPI outflows, domestic funds absorbed much of the selling, reducing the market's dependence on foreign flows.</a></qa>
+<source url="https://www.angelone.in/news/mutual-funds/sip-investments-set-new-record-at-32-490-crore-in-september-2026">SIP investments set a new record at ₹32,490 crore in September 2026 (Angel One)</source>
+<source url="https://www.equentis.com/blog/?p=71037">AMFI September 2026 data: AUM ₹82.64 lakh crore, SIP inflows ₹32,490 crore (Equentis)</source>
+<source url="https://ianslive.in/sip-inflows-at-new-record-high-of-rs-31002-crore-in-dec-amfi-data--20260109114816">SIP inflows at new record of ₹31,002 crore in December (IANS)</source>
+<source url="https://www.amfiindia.com/uploads/AMFI_Monthly_Note_Apr2026_782ed81775.pdf">AMFI monthly note, April 2026</source>
+<source url="https://www.tatamutualfund.com/blogs/decoding-sip-trends-mid-2026-are-investors-consolidating-or-expanding-their-sips">Decoding SIP trends mid-2026 (Tata Mutual Fund)</source>
+</topic>
+
+<topic id="419">
+<level>advanced</level>
+<lesson>
+# SECC Regulations 2018: ownership limits, fit-and-proper tests, and governance of recognised exchanges
+
+## Core idea
+Stock exchanges, clearing corporations and depositories are market infrastructure institutions (MIIs): if they fail or are misused, the whole market suffers. India demutualised its exchanges (separating ownership from trading membership) and SEBI regulates who can own them and how they are governed through the Securities Contracts (Regulation) (Stock Exchanges and Clearing Corporations) Regulations 2018, the SECC Regulations. The rules keep ownership dispersed, require owners to be "fit and proper", and give public-interest directors and regulatory functions independence from business pressures.
+
+## How it works, step by step
+1. **Dispersed ownership.** At least 51% of a recognised stock exchange's paid-up equity must be held by the public. No single resident person (with persons acting in concert) may hold more than 5% directly or indirectly; certain institutions (stock exchanges, depositories, banks, insurance companies and public financial institutions) may hold up to 15%.
+2. **Foreign ownership.** Total foreign investment is capped at 49%, with limits on individual foreign holders.
+3. **Fit and proper.** Shareholders above set thresholds (for example 2%) need SEBI approval and must meet fit-and-proper criteria (integrity, reputation, no serious regulatory violations), and must continue to meet them.
+4. **Governance.** The governing board includes public interest directors (PIDs) at least equal in number to shareholder directors; key committees (regulatory oversight, risk management, nomination, member regulation) are led by PIDs; the managing director is appointed with SEBI's approval.
+5. **Segregation of functions.** Under amendments made in 2023, MIIs separate critical operations, regulatory and risk functions, and other business functions, with regulatory and critical functions given priority in resources and independence.
+6. **Listing.** A recognised exchange can list its shares, but not on its own platform: BSE listed on NSE in 2017, and NSE's own shares are to list on BSE.
+
+## Formulas and numbers (worked example)
+An investor group wants to buy 8% of an exchange.
+- If it is a resident non-institutional investor: the limit is 5%, so it can hold at most 5%; the extra 3% is not permitted.
+- If it is a bank: up to 15% is allowed, subject to SEBI approval and fit-and-proper tests.
+- If foreign investors already hold 46% in aggregate and a new foreign investor wants 4%, the 49% cap leaves only 3% of room.
+
+An exchange IPO selling 6% of shares through an offer for sale changes ownership among existing shareholders; the exchange receives no new money, and buyers are subject to the same ownership caps.
+
+## India specifics
+- **NSE's IPO:** NSE filed its draft prospectus with SEBI on 17 June 2026 and received SEBI's no-objection on 19 August 2026, for an offer for sale of about 6% of its shares, to be listed on BSE since an exchange cannot list on its own platform. Its listing had been delayed for years by regulatory issues including the co-location case. Check current status for listing details.
+- BSE, CDSL and MCX are listed MIIs, and their share prices respond to market activity (trading volumes, F&O rules).
+- SEBI has used its powers over MII governance after lapses, for example by requiring changes in management and technology governance after outages and the co-location case.
+- Clearing corporations and depositories have similar ownership rules under their own regulations.
+
+## Real examples and history
+- Indian exchanges were member-owned until the mid-2000s; demutualisation separated broker-members from ownership to reduce conflicts of interest.
+- NSE's co-location case (allegations that some brokers got preferential access to servers in the early 2010s) led to SEBI orders in 2019 and to stronger rules on MII governance and technology.
+
+## Edge cases and common mistakes
+- **Assuming exchanges are ordinary companies.** Their ownership, board and listing are constrained by SECC rules.
+- **Persons acting in concert.** Holdings of connected entities are aggregated for limits.
+- **Fit-and-proper is ongoing.** Shareholders who later fail the test can be required to divest or lose voting rights.
+- **Profit versus regulation.** Exchanges are both businesses and frontline regulators; the rules prioritise regulatory duties.
+- **Listing venue.** An exchange's shares must list on another exchange.
+
+## How traders, investors and quants use it
+- Investors in listed MIIs (BSE, CDSL, MCX, and NSE once listed) watch regulatory changes (F&O rules, fee changes) that affect revenues.
+- Analysts assess governance risks of MIIs from SEBI orders and board composition.
+- Students use the SECC framework to understand why market infrastructure is regulated more tightly than ordinary listed companies.
+
+## Related concepts
+Demutualisation; market infrastructure institutions; public interest directors; co-location case; IPO process; ownership limits.
+</lesson>
+<qa difficulty="medium"><q>What is the maximum shareholding a resident individual can have in a recognised stock exchange under the SECC Regulations 2018?</q><a>5% of the paid-up equity, directly or indirectly, together with persons acting in concert. Certain institutions (stock exchanges, depositories, banks, insurers and public financial institutions) may hold up to 15%.</a></qa>
+<qa difficulty="hard"><q>Why are public interest directors important on exchange boards?</q><a>Exchanges are businesses that earn from trading volumes but also regulate their members and listed companies. Shareholder directors may favour revenue; PIDs, independent of shareholders and members, protect the public interest in fair and orderly markets, chair key regulatory committees and balance commercial pressures.</a></qa>
+<qa difficulty="hard"><q>Why will NSE's shares list on BSE rather than on NSE?</q><a>A recognised stock exchange cannot list its own shares on its own platform, because it would be regulating the trading and disclosures of its own stock, a conflict of interest. So BSE listed on NSE in 2017, and NSE's shares are to list on BSE.</a></qa>
+<qa difficulty="expert"><q>What is the purpose of segregating critical operations, regulatory functions and business functions inside an MII?</q><a>To ensure that the systems that keep the market running (trading, clearing and settlement) and the regulatory and risk functions are not starved of resources or influenced by business goals such as growing volumes or new products. Segregation gives them clear priority, independent oversight and accountability, reducing the risk of outages or weak supervision.</a></qa>
+<qa difficulty="hard"><q>Foreign investors hold 47.5% of an exchange. Can a foreign fund buy 2.5% more?</q><a>The aggregate foreign investment cap is 49%, leaving 1.5% of room, so a 2.5% purchase would breach it. The fund could buy at most 1.5% (subject also to individual limits and fit-and-proper requirements).</a></qa>
+<qa difficulty="medium"><q>What does "demutualisation" of an exchange mean?</q><a>Separating ownership of the exchange from the right to trade on it. Earlier, brokers (members) owned the exchange; after demutualisation, the exchange is a company with shareholders distinct from its trading members, reducing conflicts between members' interests and the exchange's regulatory role.</a></qa>
+<source url="https://www.moneylife.in/article/nse-ipo-gets-sebi-nod-30000-crore-issue-could-challenge-indias-ipo-record/81562.html">NSE IPO gets SEBI nod (Moneylife)</source>
+<source url="https://www.theweek.in/news/biz-tech/2026/06/18/nse-ipo-filing-india-explainer.html">NSE's IPO filing explainer (The Week)</source>
+<source url="https://oga-prod.angelone.in/news/ipos/nse-files-drhp-for-ipo-nearly-6-offer-for-sale-listing-on-bse-and-other-key-details">NSE files DRHP: nearly 6% offer for sale, listing on BSE (Angel One)</source>
+<source url="https://www.angelone.in/news/ipos/nse-ipo-exchange-secures-no-objection-certificate-from-sebi-for-listing">NSE IPO: exchange secures no-objection certificate from SEBI (Angel One)</source>
+</topic>
