@@ -1,0 +1,321 @@
+<topic id="410">
+<level>advanced</level>
+<lesson>
+# Event studies in detail: designing windows, abnormal returns and the evidence on earnings drift in India
+
+## Core idea
+An event study measures how a stock's price reacts to a specific piece of news, by comparing its actual return with what it would normally have earned. Applied to quarterly earnings, event studies found one of the most famous anomalies in finance: **post-earnings announcement drift (PEAD)**. Prices continue to move in the direction of an earnings surprise for weeks after the announcement, as if investors underreact. Indian evidence on PEAD is mixed, which makes careful design all the more important.
+
+## How it works, step by step
+1. **Define the event and its time.** Earnings releases in India often come during or after market hours; if after 3:30 pm, day 0 is the next trading day.
+2. **Measure the surprise.** Standardised unexpected earnings (SUE) = (EPS this quarter − EPS same quarter last year) / standard deviation of that difference over past quarters. Alternatives: surprise against analyst consensus, or the announcement-day abnormal return itself.
+3. **Choose windows.**
+   - Estimation window (for example days −250 to −30) for the benchmark model.
+   - Announcement window (−1 to +1) for the immediate reaction.
+   - Drift window (+2 to +60, or up to +120 days) for underreaction.
+4. **Benchmark.** Market model, market-adjusted returns, or size and book-to-market matched portfolios (better for longer windows).
+5. **Group and test.** Sort events into SUE deciles; compare cumulative abnormal returns of the top and bottom deciles over the drift window; test significance with cross-sectional standard errors adjusted for event clustering (many firms report in the same weeks).
+6. **Check tradability.** Use only information available at the time, include transaction costs and liquidity limits.
+
+## Formulas and numbers (worked example)
+A company's quarterly EPS: this quarter ₹14.0, same quarter last year ₹11.0; the standard deviation of year-on-year EPS changes over the past eight quarters is ₹1.5.
+SUE = (14.0 − 11.0)/1.5 = 2.0, a strong positive surprise (top decile in most samples).
+
+Abnormal returns: day 0 +4.2%, day +1 +1.1%. CAR(−1,+1) = 5.3%. If over days +2 to +60 the stock earns 3.0% more than its benchmark, that is drift.
+
+Portfolio test: if top-SUE stocks earn a 60-day CAR of +2.5% and bottom-SUE stocks −2.0%, the hedge return is 4.5% over about three months; costs of maybe 0.5 to 1.0% round trip for mid caps reduce it.
+
+## India specifics
+- An IIM Bangalore study (2014) found post-earnings drift in Indian share prices over 120 days, with SUE-based groupings explaining drift best.
+- A 2021 study of 100 NSE-listed firms (2014 to 2018) found the market largely efficient around earnings announcements, with no excess returns, contradicting earlier findings.
+- A study of Indian earnings announcements found relatively efficient responses to good news but a negative drift for over a week after bad news, consistent with short-sale constraints slowing the incorporation of bad news.
+- Results differ because of sample periods, firm size (drift is stronger in small, less liquid stocks), surprise measures and benchmarks.
+- Indian quarterly results come under SEBI LODR Regulation 33 (within 45 days of quarter end, 60 days for the fourth quarter), so announcement dates cluster.
+
+## Real examples and history
+- Ball and Brown (1968) first showed that prices anticipate and respond to earnings news.
+- Bernard and Thomas (1989, 1990) most convincingly documented PEAD in US stocks and linked it to investors failing to recognise that earnings surprises are serially correlated.
+- In the US, PEAD has weakened over time as markets became faster and more algorithmic, but persists in smaller, less followed stocks.
+
+## Edge cases and common mistakes
+- **Timing errors.** Using the board meeting date when results were released after hours shifts the event by a day and mixes pre- and post-news returns.
+- **Overlapping events.** Results released with dividends, bonus issues or guidance changes confound the surprise.
+- **Look-ahead.** SUE must use only EPS figures available at announcement; restated figures later are not.
+- **Clustering.** Thousands of firms report in the same weeks; standard errors that ignore this overstate significance.
+- **Survivorship.** Firms delisted after bad results must stay in the sample.
+
+## How traders, investors and quants use it
+- Quants build earnings-surprise signals (SUE, analyst revisions, announcement returns) and test them with calendar-time portfolios and costs.
+- Fundamental investors read the surprise and the market's reaction together: a big positive surprise with a muted reaction may signal further drift or doubts about earnings quality.
+- Risk managers avoid holding concentrated positions through announcements without sizing for the typical announcement-day move.
+
+## Related concepts
+Market model; standardised unexpected earnings; underreaction; calendar-time portfolios; short-sale constraints; LODR Regulation 33; analyst consensus.
+</lesson>
+<qa difficulty="hard"><q>EPS this quarter ₹8.4, same quarter last year ₹9.6, standard deviation of year-on-year changes ₹0.8. Compute SUE and interpret.</q><a>SUE = (8.4 − 9.6)/0.8 = −1.5, a moderately negative surprise. Under PEAD, such stocks tend to underperform after the announcement, especially in small, less liquid firms and if bad news is slowly incorporated.</a></qa>
+<qa difficulty="medium"><q>Results are released at 4:15 pm on a Thursday. What is day 0 for the event study?</q><a>Friday, the next trading day, because the information became public after the market closed. Using Thursday would attribute pre-announcement returns to the news.</a></qa>
+<qa difficulty="expert"><q>Why might PEAD be stronger after bad news than good news in India?</q><a>Selling short is hard for most Indian stocks (no derivatives for most, thin securities lending), so investors who do not own a stock cannot act on bad news; only existing holders sell, and they may hesitate (disposition effect). Good news can be acted on by any buyer. As a result, negative information is incorporated more slowly, producing longer drift after bad news.</a></qa>
+<qa difficulty="hard"><q>A study reports a 60-day hedge return of 4.5% from buying top-SUE and selling bottom-SUE stocks, with a t-statistic of 2.6 using ordinary standard errors. What should you check before believing it?</q><a>Whether standard errors account for event clustering (many announcements on the same days), whether returns are tradable (short side feasible in India? costs and liquidity), whether SUE uses only data available at the time, whether delisted firms are included, and whether the result holds out of sample and in calendar-time portfolios. Correcting for clustering alone can cut the t-statistic substantially.</a></qa>
+<qa difficulty="hard"><q>Why do many studies find PEAD weaker in large, widely followed stocks?</q><a>Large stocks have many analysts, institutional owners and algorithmic traders who process earnings news quickly, and they are cheap to trade and short (via futures), so arbitrage eliminates drift fast. Small stocks have less attention, higher costs and short-sale constraints, so underreaction persists.</a></qa>
+<qa difficulty="medium"><q>What is the deadline for quarterly results under SEBI LODR?</q><a>Under Regulation 33, listed companies must submit quarterly financial results within 45 days of the end of the quarter, and annual audited results within 60 days of the end of the financial year.</a></qa>
+<source url="https://journals.lib.vutbr.cz/index.php/trends/article/view/541">Post-earning announcement drift and value-glamour anomalies in NSE listed firms (Trends Economics and Management)</source>
+<source url="https://repository.iimb.ac.in/handle/2074/17935">Research on earnings announcements and drift in India (IIM Bangalore repository)</source>
+<source url="https://eprints.nottingham.ac.uk/26569">Earnings announcements and stock price behaviour: an event study on India's stock market (University of Nottingham)</source>
+</topic>
+
+<topic id="411">
+<level>advanced</level>
+<lesson>
+# SEBI PIT Regulations 2015: UPSI, trading windows, front-running and enforcement cases
+
+## Core idea
+Insider trading is trading while in possession of unpublished price-sensitive information (UPSI). SEBI's Prohibition of Insider Trading (PIT) Regulations 2015 forbid insiders from trading on UPSI and from passing it on, require companies to control and record who has UPSI, close trading windows around results, and require disclosure of insiders' trades. Front-running (trading ahead of a known large client order) is treated under SEBI's fraud regulations. These rules are the practical test of whether markets are fair: how quickly and evenly information reaches prices.
+
+## How it works, step by step
+1. **What is UPSI.** Information about a company or its securities that is not generally available and would likely materially affect the price. The regulations list examples: financial results, dividends, changes in capital structure, mergers and acquisitions, changes in key managerial personnel. A 2025 amendment (effective June 2025) expanded the list to sixteen items aligned with LODR material events, adding for example fraud or default by the company, arrests of key persons, forensic audits, loan restructuring, insolvency proceedings, fund-raising proposals and major litigation outcomes.
+2. **Insiders.** Connected persons (directors, employees, advisers with access) and anyone in possession of UPSI.
+3. **Prohibitions.** No trading while in possession of UPSI; no communicating UPSI except for legitimate purposes; no procuring UPSI.
+4. **Controls.** Companies maintain a structured digital database of who received UPSI and when; designated persons must pre-clear trades above thresholds; contra trades within six months are restricted.
+5. **Trading window.** Closed for designated persons from the end of each quarter until 48 hours after results are published; since 2025, closure is linked to UPSI originating within the company.
+6. **Trading plans.** Insiders who are always in possession of UPSI can trade under pre-disclosed plans; 2024 amendments shortened the cooling-off period and added flexibility on plan length and price limits.
+7. **Disclosures.** Promoters, directors and designated persons disclose trades above ₹10 lakh in a calendar quarter within two trading days, and the company informs the exchanges.
+8. **Enforcement.** SEBI investigates using trading data and call records, and can impound gains, ban persons from markets, levy penalties and prosecute.
+
+## Formulas and numbers (worked example)
+An employee learns on 5 April that quarterly profit will fall 40%; results are due on 25 April. On 8 April they sell 20,000 shares at ₹1,000 (₹2 crore). After results the stock falls to ₹820.
+- Loss avoided = 20,000 × (1,000 − 820) = ₹36 lakh.
+- The trading window would normally be closed from 1 April (end of quarter) to 48 hours after 25 April, so the trade also breaches the window and pre-clearance rules.
+- SEBI can direct disgorgement of the ₹36 lakh with interest, impose penalties (under the SEBI Act, up to ₹25 crore or three times the profit, whichever is higher) and bar the person from the market.
+- The sale (₹2 crore) also exceeds ₹10 lakh in a quarter, so it required a disclosure within two trading days.
+
+## India specifics
+- The 2015 regulations replaced the 1992 regulations, adding the concept of "legitimate purpose" for sharing UPSI, the structured digital database and trading plans.
+- SEBI has used call-data records and social-media links in investigations, and has acted against leaks of results through messaging groups.
+- **Front-running:** SEBI has acted against dealers and fund managers who traded ahead of their institution's large orders; after cases involving mutual funds, SEBI required asset management companies to set up institutional mechanisms (surveillance systems, escalation and whistle-blower processes) to detect front-running and similar misconduct.
+- SEBI's whistle-blower reward mechanism for insider trading informants was introduced in 2019.
+
+## Real examples and history
+- SEBI has passed orders in cases of leaks of quarterly results through messaging apps, impounding gains from traders who acted on them.
+- In the US, the Rajat Gupta and Galleon cases (2011 to 2012) showed the use of wiretaps in insider trading prosecutions; SEBI has since sought broader powers to access call records.
+
+## Edge cases and common mistakes
+- **"Everyone already knew."** Information is UPSI until it is generally available through proper channels (for example an exchange filing), not rumours.
+- **Relatives and friends.** Tipping someone who trades is itself a violation.
+- **Trading window open does not mean safe.** Trading while holding UPSI is prohibited at any time.
+- **Contra trades.** Selling within six months of buying (or vice versa) is restricted for designated persons; profits may be disgorged.
+- **Front-running versus insider trading.** Front-running concerns non-public order information, not company news, but both are prohibited.
+
+## How traders, investors and quants use it
+- Investors read insiders' trading disclosures (PIT Regulation 7) as signals, knowing they come with a lag.
+- Compliance teams maintain digital databases and trading windows.
+- Quants studying returns before announcements look for abnormal pre-announcement drift as evidence of leakage.
+
+## Related concepts
+LODR disclosures; SAST disclosures; front-running; market manipulation (PFUTP); event studies; market efficiency; whistle-blower mechanisms.
+</lesson>
+<qa difficulty="medium"><q>What is UPSI under SEBI's PIT Regulations?</q><a>Unpublished price-sensitive information: information relating to a company or its securities, not generally available, which on becoming available is likely to materially affect the price. It includes financial results, dividends, capital structure changes, mergers and acquisitions, changes in key managerial personnel and, since a 2025 amendment, a longer list of events such as defaults, fraud, forensic audits, insolvency proceedings and fund-raising proposals.</a></qa>
+<qa difficulty="hard"><q>When is the trading window closed for designated persons around quarterly results?</q><a>From the end of each quarter until 48 hours after the financial results are made public. During this period designated persons and their immediate relatives cannot trade the company's securities (except under approved trading plans or specific exemptions).</a></qa>
+<qa difficulty="hard"><q>A director buys shares worth ₹6 lakh in May and ₹7 lakh in June. Is a disclosure required, and when?</q><a>Yes. PIT Regulation 7(2) requires disclosure when the value of trades in a calendar quarter exceeds ₹10 lakh. The June trade takes the April-to-June total to ₹13 lakh, so the director must disclose to the company within two trading days of that trade, and the company must inform the exchanges within two trading days of receiving it.</a></qa>
+<qa difficulty="expert"><q>Why did SEBI expand the UPSI list in 2025, and what problem did it address?</q><a>Before the amendment, companies often treated only the listed examples (results, dividends, capital changes, M&A, management changes) as UPSI, while many other material events required to be disclosed under LODR (defaults, fraud, forensic audits, insolvency, major litigation) were not consistently recorded as UPSI. Aligning the UPSI list with LODR material events ensures that information about those events is protected, logged in the digital database and subject to trading restrictions.</a></qa>
+<qa difficulty="hard"><q>How is front-running different from insider trading, and how did SEBI respond to front-running in mutual funds?</q><a>Front-running is trading ahead of a known pending large order (for example a fund's planned purchase) to profit from its price impact, using confidential order information; insider trading uses non-public company information. After cases where fund dealers front-ran their schemes' trades, SEBI required asset management companies to set up institutional mechanisms, including surveillance systems, escalation processes and whistle-blower policies, to detect and prevent such misconduct.</a></qa>
+<qa difficulty="hard"><q>An employee sells shares while the trading window is open but after learning of a pending acquisition. Is the trade allowed?</q><a>No. The open trading window only means designated persons are not automatically blocked; trading while in possession of UPSI is prohibited at all times. The pending acquisition is UPSI, so the trade violates the PIT Regulations regardless of the window.</a></qa>
+<source url="https://www.azbpartners.com/bank/sebi-amends-insider-trading-regulations-2/">SEBI amends insider trading regulations (AZB and Partners, April 2025)</source>
+<source url="https://ksandk.com/corporate/sebi-insider-trading-norms-unpublished-price/">SEBI tightens insider trading norms: expanding the scope of UPSI (King Stubb and Kasiva)</source>
+<source url="https://vinodkothari.com/tag/pit-amendments/">Upsurge in list of UPSI: PIT Amendment Regulations 2025 (Vinod Kothari)</source>
+<source url="https://www.mondaq.com/india/securities/1600652/sebi-update-widening-the-ambit-of-upsi-under-the-insider-trading-regulations">SEBI update: widening the ambit of UPSI (Mondaq)</source>
+<source url="https://vinodkothari.com/2020/09/sebi-automates-continual-disclosures-under-pit-regulations/">SEBI automates continual disclosures under PIT and SAST regulations (Vinod Kothari)</source>
+</topic>
+
+<topic id="412">
+<level>advanced</level>
+<lesson>
+# Market microstructure and impact cost: bid-ask spread, circuit limits and price discovery on NSE
+
+## Core idea
+Efficient prices need trading, and trading has frictions. The bid-ask spread is the cost of immediacy; impact cost measures how much prices move against you when you trade a given size; circuit limits stop trading when prices move too far, too fast. These frictions decide how quickly information reaches prices and how much of a theoretical edge survives in practice. NSE publishes impact cost and uses it to decide index eligibility.
+
+## How it works, step by step
+1. **Order book.** NSE runs a continuous electronic limit order book: buy and sell orders queue by price and time. The best bid and best ask set the spread; their average is the mid (ideal) price.
+2. **Spread cost.** A market buy pays the ask; the cost relative to the mid is half the spread.
+3. **Impact cost.** For a given order size, the percentage difference between the average execution price (walking through the book) and the ideal price. NSE computes it from order book snapshots for standard basket sizes.
+4. **Index eligibility.** NSE's index methodologies require stocks to trade with low impact cost (for example at or below about 0.50% for a large share of observations at a specified basket size) to enter indices like Nifty 50.
+5. **Price bands.** Stocks have daily price bands of 2%, 5%, 10% or 20%; stocks in the F&O segment have no fixed band but dynamic bands that widen as the price moves.
+6. **Market-wide circuit breakers.** Index moves of 10%, 15% and 20% in Nifty or Sensex halt trading across equity and derivative markets, for periods that depend on the time of day; a 20% move halts trading for the rest of the day.
+7. **Price discovery sessions.** Pre-open call auctions (9:00 to 9:15 am) set opening prices; special pre-open sessions handle IPOs and relistings; since August 2026 a closing auction sets closing prices for F&O stocks.
+
+## Formulas and numbers (worked example)
+Order book for a stock (ask side): 500 shares at ₹100.10, 1,000 at ₹100.20, 2,000 at ₹100.35. Best bid ₹100.00. Mid = ₹100.05.
+A market buy of 3,000 shares fills 500 at 100.10, 1,000 at 100.20 and 1,500 at 100.35.
+- Average price = (500 × 100.10 + 1,000 × 100.20 + 1,500 × 100.35)/3,000 = (50,050 + 1,00,200 + 1,50,525)/3,000 = 3,00,775/3,000 = ₹100.258.
+- Impact cost = (100.258 − 100.05)/100.05 = 0.208%.
+- Half-spread alone = 0.05/100.05 = 0.05%; the rest (0.158%) is depth impact.
+For ₹3 lakh, that is about ₹624 of cost on one side; round-trip about double.
+
+## India specifics
+- NSE's order-driven market has no designated market makers for most stocks (SME platforms do have them).
+- Price bands for non-F&O stocks are set and revised by exchanges, with tighter bands (2% or 5%) for stocks under surveillance.
+- Market-wide circuit breakers were hit on 23 March 2020 and also earlier in March 2020, when indices fell more than 10% and trading halted for 45 minutes.
+- Impact cost data is published for index constituents and used in index reviews.
+- Transaction costs also include STT, exchange charges, SEBI fees, stamp duty and GST.
+
+## Real examples and history
+- Before NSE's electronic market started in 1994, open-outcry trading on BSE had wide spreads and opaque prices; screen-based trading sharply reduced costs.
+- In crashes, liquidity disappears: lower-circuit stocks have sellers but no buyers, so impact cost becomes infinite in effect; this is why liquidity measures must be assessed in stress, not only on normal days.
+
+## Edge cases and common mistakes
+- **Ignoring impact in backtests.** A strategy trading small caps in size may face impact costs larger than its edge.
+- **Displayed depth is not all.** Hidden or iceberg orders can add liquidity; fast markets can remove displayed orders before you trade.
+- **Circuit-limited stocks.** A stock locked at its upper or lower circuit cannot be traded at fair value; positions may be trapped.
+- **Market orders in thin stocks.** Can execute far from the last price; use limit orders.
+- **Spread at open and close.** Spreads are wider at the open; auctions concentrate liquidity at the open and close.
+
+## How traders, investors and quants use it
+- Execution traders split large orders over time (VWAP, TWAP algorithms) to reduce impact.
+- Quants include impact cost models (often proportional to the square root of order size relative to daily volume) in backtests.
+- Index providers and fund managers use impact cost to judge whether a stock can absorb index-fund flows.
+
+## Related concepts
+Order types; call auctions; closing auction session; circuit breakers; surveillance measures; transaction costs; liquidity risk.
+</lesson>
+<qa difficulty="hard"><q>Best bid ₹249.80, best ask ₹250.20; a buy of 2,000 shares fills 800 at 250.20 and 1,200 at 250.40. Compute the impact cost.</q><a>Mid = ₹250.00. Average price = (800 × 250.20 + 1,200 × 250.40)/2,000 = (2,00,160 + 3,00,480)/2,000 = ₹250.32. Impact cost = 0.32/250 = 0.128%.</a></qa>
+<qa difficulty="medium"><q>What happens when Nifty falls 10% in a day?</q><a>A market-wide circuit breaker triggers, halting trading in all equity and equity derivative markets for a period that depends on the time of the fall (for example 45 minutes if before 1 pm). Larger falls of 15% and 20% trigger longer halts; a 20% fall halts trading for the rest of the day.</a></qa>
+<qa difficulty="hard"><q>Why do F&O stocks have dynamic price bands instead of fixed circuit limits?</q><a>F&O stocks are liquid and have derivatives that must stay linked to the cash price. Fixed bands could stop the cash market while futures and options keep trading, breaking arbitrage. Dynamic bands start at a set range and widen in steps when the price approaches the limit, allowing large genuine moves while slowing erratic ones.</a></qa>
+<qa difficulty="expert"><q>A strategy earns a gross 0.6% per trade in mid caps, with average order size 5% of the stock's daily volume. Using a square-root impact model where impact = 0.8 × σ_daily × √(order/ADV), with daily volatility 2.5%, is the strategy viable?</q><a>Impact per side = 0.8 × 2.5% × √0.05 = 0.8 × 2.5% × 0.2236 ≈ 0.45%. Round trip ≈ 0.90%, plus spreads and taxes. The 0.6% gross edge is smaller than costs, so the strategy loses money at this size; it would need much smaller orders or a larger edge.</a></qa>
+<qa difficulty="medium"><q>Why is impact cost a criterion for Nifty 50 inclusion?</q><a>Index funds and ETFs must buy and sell constituents in size when money flows in or out. A stock with high impact cost would be expensive to trade for those funds and could be moved by their flows, causing tracking error. Requiring low impact cost ensures constituents are liquid enough.</a></qa>
+<qa difficulty="hard"><q>What role does the pre-open call auction play in price discovery?</q><a>Between 9:00 and 9:15 am, orders are collected and matched at a single equilibrium price that maximises traded quantity, absorbing overnight news in one transparent price rather than through erratic early trades. It reduces opening volatility and gives a reliable opening price.</a></qa>
+<source url="https://niftyindices.com/resources/tutorial/calculation-of-indices">Calculation of indices (NSE Indices)</source>
+<source url="https://www.nseindia.com/static/products-services/equity-market-special-pre-open-session">NSE special pre-open session</source>
+<source url="https://www.goodreturns.in/news/nse-new-rule-from-today-closing-auction-session-begins-for-f-o-stocks-check-new-closing-price-rule-1525791.html">NSE closing auction session begins for F&O stocks (GoodReturns)</source>
+<source url="https://www.angelone.in/news/market-updates/election-result-day-and-market-volatility">Election result day and market volatility (Angel One)</source>
+</topic>
+
+<topic id="413">
+<level>intermediate</level>
+<lesson>
+# Active versus passive in India: SPIVA methodology, TRI benchmarks, expense ratios and index funds
+
+## Core idea
+Active funds try to beat an index by picking stocks; passive funds (index funds, ETFs) try to match it cheaply. The question "is it worth paying for active management?" is answered by scorecards that compare funds with their benchmarks fairly. S&P Dow Jones Indices' SPIVA India scorecards show that most Indian active equity funds lag their benchmarks over long periods, especially large-cap funds. Since 2018, Indian funds must compare themselves with total return indices (TRI), which include dividends, raising the bar.
+
+## How it works, step by step
+**SPIVA methodology:**
+1. **Survivorship-free universe.** All funds that existed at the start of the period, including those later merged or closed, are counted.
+2. **Benchmarks by category.** Large-cap funds versus the S&P BSE 100, mid and small-cap funds versus the S&P BSE 400 MidSmallCap, ELSS versus the S&P BSE 200, and so on (all TRI).
+3. **Measures.** Percentage of funds underperforming the benchmark over 1, 3, 5 and 10 years; equal-weighted and asset-weighted fund returns; survivorship rates.
+4. **Interpretation.** Underperformance rates above 50% mean the average fund failed to beat a cheap index alternative.
+
+**TRI benchmarking.** SEBI required mutual funds to benchmark against TRI from February 2018. A price index ignores dividends (1 to 1.5% a year for Indian large caps), flattering funds that do.
+
+**Costs.** SEBI caps total expense ratios (TER): equity schemes start at about 2.25% for the first ₹500 crore of assets and fall in slabs as assets grow; index funds and ETFs are capped at 1%, and many charge 0.05% to 0.3%. Direct plans (without distributor commission) have been available since 2013 and cost about 0.5 to 1% less than regular plans.
+
+## Formulas and numbers (worked example)
+₹10 lakh invested for 15 years. The index TRI returns 12% a year.
+- Index fund with a 0.2% expense ratio and 0.1% tracking difference: about 11.7% → 10,00,000 × 1.117^15 ≈ ₹52.6 lakh.
+- Active fund (regular plan) with a 1.8% expense ratio that matches the index before costs: 10.2% → 10,00,000 × 1.102^15 ≈ ₹42.9 lakh.
+- Difference: about ₹9.7 lakh, purely from costs. The active fund needs about 1.5% a year of extra gross return just to match the index fund.
+
+## India specifics
+- **SPIVA India findings:** at year-end 2023, 52% of active large-cap funds underperformed the S&P BSE 100 over one year (87.5% in 2022), and 75.4% of mid and small-cap funds lagged the S&P BSE 400 MidSmallCap index over the 10 years to December 2023. In 2021, about 68% of large-cap funds lagged over 10 years. ELSS did relatively well in 2023, with only 30% underperforming the S&P BSE 200 over one year.
+- **SEBI's 2017 categorisation** (in force 2018) defined large-cap funds as investing at least 80% in the top 100 stocks by market cap, limiting how far large-cap funds can drift into mid caps to beat their benchmark; this, plus TRI benchmarks, increased measured underperformance.
+- Passive fund assets in India grew rapidly after 2015, driven by EPFO investing in ETFs and later by retail index funds.
+
+## Real examples and history
+- SPIVA scorecards began in the US in 2002, and S&P has published SPIVA India reports since the early 2010s, consistently showing that most active funds lag over long horizons, though Indian mid and small-cap funds did better in some earlier periods.
+- Indian active managers historically beat price-index benchmarks easily; switching to TRI removed an advantage of about 1 to 1.5% a year.
+
+## Edge cases and common mistakes
+- **Comparing with price indices.** Always use TRI.
+- **Survivorship bias in fund rankings.** Current fund lists omit merged or closed poor performers.
+- **Short horizons.** One-year results swing widely; judge over 5 to 10 years.
+- **Category drift.** A "large-cap" fund holding mid caps may beat its benchmark through risk, not skill.
+- **Tracking error in index funds.** Low-cost index funds still differ from the index because of cash holdings, costs and rebalancing; check tracking difference.
+
+## How traders, investors and quants use it
+- Individual investors use low-cost index funds as the core of long-term portfolios, adding active funds only where evidence of persistent skill exists.
+- Analysts evaluate fund managers with factor regressions and TRI benchmarks, not raw returns.
+- Product designers build smart-beta and factor index funds to offer rules-based alternatives.
+
+## Related concepts
+Efficient market hypothesis; total return index; expense ratios and TER regulations; tracking error; factor investing; survivorship bias.
+</lesson>
+<qa difficulty="hard"><q>An active large-cap fund returned 13.0% a year over 10 years; the S&P BSE 100 price index returned 12.0% and its TRI 13.3%. Did the fund beat its benchmark?</q><a>No. The correct benchmark is the TRI (13.3%), which includes dividends. The fund lagged by 0.3% a year. Against the price index it would wrongly appear to have beaten by 1.0%.</a></qa>
+<qa difficulty="medium"><q>Why does SPIVA include funds that closed or merged?</q><a>Poorly performing funds are more likely to be merged or closed. Excluding them (survivorship bias) would make the remaining funds look better than the experience of all investors who invested at the start, overstating active managers' success.</a></qa>
+<qa difficulty="hard"><q>How much extra return before costs must an active fund with a 1.6% expense ratio earn to match an index fund with 0.2% expenses and 0.1% tracking difference?</q><a>The index fund delivers the index minus about 0.3%. The active fund delivers its gross return minus 1.6%. To match, gross return − 1.6% = index − 0.3%, so the active fund must beat the index by 1.3% a year before costs, every year on average.</a></qa>
+<qa difficulty="medium"><q>What did SPIVA India report for mid and small-cap funds over the 10 years to December 2023?</q><a>75.4% of mid and small-cap funds underperformed the S&P BSE 400 MidSmallCap index (TRI) over that 10-year period.</a></qa>
+<qa difficulty="hard"><q>Why did SEBI's 2017 fund categorisation make large-cap fund underperformance more visible?</q><a>It required large-cap funds to hold at least 80% in the top 100 stocks by market capitalisation. Before that, some "large-cap" funds held many mid caps, which outperformed in some periods, making the funds look skilled against large-cap benchmarks. Restricting holdings forced comparisons on equal terms, revealing that most funds struggled to beat a large-cap index after costs.</a></qa>
+<qa difficulty="expert"><q>Asset-weighted fund returns can differ from equal-weighted returns in SPIVA. What does it mean if asset-weighted returns are higher?</q><a>Larger funds, which hold more of investors' money, performed better than smaller funds on average. Investors in aggregate did better than the typical fund suggests, though most funds (by count) may still have lagged the benchmark.</a></qa>
+<source url="https://www.spglobal.com/spdji/en/spiva/article/spiva-india-year-end-2023">SPIVA India year-end 2023 (S&P Dow Jones Indices)</source>
+<source url="https://www.outlookmoney.com/invest/52-indian-large-cap-equity-funds-underperform-benchmark-in-2023-bonds-fare-worse-in-long-run">52% of Indian large-cap equity funds underperform benchmark in 2023 (Outlook Money)</source>
+<source url="https://www.outlookmoney.com/amp/story/news/88-of-indian-large-cap-funds-failed-to-beat-their-benchmarks-report--news-277649">88% of Indian large-cap funds failed to beat their benchmarks (Outlook Money)</source>
+<source url="https://www.spglobal.com/en/research-insights/market-insights/do-management-fees-outweigh-the-alpha-generated-in-indian-equity-large-cap-funds">Do management fees outweigh the alpha generated in Indian large-cap funds? (S&P Global)</source>
+<source url="https://www.indexologyblog.com/2016/04/20/a-closer-look-at-the-spiva-india-year-end-2015-scorecard/">A closer look at the SPIVA India year-end 2015 scorecard (Indexology)</source>
+</topic>
+
+<topic id="414">
+<level>advanced</level>
+<lesson>
+# SEBI SAST and PIT disclosures: Regulations 29, 30 and 31, and insider trading disclosure of promoter trades
+
+## Core idea
+Between quarterly shareholding patterns, investors learn about large-holder and promoter trades through event-driven disclosures. Under SEBI's Substantial Acquisition of Shares and Takeovers (SAST) Regulations 2011, anyone crossing 5% must disclose, and anyone holding 5% or more must disclose every 2% change; promoters must disclose pledges and other encumbrances. Under the PIT Regulations, promoters, directors and designated persons disclose their trades above ₹10 lakh a quarter. Reading these disclosures tells you who is buying, who is selling and whether promoter shares are pledged.
+
+## How it works, step by step
+**SAST Regulation 29 (acquisition and disposal):**
+1. **29(1):** an acquirer whose holding (with persons acting in concert) reaches 5% or more must disclose to the company and the exchanges within two working days.
+2. **29(2):** a person holding 5% or more must disclose any change of 2% or more of the shares or voting rights (whether one trade or several), within two working days.
+
+**SAST Regulation 30 (annual holdings):** historically required annual disclosure of holdings by promoters and 25%+ holders; with system-driven disclosures this role has largely moved to depository-based reporting. Check the current text.
+
+**SAST Regulation 31 (encumbrances):**
+1. Promoters must disclose creation, invocation or release of any encumbrance (pledge, lien, non-disposal undertaking) on their shares within seven working days.
+2. Since 2019, if promoter encumbrance exceeds 50% of their holding or 20% of the company's capital, the reasons must be disclosed.
+
+**PIT Regulation 7 (insider trades):**
+1. **7(1):** initial disclosure of holdings by promoters, key managerial persons and directors on appointment.
+2. **7(2):** continual disclosure when trades exceed ₹10 lakh in value in a calendar quarter, within two trading days; the company passes it to the exchanges within two trading days.
+
+**System-driven disclosures.** Since 2018 for promoters (and later others), depositories and exchanges generate disclosures automatically from demat data, improving timeliness.
+
+## Formulas and numbers (worked example)
+A company has 50 crore shares.
+- Fund A buys up to 2.6 crore shares (5.2%): it must file under 29(1) within two working days.
+- Fund A then buys a further 1.1 crore shares in several trades (2.2% of capital): holding 7.4%; the cumulative change exceeds 2%, so a 29(2) disclosure is due.
+- Promoters hold 30 crore shares (60%) and pledge 16 crore (53% of their holding, 32% of capital). Both thresholds (50% of holding, 20% of capital) are exceeded, so they must disclose reasons under the 2019 rule.
+- A director buys 8,000 shares at ₹1,500 (₹1.2 crore) in a quarter: above ₹10 lakh, so a PIT 7(2) disclosure is due within two trading days.
+
+## India specifics
+- Disclosures appear on NSE and BSE websites under corporate filings; aggregated SAST and PIT data are available as downloadable reports.
+- The quarterly shareholding pattern (LODR Regulation 31) gives the full breakdown (promoters, FPIs, mutual funds, insurers, retail), but only every quarter; SAST and PIT disclosures fill the gaps.
+- High promoter pledging has often preceded stress: falling prices trigger margin calls, invocation of pledges and forced selling.
+- Open offer thresholds (25% acquisition, or 5% creeping acquisition a year above 25%) sit in SAST Regulation 3, separate from the disclosure rules.
+
+## Real examples and history
+- The 2011 SAST Regulations replaced the 1997 takeover code, raising the open offer trigger from 15% to 25% and simplifying disclosures.
+- Several promoter-pledge collapses (for example in groups whose share prices fell sharply in 2018 and 2019) led SEBI to require reasons for high encumbrance in 2019.
+
+## Edge cases and common mistakes
+- **Counting only single trades.** The 2% change under 29(2) is cumulative across trades since the last disclosure.
+- **Persons acting in concert.** Holdings of related entities are aggregated for SAST thresholds.
+- **Ignoring non-disposal undertakings.** These count as encumbrances even without a formal pledge.
+- **Lags.** Two working days plus the time for exchanges to publish; disclosures are not real-time.
+- **Misreading buying as a signal.** A large investor's purchase may be an index rebalance or a hedge, not a view.
+
+## How traders, investors and quants use it
+- Investors track promoter buying (often a positive signal) and pledging (a risk signal).
+- Event traders watch SAST disclosures for stake building that might lead to an open offer.
+- Quants build features from insider trades (net buying by insiders over 3 to 6 months) and pledge ratios, testing them with point-in-time data.
+
+## Related concepts
+Shareholding pattern; promoter pledging and margin calls; open offers; PIT Regulations; system-driven disclosures; free float.
+</lesson>
+<qa difficulty="medium"><q>An investor's holding reaches 5.3% of a listed company. What must they do?</q><a>Disclose the acquisition to the company and the stock exchanges within two working days, under SAST Regulation 29(1).</a></qa>
+<qa difficulty="hard"><q>A 6% holder sells 0.8%, then 0.7%, then 0.6% over a month. When is a disclosure due?</q><a>Changes are cumulative since the last disclosure: 0.8 + 0.7 = 1.5%, then +0.6% = 2.1%, crossing 2% on the third sale. A 29(2) disclosure is due within two working days of that third sale.</a></qa>
+<qa difficulty="hard"><q>Promoters hold 45% of a company and have pledged 25% of the company's capital. Do they need to disclose reasons?</q><a>Pledged shares are 25/45 = 55.6% of their holding (above 50%) and 25% of capital (above 20%). Either condition triggers the requirement, introduced in 2019, to disclose the reasons for encumbrance, in addition to the normal Regulation 31 disclosures.</a></qa>
+<qa difficulty="medium"><q>What is the PIT Regulation 7(2) disclosure threshold for directors' trades?</q><a>Trades whose total value exceeds ₹10 lakh in a calendar quarter (single or multiple transactions) must be disclosed within two trading days; the company then informs the exchanges within two trading days.</a></qa>
+<qa difficulty="expert"><q>Why is high promoter pledging a risk to minority shareholders?</q><a>Pledged shares secure loans; if the share price falls, lenders demand more collateral. If promoters cannot provide it, lenders invoke the pledge and sell shares in the market, pushing the price down further and triggering more margin calls on remaining pledges. This feedback loop can cause sharp falls and even a change of control, hurting minorities who had no part in the borrowing.</a></qa>
+<qa difficulty="hard"><q>How do SAST disclosures complement the quarterly shareholding pattern?</q><a>The shareholding pattern shows holdings by category only at quarter end, with a lag. SAST disclosures (crossing 5%, 2% changes, encumbrances) and PIT disclosures (insider trades) reveal significant changes as they happen, within days. Together they give a more timely picture of ownership changes and promoter actions.</a></qa>
+<source url="https://vinodkothari.com/2020/09/sebi-automates-continual-disclosures-under-pit-regulations/">SEBI automates continual disclosures under PIT and SAST regulations (Vinod Kothari)</source>
+<source url="https://vinodkothari.com/2018/06/system-driven-disclosures-in-securities-market-now-extended-to-non-promoters/">System-driven disclosures extended to non-promoters (Vinod Kothari)</source>
+<source url="https://nsearchives.nseindia.com/content/equities/SEBI_Circular_28052018.pdf">SEBI circular of 28 May 2018 on system-driven disclosures</source>
+<source url="https://bigul.co/stocks/all-news/INE750G01019/16/1722095172">Example disclosure under SAST Regulation 29(2) (exchange filing)</source>
+</topic>
