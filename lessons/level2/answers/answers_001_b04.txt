@@ -1,0 +1,328 @@
+<topic id="151">
+<level>expert</level>
+<lesson>
+# Building a point-in-time corporate action database and adjustment-factor engine for backtests
+
+## Core idea
+A backtest is only as honest as its data. A point-in-time (PIT) corporate action system stores raw prices, every corporate action with the moment it became known, and the security's identity history, and it computes adjusted prices "as of" any date on request. Done well, a backtest run today and the same backtest run next year give identical results, nothing from the future leaks in, and delisted or merged companies are still there. This lesson is the engineering design: tables, the factor engine, and the checks that catch bad data.
+
+## How it works, step by step
+**1. Identity layer.** Give every security a permanent internal id. Keep history tables for symbol, ISIN, name and face value, each with valid-from and valid-to dates. Symbols change (Zomato became Eternal in 2025), ISINs change after splits, and companies merge.
+
+**2. Raw price layer.** Store unadjusted daily OHLCV exactly as the exchange published it (NSE bhavcopy), keyed by permanent id and date. Never overwrite it with adjusted values.
+
+**3. Corporate action layer.** One row per event version: id, type (split, bonus, rights, cash dividend, demerger, merger, consolidation, name change, delisting), ratio numerator and denominator, cash amount, issue price, ex-date, record date, announcement timestamp, source document, status (proposed, approved, cancelled, completed), and the timestamp at which your system learned this version. Corrections become new versions, not edits. This is a bitemporal design: the time an event applies (ex-date) and the time you knew about it.
+
+**4. Factor engine.** For each event on its ex-date compute:
+- price factor (split X/Y; bonus (A+B)/B; rights P/TERP; demerger P/(P − V) using the special pre-open price);
+- volume factor (equal to the share-count factor for splits and bonus);
+- total-return factor (adds dividends: P/(P − D)).
+Store them as step functions per security. The cumulative factor for date t is the product of factors with ex-date after t (backward) or up to t (forward).
+
+**5. As-of queries.** For a backtest date D, use only event versions with knowledge timestamp at or before D and ex-date at or before D. Compute adjusted prices on the fly from raw prices and factors, or cache them keyed by as-of date.
+
+**6. Universe layer.** Index membership with dates, and delisting events with their last price and any cash or share consideration, so a portfolio that held a delisted or merged company receives the correct outcome.
+
+## Formulas and numbers (worked example)
+Checks on a 1:1 bonus with last cum close ₹1,000:
+- **Expected-ratio check.** Raw ex-date close ₹497; ratio 497/1,000 = 0.497. Expected 1/2 = 0.5. The adjusted return is 497 × 2/1,000 − 1 = −0.6%. Compare with the market's move that day; a residual above, say, 8% flags a wrong or missing event.
+- **Missing-event detector.** Scan raw data for days with |raw return| above 25% that have no event. Many are unrecorded splits or bonuses. A ratio near 0.5, 0.333, 0.2 or 0.1 is a strong hint.
+- **Known cases as unit tests:** Wipro 1:3 bonus (2019) factor 4/3; HDFC Bank 2:1 split (2019) factor 2; Reliance rights (2020) price factor 1/0.990610; Reliance–Jio Financial demerger (2023) factor 2,841.85/2,580 = 1.10149; HDFC Ltd merger into HDFC Bank (2023) at 42 HDFC Bank shares for 25 HDFC Ltd shares.
+
+## India specifics
+- **Sources:** NSE and BSE publish corporate action files (purpose, ex-date, record date) and circulars; bhavcopies give raw prices; F&O adjustment circulars give the exchange's own factors, which are a good cross-check for stocks in the derivatives segment.
+- **T+1:** ex-date equals record date for most events, so a one-day error in dates is common when importing older data built for T+2.
+- **Demergers:** use the special pre-open session price on the ex-date for V; the spun-off company's history begins on its listing date and its own listing price.
+- **Vendor data:** data from Yahoo and similar sources is usually already adjusted and re-anchored whenever new events arrive, so it is not point-in-time. Raw bhavcopies plus your own factors are.
+
+## Real examples and history
+- CRSP pioneered cumulative adjustment factors for price and shares, and leaves adjusted values missing when events are unknown across a trading gap.
+- Practitioners describe corporate actions as one of the most common causes of backtest error: unadjusted jumps create fake signals and fake returns, and backward-adjusted levels leak future information into level-based rules.
+- In India, HDFC Ltd (merged 2023) and many delisted small caps vanish from current-constituent lists, causing survivorship bias in tests built from today's index members.
+
+## Edge cases and common mistakes
+- **Editing history in place.** Overwriting a corrected event destroys reproducibility; version it.
+- **Announcement versus ex-date.** Signals may use the announcement time; adjustments use the ex-date.
+- **Cancelled events.** Proposals rejected by shareholders must not create factors.
+- **Rights with partly paid shares** and **weighted average issue prices**: prefer the exchange's published factor.
+- **Fractional entitlements and cash in lieu** in consolidations.
+- **Precision:** store factors as decimals with many digits; chained floats drift.
+- **Time zones and timestamps:** board outcomes released after 3:30 pm IST are tradable only the next morning.
+
+## How traders, investors and quants use it
+- Research teams keep one PIT engine shared by all strategies, with nightly data-quality reports listing suspicious jumps.
+- Backtests store the as-of date and data version used, so results can be reproduced and audited.
+- For a project like CandleCast that downloads NSE bhavcopies, the raw data is already in place; adding an event table and factor engine turns it into a PIT research base.
+
+## Related concepts
+Survivorship bias; look-ahead bias; bitemporal data modelling; security master; total-return series; corporate action adjustment factors; index membership history.
+</lesson>
+<qa difficulty="expert"><q>Why does a PIT corporate action table need two dates per event version (ex-date and knowledge timestamp), and what goes wrong with only the ex-date?</q><a>The ex-date says when the event affects prices; the knowledge timestamp says when you could have known about it. With only the ex-date, a backtest on a date between the announcement and the ex-date may be fine, but corrections or late-recorded events (entered into the database months later) would silently change history, and a simulated trade could use an event that was not public or not yet recorded. Two dates let you answer "what did we know on date D" and reproduce past results exactly.</a></qa>
+<qa difficulty="hard"><q>A stock's raw close goes from ₹846 to ₹283 overnight with no event in your table, while the market was flat. What do you suspect, and how do you confirm it?</q><a>283/846 = 0.3345, close to 1/3, which suggests an unrecorded event with factor 3: a 2:1 bonus (2 new shares for each held) or a 3-for-1 split. Confirm from the exchange's corporate action file or the company's filing, and from the F&O adjustment circular if it is an F&O stock. Add the event with the correct ex-date and recompute factors.</a></qa>
+<qa difficulty="hard"><q>Give a SQL-style rule for selecting the event versions a backtest dated 2024-03-15 may use.</q><a>Select versions where knowledge_timestamp is at or before 2024-03-15 end of day, ex_date is at or before 2024-03-15, status is approved or completed (not cancelled), and for each event id take the latest version satisfying those conditions. Factors are then computed only from those rows.</a></qa>
+<qa difficulty="expert"><q>Your factor engine gives HDFC Bank a 2:1 split factor in September 2019, but returns on the ex-date still show −50%. List three likely causes.</q><a>(1) The factor was applied to the wrong date (record date or a T+2-era offset instead of the ex-date). (2) The price series and the factor table use different identifiers, e.g. the split created a new ISIN and the factors were stored under the old ISIN while prices continued under the new one. (3) The adjusted series is computed forward but returns are taken from a backward-adjusted cache, or the adjustment was applied to volume instead of price.</a></qa>
+<qa difficulty="hard"><q>How should a backtest handle a holding in HDFC Ltd on 13 July 2023?</q><a>Keep HDFC Ltd in the universe until its last trading day, then apply the merger event: each HDFC Ltd share converts into 42/25 = 1.68 HDFC Bank shares on the effective date, with cash for fractions if any. The portfolio's value continues through the HDFC Bank position. Removing HDFC Ltd from history or splicing it into HDFC Bank's price series would both be wrong.</a></qa>
+<qa difficulty="medium"><q>Why should signals use adjusted prices but orders use raw prices?</q><a>Signals need comparable prices across time, so splits and bonuses must not create fake moves. Orders interact with the real market: tick sizes, price bands, lot sizes, minimum order values and costs all depend on the actual traded price, which is the raw price on that day.</a></qa>
+<source url="https://crsp.org/wp-content/uploads/guides/CRSP_Calculations_and_Index_Methodologies.pdf">CRSP Calculations and Index Methodologies guide</source>
+<source url="https://portfoliooptimizer.io/blog/adjusted-prices-without-look-ahead-bias/">Adjusted prices without look-ahead bias (Portfolio Optimizer)</source>
+<source url="https://site.financialmodelingprep.com/insights/enterprise/how-corporate-actions-distort-backtests-and-how-to-correct-for-them">How corporate actions distort backtests and how to correct for them (FMP)</source>
+<source url="https://www.businesstoday.in/markets/company-stock/story/ril-share-price-settles-at-rs-2580-in-special-pre-open-session-jio-financial-at-rs-26185-390530-2023-07-20">RIL settles at Rs 2,580 in special pre-open session (Business Today)</source>
+</topic>
+
+<topic id="166">
+<level>expert</level>
+<lesson>
+# Business-time option pricing and variance-weighted day calendars
+
+## Core idea
+Option models need a measure of time to expiry. Calendar time counts every day, including weekends and holidays, when the market is closed and prices barely move. If you price options in calendar time, implied volatility seems to drop on Fridays and jump on Mondays even though nothing changed. Professionals fix this with **business time** (also called variance time or vol time): each day gets a weight equal to how much variance it is expected to contribute. A normal trading day weighs 1, a weekend day perhaps 0.05 to 0.15, a big event day several times 1.
+
+## How it works, step by step
+1. **Assign weights.** Trading day w = 1. Weekend or holiday day: a small weight. French and Roll (1986) found that variance over a weekend or holiday is only slightly above that of a single trading day; later US work put weekend variance at roughly 10 to 20% above one weekday. So two weekend days together might add 0.1 to 0.2 of a day. Event days (Budget, RBI policy, results, elections, Fed decisions) get w above 1.
+2. **Business time to expiry.** τ_b = (sum of weights of remaining days) / (sum of weights in a year), with about 252 weighted days a year if non-trading days add little.
+3. **Price** with Black-Scholes or Black-76 using business-time volatility σ_b and τ_b.
+4. **Convert** to the calendar-time volatility the market screen shows: σ_cal = σ_b × √(τ_b/τ_cal), where τ_cal = calendar days/365.
+5. **Theta in business time** is concentrated in trading days. Over a weekend, an option loses little value, because little variance time passes.
+
+## Formulas and numbers (worked example)
+Nifty at 25,000, weekly expiry on Tuesday. Friday close: Saturday and Sunday have w = 0.05 each, Monday and Tuesday w = 1 each. Business variance days = 2.1; τ_b = 2.1/252 = 0.008333. Business vol σ_b = 12%.
+
+ATM straddle ≈ 0.8 × S × σ × √τ = 0.8 × 25,000 × 0.12 × √0.008333 = 0.8 × 25,000 × 0.12 × 0.09129 ≈ 219 points.
+
+Calendar time: 4 days, τ_cal = 4/365 = 0.010959. The calendar IV that gives the same price: σ_cal = 0.12 × √(0.008333/0.010959) = 0.12 × 0.872 = 10.46%.
+
+Monday close: 1 business day and 1 calendar day left. τ_b = 1/252, τ_cal = 1/365. σ_cal = 0.12 × √(365/252) = 14.44%.
+
+So the screen's calendar IV moves from 10.46% on Friday to 14.44% on Monday with no change in true volatility. The "weekend IV drop" is a clock artefact.
+
+## India specifics
+- From September 2025, NSE's weekly index options (Nifty) expire on Tuesday and BSE's (Sensex) on Thursday, so for Nifty the weekend falls in the middle of every weekly cycle.
+- India VIX follows the CBOE-style method, which measures time to expiry in calendar minutes, so it also shows Friday and Monday patterns that are partly clock effects.
+- NSE has occasional special sessions (Muhurat trading on Diwali, and sessions held on a Budget weekend) that need their own weights.
+- Big domestic events (Union Budget, RBI monetary policy six times a year, quarterly results, election results) and US events (Fed decisions, CPI) that happen overnight India time all deserve weights above 1.
+
+## Real examples and history
+- French and Roll (1986) showed that volatility is much higher during trading hours than over non-trading periods, and concluded that trading itself (information revealed through trading) generates much of the volatility.
+- Volatility trading desks use weighted-day calendars when marking implied volatility surfaces and computing theta, especially for short-dated options where a weekend is a large share of remaining calendar time.
+
+## Edge cases and common mistakes
+- **Comparing Friday and Monday calendar IVs** and concluding that "IV crushed" or "IV spiked".
+- **Weekend theta "for free".** Selling options on Friday to collect weekend decay does not work if prices already reflect business time; sellers carry two days of gap risk for little decay.
+- **Weights too low.** A weekend can contain big news (exit polls, global events). A weekend weight is an average; risk is in the tails.
+- **Ignoring holidays mid-week** and half days.
+- **Event weights.** Too low makes options before events look cheap; too high distorts the term structure after the event.
+
+## How traders, investors and quants use it
+- Market makers quote in business time so their IV marks are stable across weekends.
+- Option sellers compare theta in business time with gap risk before holding short premium over the weekend.
+- Quants estimate day weights from data: the ratio of Monday-gap variance to an average trading day's variance, and event-day variance from realised moves.
+
+## Related concepts
+Implied volatility term structure; event variance; theta; overnight and weekend gap risk; India VIX methodology; Black-76.
+</lesson>
+<qa difficulty="expert"><q>An ATM option has 3 calendar days left from Friday close (Sat, Sun, Mon expiry at Monday's close). Business vol is 15% with weekend day weight 0.1. What calendar-time IV does the screen show?</q><a>Business days = 0.1 + 0.1 + 1 = 1.2; τ_b = 1.2/252 = 0.004762. τ_cal = 3/365 = 0.008219. σ_cal = 0.15 × √(0.004762/0.008219) = 0.15 × √0.5794 = 0.15 × 0.7612 = 11.42%. The screen shows 11.42% although true daily volatility is unchanged.</a></qa>
+<qa difficulty="hard"><q>Why doesn't selling options on Friday afternoon collect three days of theta?</q><a>Option prices are set by market makers in business time, so Friday's price already reflects that the weekend adds little variance; the calendar-time IV is simply marked lower. The seller collects only about the small weekend weight of decay, while bearing the risk of a large Monday gap from weekend news. The trade is not free money.</a></qa>
+<qa difficulty="hard"><q>Using the worked example (Nifty 25,000, σ_b 12%), what is the business-time theta of the ATM straddle from Friday close to Monday close, compared with a calendar-time model?</q><a>Business time: Friday τ_b = 2.1/252 gives about 219 points; Monday close τ_b = 1/252 gives 0.8 × 25,000 × 0.12 × √(1/252) = 0.8 × 25,000 × 0.12 × 0.06299 ≈ 151 points. Decay ≈ 68 points, almost all of it from Monday's trading day. A calendar-time model with constant 10.46% IV would predict Monday's value as 0.8 × 25,000 × 0.1046 × √(1/365) ≈ 109 points, a decay of 110 points, overstating weekend theta.</a></qa>
+<qa difficulty="expert"><q>How would you estimate a weekend day weight for Nifty from data?</q><a>From daily data, compute the variance of Friday-close to Monday-open returns (weekend gap) and compare it with the variance of weekday overnight gaps and of a full trading day's close-to-close return. If the Monday open gap's variance equals the average weekday overnight variance plus the variance of the two weekend days, the excess over a normal overnight gap divided by a full-day variance gives the weight of two weekend days; divide by 2 per day. Use a long sample, exclude known event weekends or model them separately, and check stability over time.</a></qa>
+<qa difficulty="medium"><q>Why do Monday calendar IVs often look higher than Friday's for the same expiry?</q><a>Because calendar time removes three days over the weekend while business time removes almost none. To keep option prices consistent with business-time variance, calendar IV must rise when fewer calendar days remain relative to business days. The pattern is an artefact of quoting in calendar time.</a></qa>
+<qa difficulty="hard"><q>The Union Budget is on a trading day within the next weekly expiry. With a normal day weight of 1, how would you incorporate it, and what happens to IV after the Budget?</q><a>Give the Budget day a weight above 1 (for example 3 to 6, estimated from past Budget-day moves). Business time to expiry rises, so the option's price includes extra event variance. After the Budget, that event weight disappears from the remaining time; if IV is quoted per business day of remaining time, it falls sharply (an IV crush), even if realised volatility afterwards is normal.</a></qa>
+<source url="https://www-2.rotman.utoronto.ca/~kan/3032/pdf/AssetPricingAnomalies/French_Roll_JFE_1986.pdf">French and Roll (1986), Stock return variances: the arrival of information and the reaction of traders (JFE)</source>
+<source url="https://www.bostonfed.org/publications/new-england-economic-review/1999-issues/issue-september-october-1999/are-stock-returns-different-over-weekends-a-jump-diffusion-analysis-of-the-weekend-effect.aspx">Fortune (1999), Are stock returns different over weekends? (Boston Fed)</source>
+<source url="https://www.bostonfed.org/-/media/Documents/Workingpapers/PDF/wp98_6.pdf">Weekends can be rough: revisiting the weekend effect in stock prices (Boston Fed working paper 98-6)</source>
+<source url="https://studentlive.iimcal.ac.in/sites/all/files/pdfs/wps_688.pdf">Volatility index and variance swap methodology (IIM Calcutta working paper 688)</source>
+</topic>
+
+<topic id="167">
+<level>advanced</level>
+<lesson>
+# Overnight and weekend gap risk: empirical Nifty Friday-close to Monday-open return distribution
+
+## Core idea
+A gap is the difference between one session's close and the next session's open. Nobody can trade through it, so stop-losses don't protect against it and option sellers are fully exposed to it. Weekend gaps cover more news time (two calendar days, sometimes global events), so their distribution has fatter tails than weekday overnight gaps, even if their average size is modest. For short-gamma positions (short straddles, strangles), the weekend gap is the main risk, far larger than the small decay earned over the weekend.
+
+## How it works, step by step
+**Measuring it on your own data** (for example CandleCast's daily candles of NIFTY 50):
+1. For each Monday (or the first session after a holiday), compute gap g = ln(Open_Monday / Close_Friday).
+2. For each Tuesday to Friday, compute the weekday overnight gap ln(Open_t / Close_t−1).
+3. Compare: mean, standard deviation, 1st and 99th percentiles, kurtosis, and the share of gaps beyond ±1%, ±2%, ±3%.
+4. Express risk in option terms: for a short ATM straddle, P&L from a gap ≈ −½ × Γ × (ΔS)² (gamma loss), plus small theta.
+5. Condition on regime: split by India VIX level (below 13, 13 to 20, above 20) and by known event weekends (exit polls, budget weekends, global shocks).
+
+**Data checks.** Index "open" values must be real: for Nifty the open is set from the pre-open call auction. Some data sources show older opens equal to the previous close, which would make gaps look like zero; drop such rows or use a source with reliable opens.
+
+## Formulas and numbers (worked example)
+Nifty at 25,000, Tuesday weekly expiry, Friday close. Short ATM straddle with σ_b = 12% and 2 business days to expiry.
+- Premium ≈ 0.8 × 25,000 × 0.12 × √(2/252) = 0.8 × 25,000 × 0.12 × 0.0891 ≈ 214 points per unit.
+- ATM straddle gamma ≈ 2 × 0.3989 / (S σ √τ) = 0.7979 / (25,000 × 0.12 × 0.0891) = 0.7979/267.3 ≈ 0.00299 per point.
+- A 1.5% Monday gap = 375 points: gamma loss ≈ ½ × 0.00299 × 375² ≈ 210 points per unit, almost the whole premium.
+- A 3% gap = 750 points: about 840 points by the gamma approximation (the true loss on a straddle is the move minus the premium, about 750 − 214 = 536 points at expiry, since gamma falls as the option moves away from the money). Multiply per-unit points by the current lot size for rupees.
+
+The weekend added little decay (business time), yet the position carried the full two-day news risk.
+
+## India specifics
+- Indian studies of Nifty indices have found day-of-the-week patterns, including a positive weekend effect in Nifty 50, Midcap and Smallcap indices (2005 to 2018) and opening-jump effects concentrated in the first minutes of trading. Results vary by period: a study of banking and financial-services indices for 2019 to 2023 found no weekend effect.
+- **Exit polls, 1 June 2024 (Saturday):** Nifty gapped up strongly on Monday 3 June, and India VIX fell more than 20%. On Tuesday 4 June, results disappointed and Nifty fell about 5.9%, the worst day since March 2020: a weekday shock, showing that big gaps are not only weekend events.
+- **23 March 2020 (Monday):** after a weekend of Covid lockdown news, Indian indices fell about 13% that day, with a trading halt after the 10% circuit.
+- Since SEBI's October 2024 measures, an extra 2% extreme loss margin applies to short options on expiry day, and from September 2025 Nifty expires on Tuesday, so a Friday-entered weekly short carries a full weekend.
+
+## Real examples and history
+- In the US, weekend variance is only modestly above one weekday's (French and Roll 1986; Fortune 1999), yet weekend jumps cause a large share of extreme moves.
+- Global events often happen on Indian weekends or overnight: US data on Friday nights, geopolitical news, policy announcements; the Monday open absorbs them.
+
+## Edge cases and common mistakes
+- **Using close-to-close returns** to estimate gap risk: the gap is part of it, but intraday moves are hedgeable while gaps are not.
+- **Assuming normality.** Gap distributions have fat tails; a 1% standard deviation does not mean a 4% gap is a once-in-a-millennium event.
+- **Stops do not cap gap losses.** A stop-loss order triggers at the open price, after the gap.
+- **Holidays.** Long weekends (three or four closed days) carry more risk; treat them separately.
+- **Data errors in opens.** Check the share of zero gaps; a large share suggests bad data.
+
+## How traders, investors and quants use it
+- Option sellers reduce size or buy wings (iron fly or iron condor) before weekends, or close short positions on Friday.
+- Risk managers stress-test portfolios with historical worst weekend gaps (for example −13% in March 2020) and scenario gaps from VIX regimes.
+- Quants estimate the gap distribution from data and use it to price weekend risk into position sizing (for example capping size so the 1st-percentile gap costs no more than a set share of capital).
+
+## Related concepts
+Business time and weekend weights; gamma and short straddles; extreme loss margin; India VIX; jump risk; fat tails; stress testing.
+</lesson>
+<qa difficulty="hard"><q>Write the steps to compute the 1st and 99th percentile of Nifty weekend gaps from a table of daily candles (date, open, close).</q><a>Sort by date. For each row, take the previous row's close as the prior close. Mark rows where the previous trading date is more than one calendar day earlier and falls on a Friday (or more generally where non-trading days lie in between) as weekend or holiday gaps. Compute g = ln(open/prior close) for those rows, drop rows where open equals prior close exactly if the data source is known to fill opens, and compute the 1st and 99th percentiles of g. Report the sample size and period.</a></qa>
+<qa difficulty="expert"><q>A trader sells 10 lots of a Nifty ATM straddle on Friday for 214 points per unit. On Monday Nifty opens 2% higher (at 25,500 from 25,000). Estimate the loss per unit at the open using the gamma approximation, and explain why the true figure differs.</q><a>Gamma ≈ 0.00299 per point (from the worked example). Move = 500 points. Gamma loss ≈ ½ × 0.00299 × 500² ≈ 374 points per unit, versus 214 collected. Net loss ≈ 160 points per unit before any decay, multiplied by 10 lots and the lot size. The true loss differs because gamma changes as the price moves (it falls as the straddle moves away from ATM, so the approximation overstates large moves), and IV usually changes at the open after a gap.</a></qa>
+<qa difficulty="hard"><q>Why do stop-loss orders not protect a short option position against weekend gaps?</q><a>No trading happens between Friday's close and Monday's open, so the stop can trigger only at or after the open, at a price that already includes the full gap. Stop orders limit intraday losses, not gap losses. Only hedges in place before the close (long wings, reduced size) or not holding the position limit gap risk.</a></qa>
+<qa difficulty="medium"><q>How can you detect a bad "open" field in historical index data?</q><a>Count how often open equals the previous close exactly. For a liquid index this should be rare, since the pre-open auction sets an open that differs slightly. A high share (or long stretches) of identical values suggests the source filled missing opens with prior closes; those rows understate gaps and should be excluded.</a></qa>
+<qa difficulty="expert"><q>How would you size a weekend short straddle so that a 1st-percentile weekend gap of −2.8% costs at most 2% of capital, with Nifty at 25,000 and the straddle premium 214 points?</q><a>A 2.8% gap = 700 points. At expiry-like payoff, loss per unit ≈ 700 − 214 = 486 points (use a revaluation or the more conservative gamma estimate, ½ × 0.00299 × 700² ≈ 733 points). Using the conservative 733 points, loss per unit ≈ ₹733. With capital C, 2% of C / 733 = number of units allowed. For C = ₹50 lakh: ₹1,00,000/733 ≈ 136 units, i.e. about 2 lots if the lot is 65 units (check the current lot size).</a></qa>
+<qa difficulty="hard"><q>Why might a study find a "positive weekend effect" in Nifty returns while traders still fear weekend gaps?</q><a>A positive average weekend effect is about the mean return, which can be slightly positive, while risk is about the dispersion and tails of the gap distribution. A positive mean with occasional large negative gaps (fat left tail) is consistent with both findings. Short-gamma positions lose from large moves in either direction, so even a positive mean does not protect them.</a></qa>
+<source url="https://www-2.rotman.utoronto.ca/~kan/3032/pdf/AssetPricingAnomalies/French_Roll_JFE_1986.pdf">French and Roll (1986), stock return variances over trading and non-trading periods</source>
+<source url="https://www.bostonfed.org/publications/new-england-economic-review/1999-issues/issue-september-october-1999/are-stock-returns-different-over-weekends-a-jump-diffusion-analysis-of-the-weekend-effect.aspx">Fortune (1999), Are stock returns different over weekends? (Boston Fed)</source>
+<source url="https://indianjournalofentrepreneurship.com/index.php/IJF/article/view/175875">Weekend effect in the banking and financial services sector: evidence from India</source>
+<source url="https://www.angelone.in/news/market-updates/election-result-day-and-market-volatility">Election result day and market volatility (Angel One)</source>
+<source url="https://www.goodreturns.in/news/bloodshed-continues-on-d-street-rs-40-lakh-crore-eroded-on-june-4-india-vix-jumps-40-relief-soon-1350191.html">Rs 40 lakh crore eroded on June 4; India VIX jumps 40% (GoodReturns)</source>
+</topic>
+
+<topic id="168">
+<level>expert</level>
+<lesson>
+# Event variance in implied volatility: Budget, RBI policy, results and US data
+
+## Core idea
+Some days carry far more risk than others: the Union Budget, RBI policy decisions, quarterly results for a stock, election results, US inflation data and Fed decisions. Option prices include this extra **event variance**. Separating it from normal ("base") variance tells you what move the market expects from the event, whether options are cheap or expensive relative to history, and how much IV will fall once the event passes (the IV crush).
+
+## How it works, step by step
+1. **Total implied variance** for an expiry T: V(T) = σ(T)² × τ(T), using business time τ.
+2. **Model:** V(T) = σ_base² × τ_normal + Σ E_i, where E_i is the variance of event i (in annual variance units × fraction of year, i.e. total variance).
+3. **Extract E with two expiries,** one before the event (T1) and one after (T2): forward variance F = V(T2) − V(T1). Subtract the base variance for the normal days between them; the rest is the event's variance.
+4. **Implied event move:** the standard deviation √E. For a quick estimate, the ATM straddle of an expiry just after the event divided by spot is roughly the expected absolute move (about 0.8 standard deviations).
+5. **Compare** with history: the realised absolute move on past events of the same type.
+6. **After the event,** E drops out of V(T2), so σ(T2) falls even if base volatility is unchanged.
+
+## Formulas and numbers (worked example)
+Nifty at 25,000. Expiry 1 in 3 business days, before an RBI policy day: IV 11%. Expiry 2 in 8 business days, after the policy: IV 15%.
+- V1 = 0.11² × 3/252 = 0.0121 × 0.011905 = 0.00014405.
+- V2 = 0.15² × 8/252 = 0.0225 × 0.031746 = 0.00071429.
+- Forward variance for the 5 days in between = 0.00057024.
+- Base variance for 4 normal days at 11%: 0.0121 × 4/252 = 0.00019206.
+- Event variance E = 0.00057024 − 0.00019206 = 0.00037818, so the event-day standard deviation is √0.00037818 = 1.94%, against a normal day's 0.11/√252 = 0.69%. The event day carries about 7.9 normal days of variance.
+- After the event, if base IV stays at 11%, expiry 2's IV falls to about 11%: a crush from 15% to 11%.
+
+If past RBI days moved Nifty by about 0.7% on average in absolute terms (equivalent to roughly a 0.9% standard deviation), a 1.94% implied standard deviation looks expensive, which favours selling event premium, after allowing for tail risk.
+
+## India specifics
+- **Union Budget** (usually 1 February) moves rates, taxes and sectors; budgets with big tax changes (such as the July 2024 rise in capital gains tax rates) cause large moves.
+- **RBI Monetary Policy Committee** meets six times a year; reactions are larger when the decision or guidance surprises.
+- **Quarterly results** affect single-stock options; stock options on results day often carry event variance of several normal days.
+- **Elections:** India VIX rose sharply through May 2024 ahead of the general election results, fell more than 20% after the exit polls on 3 June, and jumped again on 4 June when Nifty fell about 5.9% on the results.
+- **US events** (CPI, Fed decisions) occur during Indian night hours, so their effect lands on the next Indian open, adding to overnight gap variance.
+
+## Real examples and history
+- Event-variance extraction from the term structure is standard on equity desks for earnings and macro events; the method relies on having expiries on both sides of the event, which India's weekly and monthly index expiries usually provide.
+- Election weeks in India have historically shown the highest event variance: after the 2014 and 2019 results, VIX fell significantly, while 2024's unexpected result produced a large move and a volatility spike.
+
+## Edge cases and common mistakes
+- **No expiry before the event.** Then base variance must be assumed (from recent realised volatility or a fitted term structure), which adds error.
+- **Several events in one window** (RBI and US CPI in the same week): the method gives their combined variance.
+- **Skew.** Event risk is often asymmetric; ATM variance misses how much the market prices a crash versus a rally. Look at risk reversals as well.
+- **Selling event premium without tail control.** The average event may be overpriced, but rare surprises (June 2024) can wipe out many events' profits.
+- **Calendar-time quotes** add weekend artefacts on top of event effects; use business time.
+
+## How traders, investors and quants use it
+- Volatility traders compare implied event moves with historical event moves and sell or buy event variance (straddles or calendar spreads).
+- Calendar spreads (short the expiry containing the event, long a later one, or the reverse) isolate event variance from base volatility.
+- Risk managers add event-day weights to scenario analysis and to margin planning around results and policy days.
+
+## Related concepts
+Business time; IV term structure; IV crush; calendar spreads; India VIX; variance risk premium; skew and risk reversals.
+</lesson>
+<qa difficulty="expert"><q>Expiry A (4 business days, before results) has IV 30%; expiry B (9 business days, after results) has IV 40% for a stock. Assuming base IV 30%, compute the implied results-day move.</q><a>VA = 0.30² × 4/252 = 0.09 × 0.015873 = 0.0014286. VB = 0.40² × 9/252 = 0.16 × 0.035714 = 0.0057143. Forward = 0.0042857. Base for 4 normal days in between = 0.09 × 4/252 = 0.0014286. E = 0.0042857 − 0.0014286 = 0.0028571, √E = 5.35%. The market prices a results-day standard deviation of about 5.3%, versus a normal day's 0.30/√252 = 1.89%.</a></qa>
+<qa difficulty="hard"><q>Why does IV fall after an event even if the market moves a lot on the day?</q><a>Before the event, the option's IV includes the event variance as part of the remaining time. Once the event day has passed, its variance is no longer in the future, so the remaining implied variance contains only base volatility (unless the event raised base volatility). The realised move affects the option's price through its delta and gamma, but the forward-looking IV drops; this is the IV crush.</a></qa>
+<qa difficulty="hard"><q>Nifty's ATM straddle for the weekly expiry just after the Budget costs 520 points with Nifty at 24,000. What absolute move does this imply, and how would you judge it?</q><a>A straddle approximately equals the expected absolute move to expiry: 520/24,000 = 2.17%. Compare with past Budget-day absolute moves plus normal-day moves for the remaining days of the week. If past Budget weeks moved Nifty by about 1.5% on average, the straddle looks expensive; if the Budget is expected to change taxes on markets, larger moves are plausible and selling is riskier.</a></qa>
+<qa difficulty="expert"><q>Design a calendar spread to buy event variance cheaply before RBI policy when the weekly expiry after RBI has IV 13% and the next weekly has IV 12.5%.</q><a>Buy the expiry that contains the event (13%) and sell the next one (12.5%) in roughly vega-neutral proportions, or simply buy the event expiry's straddle and sell the later expiry's straddle. The later expiry also contains the event plus extra base days, so its IV is diluted. The position profits if the realised event move exceeds what the 13% implies, and loses mainly from the event expiry's faster decay if the event is quiet. Check that the forward variance between the two expiries is not unusually low, which would signal mispricing.</a></qa>
+<qa difficulty="medium"><q>What happened to India VIX around the 2024 general election, and what lesson does it give?</q><a>India VIX climbed steadily in May 2024 before the results, fell sharply (more than 20%) on 3 June after exit polls pointed to a comfortable win, and jumped again on 4 June when the results surprised and Nifty fell about 5.9%. The lesson: event variance can be repriced twice (by early information and by the event itself), and selling after a relief-driven IV fall can leave the seller exposed to the real event.</a></qa>
+<qa difficulty="hard"><q>Why are US CPI or Fed events relevant to Nifty option event variance, even though they occur during Indian night hours?</q><a>Their effect cannot be traded in India until the next morning, so it appears in the overnight gap at the next Nifty open. For options, the variance of that overnight period rises on such dates, so the business-time weight of the next Indian session should include the US event's variance.</a></qa>
+<source url="https://www.angelone.in/news/market-updates/india-vix-comparing-this-volatility-with-previous-major-events">India VIX explodes to 31: comparing with previous major events (Angel One)</source>
+<source url="https://www.angelone.in/news/share-market/india-vix-plummets-20-percent-following-exit-poll-results">India VIX plummets by over 20% following exit poll results (Angel One)</source>
+<source url="https://www.business-standard.com/markets/stock-market-news/vix-vapour-rising-election-related-anxiety-catches-up-with-the-markets-124050901414_1.html">VIX vapour rising: election-related anxiety catches up with markets (Business Standard)</source>
+<source url="https://www.goodreturns.in/news/bloodshed-continues-on-d-street-rs-40-lakh-crore-eroded-on-june-4-india-vix-jumps-40-relief-soon-1350191.html">Rs 40 lakh crore eroded on June 4; India VIX jumps 40% (GoodReturns)</source>
+<source url="https://www-2.rotman.utoronto.ca/~kan/3032/pdf/AssetPricingAnomalies/French_Roll_JFE_1986.pdf">French and Roll (1986), variance and the arrival of information</source>
+</topic>
+
+<topic id="169">
+<level>expert</level>
+<lesson>
+# Variance risk premium in Nifty options: measuring implied vs realised variance after costs
+
+## Core idea
+Option buyers pay for insurance against big moves, so on average implied variance (what options price in) exceeds the variance that is later realised. The difference is the **variance risk premium** (VRP). Option sellers earn it as compensation for bearing crash risk. Measuring it properly means comparing like with like (same horizon, variance not volatility), then subtracting the costs a real trader pays, and looking at the tails, not just the average.
+
+## How it works, step by step
+1. **Implied variance.** India VIX is NSE's measure of 30-day expected volatility, built from Nifty option prices in the style of a variance swap. Implied variance (annual) = (VIX/100)². For a specific expiry, use its ATM IV or a variance swap strike from the option strip.
+2. **Realised variance** over the same window: RV = (252/n) × Σ r_t², using daily log returns (or intraday returns for precision).
+3. **Ex-post VRP:** VRP = implied variance at the start − realised variance over the following 30 calendar days (about 21 trading days). In volatility points, VIX − realised volatility.
+4. **Tradable measure.** Track the P&L of a strategy that sells variance: short delta-hedged ATM straddles, short strangles, or a synthetic variance swap from a strip of options, rolled every expiry.
+5. **Subtract costs:** bid-ask spread and slippage on entry and exit, securities transaction tax (0.1% of premium on option sales since 1 October 2024; 0.02% on futures sales used for hedging), exchange and SEBI charges, GST, stamp duty, and the hedging costs.
+6. **Assess risk:** distribution of monthly P&L, worst month, skewness, maximum drawdown, and margin needed (which limits leverage).
+
+## Formulas and numbers (worked example)
+India VIX = 14 at month start. Realised Nifty volatility over the next 21 trading days = 11%.
+- Implied variance = 0.14² = 0.0196; realised = 0.11² = 0.0121; VRP = 0.0075 (in volatility terms, 3 points).
+- Variance swaps are usually sized by vega notional. A vega notional of ₹1 lakh at a strike of 14 means a variance notional N_var = 1,00,000/(2 × 14) = ₹3,571.43 per variance point (volatility squared, in percent). Short variance P&L = N_var × (14² − 11²) = 3,571.43 × 75 = ₹2,67,857.
+- In a crash month where realised volatility is 40%: P&L = 3,571.43 × (196 − 1,600) = −₹50,14,286, about 19 normal months' gains lost at once.
+
+Costs for a weekly short straddle: if the bid-ask spread is 1 point per leg on each side, entering and exiting two legs costs about 4 points against premiums of 200 to 300 points: 1.5% to 2% of premium, before taxes and hedging.
+
+## India specifics
+- India VIX is computed by NSE from Nifty option quotes using a CBOE-style method.
+- A study using daily Nifty 50 and India VIX data from April 2021 to July 2025 reports a consistently positive and significant VRP, and tests short VIX futures, synthetic variance swaps and delta-hedged straddles to capture it.
+- Other Indian research cautions that with heavy retail participation, variance risk may be priced differently, and finds that past continuous variance (not jumps) helps forecast synthetic variance swap returns.
+- Practitioner data shows India VIX above realised volatility most of the time, but the gap closes or reverses in sharp sell-offs.
+- SEBI's measures from November 2024 (fewer weekly expiries, larger contract sizes, upfront premium collection, extra expiry-day margin) raised the capital needed to sell options and reduced retail volume in weeklies.
+
+## Real examples and history
+- Globally, Carr and Wu (2009) and others documented large negative returns to buying variance swaps on major indices, i.e. a positive premium for sellers.
+- March 2020 showed the other side: Nifty realised volatility rose far above prior implied levels and short-volatility strategies suffered their worst losses, while India VIX rose above 80.
+- SEBI's studies of individual F&O traders found that most retail participants lost money in FY22 to FY24, a reminder that a positive average premium does not mean easy profits after costs, poor sizing and tail events.
+
+## Edge cases and common mistakes
+- **Comparing VIX with past realised volatility.** VRP compares today's implied with future realised volatility; comparing with past volatility is a forecast, not the premium.
+- **Volatility versus variance.** Averages of vol spreads understate the effect of big months because variance squares them.
+- **Ignoring jumps.** A short premium book can earn steady returns for years and lose them in a week.
+- **Margin and leverage.** The return on margin depends on SPAN plus exposure margin; selling at maximum leverage turns a good average into ruin.
+- **Survivorship in backtests.** Use all expiries and exact historical prices, not just liquid recent ones.
+
+## How traders, investors and quants use it
+- Systematic sellers size positions so that a crash scenario (for example, realised volatility of 40 to 60% for a month) costs a set share of capital, and often buy far wings to cap losses.
+- Quants condition the trade on the size of the premium (sell more when VIX − forecast realised volatility is high) and on regime filters.
+- Long-only investors use the evidence to understand why portfolio insurance (buying puts) is costly on average.
+
+## Related concepts
+India VIX methodology; variance swaps; delta hedging; gamma P&L; business-time volatility; tail risk and position sizing; SEBI F&O rules.
+</lesson>
+<qa difficulty="hard"><q>VIX was 16 at the start of a month and Nifty's realised volatility over the following 21 trading days was 13%. Compute the VRP in variance and vol terms.</q><a>Implied variance 0.16² = 0.0256; realised 0.13² = 0.0169; VRP = 0.0087. In volatility points: 16 − 13 = 3 points. The variance measure gives more weight to high-volatility periods.</a></qa>
+<qa difficulty="expert"><q>Why is the average of (VIX − realised vol) a biased measure of the profit of a short variance swap?</q><a>A variance swap pays the difference in variance, not volatility. Because variance is convex in volatility, months with high realised volatility create losses much larger than the volatility gap suggests, while quiet months produce gains close to linear. Averaging vol gaps understates losses in big months, overstating profitability. Use variance differences, or simulate actual option P&L.</a></qa>
+<qa difficulty="hard"><q>Compute realised annualised volatility from five daily log returns of 0.5%, −0.8%, 1.2%, −0.3%, 0.6%.</q><a>Sum of squares = 0.25 + 0.64 + 1.44 + 0.09 + 0.36 = 2.78 (in %²). Mean square = 0.556 %² per day. Annualised variance = 252 × 0.556 = 140.1 %²; realised volatility = √140.1 ≈ 11.84%. (Using a zero-mean estimator, as is standard for variance swaps.)</a></qa>
+<qa difficulty="expert"><q>A short weekly Nifty straddle strategy earns a mean of 25 points per week with a standard deviation of 90 points, before costs of 6 points per week. Its worst week lost 900 points. Discuss whether it is worth trading.</q><a>After costs, mean = 19 points per week; annual mean ≈ 19 × 52 = 988 points, annual standard deviation ≈ 90 × √52 ≈ 649 points, Sharpe ≈ 1.5 on paper. But the worst week (−900) wipes out about 47 weeks of average profit, and the distribution is negatively skewed, so the Sharpe ratio overstates quality. Whether it is worth trading depends on sizing so the worst plausible week (larger than the worst seen) is survivable, on buying wings to cap tails, and on whether the edge persists after SEBI's margin rules.</a></qa>
+<qa difficulty="hard"><q>What STT applies when you sell a Nifty option with premium 200 points and lot size 65, and how does it compare with the bid-ask cost?</q><a>STT on the sale of options is 0.1% of premium since 1 October 2024: 0.001 × 200 × 65 = ₹13 per lot. A one-point bid-ask cost on entry and exit is 2 × 65 = ₹130 per lot. Spreads and slippage usually matter more than STT for option sellers, though STT on exercised in-the-money options at expiry is charged differently.</a></qa>
+<qa difficulty="expert"><q>How would you build a synthetic variance swap strike for a Nifty expiry from option prices?</q><a>Use the variance swap replication formula: the fair variance equals (2/T) times the sum over out-of-the-money options of (ΔK/K²) × e^(rT) × option price, minus a correction for the forward relative to the nearest strike below it: (1/T)(F/K0 − 1)². Use puts below the forward and calls above it, with strikes as wide as liquid quotes allow. This is how India VIX is computed for its near and next expiries, then interpolated to 30 days.</a></qa>
+<source url="https://researcher.manipal.edu/en/publications/dynamics-of-variance-risk-premium-evidence-from-india/">Dynamics of variance risk premium: evidence from India (Manipal)</source>
+<source url="https://sites.uwasa.fi/mfjuva/?p=2597">Options order flow, volatility demand and variance risk premium (Chakrabarti and Kotha)</source>
+<source url="https://studentlive.iimcal.ac.in/sites/all/files/pdfs/wps_688.pdf">Volatility index and variance swaps (IIM Calcutta working paper 688)</source>
+<source url="https://www.5paisa.com/index.php/blog/india-vix-vs-historical-volatility">India VIX vs historical volatility (5paisa)</source>
+<source url="https://iimidr.ac.in/wp-content/uploads/2019/12/v2010-issue2-The-Behaviour-of-Indias-Volatility-Index.pdf">The behaviour of India's volatility index (IIM Indore)</source>
+</topic>
