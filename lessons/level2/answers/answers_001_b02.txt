@@ -1,0 +1,342 @@
+<topic id="141">
+<level>advanced</level>
+<lesson>
+# Lot-wise capital gains accounting with bonus, split and rights in ITR Schedule CG
+
+## Core idea
+Every share you sell must be matched to the specific lot it came from, because each lot has its own cost and its own acquisition date, which decides whether the gain is short-term or long-term and whether 31 January 2018 grandfathering applies. Bonus shares, splits and rights issues create or change lots. Getting the lot accounting right is where most capital-gains errors on Indian equity occur, and the result goes into Schedule CG and Schedule 112A of the income tax return.
+
+## How it works, step by step
+1. **Matching rule.** For shares in demat form, section 45(2A) of the Income-tax Act 1961 applies first-in-first-out (FIFO): the earliest shares acquired are treated as sold first. CBDT Circular 768 (24 June 1998) says FIFO applies separately to each demat account. You cannot pick the lot you prefer within one account.
+2. **Lot types and their cost and date:**
+   - Bought shares: cost = price paid plus brokerage and charges (not STT); date = the trade (contract note) date, following CBDT Circular 704 (1995).
+   - Split shares: the same lot, with the quantity multiplied and cost per share divided by the split ratio; the acquisition date stays the original date.
+   - Bonus shares: a new lot with nil cost (section 55(2)(aa)), acquired on the allotment date.
+   - Rights shares subscribed by you: a new lot with cost equal to the amount paid; acquired on the allotment date.
+   - Rights shares bought through a purchased rights entitlement: cost = price paid for the entitlement plus the subscription amount.
+3. **Grandfathering.** For a lot acquired before 1 February 2018 and sold after 31 March 2018, cost = the higher of actual cost and the lower of (fair market value on 31 January 2018, sale price) (section 55(2)(ac)).
+4. **Classify.** Listed shares held more than 12 months are long-term. Gains on STT-paid listed equity: short-term at 20% (section 111A) and long-term at 12.5% above ₹1.25 lakh a year (section 112A), for transfers from 23 July 2024.
+5. **Report.** Long-term equity gains go into Schedule 112A (scrip-wise details for shares acquired before 1 February 2018, including the fair market value); totals flow into Schedule CG with short-term gains under section 111A.
+
+## Formulas and numbers (worked example)
+One demat account:
+- Lot A: 100 shares bought 10 January 2017 at ₹400. Highest price on 31 January 2018: ₹560.
+- Lot B: 100 shares bought 15 June 2019 at ₹700.
+- 2:1 split in September 2020 (face value ₹10 to ₹5): Lot A becomes 200 shares at ₹200 cost and ₹280 FMV per share, still dated 10 January 2017. Lot B becomes 200 shares at ₹350.
+- 1:1 bonus allotted March 2023: Lot C, 400 shares, nil cost, dated March 2023.
+- 1:4 rights at ₹300 allotted February 2024: Lot D, 200 shares at ₹300.
+
+Sale on 1 October 2025 of 700 shares at ₹420. FIFO uses A, then B, then 300 of C:
+- Lot A: cost = max(200, min(280, 420)) = ₹280. Gain 200 × 140 = ₹28,000 (long-term).
+- Lot B: 200 × (420 − 350) = ₹14,000 (long-term).
+- Lot C (held over 12 months): 300 × 420 = ₹1,26,000 (long-term).
+- Total section 112A gain ₹1,68,000. Taxable after the ₹1.25 lakh exemption: ₹43,000 × 12.5% = ₹5,375, plus 4% cess = ₹5,590.
+Remaining: 100 bonus shares (nil cost) and 200 rights shares (₹300).
+
+## India specifics
+- From 1 April 2026, the Income-tax Act 2025 replaces the 1961 Act and uses a single "tax year"; the capital-gains rules above carry over with new section numbers (section 198 for the old 112A, 196 for 111A). Sales up to 31 March 2026 are reported under the 1961 Act.
+- The 23 July 2024 rate change means FY 2024-25 returns split equity gains into before and after that date.
+- From AY 2025-26 the CBDT allowed the simple ITR-1 and ITR-4 forms for taxpayers whose only capital gain is section 112A long-term gain up to ₹1.25 lakh; anyone with losses to carry forward or other capital gains uses ITR-2 or ITR-3.
+- Brokers' tax P&L reports apply FIFO per account but often mishandle corporate actions; the taxpayer is responsible for the numbers.
+
+## Real examples and history
+- Splits after 2018 cause frequent errors: a new ISIN appears after the split and some statements treat the shares as newly acquired, resetting the holding period and losing grandfathering.
+- Reliance's 1:1 bonus (October 2024) and many others created nil-cost lots for millions of holders; under FIFO those lots are sold only after all older lots in the same account.
+- Before 2018, long-term gains on STT-paid shares were exempt under section 10(38), so lot accounting mattered mainly for short-term trades. Section 112A made it matter for everyone.
+
+## Edge cases and common mistakes
+- **Multiple demat accounts.** FIFO applies per account; holding the bonus lot in another account changes which shares are treated as sold.
+- **Resetting the date on a split.** Wrong: a split is not a new acquisition.
+- **Giving bonus shares a cost.** Bonus cost is nil (except bonus allotted before 1 April 2001, where FMV on that date can be taken).
+- **Bonus stripping (section 94(8)).** If you bought shares within 3 months before the record date and sell them within 9 months after it at a loss, the loss is ignored and treated as the cost of the bonus shares.
+- **Partly paid rights shares.** Cost is the total paid across calls; keep the call payment records.
+- **Selling on the ex-date of a bonus.** The bonus lot may not be credited yet; sell instructions apply to existing lots.
+
+## How traders, investors and quants use it
+- Investors keep their own lot register (a spreadsheet or a portfolio tool), updated at every corporate action, and reconcile it with the broker's tax P&L before filing.
+- Tax-gain harvesting uses lot information: selling the oldest lots with gains up to ₹1.25 lakh each year and buying back steps up the cost.
+- Quants modelling after-tax returns simulate FIFO lots, not average cost.
+
+## Related concepts
+Section 45(2A) and FIFO; section 55(2)(aa) and (ac); grandfathering; Schedule 112A; bonus stripping (section 94(8)); rights entitlements; Income-tax Act 2025 section mapping.
+</lesson>
+<qa difficulty="hard"><q>You hold 300 shares bought in 2019 at ₹500 in demat account X and 300 bonus shares (allotted 2024) in demat account Y. You sell 300 shares from account Y in 2026 at ₹350. What is the gain and why does the account matter?</q><a>FIFO applies per demat account (CBDT Circular 768). The shares in Y are the bonus lot with nil cost, held over 12 months, so the gain is 300 × 350 = ₹1,05,000 long-term (inside the ₹1.25 lakh exemption if there are no other section 112A gains). Selling from account X instead would be 300 × (350 − 500) = −₹45,000, a long-term loss. The account chosen changes the tax result.</a></qa>
+<qa difficulty="hard"><q>A lot of 50 shares was bought on 5 May 2017 at ₹1,200. The highest price on 31 January 2018 was ₹1,600. The stock split 5:1 in 2021. You sell 250 shares in 2025 at ₹300. Compute the gain.</q><a>After the split the lot is 250 shares with cost 1,200/5 = ₹240 and FMV 1,600/5 = ₹320 per share, still dated 5 May 2017. Cost = max(240, min(320, 300)) = ₹300. Gain = 250 × (300 − 300) = 0. Grandfathering removes the gain up to the sale price but cannot create a loss.</a></qa>
+<qa difficulty="expert"><q>Why does section 94(8) apply to an investor who bought 1,000 shares on 1 March, got a 1:1 bonus with record date 20 March, and sold the original 1,000 at a loss on 15 June? What happens to the loss?</q><a>The shares were bought within 3 months before the record date and sold within 9 months after it, and bonus shares were received, so section 94(8) (extended to shares by Finance Act 2022) applies. The loss on the original 1,000 shares is ignored when computing income and is instead treated as the cost of acquisition of the 1,000 bonus shares, which are still held. The loss is deferred, not destroyed.</a></qa>
+<qa difficulty="hard"><q>Rights shares: you held 400 shares, got a 1:4 rights entitlement for 100 shares at ₹250, and also bought entitlements for another 100 shares on the exchange at ₹40 each. What are the costs of the two rights lots?</q><a>Rights shares subscribed on your own entitlement: cost ₹250 per share, 100 shares. Rights shares from purchased entitlements: cost = ₹40 + ₹250 = ₹290 per share, 100 shares. Both lots are dated from the allotment date.</a></qa>
+<qa difficulty="medium"><q>A taxpayer's only capital gain in FY 2025-26 is ₹90,000 of section 112A long-term gain. Which return form can they use, and is any tax due on it?</q><a>From AY 2025-26 the CBDT allows ITR-1 (or ITR-4) when the only capital gain is section 112A long-term gain up to ₹1.25 lakh and there are no losses to carry forward, provided the other ITR-1 conditions are met. ₹90,000 is within the ₹1.25 lakh exemption, so no tax is due on it.</a></qa>
+<qa difficulty="expert"><q>In the main worked example, could the investor reduce tax by selling the rights lot instead of the bonus lot? Explain.</q><a>No, not within the same demat account: FIFO under section 45(2A) treats the earliest shares as sold first, so the bonus lot (March 2023) is sold before the rights lot (February 2024). Only by holding lots in separate demat accounts (FIFO per account) could the investor choose. Transferring shares between one's own demat accounts does not change acquisition dates, but taxpayers must keep records to prove the original lot.</a></qa>
+<source url="https://www.incometaxindia.gov.in/w/768-circular-no.-768-dated-24-6-1998-1">CBDT Circular 768 dated 24 June 1998 (Income Tax Department)</source>
+<source url="https://www.business-standard.com/finance/personal-finance/explained-how-to-calculate-capital-gains-tax-on-multiple-demat-accounts-124080200149_1.html">How to calculate capital gains tax on multiple demat accounts (Business Standard)</source>
+<source url="https://freefincal.com/how-to-calculate-ltcg-with-grandfathering-for-equity-shares-that-split-how-to-fill-schedule-112a/">How to calculate LTCG with grandfathering for shares that split, and fill Schedule 112A (freefincal)</source>
+<source url="https://learn.quicko.com/ltcg-tax-equity-shares">Section 112A: tax on long-term capital gain on shares (Quicko)</source>
+<source url="https://taxguru.in/income-tax/income-tax-act-2025-1961-section-mapping-cheat-sheet-sections-day.html">Income-tax Act 2025 vs 1961 section mapping cheat sheet (TaxGuru)</source>
+</topic>
+
+<topic id="142">
+<level>advanced</level>
+<lesson>
+# 31 January 2018 grandfathering under s.112A and how it is adjusted for splits and bonuses
+
+## Core idea
+Until 31 March 2018, long-term gains on STT-paid listed shares were fully exempt under section 10(38). The Finance Act 2018 replaced the exemption with section 112A, which taxes such gains, but protected (grandfathered) gains that had built up until 31 January 2018. It does this by letting the share's fair market value (FMV) on that date replace its cost, with limits. Splits and bonus issues after 2018 interact with this rule in ways many investors get wrong.
+
+## How it works, step by step
+1. **Which assets.** Listed equity shares, units of equity-oriented funds and units of business trusts, acquired before 1 February 2018 and transferred after 31 March 2018.
+2. **Cost formula (section 55(2)(ac)).** Cost of acquisition = the higher of (A) the actual cost and (B) the lower of (i) FMV on 31 January 2018 and (ii) the full value of consideration on transfer (the sale price).
+3. **FMV.** For a listed share: the highest price quoted on a recognised stock exchange on 31 January 2018; if it did not trade that day, the highest price on the latest earlier trading day. For a unit: its net asset value on 31 January 2018.
+4. **Effect.** Gains up to the 31 January 2018 value are not taxed. The formula can never create a loss out of grandfathering: if the sale price is below FMV, cost becomes the higher of actual cost and the sale price.
+5. **Tax.** The gain above cost is taxed at 12.5% for transfers from 23 July 2024 (10% before), above the annual exemption of ₹1.25 lakh (₹1 lakh before). No indexation.
+
+## Formulas and numbers (worked example)
+**Basic.** 100 shares bought in 2015 at ₹200. Highest price on 31 January 2018: ₹1,000. Sold at ₹1,400 in 2025: cost = max(200, min(1,000, 1,400)) = ₹1,000; gain = 100 × 400 = ₹40,000.
+
+**Split after 2018.** Same shares split 2:1 in 2021: 200 shares, each with cost ₹100 and FMV ₹500, still dated 2015. Sold at ₹700: cost = max(100, min(500, 700)) = ₹500; gain = 200 × 200 = ₹40,000. Same result, because a split changes only the unit.
+
+**Bonus after 2018.** Instead of a split, a 1:1 bonus in 2022: 100 original shares plus 100 bonus shares (nil cost, acquired 2022). Price falls to ₹700.
+- Original 100: cost = max(200, min(1,000, 700)) = ₹700; gain 0.
+- Bonus 100: cost nil (acquired after 31 January 2018, so no grandfathering); gain 100 × 700 = ₹70,000.
+- Total gain ₹70,000 against ₹40,000 without the bonus. The grandfathered value of ₹1,000 per original share is not shared with the bonus shares, so ₹30,000 of protected gain is lost.
+
+## India specifics
+- The FMV rule, the "higher of" formula and the no-loss result come from section 55(2)(ac) of the Income-tax Act 1961; the Income-tax Act 2025 (in force from 1 April 2026) carries the same mechanism into its cost-of-acquisition provisions and section 198 (the old 112A).
+- Shares not listed on 31 January 2018 but listed later (for example through an IPO) use an indexed-cost formula instead of a market price.
+- Bonus shares allotted before 1 April 2001 may take their FMV on 1 April 2001 as cost; bonus shares allotted between 2001 and 31 January 2018 have nil cost but get the grandfathering FMV.
+- In the return, shares acquired before 1 February 2018 are reported scrip-wise in Schedule 112A with the FMV per share.
+
+## Real examples and history
+- Budget 2018 announced the tax and grandfathering on 1 February 2018; the 31 January date was chosen so that the announcement itself could not move the protected value.
+- Commentators noted soon after that bonus issues after 2018 increase holders' tax because of the rule above, and argued that companies should prefer splits.
+- A split's new ISIN leads some broker reports to treat split shares as acquired on the split date, wrongly losing grandfathering. Investors have had to correct this manually.
+
+## Edge cases and common mistakes
+- **Using the closing price.** The rule uses the highest price of the day, which is usually above the close, so it is more favourable.
+- **Not adjusting FMV for a later split.** After a 2:1 split, the FMV per share is half the 31 January 2018 figure; the total FMV of the lot is unchanged.
+- **Expecting a loss from grandfathering.** If you bought at ₹200 and sell at ₹700 with FMV ₹1,000, the gain is zero, not a ₹300 loss.
+- **Real losses still count.** If you bought at ₹1,200 (above FMV ₹1,000) and sell at ₹900, cost is ₹1,200 and the ₹300 loss per share is a real long-term loss.
+- **Mergers.** Shares received in an amalgamation in exchange for pre-2018 shares carry over the original cost and holding period; how to apply the original FMV is a question to settle with an adviser.
+- **Mutual fund units.** Use the NAV on 31 January 2018, not the highest price.
+
+## How traders, investors and quants use it
+- Long-term holders of pre-2018 stocks track two numbers per lot: actual cost and the 31 January 2018 FMV adjusted for splits.
+- Before selling bonus-heavy holdings, investors calculate whether to sell original shares (often zero gain) or wait.
+- Tax-aware portfolio tools store the FMV per share as a lot attribute and adjust it at every split.
+
+## Related concepts
+Section 10(38) and its withdrawal; section 112A and the ₹1.25 lakh exemption; section 55(2)(ac); FIFO lot matching; Schedule 112A; bonus stripping; Income-tax Act 2025 section 198.
+</lesson>
+<qa difficulty="hard"><q>Shares bought in 2016 at ₹900; highest price on 31 January 2018 ₹750; sold in 2025 at ₹1,100. What is the cost and gain per share?</q><a>Cost = max(900, min(750, 1,100)) = max(900, 750) = ₹900. Gain = ₹200 per share. Because the actual cost was above the FMV, grandfathering gives no extra benefit.</a></qa>
+<qa difficulty="hard"><q>Shares bought in 2014 at ₹100; FMV on 31 January 2018 ₹600; sold at ₹450. What is the gain, and why is there no loss?</q><a>Cost = max(100, min(600, 450)) = max(100, 450) = ₹450. Gain = 0. Grandfathering replaces cost only up to the sale price, so it cannot produce a loss: the "lower of FMV and sale price" term caps cost at the sale price.</a></qa>
+<qa difficulty="expert"><q>An investor holds 200 shares bought in 2012 at ₹50, FMV on 31 January 2018 ₹800. In 2023 the company issued 1:1 bonus. In 2026 the price is ₹500. Compare the tax if they sell all 400 shares now with the tax had the company split 2:1 instead.</q><a>Bonus case: original 200: cost = max(50, min(800, 500)) = ₹500, gain 0. Bonus 200: nil cost, gain 200 × 500 = ₹1,00,000. Total ₹1,00,000. Split case: 400 shares with cost ₹25 and FMV ₹400 each: cost = max(25, min(400, 500)) = ₹400, gain 400 × 100 = ₹40,000. The bonus raises the taxable gain by ₹60,000 because the grandfathered value stays with the original shares and cannot be used on the bonus shares.</a></qa>
+<qa difficulty="medium"><q>A stock did not trade on 31 January 2018 but traded on 30 January at a high of ₹245 and a close of ₹240. What FMV is used?</q><a>The highest price on the immediately preceding trading day: ₹245, not the close.</a></qa>
+<qa difficulty="hard"><q>Why does a split after 2018 not change the grandfathered gain, while a bonus does?</q><a>A split is a change of unit of the same shares: each new share inherits a proportional share of the original cost, date and 31 January 2018 FMV. A bonus creates new shares acquired after 31 January 2018 with nil cost, outside grandfathering, while the original shares keep their full pre-bonus FMV even though their price has fallen. The law has no rule to move part of the FMV to the bonus shares, so part of the protected gain is wasted.</a></qa>
+<qa difficulty="expert"><q>Units of an equity mutual fund bought in 2016 at NAV ₹40, NAV on 31 January 2018 ₹62, redeemed in 2026 at ₹150, 10,000 units. Compute tax assuming no other gains.</q><a>Cost = max(40, min(62, 150)) = ₹62. Gain = 10,000 × (150 − 62) = ₹8,80,000. Taxable after the ₹1.25 lakh exemption = ₹7,55,000 × 12.5% = ₹94,375, plus 4% cess = ₹98,150 (before any surcharge).</a></qa>
+<source url="https://freefincal.com/how-to-calculate-ltcg-with-grandfathering-for-equity-shares-that-split-how-to-fill-schedule-112a/">How to calculate LTCG with grandfathering for shares that split (freefincal)</source>
+<source url="https://moneylife.in/article/bonus-shares-under-new-tax-rules-when-and-how-should-companies-issue-them/54762.html">Bonus shares under new tax rules: when and how should companies issue them? (Moneylife)</source>
+<source url="https://bhattandjoshiassociates.com/share-splits-and-amalgamations-a-comprehensive-analysis-from-a-capital-gains-perspective/">Share splits and amalgamations from a capital gains perspective (Bhatt and Joshi Associates)</source>
+<source url="https://equitiesindia.com/glossary/grandfathering-ltcg">Grandfathering LTCG (Equities India glossary)</source>
+<source url="https://cleartax.in/s/long-term-capital-gains-ltcg-tax">Long-term capital gains tax (ClearTax)</source>
+</topic>
+
+<topic id="143">
+<level>intermediate</level>
+<lesson>
+# Set-off and carry-forward of STCL/LTCL against STCG/LTCG in India
+
+## Core idea
+Capital losses reduce capital gains, but not all losses can be used against all gains. A short-term capital loss (STCL) can be set off against any capital gain; a long-term capital loss (LTCL) only against long-term capital gains (LTCG). Losses that remain can be carried forward for eight years, but only if the return is filed on time. Because gains are taxed at different rates, the order in which losses are used changes the tax bill.
+
+## How it works, step by step
+1. **Within the same year (section 70 of the 1961 Act).** STCL is set off against STCG or LTCG. LTCL is set off only against LTCG.
+2. **Across heads (section 71(3)).** A capital loss cannot be set off against salary, business income or any other head.
+3. **Carry forward (section 74).** Unabsorbed capital losses carry forward for 8 assessment years. Brought-forward STCL can be set off against any future capital gain; brought-forward LTCL only against future LTCG.
+4. **On-time filing (section 80).** A loss can be carried forward only if the return for the loss year is filed by the due date under section 139(1). A belated return loses the carry-forward.
+5. **Then exemptions and rates.** After set-off, the remaining section 112A gain gets the ₹1.25 lakh exemption and is taxed at 12.5%; section 111A short-term gain is taxed at 20%; other short-term gains (such as debt mutual funds bought after 1 April 2023) are taxed at slab rates.
+
+## Formulas and numbers (worked example)
+FY 2025-26, a taxpayer in the 30% slab:
+- STCG under section 111A: ₹80,000. STCG at slab rates (debt fund): ₹30,000. LTCG under section 112A: ₹2,00,000.
+- Current-year STCL: ₹1,20,000. Current-year LTCL: ₹50,000. Brought-forward LTCL: ₹40,000.
+
+Set-off:
+1. LTCL ₹50,000 and brought-forward LTCL ₹40,000 can only go against LTCG: ₹2,00,000 − ₹90,000 = ₹1,10,000.
+2. STCL ₹1,20,000: use it first against the slab STCG (₹30,000, taxed at 30%), then against the 111A STCG (₹80,000, taxed at 20%), and the last ₹10,000 against LTCG: ₹1,10,000 − ₹10,000 = ₹1,00,000.
+3. LTCG ₹1,00,000 is below the ₹1.25 lakh exemption.
+Tax on capital gains: nil.
+
+Had the STCL been used against the LTCG first, LTCG would fall to nil (wasting the exemption), and the ₹1,10,000 of STCG would be taxed: ₹30,000 × 30% + ₹80,000 × 20% = ₹25,000 plus cess.
+
+## India specifics
+- **Order of set-off.** Section 70 does not prescribe which gain a loss must be set against within the allowed categories, and the ITR forms let the taxpayer allocate it. Advisers generally set losses against the highest-taxed gains first and keep section 112A gains to use the exemption.
+- **Rates** (transfers from 23 July 2024): 20% under section 111A, 12.5% under section 112A, ₹1.25 lakh exemption per year.
+- **Income-tax Act 2025.** From tax year 2026-27, the same rules continue under new section numbers in the 2025 Act; losses carried forward from the 1961 Act continue to be available for their remaining years.
+- **Both tax regimes.** Capital loss set-off works the same under the old and new regimes.
+- **Other buckets.** Intraday equity losses are speculative business losses (section 73), set off only against speculative income and carried forward 4 years. F&O losses are non-speculative business losses, which can be set off against other heads except salary and carried forward 8 years. Neither is a capital loss.
+
+## Real examples and history
+- Before 1 April 2018, LTCG on STT-paid shares was exempt under section 10(38), and courts held that losses from an exempt source could not be set off. With section 112A, long-term losses on listed shares became usable.
+- The 2024 rate changes made the order of set-off more valuable: the gap between 20% (111A) and slab rates up to 30% grew larger.
+
+## Edge cases and common mistakes
+- **Filing late.** A belated return loses the carry-forward of capital losses.
+- **Not reporting a loss year.** Losses must appear in the return (Schedule CFL) to be carried forward, even when no tax is due.
+- **Using LTCL against STCG.** Not allowed.
+- **Wash sales.** India has no specific wash-sale rule, so selling to book a loss and buying back is common; a transaction with no commercial purpose other than tax can still be questioned under general anti-avoidance principles.
+- **Bonus and dividend stripping.** Losses caught by section 94(7) or 94(8) are disallowed or deferred.
+- **Exemption order.** The ₹1.25 lakh exemption applies to net section 112A gains after set-off, not before.
+
+## How traders, investors and quants use it
+- **Tax-loss harvesting.** Near the end of March, investors sell holdings with losses to offset realised gains, and buy back if they still want the position.
+- **Tax-gain harvesting.** Investors with no losses realise up to ₹1.25 lakh of long-term gain each year and buy back, stepping up cost tax-free.
+- After-tax backtests model loss carry-forwards; a strategy with frequent short-term losses can have a lower effective tax rate than its gross numbers suggest.
+
+## Related concepts
+Sections 70, 71, 74 and 80; sections 111A and 112A; speculative and non-speculative business losses; Schedule CFL; bonus and dividend stripping; Income-tax Act 2025.
+</lesson>
+<qa difficulty="hard"><q>A taxpayer has LTCL of ₹3 lakh on shares and STCG of ₹2 lakh under section 111A in the same year, and no other gains. What happens to the loss?</q><a>LTCL cannot be set off against STCG, so the ₹2 lakh STCG is taxed at 20% (₹40,000 plus cess), and the entire ₹3 lakh LTCL is carried forward for up to 8 years, to be used only against future LTCG, provided the return is filed by the due date.</a></qa>
+<qa difficulty="hard"><q>Reverse case: STCL of ₹3 lakh and LTCG under section 112A of ₹2 lakh. What is the tax, and is the result efficient?</q><a>STCL can be set off against LTCG: ₹2 lakh − ₹2 lakh = 0, and ₹1 lakh STCL is carried forward. Tax is nil. But ₹1.25 lakh of the LTCG would have been tax-free anyway, so using STCL against it wastes ₹1.25 lakh of loss. Since the law requires the STCL to be set off in the same year where a gain exists, the taxpayer cannot simply keep it; better planning is to realise the STCL in a year with taxable gains, or to realise more LTCG.</a></qa>
+<qa difficulty="medium"><q>A taxpayer filed the return for FY 2024-25 in December 2025, after the due date, showing an STCL of ₹80,000. Can it be carried forward?</q><a>No. Under section 80, a capital loss can be carried forward only if the return of the loss year was filed by the due date under section 139(1). A belated return can still report the loss, but it cannot be carried forward.</a></qa>
+<qa difficulty="expert"><q>F&O trading loss ₹4 lakh, salary ₹15 lakh, STCG under section 111A ₹1 lakh. How can the F&O loss be used?</q><a>F&O loss is a non-speculative business loss, not a capital loss. In the same year it can be set off against income of any other head except salary, so it can absorb the ₹1 lakh STCG (a capital gain is another head). The remaining ₹3 lakh is carried forward for 8 years against future business income only. It cannot reduce the salary. Filing ITR-3 by the due date is needed to carry it forward.</a></qa>
+<qa difficulty="hard"><q>Brought-forward STCL of ₹1.5 lakh. This year: section 112A LTCG ₹1.2 lakh and section 111A STCG ₹60,000. Allocate to minimise tax.</q><a>Set-off of a brought-forward loss against available gains is mandatory, but you choose which eligible gain absorbs it. Use ₹60,000 against the section 111A STCG first (saving 20% tax), then the remaining ₹90,000 must go against the section 112A LTCG, leaving ₹30,000, which is within the ₹1.25 lakh exemption. Tax: nil. The catch is that ₹90,000 of loss is used on a gain that the exemption would have covered anyway; this cannot be avoided once the gain is realised in the same year.</a></qa>
+<qa difficulty="hard"><q>Why could long-term losses on STT-paid shares not be used before 1 April 2018, and why can they now?</q><a>Before 1 April 2018, such long-term gains were exempt under section 10(38), so the income source was outside the tax computation; courts held that a loss from an exempt source cannot be set off against taxable income. From 1 April 2018, section 112A taxes these gains, so losses from the same source are now part of the computation and can be set off against LTCG and carried forward.</a></qa>
+<source url="https://cleartax.in/s/long-term-capital-gains-ltcg-tax">Long-term capital gains tax (ClearTax)</source>
+<source url="https://www.republicworld.com/news/cbdt-clarifies-new-capital-gains-tax-provisions-from-budget-2024-know-here">CBDT clarifies new capital gains tax provisions from Budget 2024 (Republic)</source>
+<source url="https://www.taxbuddy.com/blog/long-term-capital-gain-tax">Long-term capital gain tax in India: rates, calculation and updates (TaxBuddy)</source>
+<source url="https://taxguru.in/income-tax/capital-gains-income-tax-act-2025-tax-period-2026-27.html">Capital gains under the new Income-tax Act 2025 for tax period 2026-27 (TaxGuru)</source>
+</topic>
+
+<topic id="144">
+<level>advanced</level>
+<lesson>
+# Tax treatment of rights entitlements: cost, renunciation and holding period
+
+## Core idea
+When a company makes a rights issue, each shareholder receives a rights entitlement (RE): the right to subscribe to new shares at the issue price. Since 2020, REs are credited in demat form and can be traded on the exchange. The shareholder can subscribe, sell (renounce) the RE, or let it lapse. Each choice has its own tax result, governed by the cost rules in section 55(2)(aa) and the holding-period rules in section 2(42A) of the Income-tax Act 1961, now carried into the Income-tax Act 2025.
+
+## How it works, step by step
+1. **Receiving the RE.** No tax: receiving a right on your existing shares is not income.
+2. **Renouncing (selling) the RE.** The RE is a capital asset. Its cost to the original shareholder is nil, so the whole sale price is a capital gain. The holding period runs from the date the company offered the right to the date of renunciation, which is almost always short (weeks), so the gain is short-term.
+3. **Subscribing.** No tax at subscription. The rights shares are a new lot: cost = the issue price paid; holding period from the date of allotment.
+4. **Buying an RE and subscribing.** The buyer's rights shares cost the price paid for the RE plus the issue price; holding period from allotment.
+5. **Letting the RE lapse.** For an original shareholder, nil cost and nil proceeds: no gain or loss. For someone who bought the RE, the price paid is lost; whether it is an allowable capital loss depends on treating the lapse as an extinguishment (a transfer under section 2(47)); take advice.
+6. **Original shares.** Their cost is not reduced when the RE is received, even though their price falls ex-rights.
+
+## Formulas and numbers (worked example)
+You hold 1,000 shares bought at ₹200. The company announces a 1:5 rights issue at ₹150 (200 rights shares). The shares close ₹260 cum-rights. Theoretical ex-rights price = (5 × 260 + 1 × 150)/6 = ₹241.67. Theoretical value of each RE = 241.67 − 150 = ₹91.67.
+
+**Choice A: sell the REs at ₹88.** Proceeds 200 × 88 = ₹17,600; cost nil; short-term gain ₹17,600.
+
+**Choice B: subscribe.** Pay 200 × 150 = ₹30,000. Sell the 200 rights shares after 14 months at ₹300: long-term gain 200 × (300 − 150) = ₹30,000 under section 112A (12.5% above the ₹1.25 lakh annual exemption).
+
+**Buyer of REs.** Bought 200 REs at ₹88 and subscribed at ₹150: cost ₹238 per share. Sold within 12 months at ₹270: short-term gain 200 × 32 = ₹6,400 under section 111A at 20%.
+
+## India specifics
+- **Rate on the RE gain.** Section 111A's 20% rate applies to STT-paid "equity shares", units of equity-oriented funds and business trusts. An RE is a right to subscribe, not an equity share, so the conservative view taxes its sale at slab rates. Some argue that an exchange-traded, STT-paid RE should qualify for section 111A. Check current guidance before filing.
+- **RE ISIN.** REs are credited to demat accounts under a separate ISIN before the issue opens and can be traded on the exchange until a few days before the issue closes, or renounced off-market.
+- **Rights timelines.** SEBI's circular of 11 March 2025 shortened rights issue timelines and changed several process steps; dates come from the offer document.
+- **Partly paid shares.** Some rights issues are payable in calls (Reliance's 2020 rights issue was payable in instalments, and partly paid shares traded separately). The cost is the total of all calls paid.
+- **Income-tax Act 2025.** From 1 April 2026 the same principles apply under the new Act's cost-of-acquisition and holding-period provisions, with new section numbers.
+
+## Real examples and history
+- Before 2020, renunciation was done by physical forms, and many small shareholders simply let rights lapse. Dematerialised REs, introduced by SEBI in January 2020, made selling REs easy.
+- Large Indian rights issues since then (Reliance 2020, Bharti Airtel 2021) gave millions of shareholders RE credits. RE prices on the exchange can trade below their theoretical value, especially close to the last trading day, so holders should compare before selling.
+
+## Edge cases and common mistakes
+- **Assuming RE sale proceeds are tax-free or long-term.** They are short-term gains with nil cost.
+- **Adding the RE value to the cost of rights shares when you used your own RE.** The original shareholder's rights shares cost only the issue price.
+- **Treating rights shares as part of the old lot.** They are a new lot with their own date; under FIFO they are sold after older lots in the same account.
+- **Grandfathering.** Rights shares allotted after 31 January 2018 have no grandfathering, even if the original shares do.
+- **Selling the RE below its value.** A tax point, but also an economic loss: selling an RE well below (ex-rights price − issue price) transfers value to the buyer.
+- **Lapse by mistake.** An RE not sold or exercised by the deadline becomes worthless; the shareholder's dilution is real and nothing is deductible.
+
+## How traders, investors and quants use it
+- Shareholders compare the RE market price with its theoretical value and choose whether to subscribe or sell.
+- Arbitrageurs buy REs below theoretical value and subscribe, then sell the shares, accounting for the time until the new shares are listed and the short-term tax.
+- Lot trackers record the RE as a separate asset with nil cost and the rights shares as a new lot.
+
+## Related concepts
+Theoretical ex-rights price; rights issue process and SEBI timelines; section 55(2)(aa) cost rules; holding period under section 2(42A); FIFO lots; F&O adjustment for rights; section 111A.
+</lesson>
+<qa difficulty="hard"><q>An investor receives REs for 300 shares, sells them on the exchange at ₹45 each 20 days after credit, and has a 20% slab. What is the tax under the conservative view?</q><a>Proceeds 300 × 45 = ₹13,500; cost nil; holding period from offer to renunciation is 20 days, so the gain is short-term. An RE is not an equity share, so the conservative view applies slab rates: ₹13,500 × 20% = ₹2,700 plus cess. If section 111A were accepted, the rate would also be 20% here, so the view matters most for taxpayers in the 30% slab.</a></qa>
+<qa difficulty="hard"><q>You hold shares bought at ₹500. After a 1:3 rights issue at ₹400 (which you subscribe), the price falls from ₹620 cum-rights to ₹565. Is the cost of your original shares reduced?</q><a>No. Indian law does not apportion the original cost between the shares and the RE; the RE simply has nil cost. Your original shares keep cost ₹500, and the rights shares cost ₹400. The ₹55 fall in price is reflected only when you sell.</a></qa>
+<qa difficulty="expert"><q>Compute the theoretical ex-rights price and RE value for a 2:7 rights issue at ₹600 when the cum-rights price is ₹780. If REs trade at ₹120, should a holder sell or subscribe?</q><a>TERP = (7 × 780 + 2 × 600)/9 = (5,460 + 1,200)/9 = ₹740. RE value = 740 − 600 = ₹140. At ₹120 the RE trades ₹20 below value, so a holder who wants to keep their stake is better off subscribing (or a holder who doesn't want to invest more loses ₹20 per RE by selling). Arbitrageurs would buy REs at ₹120 and subscribe, effectively acquiring shares at ₹720 versus an expected ex-rights price of ₹740, if the price holds until listing.</a></qa>
+<qa difficulty="hard"><q>A buyer purchased 500 REs at ₹30 and subscribed at ₹250. Fifteen months later they sell the 500 shares at ₹320. What is the gain and rate?</q><a>Cost = 30 + 250 = ₹280 per share. Gain = 500 × (320 − 280) = ₹20,000. Held over 12 months from allotment, it is a long-term gain under section 112A, taxed at 12.5% above the ₹1.25 lakh annual exemption (so nil if no other long-term gains).</a></qa>
+<qa difficulty="medium"><q>Why is a gain on renouncing an RE almost always short-term?</q><a>The holding period of a renounced right runs from the date the company offered it to the date of renunciation. Rights issues are open for weeks, never 12 months, so the period is always short and the gain is short-term.</a></qa>
+<qa difficulty="expert"><q>In a partly paid rights issue, an investor paid ₹314 on application in 2020 and the rest in two calls in 2021, ₹1,257 in total. They sold the fully paid shares in 2023 at ₹2,400. What cost and holding period do they use?</q><a>Cost = the total amount paid across application and calls, ₹1,257 per share. The holding period is reckoned from the allotment of the partly paid shares in 2020 (the date the shares were acquired), so by 2023 the shares are long-term; gain per share = 2,400 − 1,257 = ₹1,143, taxed under section 112A. Records of each call payment should be kept as evidence.</a></qa>
+<source url="https://studycafe.in/taxability-of-rights-shares-in-india-complete-guide-with-capital-gains-treatment-425390.html">Taxability of rights shares in India: capital gains treatment (StudyCafe)</source>
+<source url="https://eztax.in/questions/how-to-calculate-capital-gain-on-rights-shares">How to calculate capital gain on rights shares (EZTax)</source>
+<source url="https://www.share.market/buzz/learn/rights-issue/">Rights issue explained (share.market)</source>
+<source url="https://outlookmoney.com/news/suzlon-energy-launches-rs-1-200-crore-rights-issue-today-know-processes-income-tax-liability-news-228979">Suzlon rights issue: process and income tax liability (Outlook Money)</source>
+</topic>
+
+<topic id="145">
+<level>intermediate</level>
+<lesson>
+# Income-tax Act 2025 vs 1961: section mapping for capital gains on equity
+
+## Core idea
+The Income-tax Act 2025 replaced the Income-tax Act 1961 from 1 April 2026. It rewrites the law in simpler language and renumbers almost every section, but for capital gains on equity it keeps the substance: the same rates, exemption, holding periods and grandfathering. Students and investors must now read two sets of section numbers: the old ones for transactions up to 31 March 2026 and the new ones afterwards.
+
+## How it works, step by step
+1. **Timeline.** The Income-tax (No. 2) Bill 2025 was passed in August 2025 and received assent on 21 August 2025 as Act 30 of 2025. It came into force on 1 April 2026, and has since been amended by the Finance Act 2026.
+2. **"Tax year" replaces previous year and assessment year.** Income of the financial year 2026-27 is taxed as tax year 2026-27, instead of "previous year 2026-27, assessment year 2027-28".
+3. **Which law applies.** Gains on transfers up to 31 March 2026 are computed and reported under the 1961 Act (the return for AY 2026-27). Transfers from 1 April 2026 fall under the 2025 Act.
+4. **Mapping.** Use the mapping below, then confirm with the Income Tax Department's official section-mapping utility on incometax.gov.in.
+
+| Subject | 1961 Act | 2025 Act |
+|---|---|---|
+| Charge of capital gains | section 45 | section 67 |
+| Mode of computation | section 48 | section 72 |
+| Short-term gain on STT-paid listed equity, 20% | section 111A | section 196 |
+| Long-term gain, general, 12.5% | section 112 | section 197 |
+| Long-term gain on STT-paid listed equity, 12.5% above ₹1.25 lakh | section 112A | section 198 |
+| Exemption on reinvestment in a house | sections 54 / 54F | sections 82 / 86 |
+| Bonds exemption | section 54EC | section 85 |
+
+The new numbers for the holding-period definition (old section 2(42A)), cost of acquisition including grandfathering (old section 55), loss set-off (old section 70), carry-forward (old section 74) and bonus or dividend stripping (old section 94) appear differently in different secondary guides; check them in the official mapping before quoting them.
+
+## Formulas and numbers (worked example)
+An investor sells listed shares in two transactions:
+- 20 March 2026: long-term gain ₹1,00,000. This falls in FY 2025-26, AY 2026-27, under section 112A of the 1961 Act. Within the ₹1.25 lakh exemption, so no tax.
+- 20 April 2026: long-term gain ₹2,00,000. This falls in tax year 2026-27 under section 198 of the 2025 Act. Taxable ₹75,000 × 12.5% = ₹9,375 plus cess, assuming no other gains and no change in rate by the Finance Act 2026.
+
+The two exemptions are separate because the transactions fall in different years, not because of the change of Act. The economics are unchanged; only the section numbers and terms differ.
+
+## India specifics
+- **Rates.** 20% on short-term STT-paid equity gains, 12.5% on long-term above ₹1.25 lakh, as set from 23 July 2024; these continue under sections 196 and 198. Check each year's Finance Act for changes.
+- **Buybacks.** From 1 October 2024 buyback proceeds were taxed as dividends; reports indicate the Finance Act 2026 moved buybacks back to capital-gains treatment. Confirm the current rule before relying on it.
+- **Carry-forward and transition.** Losses carried forward under the 1961 Act continue under the 2025 Act for their remaining years, through its transition provisions.
+- **Forms.** Returns for AY 2026-27 use the 1961 Act forms; new forms apply for tax year 2026-27.
+
+## Real examples and history
+- The 1961 Act had been amended every year for six decades, adding hundreds of provisos and sections with letters (such as 112A, 115BAC). The government announced a review in Budget 2024, introduced a bill in February 2025, withdrew it in August 2025 and passed a revised version later that month.
+- Similar rewrites elsewhere, such as the UK's Tax Law Rewrite Project, kept policy unchanged while restructuring the law, as India's rewrite aims to do.
+
+## Edge cases and common mistakes
+- **Quoting old sections for new transactions.** Brokers' statements, older articles and some software still say "section 112A" for gains made in tax year 2026-27.
+- **Assuming the policy changed.** A section-number change is not a rate change; rates come from what each year's law says.
+- **Trusting one blog's mapping.** Unofficial mapping tables disagree on several sections; use the official mapping.
+- **Mixing the year terms.** "AY 2027-28" and "tax year 2026-27" refer to the same income year.
+- **Pending matters.** Assessments, appeals and notices for years up to FY 2025-26 continue under the 1961 Act's provisions.
+
+## How traders, investors and quants use it
+- Tax and reporting tools need both mappings and must route transactions by date.
+- Investors and advisers cite the new sections in documents for tax year 2026-27 onward.
+- Teachers and learners map familiar concepts (111A, 112A, grandfathering) to their new numbers instead of relearning the rules.
+
+## Related concepts
+Sections 111A and 112A; capital gains computation; grandfathering; set-off and carry-forward of losses; the Finance Act 2026; tax year; official section-mapping utility.
+</lesson>
+<qa difficulty="medium"><q>Which section of the Income-tax Act 2025 corresponds to section 112A, and what does it tax?</q><a>Section 198. It taxes long-term capital gains on STT-paid listed equity shares, equity-oriented fund units and business trust units at 12.5% on gains above ₹1.25 lakh in the year, as section 112A did from 23 July 2024.</a></qa>
+<qa difficulty="hard"><q>A share is sold on 31 March 2026 and another on 1 April 2026. Under which Act, year term and return is each reported?</q><a>The 31 March 2026 sale falls in financial year 2025-26: 1961 Act, assessment year 2026-27, reported in the return filed in 2026. The 1 April 2026 sale falls in tax year 2026-27 under the 2025 Act, reported in the return filed in 2027 under the new forms.</a></qa>
+<qa difficulty="hard"><q>Does the change of Act reset the 12-month holding period for shares bought in October 2025 and sold in November 2026?</q><a>No. The holding period counts from acquisition to transfer regardless of which Act is in force: about 13 months, so the gain is long-term under section 198. The 2025 Act keeps the 12-month test for listed shares, and the transition does not restart acquisition dates.</a></qa>
+<qa difficulty="hard"><q>A loss of ₹2 lakh was carried forward from AY 2025-26 under section 74 of the 1961 Act. Can it be used in tax year 2026-27?</q><a>Yes, for the remaining years of its 8-year carry-forward period, under the 2025 Act's transition provisions, which preserve losses carried forward under the 1961 Act. A long-term loss can still be set off only against long-term gains.</a></qa>
+<qa difficulty="medium"><q>Why should a student confirm section numbers for set-off and carry-forward in the official mapping instead of a blog table?</q><a>Unofficial tables already disagree on several capital-gains sections (for example the cost-of-acquisition, set-off and carry-forward provisions), and some contain reversed or wrong entries. The Income Tax Department publishes an official mapping utility, which is the authority.</a></qa>
+<qa difficulty="hard"><q>An article written in 2026 says "the Income-tax Act 2025 raised LTCG tax to 12.5%". What is wrong with this statement?</q><a>The rate rose from 10% to 12.5% (and the exemption from ₹1 lakh to ₹1.25 lakh) through the Finance (No. 2) Act 2024, for transfers from 23 July 2024, under section 112A of the 1961 Act. The 2025 Act carried the existing rate into section 198; it did not raise it.</a></qa>
+<source url="https://www.pib.gov.in/PressReleasePage.aspx?PRID=2221416&reg=3&lang=1">PIB: The Income-tax Act 2025 to come into effect from 1 April 2026</source>
+<source url="https://www.incometaxindia.gov.in/documents/d/guest/income_tax_act_2025_as_amended_by_fa_act_2026-pdf">Income-tax Act 2025 as amended by Finance Act 2026 (Income Tax Department)</source>
+<source url="https://taxguru.in/income-tax/income-tax-act-2025-1961-section-mapping-cheat-sheet-sections-day.html">Income-tax Act 2025 vs 1961 section mapping cheat sheet (TaxGuru)</source>
+<source url="https://tax2win.in/guide/income-tax-act-2025-section-mapping-old-vs-new">Income Tax Act 2025 section mapping, old vs new (Tax2Win)</source>
+<source url="https://taxguru.in/income-tax/capital-gains-income-tax-act-2025-tax-period-2026-27.html">Capital gains under the new Income-tax Act 2025 for tax period 2026-27 (TaxGuru)</source>
+<source url="https://en.wikipedia.org/wiki/Income-tax_Act,_2025">Income-tax Act, 2025 (Wikipedia)</source>
+</topic>
