@@ -1,0 +1,280 @@
+<topic id="612">
+<level>advanced</level>
+<lesson>
+# FX settlement, CLS and prefunding under T+1
+
+## Core idea
+A foreign investor who buys shares in another currency has two trades to settle: the securities trade and the currency trade that funds it. When the securities settle in one day (T+1), the currency must also arrive in one day, usually across time zones. The main global FX settlement system, CLS, has fixed cut-offs, so a shorter equity cycle leaves less time to execute and settle the FX safely. That creates the practical pain points: prefunding, settlement outside CLS, and the risk of failed trades.
+
+## Background: Herstatt risk and CLS
+1. In 1974 Bankhaus Herstatt was closed after receiving Deutsche Mark payments but before paying out the matching US dollars. Its counterparties lost the full principal. This risk of paying one currency and not receiving the other is called Herstatt (or FX settlement) risk.
+2. CLS was launched in 2002 to remove it through payment-versus-payment (PvP): both legs of an FX trade settle together or not at all.
+3. CLS settles in a morning window in Central European Time. Instructions for a settlement date must be submitted by midnight CET, which is 6pm in New York.
+4. CLS covers 18 major currencies. The Indian rupee is not one of them, so INR trades settle bilaterally through banks.
+
+## Why T+1 squeezes FX
+- Under T+2, a European fund buying US stocks had a full day after the trade to arrange its euro-dollar FX and still meet CLS deadlines.
+- Under US T+1 (from 28 May 2024), trades executed at the New York close leave about two hours before CLS's 6pm New York cut-off, before allocations and confirmations are even complete.
+- CLS evaluated moving its cut-off and decided not to. It estimated that about 1% of its roughly $6.5 trillion daily settlement value (about $65 billion) might miss its cut-off. EFAMA, the European fund association, argued that around 40% of daily FX flows faced higher settlement risk.
+
+## The workarounds
+1. **Prefunding:** buy the currency a day early, before the exact amount is known, and carry the cash. This costs interest and creates FX risk on any mismatch.
+2. **Trade-date FX with a next-day true-up:** execute FX on T using estimates, then adjust the next day. This is operationally complex.
+3. **Settling outside CLS:** settle FX bilaterally, which brings back Herstatt risk.
+4. **Later cut-offs at custodians:** many custodians extended their FX execution cut-offs so clients could still use CLS. A later CLS review found the impact smaller than feared relative to its total volume.
+
+## India
+India moved fully to T+1 in January 2023, before the US. The rupee is not settled in CLS, and spot USD/INR settles T+2. To settle Indian equities on T+1, foreign portfolio investors need a same-day or next-day ("cash" or "tom") USD/INR deal through an authorised bank, often at a slightly different rate from spot. They also face time-zone gaps: India's trading day ends during the US night. In practice many foreign investors prefund rupee balances or rely on custodian credit lines. Foreign investor groups raised these FX funding concerns before India's move.
+
+## Worked example
+A euro-based fund buys $100 million of US stocks.
+- **Prefunding cost:** buying dollars one day early means losing a day of interest on euro cash. At 2% a year that is about $100 million × 2% ÷ 360 ≈ $5,600, plus FX risk if the final amount differs.
+- **Settling outside CLS:** the fund pays €92 million (say) and waits for $100 million. For a few hours it has a $100 million unsecured exposure to its FX counterparty.
+- **A failed trade:** if the dollars arrive late, the equity buy fails to settle, causing claims and possible penalties.
+
+## Common misconceptions
+- "T+1 is only an equity change." It shortens every linked process, especially FX and securities lending recalls.
+- "Prefunding is free." It ties up capital and creates mismatches.
+- "CLS covers all currencies." It covers 18, and many emerging-market currencies, including INR, are outside it.
+
+## Key takeaways
+Shorter securities settlement requires faster FX. CLS kept its 6pm New York cut-off, so investors in other time zones prefund, use custodian extensions, or settle outside CLS and accept Herstatt risk. In India the rupee is outside CLS and needs cash or tom FX deals, which makes prefunding common for foreign investors.
+</lesson>
+<qa difficulty="medium"><q>What is Herstatt risk and how does CLS address it?</q><a>It is the risk of paying one currency in an FX trade without receiving the other, named after Bankhaus Herstatt's 1974 closure. CLS removes it through payment-versus-payment settlement, where both legs settle together or not at all.</a></qa>
+<qa difficulty="medium"><q>What is CLS's instruction cut-off, and why did it matter for US T+1?</q><a>Midnight Central European Time (6pm New York) for a given settlement date. With US T+1, trades done at the New York close left about two hours to execute and submit FX for CLS settlement the next day.</a></qa>
+<qa difficulty="hard"><q>List three ways investors fund cross-border T+1 trades, with one drawback each.</q><a>(1) Prefunding: carrying cash costs interest and creates FX mismatch risk. (2) Trade-date FX with a next-day true-up: operationally complex. (3) Bilateral settlement outside CLS: brings back Herstatt risk on the full principal.</a></qa>
+<qa difficulty="hard"><q>Why is FX funding harder for foreign investors in Indian equities than for US equities?</q><a>The rupee is not a CLS currency and spot USD/INR settles T+2, so T+1 equity settlement needs a cash or tom USD/INR deal with an authorised bank. Time-zone gaps add to this, so many investors prefund rupee balances or rely on custodian credit lines.</a></qa>
+<qa difficulty="expert"><q>Estimate the one-day prefunding cost for a $100 million purchase if euro cash earns 2% a year, and name the residual risks.</q><a>About $100 million × 2% ÷ 360 ≈ $5,600 a day. Residual risks are FX exposure on any difference between estimated and final amounts, and the operational risk of trades failing if prefunded cash is in the wrong place.</a></qa>
+<qa difficulty="medium"><q>Did CLS move its cut-off for US T+1?</q><a>No. After evaluation it kept its existing cut-off, citing the time needed to change its pay-in schedule. Custodians extended their own deadlines instead.</a></qa>
+<source url="https://www.thetradenews.com/?p=96800">CLS decides not to move FX settlement cut-off for T+1 (The TRADE)</source>
+<source url="https://www.efama.org/sites/default/files/files/pr%2024%2003%2014%20Impacts%20of%20US%20move%20to%20T%2B1_how%20to%20avoid%20a%20new%20Herstatt%20crisis.pdf">Impacts of US move to T+1: how to avoid a new Herstatt crisis (EFAMA)</source>
+<source url="https://www.bny.com/corporate/global/en/insights/fx-settlement-t1-are-you-ready.html">FX settlement and T+1: are you ready? (BNY)</source>
+<source url="https://www.dtcc.com/-/media/Files/PDFs/T2/FX-Settlement-The-move-to-T1-2024.pdf">FX settlement: the move to T+1 (DTCC)</source>
+</topic>
+
+<topic id="613">
+<level>advanced</level>
+<lesson>
+# CSDR settlement discipline: cash penalties and mandatory buy-ins
+
+## Core idea
+The EU's Central Securities Depositories Regulation (CSDR) includes a settlement discipline regime that applied from 1 February 2022. It aims to reduce settlement fails through three tools: measures to prevent fails (allocations and confirmations), daily cash penalties for each fail, and mandatory buy-ins. Penalties began on time. Mandatory buy-ins were postponed and then turned into a reserve power, to be used only if penalties do not work. The regime is being tightened again ahead of the EU's planned move to T+1 on 11 October 2027.
+
+## How cash penalties work
+1. A trade has an intended settlement date (ISD). If it does not settle that day, it is a fail.
+2. The central securities depository (CSD) calculates a penalty for every business day from the ISD until actual settlement.
+3. The failing participant pays: the party lacking securities, or the party lacking cash.
+4. The penalty is collected by the CSD and redistributed to the receiving participant who suffered the fail. It is compensation, not a fine paid to the state.
+5. Penalty rates are set by delegated regulation as basis points per day of the trade value. They vary by asset type, for example higher for liquid shares than for sovereign bonds. For cash fails the rate is based on the central bank's overnight rate.
+
+## Mandatory buy-ins
+- The original design required the receiving party to start a buy-in after a short extension period (for example four business days for liquid shares). The failing party would then pay any price difference.
+- The industry warned this would widen spreads and harm market making in less liquid bonds. ESMA postponed buy-ins by three years.
+- The CSDR Refit (Regulation (EU) 2023/2845) changed buy-ins into a last resort. The Commission can switch them on for specific instruments only if penalties and other measures fail to improve settlement efficiency.
+
+## Worked example
+A broker fails to deliver €10 million of a liquid share for three business days, at a penalty rate of 1 basis point a day:
+- Daily penalty = €10 million × 0.01% = €1,000.
+- Three days = €3,000, paid by the failing broker and passed to the buyer's side.
+If the failure came from a stock-loan recall that arrived late, the broker may claim from its own counterparty. Penalties travel down the chain of fails.
+
+## Why T+1 makes discipline harder
+With one day to settle, there is less time to fix mismatched instructions, recall lent securities, or arrange FX. Without changes, fail rates and penalties would rise. ESMA's 2025 proposals for the T+1 move include tighter allocation and confirmation deadlines, more automation, and phased changes from late 2026 through 11 October 2027.
+
+## Comparison with India
+India uses a different model built around the clearing corporation. When a seller fails to deliver, the exchange runs an auction the next day to buy the shares. If the auction fails, it closes out the trade at a penalty price. Failing sellers bear the auction cost and penalties. Because all trades go through a central counterparty with early pay-in of securities, fails are rare. The EU has many CSDs, many trading venues and much bilateral activity, so it relies on penalties across all participants.
+
+## Common misconceptions
+- "Penalties go to the regulator." They are redistributed to the affected receiving participants.
+- "Buy-ins are mandatory in the EU." After the Refit they are a reserve tool, not automatic.
+- "Only the seller can fail." A buyer who lacks cash also causes a fail and pays a cash penalty.
+
+## Key takeaways
+CSDR settlement discipline started on 1 February 2022 with daily cash penalties, calculated by CSDs and passed to receiving parties. Mandatory buy-ins were postponed and made a last resort by the 2023 Refit. The planned move to T+1 in October 2027 is pushing the EU to tighten pre-settlement processes. India relies instead on CCP-run auctions and close-outs.
+</lesson>
+<qa difficulty="medium"><q>When did the CSDR settlement discipline regime start applying, and which parts went live?</q><a>On 1 February 2022. Settlement fails reporting and cash penalties went live as planned; mandatory buy-ins were postponed.</a></qa>
+<qa difficulty="medium"><q>Who receives CSDR cash penalties?</q><a>They are collected by the CSD from the failing participant and redistributed to the receiving participant affected by the fail.</a></qa>
+<qa difficulty="hard"><q>A €10 million liquid-share trade fails for three days at 1 basis point a day. What is the total penalty?</q><a>€10 million × 0.01% = €1,000 a day, so €3,000 for three days.</a></qa>
+<qa difficulty="hard"><q>How did the CSDR Refit change mandatory buy-ins?</q><a>Regulation (EU) 2023/2845 made them a last resort. They apply only if the Commission activates them for particular instruments after penalties and other measures fail to improve settlement efficiency.</a></qa>
+<qa difficulty="expert"><q>Why did market makers oppose mandatory buy-ins, especially in bonds?</q><a>A failing party would pay the full price difference of a forced buy-in, which can be large in illiquid bonds. Market makers who short-sell to provide liquidity would face this open-ended cost and would widen spreads or quote less, reducing liquidity.</a></qa>
+<qa difficulty="hard"><q>Contrast the EU and Indian approaches to settlement fails.</q><a>The EU applies daily cash penalties across many CSDs and bilateral chains, with buy-ins as a reserve tool. India's clearing corporations run an auction for short deliveries the next day and close out at a penalty price if the auction fails, with early pay-in making fails rare.</a></qa>
+<source url="https://www.euronext.com/en/post-trade/euronext-securities/milan/regulatory-landscape/csdr/settlement-discipline-regime">Settlement discipline regime (Euronext Securities)</source>
+<source url="https://privatebanking.hsbc.com/about-us/financial-regulations/central-securities-depositories-regulation/">Central Securities Depositories Regulation: what you need to know (HSBC)</source>
+<source url="https://www.esma.europa.eu/node/222046">ESMA proposes key reforms to settlement discipline, supporting the transition to T+1</source>
+<source url="https://finance.ec.europa.eu/news/t1-settlement-2025-02-14_en">T+1 settlement (European Commission)</source>
+</topic>
+
+<topic id="614">
+<level>advanced</level>
+<lesson>
+# Tokenised securities and DvP on distributed ledgers
+
+## Core idea
+Today, securities and cash settle on separate systems: securities at a depository, cash in central bank or commercial bank accounts. Delivery versus payment (DvP) links them, so neither side delivers without being paid. Tokenisation puts securities on a distributed ledger as digital tokens. For true DvP on that ledger, the cash leg must also be available on the ledger, or linked to it. The safest form of cash for settlement is central bank money, which is why wholesale central bank digital currency (wCBDC) and links to central bank payment systems matter.
+
+## DvP basics
+The BIS defined three DvP models in 1992:
+1. **Model 1:** securities and cash settle trade by trade (gross and gross).
+2. **Model 2:** securities gross, cash netted at the end.
+3. **Model 3:** both netted, usually through a CCP. Indian exchange trades use this, through clearing corporations.
+On a distributed ledger, "atomic" settlement is possible: both legs move in one transaction that either fully completes or fails, removing principal risk without a central counterparty.
+
+## Options for the cash leg
+1. **Wholesale CBDC on the same ledger.** In Project Helvetia, the Swiss National Bank issued wholesale CBDC on SIX Digital Exchange (SDX). The live pilot (December 2023 to June 2024) settled tokenised bond issues and a secondary trade against wCBDC on a DvP basis. The SNB then extended it for about two more years.
+2. **Linking a DLT platform to the central bank's payment system.** The ledger triggers a payment in the existing system, so no new money is issued. European central banks have tested this approach.
+3. **Tokenised commercial bank deposits or stablecoins.** These are faster to deploy but carry the credit risk of the issuer.
+
+## India
+The RBI started a wholesale e-rupee pilot on 1 November 2022 to settle secondary-market trades in government securities, with nine banks. The RBI said settling in central bank money could cut costs by removing the need for settlement guarantee infrastructure or collateral. Retail and cross-border pilots followed. Indian equities are dematerialised (electronic) but not tokenised. They settle on depositories and clearing corporations with netting.
+
+## Worked example: the netting trade-off
+A market maker buys ₹100 crore and sells ₹98 crore of the same securities during a day.
+- With end-of-day netting (Model 3), it needs to fund only the net ₹2 crore.
+- With atomic gross settlement, each buy needs cash on the ledger at the moment of the trade. Unless sells settle before buys, the peak intraday need can approach ₹100 crore.
+Instant atomic settlement removes counterparty risk but raises liquidity needs. This is why T+0 and instant settlement are harder for active traders than they look.
+
+## Benefits and challenges
+Benefits:
+- Removes principal and replacement-cost risk between trade and settlement.
+- Allows 24/7 settlement and programmable features (automatic coupons, collateral moves).
+- Brings one source of truth for ownership, reducing reconciliation.
+Challenges:
+- Liquidity: loses netting and requires prefunding.
+- Legal: settlement finality, the legal status of tokens, and insolvency treatment must be clear. The EU's DLT Pilot Regime (from March 2023) created a legal sandbox for DLT market infrastructures.
+- Interoperability between ledgers and with legacy systems.
+- Operational risk: key management, smart contract bugs.
+
+## Common misconceptions
+- "Tokenisation automatically means instant settlement." Settlement speed depends on the cash leg and on legal finality, not only on the ledger.
+- "Stablecoins are the same as central bank money." They carry issuer and run risk.
+- "Faster is always cheaper." Gross real-time settlement needs more liquidity than netted settlement.
+
+## Key takeaways
+Tokenised DvP works best when both legs are on, or linked to, the same ledger. Central bank money (wCBDC or links to central bank systems) is the safest cash leg. Switzerland's Helvetia pilot and India's wholesale e-rupee pilot show it works. The main trade-off is liquidity: atomic settlement gives up the large benefits of netting.
+</lesson>
+<qa difficulty="medium"><q>What are the three BIS DvP models?</q><a>Model 1: gross securities and gross cash. Model 2: gross securities, net cash. Model 3: net securities and net cash, usually through a CCP.</a></qa>
+<qa difficulty="medium"><q>What did Project Helvetia's live pilot do?</q><a>The Swiss National Bank issued wholesale CBDC on SIX Digital Exchange, and tokenised bond issues and a secondary-market trade were settled against it on a DvP basis (December 2023 to June 2024). The pilot was then extended.</a></qa>
+<qa difficulty="medium"><q>What was the purpose of the RBI's wholesale e-rupee pilot?</q><a>Started on 1 November 2022 with nine banks, it settled secondary-market government securities trades in central bank digital money, aiming to cut costs by removing the need for settlement guarantee infrastructure or collateral.</a></qa>
+<qa difficulty="hard"><q>Why does atomic settlement increase liquidity needs?</q><a>Each trade must be funded at the moment it settles, so netting across trades is lost. A market maker who buys ₹100 crore and sells ₹98 crore needs only ₹2 crore with netting, but may need close to ₹100 crore intraday with gross atomic settlement.</a></qa>
+<qa difficulty="hard"><q>Compare three ways of providing the cash leg for tokenised DvP.</q><a>(1) Wholesale CBDC on the ledger: central bank money, safest, but requires central bank issuance. (2) Linking the ledger to the existing central bank payment system: uses current money, but adds integration complexity. (3) Tokenised deposits or stablecoins: fast to deploy, but carry issuer credit risk.</a></qa>
+<qa difficulty="expert"><q>Which non-technical issues must be solved before tokenised securities can settle at scale?</q><a>Legal settlement finality and the status of tokens as securities, insolvency treatment, regulatory permission (for example the EU DLT Pilot Regime), interoperability with existing infrastructure, and liquidity arrangements to replace netting.</a></qa>
+<source url="https://www.bis.org/about/bisih/topics/cbdc/helvetia.htm">Project Helvetia: settlement of tokenised assets in central bank money (BIS)</source>
+<source url="https://www.six-group.com/en/newsroom/media-releases/2024/20240620-six-helvetia-pilot.html">SIX: Helvetia wCBDC pilot continues (June 2024)</source>
+<source url="https://www.bis.org/review/r240506e.htm">Thomas Jordan: Project Helvetia III, the SNB's pilot for wholesale CBDC (BIS)</source>
+<source url="https://rbi.org.in/SCRIPTs/BS_PressReleaseDisplay.aspx?prid=54616">RBI press release on the digital rupee wholesale pilot</source>
+<source url="https://www.business-standard.com/amp/article/finance/pilot-for-digital-rupee-for-wholesale-segment-to-commence-from-nov-1-122103100897_1.html">Pilot for digital rupee in the wholesale segment from 1 November (Business Standard)</source>
+</topic>
+
+<topic id="615">
+<level>intermediate</level>
+<lesson>
+# Record date, ex-date and entitlement under T+1
+
+## Core idea
+A company pays dividends, bonus shares or rights to the holders on its register at the end of the record date. Because a purchase takes time to settle, the market sets an ex-date: the first day on which buying the share no longer brings the entitlement. Under T+1 settlement, a trade done the day before the record date settles on the record date, so the ex-date and the record date are the same day. India has worked this way since it completed the T+1 move in January 2023, and the US since May 2024.
+
+## How it works, step by step (India, T+1)
+1. The company announces the corporate action and its record date.
+2. **Buy on the day before the record date.** The trade settles on the record date, so you are on the register and entitled.
+3. **Buy on the record date (ex-date).** It settles the next day, so you are not entitled. The price usually opens lower by roughly the value of the entitlement.
+4. **Sell on the record date.** Your shares leave your account only the next day, so you are still on the register and keep the entitlement.
+5. If there is a trading holiday after the ex-date, the dates can differ. Always check the exchange's corporate action notice.
+
+## Comparison across cycles
+- **T+2 (India before 2023, the US 2017 to 2024, Europe today):** the ex-date was one business day before the record date.
+- **T+1:** ex-date = record date.
+- **The US exception:** for very large distributions (for example 25% or more of the share value), US exchanges set the ex-date after the payment date and use "due bills" to pass the entitlement to buyers.
+
+## Worked example
+A company declares a ₹10 dividend with a record date of Friday 14th (ex-date also Friday).
+- Buy on Thursday 13th at ₹500: settles Friday, you are on the register and receive ₹10.
+- Buy on Friday 14th: settles Monday, no dividend. But the price likely opened near ₹490, so you are not worse off before taxes and costs.
+- Sell on Friday 14th: you still hold the shares on Friday's register, so you receive ₹10.
+Note that dividend-capture trading rarely pays: the price adjusts, and dividends are taxed as income at your slab rate.
+
+## Bonus, split and rights
+- **Bonus and split:** the price is adjusted on the ex-date. From October 2024, SEBI requires bonus shares to be credited and available for trading on T+2, where T is the record date, so holders can sell new shares quickly.
+- **Rights issues:** rights entitlements are credited to eligible holders and can be traded separately on the exchange during the renunciation period.
+- **F&O contracts:** exchanges adjust derivative contracts (strike, lot size or both) on the ex-date for bonus issues, splits and extraordinary dividends, so positions keep their economic value.
+
+## What can go wrong
+- **Short delivery.** If a seller fails to deliver shares bought before the record date, the buyer may not be on the register. Exchanges handle the entitlement through the auction or close-out process, and the buyer is compensated.
+- **Pledged shares.** Shares pledged as margin remain in your account, so you keep entitlements.
+- **Wrong assumptions.** Equating "ex-date" with the old T+2 logic leads to buying a day too late.
+
+## Practical checks
+Check the corporate action notice on the exchange website for the record and ex-dates. Check your demat account after the record date for credits, and your bank account on the payment date (dividends must be paid within 30 days of declaration under the Companies Act).
+
+## Key takeaways
+Under T+1, buy at least one trading day before the record date to be entitled. Selling on the record date keeps the entitlement. Ex-date and record date are normally the same day in India, and in the US for ordinary dividends. Derivatives are adjusted on the ex-date, and bonus shares now arrive quickly.
+</lesson>
+<qa difficulty="medium"><q>Under T+1, on which day must you buy to receive a dividend?</q><a>At least one trading day before the record date. That trade settles on the record date, putting you on the register.</a></qa>
+<qa difficulty="medium"><q>Why are the ex-date and record date the same day under T+1?</q><a>A trade done on the record date settles the next day, too late for the register. So the first day that buying no longer brings the entitlement is the record date itself.</a></qa>
+<qa difficulty="medium"><q>If you sell shares on the record date, do you get the dividend?</q><a>Yes. Under T+1 the shares leave your account the next day, so you are still on the register at the end of the record date.</a></qa>
+<qa difficulty="hard"><q>How did the ex-date relate to the record date under T+2, and when did India and the US change?</q><a>Under T+2 the ex-date was one business day before the record date. India moved to T+1 fully in January 2023 and the US in May 2024, after which the ex-date became the same as the record date.</a></qa>
+<qa difficulty="hard"><q>Why does buying just before the record date to capture a dividend rarely make money?</q><a>The share price usually falls by about the dividend amount on the ex-date, the dividend is taxed as income at slab rates, and trading costs reduce the return further.</a></qa>
+<qa difficulty="expert"><q>When can the ex-date differ from the record date in India, and what protects a buyer if the seller fails to deliver?</q><a>A trading holiday after the ex-date can separate them. If a seller fails to deliver before the record date, the exchange's auction or close-out process handles the shortfall, and the buyer is compensated for the entitlement through that process.</a></qa>
+<source url="https://support.zerodha.com/category/console/corporate-actions/ca-others/articles/what-does-ex-date-and-record-date-mean">What do ex-date and record date mean? (Zerodha support)</source>
+<source url="https://kotaksecurities.com/support/what-does-ex-date-and-record-date-mean">What does ex-date and record date mean? (Kotak Securities)</source>
+<source url="https://support.rupeezy.in/support/solutions/articles/21000005122-record-date-vs-ex-date-what-is-the-difference">Record date vs ex-date: what is the difference? (Rupeezy)</source>
+<source url="https://www.mnclgroup.com/bonus-issue-eligibility-record-date-ex-date">How to check bonus issue eligibility: record date, ex-date and T+1 (MNCL)</source>
+</topic>
+
+<topic id="616">
+<level>advanced</level>
+<lesson>
+# CCP margin models and margin period of risk
+
+## Core idea
+A central counterparty (CCP) guarantees every trade it clears. If a member defaults, the CCP must close out or hedge the defaulter's positions, and that takes time. Initial margin is sized to cover the losses that could build up during that time, called the margin period of risk (MPOR), at a high confidence level. Shorter settlement cycles, netting and better models all reduce the margin needed, and that is how faster settlement turns into capital savings.
+
+## Components of CCP protection
+1. **Variation margin:** daily (and sometimes intraday) settlement of gains and losses, so losses do not build up.
+2. **Initial margin:** covers potential future loss over the MPOR at a set confidence.
+3. **Add-ons:** concentration, liquidity, and wrong-way risk charges.
+4. **Default fund:** pooled member contributions sized for extreme scenarios. Systemic CCPs use "Cover 2": surviving the default of the two members with the largest exposures in stress.
+
+## Margin models
+- **SPAN (scenario-based).** Revalues the portfolio across a grid of price and volatility moves (16 scenarios) and takes the worst loss, with offsets between related contracts. NSE Clearing uses SPAN for equity derivatives, plus an exposure margin.
+- **Historical or filtered historical VaR.** Revalues the portfolio using past market moves, often scaled to current volatility, and takes a high quantile. Many European CCPs use this approach.
+- **Expected shortfall.** Averages losses beyond the quantile, capturing tail size.
+
+## Regulatory parameters
+- **EU (EMIR):** initial margin at 99% confidence for exchange-traded derivatives and 99.5% for OTC derivatives. The MPOR is at least 2 business days for exchange-traded instruments and at least 5 for OTC derivatives. CCPs must also apply anti-procyclicality tools.
+- **India:** initial margin for equity derivatives targets 99% value at risk over a one-day horizon. Scan ranges scale by √T when a longer horizon is used. Exposure margin and, in the cash market, extreme loss margin are added on top.
+
+## Worked example: how T+1 saves margin
+A broker has ₹100 crore of net unsettled purchases in a portfolio with 1.5% daily volatility. At 99% one-tailed (z ≈ 2.33):
+- One-day VaR = 2.33 × 1.5% × ₹100 crore ≈ ₹3.5 crore.
+- Two-day exposure (T+2): × √2 ≈ ₹4.9 crore.
+- Moving from T+2 to T+1 cuts this to ₹3.5 crore, about 29% less, because risk scales with √time.
+Netting adds more savings: gross buys of ₹100 crore and sells of ₹80 crore in the same securities leave ₹20 crore net, and margin is set on the net.
+
+## Procyclicality
+Margins based on recent volatility jump in a crisis, forcing members to post cash just when liquidity is scarce. March 2020 saw sharp margin calls across CCPs. Tools include margin floors, buffers released in stress, and lookback periods that include past stress. The trade-off is higher margins in calm times.
+
+## How this connects to Indian practice
+- NSE Clearing publishes SPAN risk parameter files several times a day, so brokers recompute margins intraday.
+- Peak margin rules require 100% of margin upfront, checked through intraday snapshots.
+- Physical settlement adds delivery margins in expiry week.
+- The core settlement guarantee fund is sized by stress tests on the worst member defaults.
+
+## Common misconceptions
+- "Margin equals maximum loss." It covers a high quantile over the MPOR, not every possible loss; the default fund covers the rest.
+- "A longer MPOR is always safer." It increases margin for all users and can make clearing costly. The MPOR should match how fast positions can really be closed.
+- "SPAN and VaR give the same numbers." Results differ for options portfolios and for correlated positions.
+
+## Key takeaways
+Initial margin = loss quantile over the margin period of risk. EMIR sets 99% or 99.5% confidence, with a 2-day MPOR for exchange-traded and 5-day for OTC. Indian equity derivatives use 99% one-day VaR through SPAN plus exposure margin. Shorter settlement and netting cut margin roughly with √time and net exposure, which is the capital case for T+1.
+</lesson>
+<qa difficulty="medium"><q>What is the margin period of risk?</q><a>The time a CCP assumes it needs to close out or hedge a defaulting member's positions. Initial margin covers potential losses over this period at a set confidence level.</a></qa>
+<qa difficulty="medium"><q>What confidence levels and MPOR does EMIR require?</q><a>99% for exchange-traded derivatives and 99.5% for OTC derivatives, with an MPOR of at least 2 business days for exchange-traded instruments and 5 business days for OTC derivatives.</a></qa>
+<qa difficulty="hard"><q>Compute the margin saving from moving a ₹100 crore net position with 1.5% daily volatility from a two-day to a one-day horizon at 99%.</q><a>One-day VaR = 2.33 × 1.5% × ₹100 crore ≈ ₹3.5 crore; two-day ≈ ₹3.5 crore × √2 ≈ ₹4.9 crore. The saving is about ₹1.45 crore, or roughly 29%.</a></qa>
+<qa difficulty="hard"><q>How does SPAN differ from historical VaR?</q><a>SPAN revalues the portfolio across a fixed grid of price and volatility scenarios (16) and takes the worst loss, with offsets between contracts. Historical VaR revalues using actual past market moves and takes a high quantile. They can give different margins, especially for options and correlated positions.</a></qa>
+<qa difficulty="expert"><q>What is margin procyclicality and how do CCPs limit it?</q><a>Margins based on recent volatility rise sharply in stress, demanding cash when liquidity is scarce, which can amplify the crisis. CCPs use margin floors, buffers that can be released in stress, and long lookback periods that include past stress, accepting higher margins in calm periods.</a></qa>
+<qa difficulty="medium"><q>What is "Cover 2"?</q><a>A standard for systemic CCPs: financial resources, including the default fund, must cover the default of the two members with the largest exposures under extreme but plausible conditions.</a></qa>
+<source url="https://www.legislation.gov.uk/eur/2013/153/chapter/VI/data.html">EMIR RTS 153/2013, Chapter VI: Margins</source>
+<source url="https://ccp-global.org/sites/default/files/2025-02/CCP12_White_Paper_Primer_on_Initial_Margin.pdf">CCP12 white paper: primer on initial margin</source>
+<source url="https://www.nseindia.com/static/products-services/equity-derivatives-margins">NSE: equity derivatives margins</source>
+<source url="https://www.theocc.com/newsroom/insights/2019/01-09-the-essential-components-of-the-risk-managem">The essential components of the risk management framework for CCPs (OCC)</source>
+</topic>
