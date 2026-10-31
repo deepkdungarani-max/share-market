@@ -1,0 +1,302 @@
+<topic id="669">
+<level>intermediate</level>
+<lesson>
+# Special pre-open session for IPO and re-listed stocks: price discovery, bands and no-price-found handling
+
+## Core idea
+A newly listed IPO stock has no previous closing price, so its first price must be discovered. Indian exchanges do this through a special pre-open session (SPOS): a longer call auction on the listing day that collects buy and sell orders and sets one opening price where the most shares trade. The same session is used for re-listed securities, such as stocks returning after a suspension or newly listed entities from a scheme of arrangement. Normal continuous trading starts only after this price is found.
+
+## Timeline on listing day (NSE)
+1. **9:00 to 9:45 am: order entry.** Buy and sell orders can be entered, modified and cancelled.
+2. **9:45 to 9:55 am: price discovery and matching.** The equilibrium price is calculated and orders are matched.
+3. **9:55 to 10:00 am: buffer** for the transition.
+4. **10:00 am: continuous trading begins,** with the auction price as the open.
+Timings can change; check NSE's current circulars, especially after the 2026 changes to pre-open sessions.
+
+## How the equilibrium price is found
+The auction chooses the price that maximises matched quantity. Ties are broken by the smallest unmatched quantity and then by closeness to a reference, usually the issue price for an IPO. All matched orders trade at that single price.
+
+## Price bands
+- No price band applies within the special pre-open session itself, so the auction can find a price far from the issue price.
+- After the open, a price band applies for the rest of the day, set as a percentage around the discovered price. SEBI's framework uses a tighter band for smaller issues (5% for issues up to ₹250 crore) and 20% for others. SEBI's 2012 framework also placed new listings in the trade-for-trade segment for their first ten days.
+- For SME IPOs, NSE has capped the opening price in the special session at 90% above the issue price, to curb extreme listing-day pricing.
+
+## No price found
+If the auction cannot find an equilibrium price (for example, no overlapping buy and sell orders), NSE cancels all outstanding orders. The stock continues in the special pre-open session on the first day until a price is determined. It does not start continuous trading from an arbitrary price.
+
+## Worked example
+Issue price ₹200. Orders at 9:45:
+- Buys: 50,000 at ₹260, 80,000 at ₹250, 60,000 at ₹240.
+- Sells: 40,000 at ₹230, 70,000 at ₹245, 90,000 at ₹255.
+Matched quantity:
+- At ₹240: demand 1,90,000, supply 40,000, so 40,000 trade.
+- At ₹245: demand 1,30,000, supply 1,10,000, so 1,10,000 trade.
+- At ₹250: demand 1,30,000, supply 1,10,000, so 1,10,000 trade.
+- At ₹255: demand 50,000, supply 2,00,000, so 50,000 trade.
+₹245 and ₹250 tie at 1,10,000 with the same imbalance (20,000 unfilled buys), so the tie-break uses the reference; rules in exchange circulars specify this. Suppose ₹245 is chosen. The stock opens 22.5% above the issue price. With a 20% band, it can then trade between ₹196 and ₹294 for the day.
+
+## Why a call auction for listing
+- It aggregates scattered demand into one price, avoiding wild first trades in a thin opening.
+- It gives all participants the same opening price.
+- It limits manipulation by concentrating liquidity and using defined bands afterwards.
+
+## Common mistakes
+- Assuming the listing price is the issue price: it is whatever the auction finds.
+- Placing market orders in the special session expecting to buy near the issue price; the auction price can be much higher.
+- Forgetting the post-open price band, which can lock a stock at its upper or lower limit on day one.
+
+## Key takeaways
+IPO and re-listed stocks open through a special pre-open call auction (NSE: order entry 9:00 to 9:45, matching to 9:55, trading from 10:00). There is no band within the auction, but bands apply after the open. If no price is found, orders are cancelled and the stock stays in the special session until a price emerges. SME IPOs have an extra cap on the opening price.
+</lesson>
+<qa difficulty="medium"><q>Why do IPO stocks need a special pre-open session?</q><a>They have no previous closing price, so the first price must be discovered. A call auction aggregates demand and supply and sets one opening price where the most shares trade.</a></qa>
+<qa difficulty="medium"><q>What are the NSE timings of the special pre-open session on listing day?</q><a>Order entry, modification and cancellation from 9:00 to 9:45 am, price discovery and matching to 9:55 am, a buffer to 10:00 am, and continuous trading from 10:00 am.</a></qa>
+<qa difficulty="medium"><q>Is there a price band in the special pre-open session?</q><a>No. The auction can find a price far from the issue price. Bands apply after the open, around the discovered price, with an additional opening-price cap for SME IPOs on NSE.</a></qa>
+<qa difficulty="hard"><q>What happens if no equilibrium price is discovered?</q><a>All outstanding orders are cancelled and the stock continues in the special pre-open session on the first day until a price is determined.</a></qa>
+<qa difficulty="hard"><q>An IPO with issue price ₹200 opens at ₹245 with a 20% band. What is the trading range for the day?</q><a>20% around ₹245: from ₹196 to ₹294.</a></qa>
+<qa difficulty="expert"><q>Why might regulators cap SME IPO opening prices but not main-board ones?</q><a>SME issues are small and thinly held, so a few orders can push the auction price to extreme levels, sometimes as part of manipulation. A cap limits this, while larger main-board issues have deeper demand that makes an uncapped auction more reliable.</a></qa>
+<source url="https://www.nseindia.com/static/products-services/equity-market-special-pre-open-session">NSE: special pre-open session</source>
+<source url="https://kuvera.in/blog/what-is-ipo-listing-time/">What is IPO listing time? (Kuvera)</source>
+<source url="https://rupeezy.in/blog/ipo-listing-time">IPO listing time in the stock market (Rupeezy)</source>
+<source url="https://nsearchives.nseindia.com/content/circulars/CMTR41180.pdf">NSE circular on market timings including pre-open for IPO and re-listed securities</source>
+</topic>
+
+<topic id="670">
+<level>expert</level>
+<lesson>
+# Market impact models: square-root law, propagator models, and transient versus permanent impact
+
+## Core idea
+Market impact is how much your own trading moves the price. A usable model must answer three questions. How does impact grow with size? How does it build up as a large order (a "metaorder") is executed in pieces? And how much of it disappears after you stop? The square-root law answers the first; propagator models answer the second and third, by treating each trade's impact as decaying over time.
+
+## The square-root law
+For a metaorder of size Q in a stock with daily volume V and daily volatility σ, peak impact ≈ Y × σ × √(Q ÷ V), with Y of order 1. It has been found across equities, futures and other markets. Key features:
+- Impact is concave: doubling size raises impact by about 41%, not 100%.
+- It depends on size relative to volume, not on how fast you trade, to a first approximation.
+- Some studies find exponents nearer 0.6, or log-like shapes at extremes.
+
+## Propagator models
+Proposed by Bouchaud and co-authors (2003 to 2004), these write the price as the sum of past trades' impacts, each fading over time:
+price change at t = Σ over past trades of G(t − s) × f(volume at s) × sign at s,
+where f is the instantaneous impact of each trade and G is a decay kernel (the propagator).
+- The order flow is persistent: buy and sell signs are strongly autocorrelated, because large orders are split.
+- If impact were permanent, persistent order flow would make prices predictable. A decaying G cancels this, keeping prices close to a random walk. Empirically G decays as a power law.
+- Obizhaeva and Wang (2013) used an exponential decay ("resilience"), which is easier to solve for optimal execution.
+- With a non-linear f and a decaying G, propagator models reproduce the square-root law.
+
+## Transient versus permanent impact
+- **Transient:** the part that reverts after trading ends, caused by temporary liquidity imbalance.
+- **Permanent:** the part that stays, reflecting the information the order carried.
+- Studies of metaorders find the price relaxes after completion to roughly two-thirds of peak impact, consistent with a "fair pricing" argument for square-root impact. That share is a stylised finding, not a law.
+
+## Worked example: exponential propagator
+Ten child trades, one a minute, each with immediate impact of 2 basis points, decaying with a half-life of 5 minutes.
+- If impact were permanent: total 20 bps.
+- With decay: just after the last trade (minute 9) impact is about 11.6 bps; at minute 15 about 5.0 bps; at minute 20 about 2.5 bps; at minute 30 about 0.6 bps.
+A realistic model adds a permanent part, for example 6 bps that never decays, so the price settles near 6 bps above the start.
+Implication: trading slower lets impact decay between trades, lowering cost, but exposes you to price risk. Optimal execution balances the two.
+
+## Using these models in practice
+1. **Pre-trade:** use the square-root law to estimate cost from Q/V, σ and spread.
+2. **Scheduling:** use a propagator with a fitted decay to compare schedules (front-loaded, VWAP-like, slow).
+3. **Post-trade:** measure reversion after completion to separate transient and permanent impact. Large reversion suggests you paid for liquidity; little reversion suggests your trades carried information.
+4. **Calibration:** fit Y, the decay half-life and the permanent share on your own fills; impact varies by stock, time of day and market conditions.
+
+## Common mistakes
+- Using a linear impact model for large orders, which overstates cost for big size and understates it for small.
+- Ignoring decay, which makes slow schedules look as costly as fast ones.
+- Treating post-trade reversion as "free money": it shows cost already paid, not a profit opportunity.
+
+## Key takeaways
+Impact grows roughly with the square root of size relative to volume. Propagator models explain how impact builds and decays, reconciling persistent order flow with near-random prices. After a metaorder ends, much of the impact reverts, often leaving around two-thirds as permanent. Calibrate these models on your own data before relying on them.
+</lesson>
+<qa difficulty="medium"><q>State the square-root impact law.</q><a>Peak impact ≈ Y × σ × √(Q ÷ V), where Q is metaorder size, V daily volume, σ daily volatility and Y a constant of order 1.</a></qa>
+<qa difficulty="hard"><q>Why must impact decay if order flow signs are persistent?</q><a>Large orders are split, so buys follow buys. If each trade's impact were permanent, prices would trend predictably with order flow. A decaying propagator offsets the persistence, keeping prices close to a random walk.</a></qa>
+<qa difficulty="hard"><q>How does the Obizhaeva-Wang model treat impact?</q><a>Impact decays exponentially over time (resilience): each trade adds impact that relaxes at a fixed rate, which makes optimal execution problems tractable.</a></qa>
+<qa difficulty="expert"><q>Ten 2 bp child trades a minute apart decay with a 5-minute half-life. What is impact just after the last trade, and at minute 20?</q><a>About 11.6 bps just after the last trade (minute 9) instead of 20 bps if permanent, and about 2.5 bps at minute 20, before adding any permanent component.</a></qa>
+<qa difficulty="hard"><q>What do studies find about impact after a metaorder ends?</q><a>The price partly reverts, often settling at roughly two-thirds of peak impact, consistent with fair-pricing arguments for square-root impact. This is a stylised finding that varies across markets.</a></qa>
+<qa difficulty="medium"><q>How can post-trade reversion be used in execution analysis?</q><a>Large reversion after an order means much of the impact was transient (paying for liquidity), suggesting slower execution could save cost. Little reversion suggests the trades carried information, so the price move was largely permanent.</a></qa>
+<source url="https://arxiv.org/html/1412.0141">A fully consistent, minimal model for non-linear market impact (arXiv)</source>
+<source url="https://arxiv.org/pdf/2205.13423">Do price trajectory data increase the efficiency of market impact estimation? (arXiv)</source>
+<source url="https://arxiv.org/html/2601.03215v2">Trading with market resistance and concave price impact (arXiv)</source>
+<source url="https://www.cis.upenn.edu/~mkearns/finread/costestim.pdf">Direct estimation of equity market impact (Almgren et al.)</source>
+</topic>
+
+<topic id="671">
+<level>advanced</level>
+<lesson>
+# Passive versus aggressive child order placement and fill-probability optimisation
+
+## Core idea
+An execution algorithm splits a parent order into child orders according to a schedule. For each child it must decide how to trade: post a passive limit order and wait in the queue, saving the spread but risking no fill; or cross the spread with an aggressive order that fills now at a known cost. The right choice depends on the probability of being filled, the risk of being filled only when the price is about to move against you (adverse selection), and how far behind schedule you are.
+
+## The trade-off
+- **Passive (post at the bid to buy):** earns roughly half the spread relative to the mid if filled. But fills are uncertain and tend to happen when sellers are aggressive, often just before the price falls.
+- **Aggressive (lift the ask):** pays half the spread and possibly more for size, but fills with certainty.
+- **Non-fill cost:** if a passive order does not fill and the price drifts away, you must chase it later at a worse price.
+Research on live trading data finds a negative relationship between fill likelihood and post-fill returns: the fills you get most easily are often the worst.
+
+## A simple decision rule
+Expected cost of a passive buy relative to mid:
+E[passive] = P(fill) × (−s/2 + A) + (1 − P(fill)) × (s/2 + D)
+where s is the spread, A is the expected adverse move after a fill, and D is the expected drift if you have to chase.
+Expected cost of an aggressive buy = s/2 (plus impact for size).
+Post passively if E[passive] is below s/2.
+
+## Worked example
+Spread ₹0.10 (half-spread ₹0.05). Fill probability within your time slot is 60%. Adverse selection after a fill is ₹0.03. If not filled, the price drifts ₹0.04 away before you chase.
+- Passive: 0.6 × (−0.05 + 0.03) + 0.4 × (0.05 + 0.04) = −0.012 + 0.036 = ₹0.024.
+- Aggressive: ₹0.05.
+Passive is cheaper. If the fill probability falls to 30% (a long queue): 0.3 × (−0.02) + 0.7 × 0.09 = −0.006 + 0.063 = ₹0.057, now worse than crossing.
+
+## What drives fill probability
+1. **Queue position:** orders ahead of you at the same price must trade or cancel first.
+2. **Order flow imbalance:** if sellers are aggressive, bids fill faster.
+3. **Time remaining:** longer windows give more chances.
+4. **Volatility and spread:** wide spreads with low volatility favour passive; fast-moving markets favour aggressive.
+Models range from simple historical fill rates to queue-reactive models of order arrivals and survival analysis.
+
+## Schedule pressure
+Algorithms track progress against the schedule (for example a VWAP curve). When behind schedule, they become more aggressive: crossing the spread or pricing more aggressively. When ahead, they post more passively. Many use bands around the target trajectory.
+
+## India-specific points
+- India has no maker-taker rebates: exchange charges are the same for passive and aggressive orders, so passive saves only the spread.
+- Price-time priority means early queue position matters; joining a long queue at a popular price may give little chance of a fill.
+- Tick sizes are fixed by price range, so spreads in liquid large caps are often one tick, where queue position dominates.
+- Index option spreads are measured in ticks of ₹0.05; in cheap options a one-tick spread is a large percentage of the premium, which tilts towards passive orders when time allows.
+
+## Common mistakes
+- Assuming passive fills are free: adverse selection is a real cost.
+- Leaving passive orders until the end of the schedule, then crossing everything at once with high impact.
+- Ignoring queue position when simulating passive fills in backtests (covered in a separate lesson).
+
+## Key takeaways
+Choose passive or aggressive by comparing expected costs: passive saves the spread but risks non-fill and adverse selection; aggressive costs the spread but fills. Fill probability depends on queue position, order flow and time. Algorithms grow more aggressive as they fall behind schedule. In India, the absence of rebates and strict price-time priority shape the choice.
+</lesson>
+<qa difficulty="medium"><q>What are the main risks of a passive limit order?</q><a>It may not fill, forcing you to chase the price later, and it tends to fill when the price is about to move against you (adverse selection).</a></qa>
+<qa difficulty="hard"><q>Write the expected cost of a passive buy relative to mid.</q><a>E = P(fill) × (−s/2 + A) + (1 − P(fill)) × (s/2 + D), where s is spread, A the adverse move after a fill and D the drift if you must chase. Compare with s/2 for an aggressive buy.</a></qa>
+<qa difficulty="hard"><q>With a ₹0.10 spread, 60% fill probability, ₹0.03 adverse selection and ₹0.04 drift, is passive or aggressive cheaper?</q><a>Passive: 0.6 × (−0.02) + 0.4 × 0.09 = ₹0.024. Aggressive: ₹0.05. Passive is cheaper.</a></qa>
+<qa difficulty="expert"><q>What does research on live data say about fill probability and post-fill returns, and why?</q><a>They are negatively related: orders that fill easily tend to be followed by adverse moves. Fills happen when the other side trades aggressively, often because it has information or because the price is about to move through your level.</a></qa>
+<qa difficulty="medium"><q>How do execution algorithms respond when behind schedule?</q><a>They become more aggressive, crossing the spread or pricing more aggressively, to catch up with the target trajectory; when ahead, they post more passively.</a></qa>
+<qa difficulty="hard"><q>How does the absence of maker-taker rebates in India affect child-order decisions?</q><a>Passive orders save only the spread, with no rebate. The benefit of posting is smaller than in rebate markets, so aggressive orders become relatively more attractive when fill probability is low.</a></qa>
+<source url="https://arxiv.org/html/2502.18625v2">The market maker's dilemma: fill probability and post-fill returns (arXiv)</source>
+<source url="https://ar5iv.arxiv.org/html/1610.00261">Limit order strategic placement with adverse selection risk and the role of latency (Lehalle and Mounjid)</source>
+<source url="https://repec.cepr.org/repec/cpr/ceprdp/Dp2843.pdf">Empirical analysis of limit order markets (Hollifield, Miller and Sandås, CEPR)</source>
+<source url="https://arxiv.org/pdf/2307.04863v2">Optimal execution and fill probability via survival analysis (arXiv)</source>
+</topic>
+
+<topic id="672">
+<level>advanced</level>
+<lesson>
+# Closing auction on NSE: algorithms targeting the close and VWAP manipulation risk
+
+## Core idea
+Many institutions must trade at the closing price: index funds rebalancing, funds valuing portfolios at the close, and derivative hedgers. Until 2026 NSE's close was a 30-minute VWAP, which nobody could trade at exactly. The closing auction session (CAS), live from 3 August 2026 for stocks with derivatives, gives a single tradable closing price. This changes how close-targeting algorithms work and where manipulation risk lies.
+
+## Before CAS: trading a VWAP close
+- To match the close, a fund had to trade in proportion to volume across the last 30 minutes (3:00 to 3:30 pm).
+- Large flows could move the VWAP itself, especially on index rebalancing days.
+- Manipulators could push the VWAP by trading heavily in the window, with derivative positions that gained from the move.
+
+## With CAS: market-on-close style orders
+- Orders entered in the auction trade at the single closing price, so index funds can match their benchmark exactly.
+- Liquidity concentrates in the auction, so large orders find more natural counterparts.
+- Under the August 2026 rules, market orders could be entered only in the first order-entry window; limit orders until a random close in the last two minutes. From 7 December 2026 the auction is a separate 3:30 to 3:40 pm session.
+
+## How close-targeting algorithms adapt
+1. **Estimate auction capacity:** forecast auction volume from history (rebalance days, expiry, index events).
+2. **Split the order:** put the part the auction can absorb into it; trade the rest earlier in continuous trading, accepting some tracking error versus the close.
+3. **Use limit prices:** cap the price in the auction to avoid paying for a temporary imbalance.
+4. **React to imbalance:** if the exchange publishes indicative prices or imbalance during the auction, adjust before the random close.
+5. **Measure:** compare fills with the official close and with the arrival price to see the true cost.
+
+## Worked example
+A fund must buy ₹200 crore of a stock on an index inclusion day. Normal auction volume is ₹150 crore; this day's estimate is ₹400 crore because of index flows.
+- Placing all ₹200 crore in the auction would be about half the expected auction volume, likely pushing the price up within the band.
+- Plan: ₹120 crore in the auction (30%), ₹80 crore during continuous trading after 2:00 pm.
+- Result: close tracking error on ₹80 crore, but smaller impact on the auction price, which also sets the fund's valuation.
+
+## Manipulation risks and controls
+- **Old risk:** pushing the 30-minute VWAP with sustained trades.
+- **New risk:** large last-moment orders or cancellations to move the auction price.
+- **Controls:** random closure of order entry, price bands around a reference price, restrictions on modifying carried-over orders, and surveillance of auction orders.
+- **Derivatives link:** the October 2026 revision moved expiry settlement back to 30-minute VWAPs, so auction prices no longer settle expiring derivatives. This reduces the incentive to target the auction on expiry days.
+
+## Benchmark implications
+- Funds benchmarked to closing prices now face less tracking error.
+- Brokers' "close" performance should be measured against the auction price.
+- Historical comparisons across August 2026 must allow for the methodology change in closing prices.
+
+## Key takeaways
+NSE's closing auction gives a tradable close, letting index funds and others trade at the benchmark. Close-targeting algorithms now estimate auction capacity, split orders between auction and continuous trading, and use limit prices. Manipulation risk shifts from pushing a 30-minute VWAP to last-moment auction orders, countered by random closure, bands and surveillance. Expiry settlement is decoupled from the auction from December 2026.
+</lesson>
+<qa difficulty="medium"><q>Why is a closing auction better for index funds than a 30-minute VWAP close?</q><a>The auction gives a single tradable closing price, so a fund can trade exactly at its benchmark. A VWAP close could only be approximated by trading across the window.</a></qa>
+<qa difficulty="hard"><q>How should an algorithm handle an order larger than the auction can absorb?</q><a>Estimate auction volume, place only a share of it in the auction (for example 30%), and trade the rest in continuous trading earlier, using limit prices in the auction to avoid paying for a temporary imbalance.</a></qa>
+<qa difficulty="hard"><q>How does manipulation risk change with a closing auction?</q><a>It shifts from sustained trading to push a 30-minute VWAP to last-moment orders or cancellations aimed at the auction price. Random closure, price bands and limits on modifying carried-over orders address this.</a></qa>
+<qa difficulty="medium"><q>Why did decoupling expiry settlement from the auction matter?</q><a>From December 2026, expiring derivatives settle on 30-minute VWAPs rather than auction prices, reducing the payoff from moving the auction price on expiry days.</a></qa>
+<qa difficulty="expert"><q>A fund needs ₹200 crore on a day with ₹400 crore expected auction volume. Why not place it all in the auction?</q><a>It would be half the expected auction volume, likely creating a buy imbalance that lifts the closing price within the band. That raises both execution cost and the fund's own closing valuation. Splitting between auction and continuous trading reduces impact at the cost of some tracking error.</a></qa>
+<qa difficulty="medium"><q>What should TCA compare close-targeted fills against after August 2026?</q><a>The official auction closing price, and also the arrival price to capture the full cost of trading.</a></qa>
+<source url="https://www.nseindia.com/static/products-services/closing-auction-session">NSE: Closing Auction Session</source>
+<source url="https://algotest.in/blog/closing-auction-session/">Closing Auction Session: timings, rules and order types (AlgoTest)</source>
+<source url="https://upstox.com/news/market-news/financial-regulations/closing-auction-session-framework-revised-by-sebi-derivatives-settlement-norms-also-changed/article-201950/">Closing auction framework revised by SEBI (Upstox)</source>
+<source url="https://www.business-standard.com/amp/markets/news/sebi-proposes-new-closing-auction-framework-for-liquid-derivative-stocks-125082300426_1.html">SEBI proposes new closing auction framework for liquid derivative stocks (Business Standard)</source>
+</topic>
+
+<topic id="673">
+<level>advanced</level>
+<lesson>
+# Transaction cost analysis (TCA): benchmarks, statistical power and broker evaluation
+
+## Core idea
+Transaction cost analysis measures how much it costs to turn an investment decision into a position. It compares execution prices with benchmarks, breaks the cost into parts, and compares brokers and algorithms. The hard part is not the arithmetic but the statistics: trading costs are noisy, so meaningful comparisons need many orders and controls for how difficult each order was.
+
+## Benchmarks
+1. **Decision or arrival price (implementation shortfall).** Introduced by Perold (1988): the gap between a paper portfolio traded at decision prices and the real one. It captures everything, including the cost of not filling.
+2. **Interval VWAP.** Average price over the trading period. Easy to compare but gameable: a large order influences the VWAP it is measured against, and trading slowly can look good while costing more against arrival.
+3. **TWAP.** Useful for thinly traded securities.
+4. **Close.** Relevant for funds valued at the close.
+5. **Pre-trade estimate.** Expected cost from a model, used to judge whether execution beat expectations.
+
+## Decomposing implementation shortfall
+- **Explicit costs:** brokerage, taxes, exchange fees.
+- **Delay cost:** price move between the decision and sending the order.
+- **Execution cost:** fill prices versus arrival, including spread and impact.
+- **Opportunity cost:** price move on the unfilled part.
+This breakdown shows where to act: delay points to the trading desk's process, execution to the algorithm, and opportunity cost to over-cautious limits.
+
+## Worked example
+Decision to buy 1 lakh shares at ₹500 (decision price). The order reaches the market at ₹502 (arrival). 80,000 shares fill at an average of ₹505; the stock closes at ₹510 and 20,000 are cancelled. Explicit costs are ₹40,000.
+- Delay (on filled shares): 80,000 × ₹2 = ₹1,60,000.
+- Execution: 80,000 × ₹3 = ₹2,40,000.
+- Opportunity (on unfilled shares, from the decision price): 20,000 × (₹510 − ₹500) = ₹2,00,000.
+- Explicit: ₹40,000.
+- Total = ₹6.4 lakh on a ₹5 crore decision, about 128 basis points.
+Check: the paper portfolio gains 1,00,000 × ₹10 = ₹10 lakh; the real one gains 80,000 × ₹5 − ₹40,000 = ₹3.6 lakh; the difference is ₹6.4 lakh.
+
+## Statistical power
+Per-order shortfall is noisy because prices move during execution. Suppose the per-order standard deviation is 50 bps and you want to detect a 5 bp difference between two brokers at 95% confidence with 80% power. Each broker needs about 2 × (1.96 + 0.84)² × 50² ÷ 5² ≈ 1,570 orders. Many desks compare brokers on a few dozen orders, which is mostly noise.
+
+## Fair broker evaluation
+1. **Normalise for difficulty:** regress shortfall on order size relative to volume, volatility, spread and momentum; compare brokers on residuals.
+2. **Randomise allocation:** assign similar orders randomly to brokers (an A/B test) so that one broker does not get all the hard orders.
+3. **Use arrival-based measures:** VWAP-based scores can be gamed.
+4. **Watch for information leakage:** check price moves before and after your orders for signs that your flow is being anticipated.
+
+## India-specific notes
+- Explicit costs include STT, stamp duty, exchange charges, SEBI fees and GST, which can be significant in derivatives.
+- Since August 2026 the close for stocks with derivatives comes from the closing auction, which changes close benchmarks.
+- Index option executions should be measured against the mid of the bid and ask at arrival, because spreads are a large share of premium.
+
+## Key takeaways
+TCA compares fills to benchmarks, best anchored on the decision or arrival price (implementation shortfall), and decomposes cost into explicit, delay, execution and opportunity parts. Costs are noisy, so broker comparisons need large samples, normalisation for difficulty and, ideally, random allocation. VWAP benchmarks are convenient but easy to game.
+</lesson>
+<qa difficulty="medium"><q>What is implementation shortfall?</q><a>The difference between a paper portfolio traded at decision prices and the actual portfolio, including explicit costs, delay, execution cost and the opportunity cost of unfilled shares. It was introduced by Perold in 1988.</a></qa>
+<qa difficulty="medium"><q>Why is VWAP a gameable benchmark?</q><a>A large order influences the VWAP it is measured against, and trading slowly can track VWAP closely while costing more against the arrival price.</a></qa>
+<qa difficulty="hard"><q>Decompose the shortfall: decision ₹500, arrival ₹502, 80,000 of 1 lakh shares filled at ₹505, close ₹510, explicit costs ₹40,000.</q><a>Delay on filled shares 80,000 × ₹2 = ₹1.6 lakh, execution 80,000 × ₹3 = ₹2.4 lakh, opportunity on 20,000 unfilled × ₹10 = ₹2 lakh, explicit ₹40,000: total ₹6.4 lakh, about 128 basis points of the ₹5 crore decision. It equals the paper gain of ₹10 lakh minus the real gain of ₹3.6 lakh.</a></qa>
+<qa difficulty="expert"><q>How many orders per broker are needed to detect a 5 bp cost difference if per-order standard deviation is 50 bps?</q><a>About 2 × (1.96 + 0.84)² × 50² ÷ 5² ≈ 1,570 orders per broker for 95% confidence and 80% power.</a></qa>
+<qa difficulty="hard"><q>How can a desk evaluate brokers fairly?</q><a>Normalise shortfall for order difficulty (size relative to volume, volatility, spread, momentum), allocate similar orders randomly between brokers, use arrival-based measures, and check for information leakage around orders.</a></qa>
+<qa difficulty="medium"><q>Which component of shortfall points to an over-cautious limit price?</q><a>Opportunity cost: the price move on the unfilled portion when limits prevent execution.</a></qa>
+<source url="https://pages.stern.nyu.edu/~jhasbrou/Teaching/POST%202015%20Fall/classNotes/STPPTradingCosts.pdf">Trading costs: class notes (Joel Hasbrouck, NYU Stern)</source>
+<source url="https://www.cis.upenn.edu/~mkearns/finread/impshort.pdf">Implementation shortfall: one objective, many algorithms</source>
+<source url="https://developers.lseg.com/en/article-catalog/article/build-end-to-end-transaction-cost-analysis-framework">Build an end-to-end transaction cost analysis framework (LSEG)</source>
+<source url="https://www.mathworks.com/help/datafeed/analyze-trading-execution-results.html">Analyze trading execution results (MathWorks)</source>
+</topic>
