@@ -1,0 +1,311 @@
+<topic id="525">
+<level>advanced</level>
+<lesson>
+# SPAN, VaR and extreme-loss margin models at Indian CCs, including intraday margin monitoring
+
+## Core idea
+Margins are the first line of defence against a member's default. Indian clearing corporations use two families of models: **SPAN** (Standard Portfolio Analysis of Risk) for futures and options, and **VaR-based margins** for the cash market, each topped up with extra margins for losses beyond normal conditions (exposure margin and extreme loss margin, ELM). Since the peak-margin rules of 2020 to 2021, margins must be collected upfront and are checked several times during the day, not just at the close.
+
+## How it works, step by step
+**F&O (SPAN plus exposure):**
+1. SPAN revalues each portfolio under 16 scenarios combining price moves (up and down by fractions of a "scanning range") and volatility moves; the worst loss across scenarios is the SPAN margin, intended to cover a one-day loss at about 99% confidence.
+2. Extra rules: inter-month spread charges, short option minimum charges, and offsets for hedged positions.
+3. **Exposure margin** is added as a percentage of notional value: about 2% for index derivatives and about 3.5% for stock derivatives (rates depend on the current framework).
+4. On expiry day, short options in expiring index contracts carry an extra 2% ELM (from November 2024).
+
+**Cash market (VaR plus ELM):**
+1. VaR margin estimates the potential one-day loss for each stock (based on its volatility and liquidity group).
+2. ELM is added for losses beyond VaR.
+3. Since the peak-margin framework, the minimum upfront margin for stocks in the cash market has been VaR + ELM with a floor (reported as 20%).
+
+**Intraday monitoring (peak margin):**
+1. CCs send updated risk parameters several times a day and take at least four random snapshots of each client's positions.
+2. The highest margin requirement among the snapshots (the peak margin) must have been collected upfront by the broker; shortfalls attract penalties.
+3. Phased in from December 2020 (25% of the requirement) to September 2021 (100%), ending broker-funded intraday leverage beyond margins.
+
+## Formulas and numbers (worked example)
+A trader is short one Nifty 25,000 call, lot 65, with Nifty at 25,000 (notional ₹16.25 lakh).
+- Suppose the SPAN scenarios give a worst loss of ₹1,10,000 (Nifty up sharply with volatility up).
+- Exposure margin at 2% of notional: 0.02 × 16,25,000 = ₹32,500.
+- Total ≈ ₹1,42,500, less any premium received benefit as per the broker's calculation.
+- On expiry day, add 2% ELM: another ₹32,500.
+
+Cash market: buying ₹5 lakh of a stock with VaR 12% and ELM 3.5% → 15.5%, below the 20% floor, so ₹1 lakh margin is required upfront.
+
+Peak margin: a client's snapshots show margin requirements of ₹2 lakh, ₹3.5 lakh, ₹2.8 lakh and ₹1.9 lakh. Peak = ₹3.5 lakh; if the client had only ₹3 lakh, the ₹50,000 shortfall attracts a penalty.
+
+## India specifics
+- NSE Clearing, ICCL and MCX Clearing compute and publish risk parameters; brokers calculate margins for clients using these files.
+- The peak margin rules were controversial because they cut intraday leverage and volumes (brokers estimated large declines in F&O volumes when they were introduced).
+- SEBI's 2024 to 2025 F&O measures added the expiry-day ELM, upfront premium collection and the removal of calendar-spread benefits on expiry day.
+- Stocks under surveillance (ASM, GSM) can carry higher margins, up to 100%.
+
+## Real examples and history
+- SPAN was developed by the Chicago Mercantile Exchange in 1988 and is used by many derivatives exchanges.
+- During March 2020, margins rose sharply as volatility spiked, forcing traders to add funds or cut positions.
+
+## Edge cases and common mistakes
+- **Hedges reduce SPAN only if recognised.** Positions in different underlyings may not offset.
+- **Option buyers.** Pay the premium upfront (no SPAN margin) but cannot use expected profits as margin.
+- **Margin can change intraday.** Volatility spikes lead to higher margins mid-session.
+- **Peak margin penalties.** Fall on the broker, which passes them to clients.
+- **Delivery margins.** Near expiry, stock F&O positions attract increasing physical-delivery margins.
+
+## How traders, investors and quants use it
+- Traders check margin calculators before entering positions and keep buffers for intraday increases.
+- Quants include margin cost (capital tied up) when computing strategy returns.
+- Risk teams at brokers monitor clients' peak margin compliance in real time.
+
+## Related concepts
+Core SGF and stress testing; extreme loss margin; peak margin; option Greeks; SEBI F&O reforms; surveillance measures.
+</lesson>
+<qa difficulty="medium"><q>What does SPAN compute?</q><a>The largest loss a portfolio of futures and options would suffer across a set of 16 scenarios of price and volatility changes over one day, plus adjustments for spreads and short options. This worst-case loss is the SPAN (initial) margin.</a></qa>
+<qa difficulty="hard"><q>A short stock futures position has notional ₹20 lakh, SPAN ₹2.4 lakh and exposure margin at 3.5%. What is the total margin?</q><a>Exposure margin = 3.5% × ₹20 lakh = ₹70,000. Total = ₹2,40,000 + ₹70,000 = ₹3,10,000.</a></qa>
+<qa difficulty="hard"><q>A client's four intraday margin snapshots are ₹1.2 lakh, ₹2.6 lakh, ₹2.0 lakh and ₹0.9 lakh, and the client had ₹2.2 lakh of margin. What happens?</q><a>Peak margin = ₹2.6 lakh. The client had ₹2.2 lakh, a shortfall of ₹40,000 at the peak snapshot, so the broker faces a peak-margin penalty, usually charged to the client, even if the position was reduced later in the day.</a></qa>
+<qa difficulty="expert"><q>Why was the peak-margin framework introduced, and what did it change?</q><a>Before it, margins were checked mainly at the end of the day, so brokers could give clients large intraday leverage, squaring positions before the close. This created hidden risk during the day. The framework requires margins to be collected upfront and checks them through random intraday snapshots, so intraday positions must be backed by collateral, reducing leverage and systemic risk.</a></qa>
+<qa difficulty="medium"><q>Why is exposure margin added on top of SPAN?</q><a>SPAN covers losses under modelled one-day scenarios at about 99% confidence. Exposure margin (and ELM) provide an extra buffer for losses beyond those scenarios, such as extreme moves, liquidity problems or model error.</a></qa>
+<qa difficulty="hard"><q>A trader buys ₹10 lakh of a stock with VaR 8% and ELM 3.5%. How much margin is required?</q><a>VaR + ELM = 11.5%, below the 20% minimum floor for stocks in the cash market under the peak-margin framework, so the required upfront margin is 20% = ₹2 lakh.</a></qa>
+<source url="https://equitiesindia.com/learn/derivatives/fno-margin-explained">F&O margin explained (Equities India)</source>
+<source url="https://zerodha.com/z-connect/?p=276012">Peak margin, intraday leverage and second-order effects (Zerodha, December 2020)</source>
+<source url="https://www.kotaksecurities.com/support/what-is-peak-margin-penalty-and-how-does-it-work">What is peak margin penalty and how does it work (Kotak Securities)</source>
+<source url="https://www.business-standard.com/amp/article/markets/f-o-volumes-likely-to-decline-30-on-tighter-peak-margin-regulation-121022201310_1.html">F&O volumes likely to decline on tighter peak margin regulation (Business Standard)</source>
+<source url="https://kuvera.in/blog/?p=16520">History of F&O margin requirements in India (Kuvera)</source>
+</topic>
+
+<topic id="526">
+<level>advanced</level>
+<lesson>
+# Interoperability among Indian clearing corporations and cross-CCP risk
+
+## Core idea
+Before 2019, every Indian exchange had its own clearing corporation, so a broker trading on NSE, BSE and MSE needed separate memberships, margins and collateral at each. Since June 2019, clearing corporations are **interoperable**: a clearing member can clear trades from any exchange through the clearing corporation of its choice, and the CCs settle with each other through links. This cuts costs and frees collateral, but it also creates a new risk: the exposure of one CC to another.
+
+## How it works, step by step
+1. **Choice of CC.** A clearing member designates one CC; trades it executes on any interoperable exchange are cleared there.
+2. **Links.** CCs establish peer-to-peer links. Trades between members of different CCs create obligations between the CCs.
+3. **Netting.** Each CC nets its members' obligations; CCs net their mutual obligations multilaterally to compute inter-CC payments and securities transfers.
+4. **Inter-CC margins.** Each CC posts collateral to the others to cover potential losses on their net exposure, so that one CC's failure does not hurt the other.
+5. **Scope.** The framework covered all exchange-traded products except commodity derivatives, and excluded IFSC clearing corporations.
+6. **Timeline.** SEBI's November 2018 circular required operationalisation by 1 June 2019; the first interoperable trades cleared on 3 June 2019, and the industry-wide move was extended to July 2019.
+
+## Formulas and numbers (worked example)
+A broker trades ₹500 crore on NSE and ₹200 crore on BSE in the cash market, with some offsetting trades.
+- **Before interoperability:** it must hold margins separately at NSE Clearing and ICCL, say ₹60 crore and ₹25 crore (₹85 crore total), with no netting across exchanges.
+- **After:** clearing everything through one CC allows netting: if its buys on NSE and sells on BSE in the same stock offset, its net position is smaller; margin might be ₹65 crore, freeing ₹20 crore of collateral.
+- **Inter-CC exposure:** if NSE Clearing's members net-buy ₹300 crore of shares from ICCL's members on a day, NSE Clearing owes ₹300 crore to ICCL and receives shares; each CC holds inter-CC collateral sized to price moves on that net position (for example 10% = ₹30 crore).
+
+## India specifics
+- Interoperability made sense because NSE dominates volumes; brokers could consolidate clearing and collateral with one CC.
+- It also allowed smaller exchanges to attract trading without forcing members to join a separate CC.
+- CC interoperability raises supervisory focus on links, inter-CC collateral and coordinated default management.
+
+## Real examples and history
+- In Europe, interoperability among equity CCPs (for example for cash equities across multilateral trading facilities) developed after MiFID, with regulators setting rules for inter-CCP collateral.
+- Interoperability in derivatives is less common globally because positions are long-lived and link exposures are large.
+
+## Edge cases and common mistakes
+- **Link risk.** If one CC defaults, the other faces losses on its net exposure; inter-CC collateral must cover this.
+- **Contagion.** Stress at one CC can transmit through links.
+- **Default management.** Coordinating auctions and close-outs across CCs is more complex.
+- **Concentration.** If most members choose one CC, it becomes even more systemically important.
+- **Collateral reuse.** Inter-CC collateral should not be funded by resources needed for the CC's own default waterfall.
+
+## How traders, investors and quants use it
+- Brokers choose a CC to minimise margin and operational costs across exchanges.
+- Regulators and CC risk teams monitor link exposures and stress-test them.
+- Analysts of exchanges consider how interoperability affects competition for trading volumes.
+
+## Related concepts
+Clearing corporations and novation; Core SGF; stress testing; PFMI links principle; netting; collateral efficiency.
+</lesson>
+<qa difficulty="medium"><q>What does interoperability among clearing corporations mean?</q><a>A clearing member can clear trades executed on any interoperable exchange through a single clearing corporation of its choice; the clearing corporations are linked and settle obligations with each other.</a></qa>
+<qa difficulty="hard"><q>Why does interoperability save collateral for brokers?</q><a>Clearing all trades at one CC lets positions across exchanges be netted, and collateral is held in one place rather than split. Offsetting positions on different exchanges reduce net exposure and therefore margin, freeing capital.</a></qa>
+<qa difficulty="hard"><q>What is link risk between clearing corporations?</q><a>The risk that one CC suffers losses because another CC it is linked to fails to meet its obligations. Each CC is exposed to the other's net obligations; inter-CC collateral is held to cover potential losses on that exposure.</a></qa>
+<qa difficulty="medium"><q>When did interoperability begin in India?</q><a>SEBI's November 2018 circular required it by 1 June 2019; the first interoperable trades cleared on 3 June 2019 (for example through MCCIL and BSE's ICCL), with the industry-wide deadline extended to July 2019.</a></qa>
+<qa difficulty="expert"><q>Why is interoperability more common for cash equities than for derivatives?</q><a>Cash trades settle within a day or two, so link exposures between CCs are short-lived and relatively small. Derivatives positions remain open for weeks or months, creating large, long-lived exposures between CCs that require substantial inter-CC margins and complex default management, making derivatives interoperability costlier and riskier.</a></qa>
+<qa difficulty="hard"><q>A CC's members net-sell ₹200 crore of shares to the other CC's members. What does each CC owe, and what collateral might be held at 8% of the net value?</q><a>The selling-side CC must deliver shares worth ₹200 crore and receive ₹200 crore in funds; the buying-side CC must pay ₹200 crore and receive shares. Each CC may hold inter-CC collateral of about 8% × ₹200 crore = ₹16 crore against the other's potential failure on this exposure.</a></qa>
+<source url="https://www.business-standard.com/article/pti-stories/sebi-issues-norms-for-interoperability-among-clearing-corporations-118112700866_1.html">SEBI issues norms for interoperability among clearing corporations (Business Standard)</source>
+<source url="https://www.business-standard.com/amp/article/pti-stories/bse-iccl-implement-interoperability-framework-for-clearing-corporations-119060301517_1.html">BSE, ICCL implement interoperability framework (Business Standard)</source>
+<source url="https://barandbench.com/interoperability-of-ccps-integrating-the-securities-market/">Interoperability of CCPs: integrating the securities market (Bar and Bench)</source>
+<source url="https://news.cleartax.in/?p=1921">Interoperability deadline extended for market participants (ClearTax)</source>
+</topic>
+
+<topic id="527">
+<level>advanced</level>
+<lesson>
+# Clearing corporation net worth, risk-based capital and liquidity resources under SEBI 2019 norms and PFMI Principle 7
+
+## Core idea
+A clearing corporation (CC) needs two kinds of financial strength. **Capital (net worth)** absorbs its own losses from business, operational and legal risks, and funds an orderly wind-down or recovery if needed. **Liquidity resources** let it pay out on time when a member defaults, even before it has sold the defaulter's collateral. SEBI's April 2019 circular set out how CCs compute risk-based net worth, and international standards (PFMI Principle 7) set expectations for liquidity.
+
+## How it works, step by step
+**Net worth (SECC Regulations 2018 and SEBI's April 2019 circular):**
+1. Each CC computes capital requirements for: counterparty credit risk (on its investments and exposures), business risk (losses if revenues fall), orderly winding down or recovery of operations, and legal and other risks.
+2. The sum is the risk-based net worth requirement.
+3. The CC must hold the higher of ₹100 crore or this risk-based amount, in liquid assets (such as government securities and high-rated bank fixed deposits).
+4. Net worth is separate from the Core SGF and margins, which cover member defaults.
+
+**Liquidity (PFMI Principle 7):**
+1. A CC must hold enough qualifying liquid resources to make all payments on time under the default of the member (and affiliates) that would create the largest liquidity need in extreme but plausible conditions (cover 1; cover 2 is recommended for systemically important CCs in complex markets).
+2. Qualifying resources include cash at central banks or creditworthy banks, committed lines of credit and repos, and highly marketable collateral that can be turned into cash quickly.
+3. The CC must stress-test liquidity daily and plan for using its resources.
+
+## Formulas and numbers (worked example)
+A CC's risk-based capital assessment:
+- Credit risk on investments: ₹40 crore.
+- Business risk (six months of operating expenses as a buffer, say): ₹90 crore.
+- Orderly wind-down or recovery: ₹70 crore.
+- Legal and other risks: ₹20 crore.
+Total = ₹220 crore. Since this exceeds ₹100 crore, the CC must hold at least ₹220 crore of net worth in liquid assets.
+
+Liquidity need: the largest member's pay-in obligation on a stressed settlement day is ₹4,000 crore in funds. If it defaults, the CC must still pay out ₹4,000 crore to other members on time. Resources: ₹1,500 crore cash margins in bank deposits, ₹2,000 crore committed bank lines, ₹1,000 crore government securities that can be repoed the same day = ₹4,500 crore, enough for cover 1 with a buffer.
+
+## India specifics
+- A 2012 SEBI decision had set a ₹300 crore minimum for clearing corporations to be built up over time; the SECC Regulations 2018 and the 2019 circular moved to a risk-based approach with a ₹100 crore floor.
+- CCs in the International Financial Services Centre (IFSC) have separate, lower starting thresholds with a path to ₹100 crore or the risk-based amount.
+- Investment of CC net worth is restricted to liquid assets (for example central government securities and fixed deposits with large, highly rated banks).
+- SEBI also requires CCs to transfer part of profits to the Core SGF.
+
+## Real examples and history
+- CPMI-IOSCO's PFMI (2012) set global standards for capital (Principle 15, general business risk) and liquidity (Principle 7).
+- Liquidity stress in March 2020 tested CCs worldwide, as margin calls surged and members needed cash quickly.
+
+## Edge cases and common mistakes
+- **Confusing capital with default resources.** Net worth covers the CC's own risks; the default waterfall covers member defaults (with some CC capital as skin in the game).
+- **Counting illiquid assets.** Only liquid assets count toward the net worth requirement.
+- **Wrong-way liquidity.** Credit lines from banks that are also members may fail when those banks are stressed.
+- **Same-day settlement needs.** With T+1 and T+0, liquidity must be available quickly.
+
+## How traders, investors and quants use it
+- Investors in listed exchange groups consider capital tied up in CCs, which affects returns on equity.
+- Regulators and CC risk teams run daily liquidity stress tests.
+- Clearing members assess CC strength when choosing where to clear (under interoperability).
+
+## Related concepts
+Core SGF; default waterfall; PFMI principles; interoperability; IFSC clearing; stress testing.
+</lesson>
+<qa difficulty="medium"><q>What is the minimum net worth a clearing corporation must hold under the SECC Regulations 2018?</q><a>The higher of ₹100 crore or the risk-based capital requirement computed under SEBI's methodology (covering credit, business, wind-down or recovery, and legal and other risks), held in liquid assets.</a></qa>
+<qa difficulty="hard"><q>A CC's risk-based capital components are ₹25 crore, ₹40 crore, ₹20 crore and ₹10 crore. What net worth must it hold?</q><a>Risk-based total = ₹95 crore, below the ₹100 crore floor, so it must hold at least ₹100 crore in liquid assets.</a></qa>
+<qa difficulty="hard"><q>What does PFMI Principle 7 require of a CCP's liquidity?</q><a>Enough qualifying liquid resources in all relevant currencies to settle payment obligations on time with high confidence under a wide range of stress scenarios, including at least the default of the participant (and its affiliates) that would generate the largest payment obligation in extreme but plausible conditions; systemically important CCPs in complex markets are expected to consider more.</a></qa>
+<qa difficulty="expert"><q>Why can committed bank credit lines be unreliable liquidity resources for a CC?</q><a>The banks providing lines are often clearing members themselves. In a crisis that causes member defaults, those banks may also be stressed or may be the defaulters, so the lines may fail exactly when needed (wrong-way risk). Diversifying providers, using central bank facilities and holding cash and liquid securities reduce this risk.</a></qa>
+<qa difficulty="medium"><q>How does a CC's net worth differ from its Core SGF?</q><a>Net worth absorbs the CC's own business, operational, legal and wind-down risks. The Core SGF is a fund within the default waterfall to cover losses from clearing members' defaults beyond their margins. The CC contributes to the Core SGF but must maintain its net worth separately.</a></qa>
+<qa difficulty="hard"><q>Why does a CC need liquidity on the day a member defaults even though it holds the defaulter's collateral?</q><a>The CC must pay non-defaulting members on the settlement day. The defaulter's collateral (securities, bank guarantees) may take days to sell or convert into cash. Liquid resources bridge this gap so settlement completes on time.</a></qa>
+<source url="https://www.business-standard.com/amp/article/pti-stories/sebi-issues-detailed-norms-for-computing-clearing-corps-risk-based-capital-net-worth-requirements-119041001346_1.html">SEBI issues norms for computing clearing corporations' risk-based capital and net worth (Business Standard)</source>
+<source url="https://www.sebi.gov.in/sebi_data/attachdocs/apr-2019/1554909392966.pdf">SEBI circular of April 2019 on net worth of clearing corporations</source>
+<source url="https://www.sebi.gov.in/sebi_data/docfiles/23431_t.html">SEBI press release 40/2012 on net worth of clearing corporations and depositories</source>
+<source url="https://www.business-standard.com/amp/article/pti-stories/sebi-reduces-minimum-net-worth-requirements-for-clearing-corp-in-ifsc-119042600973_1.html">SEBI reduces minimum net worth requirements for clearing corporations in IFSC (Business Standard)</source>
+</topic>
+
+<topic id="528">
+<level>intermediate</level>
+<lesson>
+# Depository pledge, re-pledge and invocation workflow (NSDL/CDSL operating guidelines of 2025)
+
+## Core idea
+Investors often use their shares as collateral for trading margin. Before 2020, brokers commonly took clients' shares into their own accounts, which allowed misuse (as in the Karvy case). Since September 2020, collateral must be given through a **margin pledge** in the depository system: the shares stay in the client's demat account, with a pledge marked in favour of the broker, which can **re-pledge** them to the clearing member and clearing corporation. If the client defaults, the pledge is **invoked** and shares are sold. A SEBI circular of June 2025 automated parts of invocation and release, effective from 10 October 2025.
+
+## How it works, step by step
+1. **Client creates a margin pledge** to the trading member (broker) through the depository (NSDL or CDSL), authorising it with an OTP. Shares remain in the client's account, marked as pledged.
+2. **Re-pledge.** The trading member re-pledges the securities to the clearing member, which re-pledges to the clearing corporation, where they count as margin collateral after a haircut.
+3. **Margin benefit.** The client gets margin credit equal to the value of pledged shares minus haircut.
+4. **Corporate benefits.** Dividends and bonuses go to the client, since the shares stay in their account.
+5. **Release (unpledge).** The client requests release; after the broker and CC confirm no dues, the pledge is removed.
+6. **Invocation.** If the client fails to pay obligations, the broker invokes the pledge; shares move out of the client's account and are sold to recover dues.
+7. **2025 automation.** Under the June 2025 SEBI circular, pledge release for pay-in and invocation-linked flows are handled through depository functions (with operating guidelines from NSDL and CDSL), reducing manual broker steps; the framework took effect on 10 October 2025 after an extension from September.
+
+## Formulas and numbers (worked example)
+A client pledges shares worth ₹4 lakh; the CC's haircut is 20% (VaR + ELM based). Margin credit = ₹4 lakh × 0.8 = ₹3.2 lakh. Cash-collateral rules require at least half of F&O margin in cash or cash equivalents; if a strategy needs ₹3 lakh of margin, ₹1.5 lakh should be cash, with the rest from pledged shares.
+If the shares fall 15% to ₹3.4 lakh, margin credit falls to ₹2.72 lakh; if the client's requirement is ₹3 lakh, there is a shortfall of ₹28,000 to be met by adding cash, pledging more, or reducing positions. If unpaid, the broker may invoke the pledge and sell shares to cover dues.
+
+## India specifics
+- SEBI's February 2020 circular (effective in phases from June to September 2020) made pledge and re-pledge in the depository system the only way to give securities as margin collateral, ending transfers of title to brokers.
+- Client funds and securities must be segregated; brokers cannot pledge clients' securities for their own borrowing (a practice SEBI banned in June 2019, before the Karvy default was exposed).
+- Margin-trading funding (MTF) uses a separate pledge for shares bought with broker funding.
+
+## Real examples and history
+- The Karvy case (2019) involved a broker using powers of attorney to move client shares and pledge them for its own loans. The pledge and re-pledge system was designed to prevent this by keeping shares in clients' accounts.
+- Clients now receive depository messages for every pledge and invocation, adding transparency.
+
+## Edge cases and common mistakes
+- **Haircuts change.** CCs revise haircuts with volatility; margin credit can fall without a price fall.
+- **Cash component.** Pledged securities cannot fully replace cash margin in F&O.
+- **Invocation timing.** Brokers can invoke if dues are not cleared on time; clients may lose shares at bad prices.
+- **Pledge status during corporate actions.** Bonus shares may not be automatically pledged; check margin credit after corporate actions.
+- **Release delays.** Released shares become sellable only after the process completes.
+
+## How traders, investors and quants use it
+- Investors use pledged long-term holdings to fund trading margin without selling.
+- Brokers monitor pledged collateral and haircuts in real time.
+- Risk managers model the effect of haircut increases on clients' margin positions in volatile markets.
+
+## Related concepts
+Karvy case; margin trading funding; haircuts and VaR margins; segregation of client assets; clearing corporations; peak margins.
+</lesson>
+<qa difficulty="medium"><q>In a margin pledge, where do the client's shares stay?</q><a>In the client's own demat account, with a pledge marked in favour of the broker (and re-pledged up the chain to the clearing corporation). Ownership and corporate benefits remain with the client unless the pledge is invoked.</a></qa>
+<qa difficulty="hard"><q>A client pledges shares worth ₹6 lakh with a 25% haircut. What margin credit do they get, and how much cash is needed for a ₹5 lakh F&O margin requirement under the 50% cash rule?</q><a>Margin credit = ₹6 lakh × 0.75 = ₹4.5 lakh. At least 50% of the ₹5 lakh requirement (₹2.5 lakh) must be in cash or cash equivalents; the remaining ₹2.5 lakh can come from pledged collateral (₹4.5 lakh is available).</a></qa>
+<qa difficulty="hard"><q>How did the pledge and re-pledge system address the problem exposed by the Karvy case?</q><a>Karvy moved clients' shares into its own accounts using powers of attorney and pledged them for its own loans. Under the new system, shares stay in clients' accounts and can only be pledged with the client's OTP authorisation to the broker for margin purposes; brokers cannot use them for their own borrowing, and clients receive alerts for every pledge or invocation.</a></qa>
+<qa difficulty="medium"><q>What happens when a pledge is invoked?</q><a>The pledgee (broker or clearing corporation) takes the shares out of the client's account, typically to sell them and recover unpaid dues; the client loses those shares.</a></qa>
+<qa difficulty="hard"><q>What changed with SEBI's June 2025 circular on pledge and re-pledge?</q><a>It moved parts of the process, such as pledge release for pay-in and invocation-related flows, to automated depository functions under operating guidelines from NSDL and CDSL, reducing broker-driven manual steps. The original start date of September 2025 was extended, and the framework applied from 10 October 2025.</a></qa>
+<qa difficulty="medium"><q>Why can a client's margin credit fall even if share prices are unchanged?</q><a>The clearing corporation can raise haircuts (for example when volatility rises or a stock enters a surveillance category), reducing the collateral value of pledged shares and therefore margin credit.</a></qa>
+<source url="https://www.sebi.gov.in/legal/circulars/jun-2025/margin-obligations-to-be-given-by-way-of-pledge-re-pledge-in-the-depository-system_94363.html">SEBI circular: margin obligations by way of pledge and re-pledge in the depository system (June 2025)</source>
+<source url="https://www.business-standard.com/amp/markets/news/sebi-extends-deadline-for-margin-pledge-implementation-to-october-10-125081800717_1.html">Sebi extends deadline for margin pledge implementation to October 10 (Business Standard)</source>
+<source url="https://ksandk.com/md/corporate/sebi-automates-margin-pledge-and-invocation-process/">SEBI automates margin pledge and invocation process (King Stubb and Kasiva)</source>
+<source url="https://www.mstock.com/articles/new-pledge-and-repledge-system">New pledge and re-pledge system (m.Stock)</source>
+</topic>
+
+<topic id="529">
+<level>intermediate</level>
+<lesson>
+# Karvy Stock Broking case: POA misuse, SEBI orders and recovery of client securities
+
+## Core idea
+Karvy Stock Broking Ltd (KSBL), once one of India's largest brokers, used the powers of attorney (POAs) its clients had given it to move their shares into its own accounts and pledge them to banks and NBFCs for loans that it used for its own and group companies' purposes. When this was discovered in 2019, SEBI froze the arrangement and the depository returned the securities to clients, while lenders who had accepted the pledges were left to fight for recovery. The case transformed how brokers handle client securities.
+
+## How it works, step by step (what happened)
+1. **POA.** Clients signed POAs letting Karvy debit their demat accounts to deliver shares they sold. Karvy used them to transfer shares of clients (including those with no dues) to its own accounts.
+2. **Pledging.** Karvy pledged these shares with lenders as collateral for loans; reported borrowing against client shares was about ₹2,000 crore or more.
+3. **Rule change.** SEBI's June 2019 circular banned brokers from pledging client securities for their own borrowing and required segregation by September 2019. Karvy did not comply.
+4. **Discovery and interim order (22 November 2019).** After an NSE inspection, SEBI barred Karvy from taking new clients and froze the arrangement; NSDL was directed to act on the securities.
+5. **Return of securities.** In late 2019, NSDL transferred securities from the pool to tens of thousands of clients who had paid fully, overriding the pledges. SEBI rejected lenders' requests to invoke the pledges, holding that a broker had no authority to pledge fully paid clients' securities. SAT declined immediate relief to lenders.
+6. **Expulsion (November 2020).** NSE and then BSE declared Karvy a defaulter and expelled it.
+7. **Final order (28 April 2023).** SEBI banned Karvy and its promoter Comandur Parthasarathy from the securities market for seven years and imposed a penalty of about ₹21 crore.
+
+## Formulas and numbers (worked example)
+Illustration of the risk to lenders: a bank lent ₹500 crore to Karvy against pledged shares worth ₹750 crore (cover 1.5×). When SEBI ordered the shares returned to their true owners, the bank lost access to the collateral; its loan became an unsecured claim against an insolvent broker, with recovery possibly a small fraction of ₹500 crore.
+For a client with shares worth ₹10 lakh moved without consent: the shares were returned, so the client's loss was limited, unlike lenders, but clients with unpaid dues or funds held with Karvy faced claims processes.
+
+## India specifics
+- The case led to: the margin pledge and re-pledge system (2020), stricter segregation of client funds and securities, monthly and quarterly settlement of running accounts, and replacement of broad POAs with limited purpose arrangements (Demat Debit and Pledge Instruction, DDPI, from 2022).
+- Lenders including banks and NBFCs argued they had lent in good faith; regulators held that client ownership took priority.
+- Similar but smaller broker defaults followed, each reinforcing segregation rules.
+
+## Real examples and history
+- Karvy was a well-known name in broking, depository participant services and registrar work, which made the scandal a shock to investor trust.
+- Exchanges used investor protection funds to settle eligible claims of Karvy's clients for funds and securities not recovered.
+
+## Edge cases and common mistakes
+- **POA scope.** Broad POAs allowed misuse; DDPI limits use to specific purposes (delivery for sales, pledges for margin, mutual fund transactions and open offer tenders).
+- **Lenders' due diligence.** Lenders accepting securities from a broker should verify ownership; the case showed that pledges of client-owned shares may not be enforceable.
+- **Investor claims.** Clients with funds lying with the broker face a slower claims process than those whose securities were simply returned.
+- **Group company transfers.** Diverted money often moves to group companies, complicating recovery.
+
+## How traders, investors and quants use it
+- Investors choose brokers carefully, check monthly statements and depository alerts, and avoid leaving idle funds with brokers.
+- Lenders verify ownership before lending against securities.
+- Regulators and exchanges use the case to justify ongoing supervision of brokers' client accounts.
+
+## Related concepts
+Margin pledge system; segregation of client assets; investor protection funds; broker insolvency; DDPI; SEBI enforcement.
+</lesson>
+<qa difficulty="medium"><q>How did Karvy misuse client securities?</q><a>It used powers of attorney to transfer clients' shares (including those of fully paid clients) to its own accounts and pledged them to banks and NBFCs to raise loans for its own and group companies' use, without clients' consent.</a></qa>
+<qa difficulty="hard"><q>Why did SEBI and NSDL return the pledged shares to clients instead of letting lenders invoke the pledges?</q><a>The shares belonged to clients who had paid for them; Karvy had no authority to pledge fully paid clients' securities for its own loans. SEBI held that clients' ownership took priority, and SAT refused immediate relief to lenders, who were left with claims against Karvy.</a></qa>
+<qa difficulty="medium"><q>What penalty did SEBI impose in its April 2023 final order?</q><a>It barred Karvy Stock Broking and its promoter Comandur Parthasarathy from the securities market for seven years and imposed a penalty of about ₹21 crore.</a></qa>
+<qa difficulty="hard"><q>List three regulatory changes that followed the Karvy case.</q><a>(1) The margin pledge and re-pledge system (2020), keeping clients' shares in their own demat accounts. (2) Replacement of broad POAs with the Demat Debit and Pledge Instruction (DDPI) for limited purposes. (3) Stricter segregation and settlement of client funds and securities (including the June 2019 ban on pledging client securities for brokers' own borrowing).</a></qa>
+<qa difficulty="expert"><q>Why did lenders bear most of the loss in the Karvy case?</q><a>Their security (pledged shares) turned out to belong to Karvy's clients, not Karvy. Since Karvy lacked authority to pledge fully paid clients' shares, the pledges were treated as unenforceable against the owners, and the shares were returned. Lenders were left with unsecured claims against a defaulting broker, a lesson in verifying the ownership of collateral.</a></qa>
+<qa difficulty="medium"><q>What is a DDPI?</q><a>A Demat Debit and Pledge Instruction, introduced in 2022 to replace broad powers of attorney. It lets a broker debit or pledge a client's securities only for specified purposes, such as delivering shares the client sold, pledging for the client's margin, mutual fund transactions and tendering in open offers.</a></qa>
+<source url="https://www.businesstoday.in/amp/markets/top-story/story/sebi-bans-karvy-stock-broking-promoter-from-securities-mkt-for-7-yrs-imposes-rs-21-cr-penalty-379360-2023-04-28">SEBI bans Karvy Stock Broking and promoter for 7 years (Business Today)</source>
+<source url="https://indiacorplaw.in/2023/06/20/karvy-demat-case-how-has-sebi-responded/">Karvy demat case: how has SEBI responded? (IndiaCorpLaw)</source>
+<source url="https://www.business-standard.com/amp/article/pti-stories/after-nse-bse-declares-karvy-stock-broking-as-defaulter-expels-from-membership-120112500777_1.html">After NSE, BSE declares Karvy a defaulter (Business Standard)</source>
+<source url="https://www.bloombergquint.com/business/sebi-rejects-axis-banks-plea-in-karvy-stock-broking-matter">SEBI rejects Axis Bank's plea in Karvy matter (BloombergQuint)</source>
+<source url="https://cbcl.nliu.ac.in/capital-markets-and-securities-law/the-curious-case-of-karvy-sebis-tale-of-investor-protection/">The curious case of Karvy: SEBI's tale of investor protection (CBCL, NLIU)</source>
+</topic>
