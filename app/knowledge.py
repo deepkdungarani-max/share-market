@@ -26,7 +26,9 @@ from .teacher import ALL_WRITERS, help_models, study_scores, write
 
 PAUSE = int(os.environ.get("CANDLECAST_LEARN_PAUSE", "20"))  # seconds between topics; raise it to use less of the Pro quota
 LIMIT_WAIT = 30 * 60       # seconds to wait when Claude's usage limit is hit
-MAX_DEPTH = 8              # topics this deep don't propose further subtopics
+# Topics this deep don't propose further subtopics. start_fast.bat sets 1: the lessons stop adding topics, so the
+# learners work through the queue instead of growing it ~4x faster than they learn.
+MAX_DEPTH = int(os.environ.get("CANDLECAST_MAX_DEPTH", "8"))
 MAX_ATTEMPTS = 3
 LESSON_TIMEOUT = 25 * 60   # seconds for one lesson: the thinking models research for 5-15 minutes
 
