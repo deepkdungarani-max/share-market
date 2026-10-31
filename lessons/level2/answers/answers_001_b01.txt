@@ -1,0 +1,353 @@
+<topic id="136">
+<level>expert</level>
+<lesson>
+# Corporate action adjustment factors for historical price data and point-in-time databases
+
+## Core idea
+A raw price series jumps on every ex-date: a 1:1 bonus halves the price overnight, a dividend knocks off the payout, a rights issue or demerger removes part of the value. None of these are real losses for a holder, but a model fed raw prices sees a crash. Adjustment factors put every historical price on a common basis so that returns computed from the series match what a holder actually earned. A point-in-time (PIT) database goes one step further: it stores what was known on each date, so a backtest on 3 March 2019 sees only the data and events that existed on 3 March 2019.
+
+## How it works, step by step
+1. **Keep raw data untouched.** Store unadjusted OHLC, volume and shares outstanding exactly as the exchange printed them (NSE bhavcopy prices are unadjusted).
+2. **Keep an event table.** One row per corporate action: security id, type (split, bonus, rights, dividend, demerger, merger, consolidation), ratio or amount, announcement date, record date, ex-date, and the timestamp you learned of it.
+3. **Compute a single-event factor f on each ex-date.** Use the last cum price P (close of the day before the ex-date):
+   - Split from face value X to Y: f = X / Y.
+   - Bonus A:B (A new shares for every B held): f = (A + B) / B.
+   - Rights A:B at issue price S: theoretical ex-rights price TERP = (B·P + A·S) / (A + B); f = P / TERP.
+   - Cash dividend D (for a total-return series only): f = P / (P − D).
+   - Demerger: f = P / (P − V), where V is the value per share of the entity spun off, ideally discovered in the market.
+4. **Chain the factors.** The cumulative factor on date t is the product of every f with ex-date after t (backward adjustment). Adjusted price = raw price / cumulative factor; adjusted volume = raw volume × cumulative factor.
+5. **Choose the anchor.** Backward adjustment anchors on today, so every past adjusted price changes whenever a new event happens. Forward adjustment anchors on the first date: adjusted price = raw × product of factors up to and including t, and past values never change. Returns are identical either way; only the level differs.
+6. **Build the series as of the backtest date.** In a PIT system you compute factors only from events known by that date, rather than reading a vendor's adjusted file downloaded today.
+
+## Formulas and numbers (worked example)
+A stock closes at ₹1,000 on the last cum date and goes ex-bonus 1:1. Ex-date close: ₹505.
+- f_bonus = (1 + 1)/1 = 2. A month earlier the raw close was ₹800; adjusted = 800/2 = ₹400.
+- Raw return across the ex-date: 505/1000 − 1 = −49.5%. Adjusted return: 505/(1000/2) − 1 = +1.0%, which is the true move.
+
+Later the stock pays a ₹10 dividend when the cum price is ₹500: f_div = 500/490 = 1.020408. The total-return cumulative factor before both events is 2 × 1.020408 = 2.040816, so the ₹800 print becomes 800/2.040816 = ₹392.00 on a total-return basis.
+
+Rights 1:4 at ₹300 with P = ₹500: TERP = (4×500 + 1×300)/5 = ₹460, f = 500/460 = 1.086957. NSE's F&O method gives the same number from the other side: benefit per share E = (500 − 300)×1/5 = ₹40, factor (P − E)/P = 0.92 = 1/1.086957.
+
+## India specifics
+- NSE and BSE publish the corporate-action calendar (ex-date, record date, purpose) for every security. NSE bhavcopy prices stay raw, so any adjusted series is your own (or a vendor's) construction.
+- Under T+1 settlement (fully live from 27 January 2023), the ex-date and the record date are normally the same day, so the factor applies from the record date's open.
+- When face value changes on a split, the ISIN changes too (HDFC Bank's ₹2 to ₹1 split in September 2019 moved it to a new ISIN). Key your database on an internal permanent id, not on symbol or ISIN.
+- Mergers end a series: HDFC Ltd was merged into HDFC Bank in July 2023 at 42 HDFC Bank shares for every 25 HDFC shares, and HDFC Ltd was delisted. A PIT universe must keep HDFC Ltd until its last trading day and record the swap ratio, otherwise backtests suffer survivorship bias.
+- Demergers are the hardest case: when Reliance demerged Jio Financial Services in July 2023, NSE ran a special pre-open session on the ex-date to discover the value of the remaining Reliance share; that discovered price is the right input for V.
+
+## Real examples and history
+- CRSP, the standard US research database, ships raw prices with a cumulative factor to adjust price (CFACPR) and one for shares (CFACSHR); adjusted price is price divided by the factor on that date, and the factors are anchored on a base date. CRSP leaves adjusted values missing where a trading gap means split events are unknown, a useful design choice: a missing value is better than a silently wrong one.
+- Retail data sources usually publish backward-adjusted "adjusted close" columns. Because they are re-anchored every time a new split or dividend arrives, a file downloaded in 2026 shows different 2018 prices from a file downloaded in 2019. Researchers have documented that this backward anchoring makes past adjusted values depend on future events.
+- Wipro's 1:3 bonus (March 2019), HDFC Bank's 2:1 split (September 2019) and Reliance's 1:1 bonus (October 2024) are standard Indian test cases: a correct engine shows no jump on those ex-dates.
+
+## Edge cases and common mistakes
+- **Dividing volume instead of multiplying it.** After a 1:1 bonus twice as many shares trade, so old volume must be multiplied by 2 to compare.
+- **Using adjusted prices for execution.** Tick size, price bands, lot sizes and brokerage depend on the raw price. Use adjusted prices for signals and raw prices for orders.
+- **Mixing price-only and total-return adjustment.** Momentum and volatility signals usually use total-return series; a level-based rule ("price above ₹100") must use raw prices.
+- **Using the record date or announcement date as the ex-date.** The factor belongs on the ex-date. The announcement date matters separately, as the moment the information became tradable.
+- **Cancelled or revised events.** A board can propose a split that shareholders reject. Store the event with its status history, and never apply an unconfirmed factor.
+- **Partly paid rights shares** and **fractional entitlements**: use the issue price actually payable and the exchange's own factor when one is published.
+- **Floating-point drift.** Chaining hundreds of factors in single precision introduces visible errors; store factors as high-precision decimals.
+- **Symbol changes.** A renamed company can look like a delisting plus a new listing. Map old and new symbols to one permanent id.
+
+## How traders, investors and quants use it
+- Quants compute returns, volatility, beta and momentum from the total-return adjusted series and size orders from raw prices.
+- Backtest engines rebuild adjusted history as of each simulated date, so results stay reproducible and free of look-ahead.
+- Event-driven traders keep the announcement timestamp, because a signal that trades on a bonus announcement must only use information public at that minute.
+- Index providers handle the same problem with divisor changes: the index level stays continuous while constituent prices jump.
+
+## Related concepts
+Survivorship bias; look-ahead bias; total-return indices; security master and permanent identifiers; theoretical ex-rights price; NSE F&O corporate-action adjustments; T+1 settlement and record dates; index divisor maintenance.
+</lesson>
+<qa difficulty="hard"><q>A stock closed at ₹1,200 on the last cum date and goes ex-split from face value ₹10 to ₹2 the next day. A year earlier it traded at ₹900 with daily volume of 40,000 shares. What are the split-adjusted price and volume for that day?</q><a>Split factor f = 10/2 = 5. Adjusted price = 900/5 = ₹180. Adjusted volume = 40,000 × 5 = 200,000 shares. Price is divided and volume is multiplied, so traded value (₹3.6 crore) is unchanged.</a></qa>
+<qa difficulty="expert"><q>Why does a backward-adjusted "adjusted close" series create look-ahead bias in a backtest, even though returns computed from it are correct?</q><a>Backward adjustment anchors on the latest date, so every historical level embeds all events up to today. A rule that uses price levels (for example "buy below ₹200", position sizing by price, or comparing a price to a fixed threshold) then reacts to splits and dividends that had not happened at the simulated date. The series also changes after every new event, so the same backtest run in two different years gives different results. The fix is to keep raw prices and compute factors only from events known at the simulated date, or to anchor forward on the first date.</a></qa>
+<qa difficulty="hard"><q>A 1:5 rights issue is priced at ₹150 when the last cum price is ₹240. Compute TERP, the price adjustment factor, and the adjusted value of a ₹210 print from before the ex-date.</q><a>TERP = (5×240 + 1×150)/6 = (1,200 + 150)/6 = ₹225. Factor f = P/TERP = 240/225 = 1.066667. Adjusted earlier price = 210/1.066667 = ₹196.88. Equivalently, benefit per share E = (240 − 150)×1/6 = ₹15 and (P − E)/P = 225/240 = 0.9375, and 210 × 0.9375 = ₹196.88.</a></qa>
+<qa difficulty="expert"><q>Your PIT database tracks HDFC Ltd and HDFC Bank. How should the July 2023 merger be represented so that a backtest of 2020–2024 has no survivorship bias and no false return?</q><a>Keep HDFC Ltd as its own security with its full raw history until its last trading day, then record a merger event with the swap ratio (42 HDFC Bank shares for every 25 HDFC Ltd shares). A backtest holding HDFC Ltd converts the position into 1.68 HDFC Bank shares per HDFC share on the effective date and continues in HDFC Bank. HDFC Ltd must also remain in historical index-membership tables for the dates it was a constituent. Dropping HDFC Ltd from the universe (survivorship bias), or splicing its prices into HDFC Bank's series (false return), are both errors.</a></qa>
+<qa difficulty="hard"><q>Should a momentum signal use a price-only adjusted series or a total-return adjusted series? Give a numeric reason.</q><a>A total-return series. Take two stocks that both rise 10% in price over a year, one with a 6% dividend yield and one with none. Holders of the first earned about 16% and holders of the second earned 10%, yet a price-only series ranks them equally and understates the dividend payer's return every ex-date. For a high-yield PSU stock paying 5–7% a year, the price-only series also shows false drops on ex-dates that can trigger stop or trend rules.</a></qa>
+<qa difficulty="expert"><q>On a demerger ex-date, the parent's last cum close is ₹2,841.85 and the special pre-open session discovers the parent at ₹2,580. What is the implied value of the demerged business per parent share, and what factor applies to the parent's history?</q><a>Implied value V = 2,841.85 − 2,580 = ₹261.85 per parent share (these are the reported figures for Reliance and Jio Financial in July 2023). Factor f = P/(P − V) = 2,841.85/2,580 = 1.10149. Earlier parent prices are divided by 1.10149 so that the parent's return series has no artificial −9.2% drop (261.85/2,841.85). A holder's total return also needs the new shares of the demerged company, valued from their own listing.</a></qa>
+<source url="https://crsp.org/wp-content/uploads/guides/CRSP_Calculations_and_Index_Methodologies.pdf">CRSP Calculations and Index Methodologies guide</source>
+<source url="https://portfoliooptimizer.io/blog/adjusted-prices-without-look-ahead-bias/">Adjusted Prices Without Look-Ahead Bias (Portfolio Optimizer blog)</source>
+<source url="https://site.financialmodelingprep.com/insights/enterprise/how-corporate-actions-distort-backtests-and-how-to-correct-for-them">How corporate actions distort backtests and how to correct for them (FMP)</source>
+<source url="https://www.nseindia.com/static/products-services/equity-derivatives-corporate-actions-adjustments">NSE: Equity derivatives corporate actions adjustments</source>
+<source url="https://tradingqna.com/t/hdfc-bank-goes-ex-split-in-the-ratio-2-1-on-september-19-2019-here-s-how-it-impacts-your-equity-holdings-and-f-o-positions/63025">HDFC Bank goes ex-split 2:1 on 19 September 2019 (TradingQnA)</source>
+<source url="https://www.businesstoday.in/markets/company-stock/story/ril-share-price-settles-at-rs-2580-in-special-pre-open-session-jio-financial-at-rs-26185-390530-2023-07-20">RIL settles at Rs 2,580 in special pre-open session, Jio Financial at Rs 261.85 (Business Today)</source>
+</topic>
+
+<topic id="137">
+<level>advanced</level>
+<lesson>
+# NSE F&O corporate action adjustment methodology: splits, bonus, rights, dividends, mergers
+
+## Core idea
+When the underlying stock of a futures or options contract has a corporate action, the contract must be changed so that the economic value of every open position is the same just before and just after the event. NSE Clearing does this by changing three numbers: the strike price, the futures base price and the market lot. The number of contracts held does not change. The rules come from SEBI's framework, and NSE publishes the method and a circular for each individual case.
+
+## How it works, step by step
+1. **Which events are adjusted.** Bonus, stock splits, consolidations, rights issues, mergers and amalgamations, demergers (hive-offs), and extraordinary dividends. Ordinary dividends are not adjusted.
+2. **When.** The adjustment is done after trading closes on the last cum date (the day before the ex-date), using that day's closing price where a price is needed. Positions open the next morning in the adjusted contracts.
+3. **Compute an adjustment factor (AF).**
+   - Bonus A:B (A new for every B held): AF = (A + B)/B.
+   - Split from face value X to Y: AF = X/Y. Consolidation is the inverse.
+   - New strike = old strike / AF; new lot = old lot × AF; futures base price / AF.
+   - Rights A:B at issue price S, last cum close P: benefit per entitlement C = (P − S) × A; benefit per share E = C/(A + B); AF = (P − E)/P. Here the strike is multiplied by AF and the lot is divided by AF.
+4. **Round.** Adjusted strikes and futures prices are rounded to the nearest tick; the lot is rounded to the nearest whole number. Where a ratio would create awkward fractions, NSE's methodology page describes an alternative that minimises fractional settlement.
+5. **Extraordinary dividends.** A dividend of 2% or more of the stock's market value counts as extraordinary (threshold applied since June 2022). Strike prices and the futures price are reduced by the dividend amount; the lot size stays the same.
+6. **Mergers and demergers.** For a demerger, the value of the spun-off part is taken out of the parent's contracts, using the price discovered on the ex-date. When an underlying ceases to exist in a merger, NSE issues a specific circular on how and when its contracts end. Read the circular for each case rather than assuming a formula.
+
+## Formulas and numbers (worked example)
+**Bonus.** Wipro went ex-bonus 1:3 in March 2019. AF = (1 + 3)/3 = 1.3333. A 380 CE with lot 2,400 became 380/1.3333 = 285 CE with lot 2,400 × 1.3333 = 3,200. Position value: 2,400 × 380 = ₹9.12 lakh of strike exposure before; 3,200 × 285 = ₹9.12 lakh after.
+
+**Bonus with rounding.** CONCOR 1:4 bonus (February 2019): AF = 5/4 = 1.25. 660 CE became 528 CE; lot 1,250 × 1.25 = 1,562.5, rounded to 1,563.
+
+**Split.** HDFC Bank, face value ₹2 to ₹1 (September 2019): AF = 2. A 2,200 strike became 1,100 and lot 250 became 500.
+
+**Rights.** For Reliance's 2020 rights issue NSE published AF = 0.990610. A 1,400 CE became 1,400 × 0.990610 = 1,386.854, rounded to 1,386.85 CE; the lot of 500 became 500/0.990610 = 504.7, rounded to 505.
+
+**Extraordinary dividend.** A stock trades at ₹600 and declares ₹15 (2.5%, so above the 2% test). A 600 CE becomes 585 CE; the futures price falls by ₹15; the lot is unchanged. A ₹10 dividend (1.67%) gets no adjustment, and option prices simply reflect the expected drop.
+
+## India specifics
+- SEBI set the dividend threshold at 5% in its 2018 review, and lowered it to 2% in June 2022. Before 2018, only dividends of 10% or more of market value were treated as extraordinary.
+- Adjustment notices come from NSE Clearing as circulars named "Adjustment of Futures and Options contracts in the security …", listing the new strikes, lot and factor.
+- The underlying close used is the cash market close on the last cum date. For rights, NSE has used a weighted average issue price when fully and partly paid shares were issued together.
+- Index options (Nifty, Bank Nifty) are not adjusted for constituents' corporate actions; the index provider adjusts the index divisor instead.
+
+## Real examples and history
+- Wipro (1:3 bonus, 2019), NTPC (1:5 bonus, 2019), CONCOR (1:4 bonus, 2019), HDFC Bank (2:1 split, 2019), Reliance (rights 2020; 1:1 bonus October 2024; demerger of Jio Financial July 2023).
+- Extraordinary dividend adjustments have become frequent since the 2% threshold, especially in high-yield PSU stocks: public notices for Bank of Baroda (2024), ONGC, Bank of India and IOC (2025) describe strike reductions equal to the dividend.
+
+## Edge cases and common mistakes
+- **Assuming the strike divides for rights.** For rights the strike is multiplied by AF (which is below 1), and the lot is divided by AF.
+- **Rounding changes value slightly.** A lot rounded from 1,562.5 to 1,563 changes exposure by a few rupees per contract; nobody is compensated for this.
+- **Non-standard strikes after adjustment.** Adjusted strikes (285, 1,386.85) sit off the normal strike grid. New series are introduced at standard intervals, and liquidity often moves to them, so adjusted strikes can become illiquid.
+- **Option pricing models around dividends.** Below the 2% threshold, the full dividend is in option prices (calls cheaper, puts dearer). Above it, the adjustment removes the dividend effect, so models must know which regime applies.
+- **Margin and position limits.** After adjustment, quantity in shares changes, so market-wide position limits and client limits are recomputed.
+- **Physical settlement.** Stock F&O in India settles physically; after a bonus the delivery quantity follows the new lot.
+
+## How traders, investors and quants use it
+- Option sellers holding positions over an ex-date check the circular to confirm strikes and lots, and adjust hedges, because delta per contract changes with the lot.
+- Quants who build historical option-chain databases must apply the same factors, or implied volatility and Greeks jump on ex-dates.
+- Dividend traders use the 2% test to decide whether a dividend is "priced in" to options or will be adjusted away.
+
+## Related concepts
+Theoretical ex-rights price; record date and ex-date under T+1; physical settlement of stock derivatives; market-wide position limits; dividend effect on put-call parity; index divisor adjustments.
+</lesson>
+<qa difficulty="hard"><q>A stock with lot size 1,100 announces a 2:5 bonus (2 new shares for every 5 held). What happens to a 450 PE position of 3 lots?</q><a>AF = (2 + 5)/5 = 1.4. New strike = 450/1.4 = 321.43, rounded to the nearest tick (321.45 with a ₹0.05 tick). New lot = 1,100 × 1.4 = 1,540. The trader still holds 3 lots, now of 1,540 shares each (4,620 shares), at strike about 321.45. Strike exposure stays at about 3 × 1,100 × 450 = ₹14.85 lakh, before rounding.</a></qa>
+<qa difficulty="expert"><q>A 1:10 rights issue is priced at ₹800 while the last cum close is ₹1,020. The lot is 250. Compute E, AF, and the new strike and lot for a 1,000 CE.</q><a>C = (1,020 − 800) × 1 = ₹220 per entitlement. E = 220/(1 + 10) = ₹20 per share. AF = (1,020 − 20)/1,020 = 0.980392. New strike = 1,000 × 0.980392 = 980.39, rounded to the tick (980.40). New lot = 250/0.980392 = 255.0. For rights the strike is multiplied and the lot divided by AF, the reverse of a bonus.</a></qa>
+<qa difficulty="hard"><q>Stock at ₹400 declares a ₹9 dividend. Is the F&O contract adjusted, and how does the answer change for a ₹7 dividend?</q><a>₹9/₹400 = 2.25%, which is 2% or more, so it is extraordinary: strikes and the futures price are cut by ₹9 and the lot stays the same. ₹7/₹400 = 1.75% is below 2%, so nothing is adjusted; the futures price and option premiums already reflect the expected ₹7 drop.</a></qa>
+<qa difficulty="expert"><q>Why are Nifty 50 options not adjusted when a Nifty constituent declares a 1:1 bonus?</q><a>The index level does not change because of a constituent's bonus. The index provider changes the constituent's share count and adjusts the divisor (or the index uses free-float market cap, which is unchanged), so the index is continuous across the ex-date. Since the underlying level has no artificial jump, index options and futures need no adjustment.</a></qa>
+<qa difficulty="hard"><q>After Wipro's 1:3 bonus, a trader's 380 CE became a 285 CE, a strike that is not on the normal strike grid. Why does such a contract often become illiquid, and what can the trader do?</q><a>Market makers and most traders quote the standard strikes, and new series are introduced only at standard intervals, so off-grid adjusted strikes attract little fresh interest and their bid-ask spreads widen. The trader can hold the adjusted contract to expiry (it still settles normally), or close it while some liquidity remains and re-establish the position or hedge in the nearest liquid standard strike, accounting for the different strike and lot.</a></qa>
+<qa difficulty="expert"><q>Before a 2% extraordinary-dividend adjustment, a call writer expected to benefit from the ex-date drop. Explain who gains or loses from the adjustment and why SEBI adjusts large dividends at all.</q><a>Without adjustment, a large dividend lowers the stock price on the ex-date, which hurts call holders and helps put holders and call writers. If the dividend is known in advance, premiums reflect it, but large special dividends are often announced after positions are opened, transferring value unexpectedly. Adjusting strikes by the dividend amount keeps the position's moneyness unchanged, so neither side gains from an event they could not price. Below 2%, dividends are treated as normal and priced in.</a></qa>
+<source url="https://www.nseindia.com/static/products-services/equity-derivatives-corporate-actions-adjustments">NSE: Equity derivatives corporate actions adjustments</source>
+<source url="https://nsearchives.nseindia.com/content/circulars/FAOP36467.pdf">NSE circular on F&O adjustment for a bonus issue</source>
+<source url="https://zerodha.com/marketintel/bulletin/254966/adjustment-of-futures-and-options-contracts-of-reliance">Adjustment of futures and options contracts of Reliance (Zerodha bulletin, May 2020)</source>
+<source url="https://tradingqna.com/t/wipro-goes-ex-bonus-in-the-ratio-1-3-on-march-06-2019-here-s-how-it-impacts-your-equity-holdings-and-f-o-positions/55252">Wipro goes ex-bonus 1:3 on 6 March 2019 (TradingQnA)</source>
+<source url="https://www.business-standard.com/amp/article/markets/sebi-revises-threshold-for-adjustment-in-derivative-contracts-post-dividend-122062801014_1.html">Sebi revises threshold for adjustment in derivative contracts post dividend (Business Standard, June 2022)</source>
+<source url="https://help.indiainfoline.com/portal/en/kb/articles/how-do-specific-corporate-actions-impact-f-o">How do specific corporate actions impact F&O? (IIFL)</source>
+</topic>
+
+<topic id="138">
+<level>advanced</level>
+<lesson>
+# Empirical event studies of stock splits: announcement returns and post-split drift
+
+## Core idea
+A stock split changes nothing about a company's cash flows, so in a frictionless market it should not change its value. Yet decades of studies find that prices rise when splits are announced, and some find they keep drifting upward for a year afterwards. Researchers use event studies to measure these effects, and the debate is about why they happen: managers signalling confidence (signalling), a lower price making the stock easier to trade (liquidity and trading range), or investors underreacting (behavioural). Indian evidence on splits and bonus issues is mixed.
+
+## How it works, step by step
+An event study measures returns beyond what a benchmark predicts, around a known date.
+1. **Define the event date** (day 0): the announcement, ideally the minute the board outcome reached the exchange. If the outcome comes after market hours, day 0 is the next trading day.
+2. **Estimation window.** For example days −250 to −30. Fit a market model R_i = α + β·R_m + ε, using Nifty or a broad index as R_m.
+3. **Event window.** For example days −1 to +1. Abnormal return AR_t = R_i,t − (α̂ + β̂·R_m,t).
+4. **Cumulate.** CAR = sum of ARs over the window; average across firms for CAAR.
+5. **Test.** t = CAAR / (standard deviation of CARs / √N), or standardised tests (Patell; Boehmer-Musumeci-Poulsen) that also handle event-induced volatility.
+6. **Long-run drift.** Use buy-and-hold abnormal returns (BHAR) against size and book-to-market matched firms, or calendar-time portfolios that regress the monthly returns of all recent splitters on factor models. Calendar-time methods handle overlapping events, which inflate naive t-statistics.
+
+## Formulas and numbers (worked example)
+A firm with α̂ = 0.02% and β̂ = 1.1 announces a split. On day 0 the market rises 0.5% and the stock 3.2%.
+- Expected return = 0.02% + 1.1 × 0.5% = 0.57%. AR_0 = 3.2% − 0.57% = 2.63%.
+- With AR_−1 = 0.40% and AR_+1 = 0.90%, CAR(−1,+1) = 3.93%.
+- For one firm with daily residual standard deviation 1.8%, t = 3.93/(1.8 × √3) = 1.26: not significant.
+- Across 120 splits with mean CAR 2.5% and cross-sectional standard deviation 6%: t = 2.5/(6/√120) = 4.56, which is highly significant.
+
+## India specifics
+- Indian companies announce splits and bonus issues after board meetings. Prior intimation of the board meeting under SEBI LODR Regulation 29 makes some of the news public early, so part of the reaction happens before day 0.
+- Bonus issues are far more common in India than in the US, and both splits and bonuses usually come with a reduction in nominal price. Indian studies therefore look at both.
+- Results reported in Indian studies differ. A 1999–2019 study found significant positive returns around split announcements. A 2011 study found reactions to splits but not to bonus issues. A pandemic-period study found bonus announcements significant and splits and rights insignificant. An NSE-hosted research project found significant positive abnormal returns on the day after split announcements, followed by negative returns, and only insignificant excess returns over longer horizons. Another study found positive reactions on bonus announcement and ex-dates followed by negative returns after the ex-date, which its authors linked to bonus stripping.
+- Thin trading in small Indian stocks biases ordinary betas downward; Scholes-Williams or Dimson betas, or a matched-portfolio benchmark, are safer.
+
+## Real examples and history
+- **Fama, Fisher, Jensen and Roll (1969)** invented the modern event study using US splits. They found large abnormal returns in the months before splits (firms split after strong performance) and no abnormal returns afterwards once dividend changes were accounted for: their evidence for market efficiency.
+- **Grinblatt, Masulis and Titman (1984)** found an announcement return of roughly 3% for splits and stock dividends, even with no other news, supporting signalling.
+- **Ikenberry, Rankine and Stice (1996)** studied NYSE/AMEX 2-for-1 splits from 1975 to 1990: about 3.4% around the announcement, then excess returns of about 8% in the first year and 12% over three years after the split, interpreted as underreaction.
+- **Desai and Jain (1997)** found a similar positive one-year drift after splits and a negative drift after reverse splits.
+- **Byun and Rozeff (2003)**, using splits from 1927 to 1996 and careful benchmarks and weighting, found the long-run drift was not robust.
+- Later work suggests that what drift exists may occur over a shorter window and may reflect market frictions rather than behavioural bias.
+- Liquidity evidence is mixed: Copeland (1979) found proportionally lower volume and higher spreads after splits, while studies of retail participation find more small investors. Volatility rises after splits (Ohlson and Penman, 1985).
+
+## Edge cases and common mistakes
+- **Selection bias.** Firms split after big run-ups. The pre-event abnormal returns are not caused by the split.
+- **Confounding news.** Splits are often announced with results or dividends. Remove firms with same-day earnings, or control for them.
+- **Event clustering.** Many splits happen in bull markets, so events overlap in calendar time, and cross-sectional independence fails. Calendar-time portfolios fix this.
+- **Bad-model problem.** Long-run BHARs are sensitive to the benchmark; a small error in expected return compounds over 36 months.
+- **Using the ex-date as day 0.** The ex-date is when the share count changes, not when news arrives. Ex-date effects (a small positive return is documented in the US) are a separate question.
+- **Price adjustment errors.** If the return series is not adjusted for the split, the ex-date shows a fake −50%.
+
+## How traders, investors and quants use it
+- Event-driven traders buy on split or bonus announcements only when other information supports the stock; the average announcement effect is small and mostly realised on day 0 and day +1.
+- Quants test "corporate action" features (recent split, bonus, low nominal price) and must use calendar-time methods and point-in-time data to avoid false discoveries.
+- Investors should treat a split or bonus as neutral to value. Any post-split drift found in old samples has weakened as markets became more efficient.
+
+## Related concepts
+Market model and CAPM; buy-and-hold abnormal returns; calendar-time portfolios; signalling theory; optimal trading range; bonus stripping; corporate action price adjustment; post-earnings announcement drift.
+</lesson>
+<qa difficulty="hard"><q>A stock with β̂ = 0.8 and α̂ = 0 rises 4.0% on a split announcement day when Nifty falls 1.0%. What is the abnormal return, and why would a raw-return study understate it?</q><a>Expected return = 0.8 × (−1.0%) = −0.8%. AR = 4.0% − (−0.8%) = 4.8%. A raw-return study counts only 4.0% and ignores that the market environment predicted a fall, understating the reaction by 0.8 percentage points.</a></qa>
+<qa difficulty="expert"><q>Why are calendar-time portfolio regressions preferred over average 3-year BHARs to test post-split drift?</q><a>Split announcements cluster in time (bull markets), so firms' long-horizon returns overlap and are correlated; BHAR t-statistics that assume independence are overstated. Long-run BHARs are also skewed and very sensitive to the benchmark. A calendar-time approach forms each month a portfolio of all firms that split in the previous 12 or 36 months and regresses its monthly excess return on a factor model; the intercept (alpha) measures drift, and the standard error naturally reflects cross-correlation. Byun and Rozeff's finding that drift was not robust came from this kind of careful methodology.</a></qa>
+<qa difficulty="hard"><q>A board meeting to consider a bonus issue is intimated to NSE 5 working days ahead, and the stock rises 6% in those days. The bonus announcement day shows AR = 0.5%. What should a researcher conclude?</q><a>Most of the reaction happened when the meeting intimation became public, not on day 0. Using only the announcement day understates the effect. The event window should start at the intimation date, or the study should report both the intimation and announcement reactions separately. Leakage or anticipation is common when the meeting purpose is disclosed in advance.</a></qa>
+<qa difficulty="expert"><q>Explain the signalling, liquidity and trading-range explanations of split announcement returns, and the evidence that distinguishes them.</q><a>Signalling: managers split only when confident that the price will stay high, so the split conveys good private information; support comes from positive announcement returns and subsequent earnings improvements. Liquidity: a lower price lowers trading costs and broadens ownership; but Copeland (1979) found higher proportional spreads and lower relative volume after splits, contrary to a pure liquidity benefit. Trading range: firms split to bring the price back to a typical range; this explains which firms split, not why value rises. The pattern of positive announcement returns with mixed liquidity changes favours signalling as the main source of the announcement effect.</a></qa>
+<qa difficulty="hard"><q>A study of 80 Indian bonus issues reports CAAR(0,+1) = 1.8% with a cross-sectional standard deviation of CAR of 7%. Is the result significant at 5%?</q><a>Standard error = 7%/√80 = 0.783%. t = 1.8/0.783 = 2.30, above 1.96, so it is significant at 5% (two-tailed), assuming independent events. If many announcements fall in the same weeks, the true standard error is larger and the result may not be significant.</a></qa>
+<qa difficulty="expert"><q>Why do some Indian studies find a positive return on the bonus ex-date followed by negative returns after it, and how does tax law relate to this?</q><a>One explanation is bonus stripping: investors buy before the record date, receive bonus shares, sell the original shares at a loss after the price falls ex-bonus, and keep the bonus shares (cost zero) for a later long-term gain. The buying pressure lifts the price around the ex-date and the selling depresses it afterwards. Section 94(8) of the Income-tax Act 1961 was extended in 2022 to shares (earlier mutual fund units only): losses on original units bought within 3 months before the record date and sold within 9 months after it are disallowed and added to the cost of the bonus units, reducing this incentive.</a></qa>
+<source url="https://archives.nseindia.com/research/content/RP_12_Jan2014.pdf">NSE research project on stock split announcements (RP 12, January 2014)</source>
+<source url="https://businessperspectives.org/journals/investment-management-and-financial-innovations/issue-360/impact-of-splits-on-stock-splits-ratios-around-announcement-day-empirical-evidence-from-india">Impact of splits around announcement day: empirical evidence from India (Investment Management and Financial Innovations)</source>
+<source url="https://www.iupindia.in/111/IJAF_Market_Reaction_to_Bonus_Issues_54.html">Market reaction to bonus issues (IUP Journal of Applied Finance)</source>
+</topic>
+
+<topic id="139">
+<level>advanced</level>
+<lesson>
+# Companies Act 2013 Sections 61, 63, 64 and 14: alteration of capital, bonus and Articles amendments
+
+## Core idea
+A company's share capital is fixed in its Memorandum of Association (MoA), and its powers to change capital sit in its Articles of Association (AoA). Four sections of the Companies Act 2013 work together when a company splits shares, consolidates them, raises authorised capital or issues bonus shares: section 61 (what can be altered), section 63 (bonus shares), section 64 (telling the Registrar of Companies) and section 14 (changing the Articles when they don't give the power). Listed companies also follow SEBI's ICDR and LODR rules.
+
+## How it works, step by step
+**Section 61(1)** lets a limited company having share capital, if authorised by its Articles, alter the capital clause of its Memorandum in general meeting to:
+- (a) increase its authorised share capital;
+- (b) consolidate and divide shares into shares of a larger amount (a reverse split). If consolidation changes the voting percentage of shareholders, it needs approval of the National Company Law Tribunal;
+- (c) convert fully paid shares into stock, and back;
+- (d) sub-divide shares into smaller amounts (a split), keeping the same proportion of paid and unpaid amount;
+- (e) cancel shares not taken up and reduce the authorised capital by that amount.
+Section 61(2) says cancelling unissued shares is not a reduction of share capital, which is why it does not need the Tribunal process of section 66. These alterations are done by ordinary resolution unless the Articles require a special one.
+
+**Section 63 (bonus shares).** A company may issue fully paid bonus shares out of (i) free reserves, (ii) the securities premium account, or (iii) the capital redemption reserve. Reserves created by revaluation of assets cannot be used. Conditions: it is authorised by the Articles; it is approved in general meeting on the Board's recommendation; the company has not defaulted on interest or principal of fixed deposits or debt securities; it has not defaulted on statutory dues to employees such as provident fund, gratuity and bonus; partly paid shares are made fully paid; and other prescribed conditions are met. Bonus shares cannot be issued in lieu of dividend. Under Rule 14 of the Companies (Share Capital and Debentures) Rules 2014, once the Board has announced a bonus issue it cannot withdraw it.
+
+**Section 64 (notice to Registrar).** When a company alters its capital under section 61(1), it must file Form SH-7 with the Registrar within 30 days, with the altered Memorandum. Failure attracts a penalty of ₹500 per day of default, up to ₹5 lakh for the company and ₹1 lakh for each officer in default (after the 2020 amendments decriminalised it).
+
+**Section 14 (alteration of Articles).** A company may alter its Articles by special resolution (at least 75% of votes cast). If the Articles do not authorise a capital alteration or bonus issue, the company first passes a special resolution to amend them. Special resolutions must be filed with the Registrar in Form MGT-14 within 30 days (section 117).
+
+## Formulas and numbers (worked example)
+A company has authorised capital ₹10 crore (1 crore shares of ₹10) and issued capital ₹8 crore (80 lakh shares of ₹10). It plans a split from ₹10 to ₹2 and then a 1:1 bonus.
+1. Split: 80 lakh × 5 = 4 crore shares of ₹2; issued capital stays ₹8 crore. Authorised becomes 5 crore shares of ₹2.
+2. Bonus 1:1: 4 crore new shares of ₹2 = ₹8 crore to capitalise. Issued capital becomes ₹16 crore, which exceeds authorised capital of ₹10 crore.
+3. So authorised capital must first rise to at least ₹16 crore (for example to ₹20 crore = 10 crore shares of ₹2) under section 61(1)(a).
+4. Reserves needed: ₹8 crore from free reserves, securities premium or capital redemption reserve. Accounting entry: debit reserves ₹8 crore, credit equity share capital ₹8 crore. Net worth is unchanged.
+5. Filings: SH-7 within 30 days for the increase and sub-division; MGT-14 within 30 days for any special resolution, including an Articles amendment.
+6. Earnings per share for all periods shown is restated for the new share count under Ind AS 33.
+
+## India specifics
+- **Listed companies (SEBI ICDR 2018, Chapter X).** A bonus issue must come from free reserves built out of genuine profits or from securities premium collected in cash, not from revaluation reserves. If partly paid convertible securities are outstanding, the bonus must reserve shares for them. A bonus not needing shareholder approval must be implemented within 15 days of Board approval; one needing shareholder approval within two months of the Board meeting.
+- **Timelines on the exchange.** Under SEBI's circular of 16 September 2024 (applying to bonus issues announced on or after 1 October 2024), the deemed date of allotment is the working day after the record date (T+1), and bonus shares start trading on T+2.
+- **Prior intimation.** Under LODR Regulation 29, a listed company must tell the exchange before a board meeting that will consider a bonus issue or other capital alteration; the outcome is disclosed under Regulation 30.
+- **Stamp duty** on an increase in authorised capital depends on the state where the registered office is.
+
+## Real examples and history
+- Splits and bonus issues are routinely approved together with an increase in authorised capital, for the reason shown in the worked example.
+- Under the Companies Act 1956, the equivalent powers were in sections 94 (alteration of capital) and 95 (notice to the Registrar); bonus issues had no specific section and relied on Articles and SEBI guidelines. Section 63 of the 2013 Act gave bonus issues a statutory basis for the first time.
+- Section 61(1)(b)'s Tribunal approval for consolidations that change voting percentages exists to protect minority shareholders, who could otherwise be left with fractional entitlements and be cashed out.
+
+## Edge cases and common mistakes
+- **Confusing section 61 with section 66.** Cancelling unissued shares is not a reduction; reducing issued capital (returning money or writing off losses) needs a special resolution and Tribunal confirmation under section 66.
+- **Using revaluation reserves for a bonus.** Expressly barred.
+- **Forgetting authorised capital.** A bonus that exceeds authorised capital cannot be allotted.
+- **Partly paid shares.** All must be made fully paid before a bonus.
+- **Missing the SH-7 deadline.** Penalties accrue daily, and the Registrar's records of authorised capital stay wrong.
+- **Fractional entitlements in consolidation.** Typically pooled, sold, and the proceeds distributed; the scheme must say so.
+- **Withdrawal.** A Board cannot withdraw an announced bonus, so the bonus decision must be final before announcement.
+
+## How traders, investors and quants use it
+- Investors check the capital source of a bonus (profits versus premium) and whether the company had defaults; a bonus out of securities premium says nothing about earnings.
+- Traders follow the sequence of board intimation, board outcome, shareholder approval, record date and T+2 trading of new shares to time positions.
+- Analysts restate per-share data and verify that the post-bonus share count matches the SH-7 and exchange filings.
+
+## Related concepts
+Section 66 reduction of capital; section 62 further issue and rights; free reserves; securities premium (section 52); capital redemption reserve (section 55); SEBI ICDR bonus rules; LODR Regulations 29, 30 and 42; Ind AS 33 earnings per share.
+</lesson>
+<qa difficulty="hard"><q>A company with issued capital of 50 lakh shares of ₹10 and authorised capital ₹6 crore wants a 2:1 bonus (2 new shares for every 1 held). What must it do about authorised capital and reserves?</q><a>New shares = 1 crore of ₹10 = ₹10 crore to capitalise. Post-bonus issued capital = 1.5 crore shares × ₹10 = ₹15 crore, which exceeds ₹6 crore authorised. It must increase authorised capital to at least ₹15 crore under section 61(1)(a) and file SH-7 within 30 days. It needs ₹10 crore of free reserves, securities premium or capital redemption reserve (no revaluation reserve). If its Articles don't authorise either step, it first amends them by special resolution under section 14.</a></qa>
+<qa difficulty="hard"><q>Why does cancelling 20 lakh unissued shares not require Tribunal approval, while cancelling 20 lakh issued shares does?</q><a>Unissued shares were never paid for, so cancelling them only reduces authorised capital and harms no creditor or shareholder; section 61(2) says it is not a reduction of capital. Cancelling issued shares reduces paid-up capital, which is the buffer creditors rely on and changes shareholders' rights, so section 66 requires a special resolution and Tribunal confirmation, with notice to creditors and regulators.</a></qa>
+<qa difficulty="expert"><q>A company proposes consolidating 10 shares of ₹1 into 1 share of ₹10. Shareholder A holds 25 shares. When does this need Tribunal approval, and why?</q><a>After consolidation, A is entitled to 2.5 shares. If fractions are cancelled or pooled and sold, A ends up with 2 shares plus cash, and the voting percentages of small holders change. The proviso to section 61(1)(b) requires Tribunal approval when consolidation changes shareholders' voting percentage, protecting minority holders from being diluted or forced out through consolidation ratios.</a></qa>
+<qa difficulty="hard"><q>A Board announces a bonus issue on 1 March, then results fall and the Board wants to cancel it. Can it?</q><a>No. Rule 14 of the Companies (Share Capital and Debentures) Rules 2014 says a company that has once announced its Board's decision recommending a bonus issue shall not subsequently withdraw it. Shareholders may still vote against it in general meeting, but the Board itself cannot withdraw it. This is why Boards should check reserves, authorised capital and defaults before announcing.</a></qa>
+<qa difficulty="expert"><q>A listed company announced a 1:1 bonus on 15 October 2024 with record date Friday 22 November 2024. On which days are the shares allotted and tradable, and which rule sets this?</q><a>SEBI's circular of 16 September 2024 applies to bonus issues announced on or after 1 October 2024. T = record date, Friday 22 November. The deemed date of allotment is T+1, the next working day, Monday 25 November, and bonus shares become tradable on T+2, Tuesday 26 November (assuming no exchange holidays in between). The company must send the documents to the depositories by 12 noon on T+1.</a></qa>
+<qa difficulty="hard"><q>A company files SH-7 for a sub-division 75 days after the shareholder resolution. What penalty can it face?</q><a>Section 64 requires filing within 30 days, so it is 45 days late. The penalty is ₹500 per day of continuing default: 45 × ₹500 = ₹22,500 for the company (capped at ₹5 lakh) and up to ₹22,500 for each officer in default (capped at ₹1 lakh), plus additional filing fees for late submission.</a></qa>
+<source url="https://taxguru.in/company-law/checklist-for-alteration-of-share-capital-under-companies-act-2013.html">Checklist for alteration of share capital under Companies Act 2013 (TaxGuru)</source>
+<source url="https://bhattandjoshiassociates.com/alteration-of-share-capital-an-in-depth-look/">Alteration of share capital under Section 61 (Bhatt and Joshi Associates)</source>
+<source url="https://www.lawrbit.com/companies-act-procedures/sub-division-or-consolidation-of-share-capital/">Sub-division or consolidation of share capital (Lawrbit)</source>
+<source url="https://nsearchives.nseindia.com/web/sites/default/files/inline-files/SEBI_Circular_16092024_0.pdf">SEBI circular of 16 September 2024: T+2 trading of bonus shares</source>
+</topic>
+
+<topic id="140">
+<level>intermediate</level>
+<lesson>
+# Record date, ex-date, ISINs and demat credit of corporate actions under T+1
+
+## Core idea
+A company pays dividends, bonus shares or rights only to the shareholders on its register on a specific day: the **record date**. Because a trade takes time to settle, buying on the record date itself is too late. The **ex-date** is the first day on which a buyer no longer gets the benefit. Under India's T+1 settlement, the ex-date and the record date are normally the same day. The benefit then arrives in the demat account under an ISIN (the security's identification code), which may change.
+
+## How it works, step by step
+1. **Board decision and record date.** The company tells the exchange the record date under SEBI LODR Regulation 42, giving advance notice (at least seven working days, excluding the intimation and record dates, under the regulation as framed).
+2. **Exchange sets the ex-date.** With T+1 settlement, a trade on day T settles on T+1. A buy on the day before the record date settles on the record date, so the buyer is on the register: eligible. A buy on the record date settles the next day: not eligible. So the ex-date equals the record date.
+3. **Price on the ex-date.** For bonus, split and rights, the exchange adjusts the stock's base price on the ex-date. For a dividend, the price usually opens lower by about the dividend.
+4. **Depositories (NSDL/CDSL) take the beneficiary position** at the end of the record date and send it to the company's registrar.
+5. **Credit.**
+   - Dividend: paid to the bank account registered with the depository, within 30 days of declaration (section 127 of the Companies Act 2013), after tax deducted at source where it applies.
+   - Bonus: under SEBI's circular of 16 September 2024 (bonus issues announced on or after 1 October 2024), allotment is deemed on T+1 (T = record date), shares are credited directly to the permanent ISIN, and they trade from T+2.
+   - Split: the old ISIN is debited and the new ISIN credited, because face value changes.
+   - Rights: rights entitlements are credited in demat form under a separate ISIN, and can be traded on the exchange or renounced off-market during the renunciation period.
+
+## Formulas and numbers (worked example)
+Record date Friday; assume no holidays.
+- Buy on Thursday: settles Friday. You are on the register: you get the benefit.
+- Buy on Friday (the ex-date): settles Monday: no benefit.
+- Sell on Friday shares you bought on Thursday: you still get the benefit, because your purchase settled on Friday and your sale settles on Monday.
+
+1:1 bonus on a stock closing ₹840 on Thursday: Friday's base price is adjusted to 840 × 1/2 = ₹420. Bonus shares are allotted Monday (T+1) and tradable Tuesday (T+2).
+
+Dividend ₹12 on a stock at ₹600: the stock opens near ₹588 on the ex-date. A resident shareholder receiving more than ₹10,000 of dividends from the company in the financial year (the threshold from 1 April 2025, earlier ₹5,000) has 10% tax deducted at source if PAN is linked: on 1,000 shares × ₹12 = ₹12,000, ₹1,200 is deducted and ₹10,800 arrives in the bank.
+
+## India specifics
+- **T+1** was rolled out in phases from February 2022 and covered all stocks from 27 January 2023. Under T+2, the ex-date was one working day before the record date; some older guides still say this.
+- **Regulation 42** of SEBI LODR governs record dates. Exchanges publish every corporate action with its purpose, ex-date and record date.
+- **Bonus credit** used to involve a temporary ISIN and took about two weeks to become tradable; the 2024 circular removed the temporary ISIN step.
+- **Rights** issues: rights entitlements have been credited in demat form since 2020. SEBI's March 2025 circular on rights issues tightened the timelines further; check the offer document for the exact record date and renunciation window.
+- **Pledged shares.** Under SEBI's margin pledge system, pledged shares stay in the client's demat account, so the client, not the broker, receives the benefits.
+
+## Real examples and history
+- HDFC Bank's 2019 split from ₹2 to ₹1 face value moved holdings to a new ISIN; old ISIN balances were replaced by the new ISIN with twice the quantity.
+- Since 1 October 2024 bonus shares have been tradable two days after the record date. Earlier, shareholders who received bonus shares often could not sell them for one to two weeks while the price was moving.
+- Large extraordinary dividends by PSU companies show the ex-date price drop clearly, and also trigger F&O adjustments when they are 2% or more of the price.
+
+## Edge cases and common mistakes
+- **"I bought on the record date, where is my dividend?"** Under T+1 that buy settles after the record date.
+- **Short delivery.** If the seller fails to deliver, the exchange runs an auction; if the buyer misses a corporate benefit because of this, the claim is handled through the clearing corporation's process, which can be slow.
+- **Holidays.** A settlement holiday between trade and record date shifts the cut-off; always check the exchange's ex-date rather than counting days yourself.
+- **Stop-loss and GTT orders.** Many brokers cancel pending GTT or good-till-cancelled orders on stocks going ex-bonus or ex-split, because the old price levels are now wrong. Re-enter them after the ex-date.
+- **Charting.** Unadjusted charts show a gap on the ex-date; this is not a crash.
+- **Dividend stripping.** Buying just before the record date for the dividend and selling after usually doesn't pay: the price drops by about the dividend, the dividend is taxed at your slab rate, and the capital loss may be restricted by section 94(7) for units and shares bought within 3 months before and sold within 3 months after the record date.
+
+## How traders, investors and quants use it
+- Traders mark ex-dates in their calendars to avoid misreading the price drop as a signal, and to plan F&O positions that will be adjusted.
+- Investors who want a dividend or bonus buy no later than the trading day before the record date.
+- Quants use the ex-date to apply adjustment factors and keep the record date and payment date for cash-flow modelling.
+
+## Related concepts
+T+1 and T+0 settlement; adjustment factors and adjusted prices; NSE F&O corporate action adjustments; rights entitlements and renunciation; dividend taxation and TDS under section 194; bonus and dividend stripping (section 94); margin pledge system.
+</lesson>
+<qa difficulty="medium"><q>A stock's record date for a dividend is Wednesday. Under T+1, on which day must you buy to receive the dividend, and what is the ex-date?</q><a>You must buy by Tuesday (the trading day before the record date): a Tuesday trade settles on Wednesday, the record date, so you are on the register. The ex-date is Wednesday itself, the same as the record date, so a Wednesday buy settles Thursday and does not qualify.</a></qa>
+<qa difficulty="hard"><q>Under the old T+2 cycle, what was the ex-date for a record date of Wednesday, and why did it change?</q><a>Under T+2 a trade settled two days later, so a Monday trade settled Wednesday. The ex-date was Tuesday, one working day before the record date. With T+1 the last qualifying buy moved to Tuesday itself, and the ex-date became Wednesday, the same day as the record date.</a></qa>
+<qa difficulty="hard"><q>You hold 300 shares on the record date of a 2:3 bonus (2 new for every 3 held). The pre-bonus close was ₹930. How many shares do you get, when can you sell them, and what is the adjusted base price?</q><a>New shares = 300 × 2/3 = 200, for 500 in total. Under SEBI's 2024 rule (bonus announced on or after 1 October 2024), they are deemed allotted on T+1 and tradable on T+2, where T is the record date. Adjustment factor = (2 + 3)/3 = 1.6667, so the base price becomes 930/1.6667 = ₹558. Your holding value is unchanged: 300 × 930 = 500 × 558 = ₹2.79 lakh.</a></qa>
+<qa difficulty="hard"><q>An investor receives ₹9,000 of dividends from one company in FY 2025-26, in two payments of ₹4,500. Is tax deducted at source, and does the dividend still get taxed?</q><a>From 1 April 2025, the section 194 threshold is ₹10,000 per company per financial year for resident individuals. ₹9,000 is below it, so no tax is deducted at source. The dividend is still taxable income at the investor's slab rate and must be reported in the return.</a></qa>
+<qa difficulty="expert"><q>Why does a stock split change the ISIN but a 1:1 bonus usually does not?</q><a>An ISIN identifies a security with a specific face value and features. A split changes the face value (for example ₹2 to ₹1), so the shares are a different security and need a new ISIN; the depository debits the old ISIN and credits the new one. A bonus issues more shares of the same face value and rights, so they join the existing ISIN; since 2024 the bonus shares go straight to the permanent ISIN without a temporary one.</a></qa>
+<qa difficulty="hard"><q>A trader buys 1,000 shares on Tuesday and sells them on Wednesday, the record date for a ₹20 dividend. Do they get the dividend? What is their likely profit before tax and costs if the stock closed ₹800 on Tuesday and trades at ₹781 when they sell?</q><a>Yes. Tuesday's buy settles Wednesday, so they are on the register; Wednesday's sale settles Thursday. Dividend = 1,000 × ₹20 = ₹20,000 (less any tax deducted). Price loss = 1,000 × (800 − 781) = ₹19,000. Net about ₹1,000 before brokerage, STT and taxes. The dividend is taxed at the slab rate while the loss is a short-term capital loss, so after tax the trade often loses money.</a></qa>
+<source url="https://www.mnclgroup.com/bonus-issue-eligibility-record-date-ex-date">How to check bonus issue eligibility: record date, ex-date and T+1 (MNCL)</source>
+<source url="https://support.zerodha.com/category/console/corporate-actions/ca-others/articles/what-does-ex-date-and-record-date-mean">What do ex-date and record date mean? (Zerodha support)</source>
+<source url="https://www.taxmann.com/post/blog/analysis-sebis-new-guidelines-to-speed-up-credit-and-trading-of-bonus-shares/">SEBI's new guidelines to speed up credit and trading of bonus shares (Taxmann)</source>
+<source url="https://www.business-standard.com/amp/markets/news/sebi-shortens-bonus-issue-time-trading-to-start-t-2-days-from-record-date-124091601177_1.html">Sebi shortens bonus issue time; trading to start T+2 days from record date (Business Standard)</source>
+<source url="https://nsearchives.nseindia.com/web/sites/default/files/inline-files/SEBI_Circular_16092024_0.pdf">SEBI circular of 16 September 2024 on T+2 trading of bonus shares</source>
+</topic>
