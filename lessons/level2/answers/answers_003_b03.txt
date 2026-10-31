@@ -1,0 +1,277 @@
+<topic id="607">
+<level>intermediate</level>
+<lesson>
+# STT on options: premium, exercise on intrinsic value, and physical settlement of stock derivatives
+
+## Core idea
+Securities Transaction Tax (STT) is charged on every derivative trade on an Indian exchange. For options it is charged in two different ways. (1) When you sell an option (to open or to close), STT is a percentage of the premium. (2) When an in-the-money option is left to expire and is exercised, the buyer pays STT on the option's intrinsic value. Stock derivatives that reach expiry go one step further: they are physically settled, so the shares change hands and delivery-rate STT applies to the full delivery value. Most "surprise" charges at expiry come from these second and third cases.
+
+## How it works, step by step
+1. **Trading the option.** STT is charged only on the sell side, as a percentage of premium turnover. The buyer of the option pays nothing at this stage.
+2. **Expiry, out of the money.** Nothing happens: the intrinsic value is zero, so there is no exercise STT.
+3. **Expiry, index option in the money.** The option is settled in cash at the settlement price. The holder (the long side) pays exercise STT on the intrinsic value (settlement price minus strike, times quantity).
+4. **Expiry, stock option or stock future in the money or open.** The contract turns into a delivery obligation. Shares and money move through the clearing corporation on the settlement cycle, and STT is charged at the equity delivery rate on the delivery value for both buyer and seller. This is the practice exchanges have followed since physical settlement began in 2018.
+5. **Margins in expiry week.** Because delivery is coming, exchanges add delivery margins on in-the-money long options and open futures in the last few days before expiry. This is another reason traders close stock positions early.
+
+## Rates (check before use)
+- Before 1 April 2026: option sale 0.1% of premium (from 1 October 2024); exercise 0.125% of intrinsic value; futures sale 0.02%.
+- Budget 2026-27 raised the derivative rates from 1 April 2026: futures to 0.05%, option premium to 0.15%, and exercise to 0.15%, according to news reports of the Budget. The equity delivery rate (0.1% on each side) was not part of this change.
+- The Budget 2019 fix: before 1 September 2019, exercise STT of 0.125% was charged on the full settlement value, not on intrinsic value. Traders called this the "STT trap".
+
+## Worked example (100 units, rates from April 2026)
+- **Selling an option.** Premium ₹100 × 100 = ₹10,000 turnover, so STT at 0.15% = ₹15 (it was ₹10 at 0.1%).
+- **Exercise.** A 24,000 call settles at 24,200. Intrinsic value = 200 × 100 = ₹20,000, so STT at 0.15% = ₹30.
+- **The old trap.** Under the pre-2019 rule, a call only ₹10 in the money would have paid 0.125% on 24,200 × 100 = ₹24.2 lakh, which is ₹3,025 of STT against a gain of ₹1,000. That is a net loss on a "winning" option.
+- **Physical settlement.** A long stock future of 500 shares settles at ₹1,000, so the delivery value is ₹5 lakh. Delivery STT at 0.1% is ₹500 on each side. Closing the future the day before expiry would have cost only futures STT on the seller: 0.05% × ₹5 lakh = ₹250.
+
+## Square off or let it expire?
+Selling an in-the-money option at expiry costs sale STT on the premium plus the bid-ask spread and brokerage. Letting it be exercised costs exercise STT on the intrinsic value. Near expiry the premium is close to the intrinsic value, so with both rates at 0.15% the STT difference is now small. The real differences are execution costs and, for stock options, the much larger delivery STT and delivery obligation. For stock positions the default advice is still to close them before expiry unless you actually want delivery.
+
+## Common mistakes
+- Thinking an option buyer never pays STT. The buyer pays on exercise.
+- Leaving stock futures or in-the-money stock options open by accident, and then facing a delivery obligation, delivery STT and short-delivery auction risk.
+- Backtesting option strategies without exercise STT and delivery effects, which overstates profits from deep in-the-money positions held to expiry.
+- Using old rate tables. STT rates changed in 2016, 2019, 2023, 2024 and 2026, so read the current rates from the exchange website.
+
+## How to check it in practice
+Read the exchange's STT page and your contract note. The contract note lists STT for each trade. For exercised options it lists exercise STT separately, and physically settled positions appear as delivery trades on the settlement date.
+
+## Key takeaways
+Options STT has three parts: sale on premium, exercise on intrinsic value, and delivery-rate STT for physically settled stock contracts. The 2019 change ended the old trap, and the 2026 Budget raised derivative rates. Stock derivatives held to expiry are delivery trades, with all the costs and risks that brings.
+</lesson>
+<qa difficulty="medium"><q>On which side and on what value is STT charged when trading options before expiry?</q><a>Only on the sell side, as a percentage of the premium (0.15% of premium from 1 April 2026, after 0.1% from October 2024, as reported for Budget 2026-27).</a></qa>
+<qa difficulty="medium"><q>Who pays STT when an index option expires in the money, and on what amount?</q><a>The option holder (the long side) pays exercise STT on the intrinsic value: settlement price minus strike (for a call), times the quantity.</a></qa>
+<qa difficulty="hard"><q>What was the "STT trap" and how was it fixed?</q><a>Until 31 August 2019, exercise STT of 0.125% was charged on the full settlement value of an exercised option, so a slightly in-the-money option could cost more in STT than its payoff. Budget 2019 restricted it to the intrinsic value (settlement minus strike) from 1 September 2019.</a></qa>
+<qa difficulty="hard"><q>A long stock future of 500 shares is held to expiry and settles at ₹1,000. What STT applies, and how does it compare with closing the day before?</q><a>It becomes a delivery, so 0.1% delivery STT on ₹5 lakh = ₹500 is paid by each side. Closing before expiry would cost futures STT only on the seller: 0.05% of ₹5 lakh = ₹250 (at the 2026 rate).</a></qa>
+<qa difficulty="expert"><q>With both sale and exercise STT at 0.15%, is it still better to square off an in-the-money index option at expiry?</q><a>Not necessarily on STT grounds. Near expiry the premium is close to the intrinsic value, so the STT amounts are similar. The choice depends on the bid-ask spread and brokerage of selling versus being settled automatically, and on settlement-price risk. For stock options, physical delivery adds delivery STT and delivery obligations, which usually favours closing.</a></qa>
+<qa difficulty="medium"><q>Why do exchanges raise margins on stock derivative positions in expiry week?</q><a>Because in-the-money stock options and open stock futures will become physical deliveries. Delivery margins are phased in during the last days before expiry to cover the risk of settlement failure.</a></qa>
+<source url="https://www.nseindia.com/products-services/equity-derivatives-securities-transaction-tax">NSE: Securities Transaction Tax on equity derivatives</source>
+<source url="https://zerodha.com/marketintel/bulletin/230019/no-more-stt-trap-on-exercised-options-from-today">No more STT trap on exercised options from today (Zerodha)</source>
+<source url="https://ianslive.in/fm-sitharaman-hikes-stt-on-futures-to-005-pc-in-budget-2026--20260201131104">FM Sitharaman hikes STT on futures to 0.05% in Budget 2026 (IANS)</source>
+<source url="https://www.outlookmoney.com/amp/story/invest/stt-hike-from-april-1-2026-budget-what-it-means-for-futures-and-options-traders">STT hike from 1 April 2026: what it means for F&O traders (Outlook Money)</source>
+<source url="https://moneylife.in/article/stt-anomaly-on-exercised-options-pose-serious-risks-for-stock-traders-brokers-and-exchanges/51065.html">STT anomaly on exercised options (Moneylife)</source>
+</topic>
+
+<topic id="608">
+<level>advanced</level>
+<lesson>
+# Impact cost, bid-ask spread and slippage modelling for Indian equities and index options
+
+## Core idea
+The price you see is not the price you get. Every order pays some of the bid-ask spread, and larger orders also move the price against themselves (market impact). Together with delay between decision and execution, this is called slippage. For active strategies it is often larger than all statutory charges combined, so a backtest without a slippage model is usually wrong in the direction of looking too good.
+
+## Building blocks
+1. **Half-spread.** A market order buys at the ask and sells at the bid. Against the mid-price, each side costs half the spread.
+2. **Temporary impact.** Eating through several levels of the order book pushes the average fill away from the mid. This mostly reverts after you stop trading.
+3. **Permanent impact.** Your trading carries information, so part of the price move stays. In the Almgren-Chriss framework permanent impact shifts the price for all later orders, while temporary impact affects only the order being executed.
+4. **Delay or opportunity cost.** The price drifts between the signal and the order, or an unfilled limit order misses the move.
+5. **Implementation shortfall.** The total, measured as (average fill price minus decision price) ÷ decision price, signed by side. This is the number to calibrate against.
+
+## Formulas
+- **NSE impact cost.** Take the ideal price as the mid of best bid and ask. Simulate buying a fixed order value against the live order book. Impact cost = (average execution price − ideal price) ÷ ideal price × 100. NSE uses this in index eligibility: a Nifty 50 stock must have an impact cost of 0.50% or less for a ₹10 crore order in at least 90% of observations over six months.
+- **Square-root law.** Impact ≈ Y × σ × √(Q ÷ V), where σ is daily volatility, Q is order size, V is daily volume, and Y is roughly 0.5 to 1. Empirical studies across markets support roughly square-root scaling. Others find exponents near 0.6 for temporary impact or even log-like behaviour, so treat it as an approximation.
+- **Almgren-Chriss trade-off.** Trading faster raises impact cost; trading slower raises price risk. The optimal schedule balances the two using your risk aversion.
+
+## Worked example
+Stock at ₹1,000, daily volatility 2%, average daily value traded ₹50 crore, and you buy ₹2 crore (Q ÷ V = 4%).
+- Impact with Y = 1: 2% × √0.04 = 0.40%. Add a half-spread of 0.03%, giving about 0.43%, or roughly ₹86,000.
+- Splitting over two days at 2% of volume per day: 2% × √0.02 ≈ 0.28%, about ₹56,600 in total. But half the position is exposed overnight: ₹1 crore × 2% gives about ₹2 lakh of one-day standard deviation. That is the Almgren-Chriss trade-off in numbers.
+- Compare with delivery STT of 0.1% on the buy, about ₹20,000. Here impact is four times the tax.
+
+## Index options specifics
+- Spreads are measured in ticks (₹0.05). For a liquid at-the-money Nifty option at ₹120 with a ₹0.10 spread, the half-spread is about 0.04% of premium.
+- A deep out-of-the-money option at ₹2 with the same ₹0.10 spread costs 2.5% per side, or 5% round trip. Cheap options are expensive to trade in percentage terms.
+- Spreads widen at the open, around news, on expiry afternoons, and in far strikes and far expiries. Large orders must also be split because of exchange freeze quantities.
+- In backtests use recorded bid and ask, not last traded prices. Assume a market order crosses the spread, and that a limit order at the bid fills only if the price trades through it.
+
+## Indian market details that matter
+- The equity closing price on NSE is a volume-weighted average of the last 30 minutes, not a single print. A backtest that "fills at the close" assumes a price nobody could trade at exactly. A closing auction has been proposed, and is covered in a separate lesson.
+- Stocks with price bands can lock at the band, leaving you unable to trade at all.
+- Pre-open call auctions set the opening price. Spreads at 9:15 are often wider than later in the day.
+
+## How to calibrate your own model
+1. Log the decision price, order times and every fill.
+2. Compute implementation shortfall per order and regress it on order size ÷ volume, volatility and spread.
+3. Fit Y in the square-root formula separately for stocks and options, and refit every few months.
+4. In backtests apply the model with a safety margin, and test whether the strategy survives double the estimated cost.
+
+## Key takeaways
+Slippage = half-spread + impact + delay. NSE's impact cost is a standard order-book measure, and the square-root law is a good first model for size. For options, spreads as a percentage of premium dominate, and they are punishing for cheap strikes. Realistic costs decide whether a strategy has any edge at all.
+</lesson>
+<qa difficulty="medium"><q>How does NSE define and compute impact cost?</q><a>Impact cost is the percentage markup over the ideal (mid) price when executing a given order size against the order book: (average execution price − mid) ÷ mid × 100.</a></qa>
+<qa difficulty="medium"><q>What impact-cost test must a stock meet for Nifty 50 eligibility?</q><a>Impact cost of 0.50% or less for a notional ₹10 crore order, in at least 90% of observations over the six-month review period (three months for newly listed stocks).</a></qa>
+<qa difficulty="hard"><q>Estimate the impact of buying ₹2 crore of a stock with 2% daily volatility and ₹50 crore daily traded value, using the square-root law with Y = 1.</q><a>Q ÷ V = 0.04, √0.04 = 0.2, so impact ≈ 2% × 0.2 = 0.40%. Adding a half-spread of about 0.03% gives roughly 0.43%, or about ₹86,000.</a></qa>
+<qa difficulty="hard"><q>Why are deep out-of-the-money options expensive to trade even though their premium is small?</q><a>The spread is fixed in ticks. A ₹0.10 spread on a ₹2 premium is 2.5% per side (5% round trip), compared with about 0.04% per side for a ₹120 at-the-money option with the same spread.</a></qa>
+<qa difficulty="expert"><q>Explain the Almgren-Chriss trade-off with a numerical example.</q><a>Executing ₹2 crore in one day might cost about 0.40% in impact. Splitting over two days at half the volume share reduces impact to about 0.28%, but leaves half the position unexecuted overnight, adding price risk of about ₹2 lakh standard deviation at 2% volatility. The optimal schedule balances the expected cost saved against this added risk, using the trader's risk aversion.</a></qa>
+<qa difficulty="hard"><q>Why is "fill at the close" an unrealistic backtest assumption for NSE stocks?</q><a>NSE's closing price is a volume-weighted average of the last 30 minutes of trading, not a single tradable auction price. No order can be guaranteed to fill exactly at it, so the assumption understates slippage.</a></qa>
+<source url="https://kuvera.in/blog/everything-to-know-about-nifty-50-index/">Everything to know about Nifty: eligibility criteria and calculation (Kuvera)</source>
+<source url="https://www.cis.upenn.edu/~mkearns/finread/costestim.pdf">Direct estimation of equity market impact (Almgren et al.)</source>
+<source url="https://arxiv.org/pdf/1305.0413">Permanent market impact can be nonlinear (arXiv)</source>
+<source url="https://arxiv.org/pdf/1412.2152">Empirical study of market impact across trade sizes (arXiv 1412.2152)</source>
+</topic>
+
+<topic id="609">
+<level>intermediate</level>
+<lesson>
+# SEBI's "true to label" circular and how exchange and clearing charges are structured
+
+## Core idea
+Market infrastructure institutions (MIIs: stock exchanges, clearing corporations and depositories) charge brokers fees for every trade. Until September 2024 most of these charges were slab-wise: the more a broker traded in a month, the lower its rate. Brokers usually charged clients the highest slab rate and kept the difference as rebates. SEBI's circular of 1 July 2024 (SEBI/HO/MRD/TPD-1/P/CIR/2024/92), effective 1 October 2024, ended this. MII charges must be uniform for all members, and the amount shown to the client as an MII charge must be what the MII actually receives. That is what "true to label" means.
+
+## How it worked before
+1. NSE charged transaction fees in monthly volume slabs, for example a higher rate per lakh up to a volume threshold and lower rates above it.
+2. A large discount broker reached the lowest slabs early in the month, so its effective rate was well below the headline rate.
+3. Contract notes showed clients the headline rate as "exchange transaction charges".
+4. The gap was a significant, hidden part of broker revenue, especially in options, where premium-based charges were high.
+
+## What the circular requires
+1. MII charges must be uniform and equal for all members, not slab-wise by volume or activity.
+2. MIIs must receive the full amount that brokers, depository participants and clearing members charge end clients as MII charges.
+3. The rule covers exchanges, clearing corporations and depositories, so depository charges also became uniform.
+4. MIIs had to revise their fee schedules from 1 October 2024.
+
+## The new rates (NSE, from October 2024)
+NSE set its charges at about the old effective average rather than the old top slab:
+- Cash market: about ₹2.97 per lakh of traded value per side (0.00297%), down from 0.00322%.
+- Futures: about 0.00173% of turnover, down from 0.00188%.
+- Options: about 0.035% of premium turnover, down from 0.0495%.
+Always confirm current rates on the exchange's circulars; they can change again.
+
+## Worked example
+An options trader has ₹1 crore of premium turnover in a month.
+- Before: the client pays 0.0495% = ₹4,950 as exchange charges. If the broker's effective slab rate was about 0.035%, it pays NSE about ₹3,500 and keeps about ₹1,450.
+- After: the client pays about 0.035% = ₹3,500, and all of it goes to NSE.
+- The client saves about ₹1,450. The broker loses that rebate and must recover it through brokerage or other fees, or accept lower margins.
+
+## Effects on the industry
+- Discount brokers lost a revenue line that had funded "zero brokerage" offers. Zerodha said it would keep equity delivery free but warned that brokerage on other segments might have to change.
+- Volume discounts that favoured the largest brokers disappeared, levelling competition with smaller brokers.
+- Exchanges' fee income became easier to compare with what clients pay.
+- Contract notes became easier to audit: MII charges now equal what the MII receives.
+
+## What remains on a contract note
+Brokerage (set by the broker), exchange transaction charges (now uniform), SEBI turnover fees, stamp duty (state levy collected centrally), STT (central tax), GST at 18% on brokerage, exchange charges and SEBI fees, and DP charges on sells from the demat account. Of these, only brokerage and the broker's part of DP charges are now true broker income.
+
+## Key takeaways
+Slab-wise MII charges let brokers earn hidden rebates. The true-to-label circular made MII charges uniform and pass-through from 1 October 2024. NSE cut its headline rates to near the old average, so clients paid less while brokers lost a hidden source of revenue.
+</lesson>
+<qa difficulty="medium"><q>What does "true to label" mean in SEBI's July 2024 circular?</q><a>The charges a broker, depository participant or clearing member collects from clients as MII charges must equal what the MII actually receives. Brokers can no longer keep part of the "exchange charges" as rebates.</a></qa>
+<qa difficulty="medium"><q>When did the circular take effect, and what is its reference?</q><a>It was issued on 1 July 2024 as SEBI/HO/MRD/TPD-1/P/CIR/2024/92 and took effect on 1 October 2024.</a></qa>
+<qa difficulty="hard"><q>Why did slab-wise charges create hidden broker revenue?</q><a>Large brokers reached lower slabs through high monthly volume, so their effective rate was below the headline rate. They charged clients the headline rate and kept the difference, which was not visible to clients.</a></qa>
+<qa difficulty="hard"><q>With ₹1 crore of premium turnover, how much does a client save when exchange charges fall from 0.0495% to about 0.035%?</q><a>₹4,950 − ₹3,500 ≈ ₹1,450 a month, money that previously went to the broker as a rebate.</a></qa>
+<qa difficulty="expert"><q>Why did the circular hit discount brokers' options revenue hardest?</q><a>Options exchange charges are a percentage of premium and were the highest charge per rupee, with the widest gap between headline and effective slab rates. Discount brokers with flat ₹20 brokerage and heavy options volume relied most on these rebates, so removing slabs took away a large share of their non-brokerage income.</a></qa>
+<qa difficulty="medium"><q>Which institutions does the circular cover?</q><a>All market infrastructure institutions: stock exchanges, clearing corporations and depositories.</a></qa>
+<source url="https://zerodha.com/z-connect/business-updates/sebis-true-to-label-circular">SEBI's true to label circular (Zerodha Z-Connect)</source>
+<source url="https://www.business-standard.com/markets/stock-market-news/nse-and-bse-revise-their-transaction-fees-to-comply-with-sebi-circular-124092701207_1.html">NSE and BSE revise their transaction fees to comply with SEBI circular (Business Standard)</source>
+<source url="https://nsdl.co.in/downloadables/pdf/2024-0094-_Policy-_SEBI_Circular_on_Charges_levied_by_Market_Infrastructure_Institutions__True_to_Label.pdf">NSDL circular on SEBI's charges levied by MIIs (true to label)</source>
+<source url="https://mondaq.com/india/finance-and-banking/1512802/charges-levied-by-market-infrastructure-institutions">Charges levied by market infrastructure institutions (Mondaq)</source>
+</topic>
+
+<topic id="610">
+<level>intermediate</level>
+<lesson>
+# Taxation of trading profits: capital gains, speculative and non-speculative business income, and audit
+
+## Core idea
+Indian tax law treats a trading rupee differently depending on how it was earned. Delivery-based investing in listed shares usually gives capital gains. Intraday equity trading is speculative business income. Futures and options on a recognised exchange are non-speculative business income. Each category has its own rates, loss set-off rules and reporting duties, so two traders with the same pre-tax profit can owe very different tax.
+
+## The three buckets
+1. **Capital gains (delivery shares and equity funds, STT paid).** Short-term (held 12 months or less) is taxed at 20% (15% before 23 July 2024). Long-term is taxed at 12.5% on gains above ₹1.25 lakh a year (10% above ₹1 lakh before that date). A taxpayer who buys and sells delivery shares very often may be treated as having business income instead. CBDT guidance from 2016 lets a taxpayer choose capital gains treatment for listed shares held over 12 months, and that choice must then be applied consistently.
+2. **Speculative business income (intraday equity).** Under section 43(5), transactions settled without delivery are speculative. Profits are taxed at slab rates. Losses can be set off only against speculative gains and carried forward for 4 years.
+3. **Non-speculative business income (F&O).** The proviso (d) to section 43(5) excludes exchange-traded derivatives from "speculative". Profits are taxed at slab rates. Losses can be set off against any income except salary in the same year and carried forward for 8 years against business income, provided the return is filed on time.
+
+## Turnover and tax audit
+- **Turnover for F&O is not contract value.** Under the ICAI Guidance Note on Tax Audit (2022 revision), turnover is the sum of the absolute profits and losses of each trade, with losses counted as positive. The older practice of adding option sale premium was dropped.
+- **Section 44AB audit.** An audit is required if business turnover exceeds ₹1 crore, or ₹10 crore if cash receipts and cash payments are each 5% or less of the total. Trading is settled electronically, so most traders fall under the ₹10 crore limit.
+- **Presumptive scheme interaction.** Section 44AD rules can also trigger an audit when a taxpayer declares profit below the presumptive rate and total income exceeds the exemption limit. The conditions are detailed, so take advice from a chartered accountant.
+
+## Worked example
+A trader made 200 F&O trades: winning trades total ₹6 lakh, losing trades total ₹9 lakh.
+- Turnover = ₹6 lakh + ₹9 lakh = ₹15 lakh, well below the audit limits.
+- Net result = a loss of ₹3 lakh. It can be set off against rental or other business income this year, not salary. The remainder can be carried forward for 8 years if the ITR is filed by the due date.
+- Separately, an intraday equity loss of ₹50,000 can only reduce speculative gains, now or in the next 4 years.
+
+## Deductions and returns
+When trading income is business income, expenses such as brokerage, exchange charges, internet, data and advisory fees are deductible. STT is also deductible as a business expense under section 36(1)(xv). Business income needs ITR-3, and advance tax applies if the liability exceeds ₹10,000. Capital gains from delivery investing go in the capital gains schedule.
+
+## The new Income Tax Act
+The Income Tax Act, 2025 replaced the 1961 Act from 1 April 2026. The concepts stay similar, but section numbers change. For example, the speculative-transaction definition is reported to have moved to a new section. When reading tax guides, check which Act and assessment year they refer to.
+
+## Common mistakes
+- Using broker "turnover" (notional value) to decide on audit, which can trigger an unnecessary audit.
+- Not reporting F&O losses, which forfeits the 8-year carry-forward.
+- Filing late, which also loses the right to carry forward business losses.
+- Mixing intraday and F&O results, even though their losses follow different set-off rules.
+
+## Key takeaways
+Delivery gains are capital gains (20% short-term, 12.5% long-term above ₹1.25 lakh). Intraday is speculative business income (4-year carry-forward, ring-fenced losses). F&O is non-speculative business income (8-year carry-forward, set off against non-salary income). F&O turnover is the sum of absolute profits and losses, and audit applies above ₹1 crore, or ₹10 crore for mostly non-cash businesses.
+</lesson>
+<qa difficulty="medium"><q>How are intraday equity profits and F&O profits classified for tax in India?</q><a>Intraday equity is speculative business income under section 43(5). Exchange-traded F&O is non-speculative business income because of proviso (d) to section 43(5). Both are taxed at slab rates.</a></qa>
+<qa difficulty="medium"><q>What are the capital gains rates on listed shares sold after 23 July 2024?</q><a>Short-term (held 12 months or less): 20%. Long-term: 12.5% on gains above ₹1.25 lakh in a year. STT must have been paid.</a></qa>
+<qa difficulty="hard"><q>Compute F&O turnover for tax audit purposes if winning trades total ₹6 lakh and losing trades ₹9 lakh.</q><a>Turnover is the sum of absolute profits and losses: ₹6 lakh + ₹9 lakh = ₹15 lakh. The net result is a ₹3 lakh loss.</a></qa>
+<qa difficulty="hard"><q>How can F&O losses and intraday losses be used differently?</q><a>F&O (non-speculative) losses can be set off against any income except salary in the same year and carried forward for 8 years against business income. Intraday (speculative) losses can only be set off against speculative income and carried forward for 4 years.</a></qa>
+<qa difficulty="expert"><q>When does a trader need a tax audit under section 44AB, and why do most traders fall under the higher limit?</q><a>An audit is required if turnover exceeds ₹1 crore, raised to ₹10 crore when both cash receipts and cash payments are 5% or less of totals. Exchange trading is settled electronically, so traders usually meet the 5% test. Separately, 44AD presumptive-tax rules can trigger an audit in some low-profit cases.</a></qa>
+<qa difficulty="medium"><q>Why is a timely ITR important for an F&O trader with a loss?</q><a>Business losses can be carried forward only if the return is filed by the due date. A late return loses the right to carry forward the loss.</a></qa>
+<source url="https://1finance.co.in/blog/fo-turnover-calculation-income-tax/">F&O turnover calculation for income tax, AY 2026-27 (1 Finance)</source>
+<source url="https://1finance.co.in/blog/itr-for-fo-and-intraday-traders-ay-2026-27/">ITR for F&O and intraday traders: income, turnover and audit (1 Finance)</source>
+<source url="https://taxmann.com/post/blog/tax-audit-how-to-calculate-the-turnover-in-the-case-of-derivatives">Tax audit: how to calculate turnover in derivatives (Taxmann)</source>
+<source url="https://cleartax.in/s/fo-trader-return-filing">F&O trader return filing (ClearTax)</source>
+</topic>
+
+<topic id="611">
+<level>intermediate</level>
+<lesson>
+# Broker revenue models: brokerage caps, payment for order flow, and pledge and DP markups
+
+## Core idea
+A broker's headline brokerage is only one part of how it earns money. Indian brokers also earn interest on margin funding and late payments, a share of depository charges, fees for pledges and account maintenance, and distribution commissions. Until 2024 many also earned exchange rebates. Knowing these lines shows where your real cost of trading comes from, and why regulation of fees changes broker behaviour.
+
+## Revenue lines
+1. **Brokerage.** Full-service brokers usually charge a percentage of turnover. Discount brokers charge a flat fee per order (commonly ₹20) and often nothing on equity delivery. Exchange bye-laws cap brokerage at 2.5% of the contract price, excluding statutory levies. For options it is charged on the premium.
+2. **Interest income.** The margin trading facility (MTF) lets clients buy with borrowed money, typically at 12% to 18% a year. Brokers also charge interest on debit balances, for example 0.05% a day at one large discount broker.
+3. **Float income.** Interest earned on clients' idle cash. SEBI has squeezed this through running-account settlement (returning unused funds monthly or quarterly) and by requiring client funds to be upstreamed to clearing corporations each day.
+4. **Depository charges.** Each sell from a demat account carries a DP charge per company: a small depository fee plus the broker's markup (for example ₹13 plus GST per debit at Zerodha). Pledging for margin may cost a fee per scrip (₹30 plus GST at Zerodha); some brokers also charge to unpledge.
+5. **Other fees.** Account opening, annual maintenance, call-and-trade, auto square-off charges and research subscriptions.
+6. **Distribution.** Commissions on regular mutual fund plans, IPO applications and insurance.
+7. **Exchange rebates (until September 2024).** The slab-wise exchange charges let large brokers keep part of what clients paid as "exchange charges". SEBI's true-to-label circular removed this from 1 October 2024.
+
+## Payment for order flow: why India is different
+In the US, wholesale market makers pay retail brokers to route orders to them and fill them off-exchange. This "payment for order flow" (PFOF) funded zero-commission trading at brokers such as Robinhood. Critics say it creates conflicts of interest over execution quality. The UK has banned it, and the EU agreed to phase it out. In India, equity and derivative orders must be executed on the exchange's anonymous central order book with price-time priority, and brokers cannot internalise retail orders. So US-style PFOF has no channel here. The closest Indian equivalent, exchange volume rebates, has now been removed.
+
+## Worked example (illustrative)
+A client places 15 F&O orders a month at ₹20, uses ₹1 lakh of MTF at 15% a year, and sells 20 delivery holdings a year.
+- Brokerage: 15 × ₹20 × 12 = ₹3,600 a year.
+- MTF interest: ₹1 lakh × 15% = ₹15,000 a year.
+- DP charges: 20 × ₹15.34 (₹13 plus GST) ≈ ₹307 a year.
+For this client, interest is worth four times the brokerage. This is why brokers promote margin funding and why regulators watch it closely.
+
+## How regulation shapes the model
+- The 2.5% cap matters only for full-service brokers on small trades. Discount pricing is far below it.
+- True-to-label (October 2024) ended exchange rebates.
+- SEBI's F&O reforms from late 2024 (fewer weekly expiries, higher contract sizes, upfront premium collection) and the 2026 STT increase reduced order counts, cutting flat-fee brokerage.
+- Upstreaming of client funds and running-account settlement reduced float income.
+As a result, brokers have shifted towards interest income, wealth products and distribution.
+
+## Conflicts and risks for clients
+- A broker earning mostly from interest has an incentive to push leverage, which raises clients' risk of forced selling.
+- Flat-fee brokers profit from order counts, so features that encourage frequent trading (such as one-tap options trading) can work against clients.
+- Auto square-off and call-and-trade charges are small per event but add up for active traders.
+- Unused cash left with a broker earns the client nothing. Running-account settlement returns it, but only on the settlement schedule.
+
+## How to compare brokers
+Add up all costs for your own pattern: brokerage per order, DP charges per sell, pledge and unpledge fees, MTF rate, debit-balance interest, and annual charges. A broker with "zero brokerage" may cost more through DP markups or interest.
+
+## Key takeaways
+Brokerage is only one line. Interest on margin funding, DP and pledge charges, and distribution are important and growing. US-style payment for order flow cannot work in India's exchange-only order routing, and the Indian equivalent, exchange rebates, ended in 2024. Regulation keeps moving broker income away from hidden spreads towards visible fees and interest.
+</lesson>
+<qa difficulty="medium"><q>What is the maximum brokerage an Indian broker can charge on a cash-market trade?</q><a>Exchange bye-laws cap brokerage at 2.5% of the contract price, excluding statutory levies such as STT, stamp duty and GST. For options it is charged on the premium.</a></qa>
+<qa difficulty="medium"><q>Name four sources of broker revenue apart from brokerage.</q><a>Interest on margin trading funding and debit balances, float income on client funds, DP and pledge charges (with markups), and distribution commissions (mutual funds, IPOs, insurance). Account and maintenance fees are another.</a></qa>
+<qa difficulty="hard"><q>Why does US-style payment for order flow not exist in Indian equities?</q><a>All orders must be executed on the exchange's anonymous central limit order book with price-time priority. Brokers cannot internalise or route orders to off-exchange market makers, so no wholesaler can pay for the order flow.</a></qa>
+<qa difficulty="hard"><q>A client pays ₹3,600 a year in brokerage and uses ₹1 lakh of MTF at 15%. What share of the broker's income from this client comes from interest?</q><a>Interest is ₹15,000 against ₹3,600 brokerage (ignoring DP fees). Interest is about 81% of the ₹18,600 total.</a></qa>
+<qa difficulty="expert"><q>How have SEBI's reforms since 2023 changed broker revenue mix?</q><a>Upstreaming of client funds and running-account settlement cut float income. The true-to-label circular removed exchange rebates from October 2024. F&O reforms and the 2026 STT increase reduced trade counts and so flat-fee brokerage. Brokers have shifted towards margin funding interest, wealth and distribution products, and visible fees.</a></qa>
+<qa difficulty="medium"><q>Which costs should a trader add up when comparing brokers?</q><a>Brokerage per order, DP charges per sell, pledge and unpledge fees, MTF interest rate, debit-balance interest, account opening and annual maintenance fees, and any special charges such as auto square-off.</a></qa>
+<source url="https://support.geojit.com/support/solutions/articles/89000020054-what-is-the-maximum-brokerage-a-broker-can-charge-">What is the maximum brokerage a broker can charge? (Geojit)</source>
+<source url="https://inc42.com/features/zerodhas-diversification-clock-is-ticking/">Zerodha's diversification clock is ticking (Inc42)</source>
+<source url="https://support.zerodha.com/category/console/ledger/articles/what-do-these-ledger-entries-mean">What do these ledger entries mean? (Zerodha support)</source>
+<source url="https://inc42.com/features/beyond-broking-how-zerodha-is-restacking-its-revenue-pyramid">Beyond broking: how Zerodha is restacking its revenue pyramid (Inc42)</source>
+</topic>
