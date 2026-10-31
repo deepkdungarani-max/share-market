@@ -1,0 +1,301 @@
+<topic id="555">
+<level>expert</level>
+<lesson>
+# Stress-testing methodology for MRC: scenarios, Cover-N and associates, and SEBI's Oct 2024 equity derivatives rules
+
+## Core idea
+A clearing corporation's Core Settlement Guarantee Fund must be big enough to absorb the default of its largest clearing members in extreme but plausible conditions. The amount, the minimum required corpus (MRC), is set by a "Cover-N" stress test: the loss if the N members with the largest stressed exposures (together with their associates) default at the same time. India's equity segments have long used Cover-2-style tests; SEBI rewrote the equity derivatives stress-testing method in October 2024 and, in March 2026, moved commodity derivatives clearing corporations to a Cover-3 standard.
+
+## How it works, step by step
+1. **Group members with associates.** Members under common ownership or control are combined, since they are likely to fail together.
+2. **Build scenarios.** Historical scenarios (the worst moves in long histories), hypothetical scenarios (designed shocks to prices, volatility and correlations) and stressed-VaR scenarios over a period of risk (the days needed to close out a defaulter).
+3. **Compute stressed losses.** For each member group and scenario, compute the loss on its positions minus its margins and collateral (the uncovered loss).
+4. **Rank and aggregate.** For Cover-N, take the N member groups with the largest uncovered losses in the worst scenario and add them up.
+5. **Set MRC.** The MRC is the largest such Cover-N loss across scenarios (subject to minimums and other rules), reviewed monthly with daily monitoring.
+6. **Fund it.** Contributions from the CC (at least 50%), the exchange (at least 25%) and members (up to 25%).
+
+## Formulas and numbers (worked example)
+Uncovered losses under the worst scenario (₹ crore):
+- Group A (member A1 plus its associate A2): 400 + 150 = 550.
+- Member B: 480.
+- Member C: 310.
+- Member D: 260.
+Cover-2 MRC = 550 + 480 = ₹1,030 crore. Cover-3 MRC = 550 + 480 + 310 = ₹1,340 crore.
+Without grouping associates, A1 alone (400) would rank below B, and Cover-2 would be 480 + 400 = ₹880 crore, understating risk by ₹150 crore.
+
+## India specifics
+- **Equity derivatives (October 2024).** SEBI's circular of 1 October 2024 introduced revised, uniform stress-testing methods for equity derivatives MRC (summaries describe a stressed-VaR approach with a 3-day period of risk) and allowed a one-time transfer of surplus from the equity cash segment's Core SGF to meet higher derivatives MRC, keeping at least 50% of the cash segment MRC in place.
+- **Commodity derivatives (16 March 2026).** CCs must calculate credit exposure from the simultaneous default of at least three clearing members and their associates; the earlier requirement to consider 50% of the exposure from all members defaulting was removed; SEBI can grant case-by-case relaxations. Reports also mention a lower Z-score in historical stress tests (from 10 to 5), which should be checked in the circular.
+- The original 2014 framework set daily stress tests with both historical and hypothetical scenarios and a segment-wise Core SGF.
+
+## Real examples and history
+- International standards (PFMI) require at least Cover-1 for all CCPs and Cover-2 for systemically important CCPs or those with complex risk profiles.
+- Concentrated market structures (a few large proprietary members in index options) make associate grouping and Cover-N choices especially important.
+
+## Edge cases and common mistakes
+- **Ignoring associates.** Splits exposure across legal entities and understates joint default risk.
+- **Correlated defaults.** Members with similar strategies may fail in the same scenario; Cover-N assumes simultaneous failure.
+- **Scenario choice.** Too few historical scenarios miss new risks; too extreme hypothetical scenarios inflate the fund unnecessarily.
+- **Liquidity versus credit.** Credit stress tests size the fund; separate liquidity tests check whether cash is available on time.
+- **Static positions.** Positions change daily; MRC is updated monthly but monitored daily.
+
+## How traders, investors and quants use it
+- CC risk teams run the tests and report to SEBI.
+- Large members manage concentration because it raises margins and SGF requirements.
+- Analysts of exchange groups track MRC changes, which tie up capital.
+
+## Related concepts
+Core SGF; default waterfall; stressed VaR; associates and concentration; PFMI Cover-2; procyclicality.
+</lesson>
+<qa difficulty="hard"><q>Uncovered losses are A 700, B 520, C 430 and D 390 (₹ crore). What are the Cover-2 and Cover-3 MRCs?</q><a>Cover-2 = 700 + 520 = ₹1,220 crore. Cover-3 = 700 + 520 + 430 = ₹1,650 crore.</a></qa>
+<qa difficulty="hard"><q>Why must members and their associates be grouped in Cover-N tests?</q><a>Entities under common ownership or control are likely to default together; treating them separately would rank each lower and understate the combined loss. Grouping gives a realistic picture of joint default exposure.</a></qa>
+<qa difficulty="medium"><q>What did SEBI's March 2026 circular change for commodity derivatives CCs?</q><a>It required stress tests based on the simultaneous default of at least three clearing members and their associates (Cover-3), removed the earlier requirement to consider 50% of the exposure from all members defaulting, and allowed SEBI to grant case-by-case relaxations.</a></qa>
+<qa difficulty="hard"><q>What one-time measure did SEBI's October 2024 circular allow for meeting higher equity derivatives MRC?</q><a>A transfer of surplus from the equity cash segment's Core SGF to the equity derivatives segment's Core SGF, while keeping at least 50% of the cash segment's MRC there, so CCs could meet the higher derivatives requirement without immediate fresh contributions.</a></qa>
+<qa difficulty="expert"><q>Why might a regulator move from Cover-2 to Cover-3?</q><a>If the market is concentrated or members' risks are correlated, the default of three large groups in a crisis becomes plausible, and Cover-2 could leave the fund too small. Cover-3 raises the fund to cover that scenario, at the cost of more capital tied up; regulators balance this by removing other conservative add-ons (as SEBI did by dropping the 50%-of-all-members test).</a></qa>
+<qa difficulty="medium"><q>What is the period of risk in a stressed-VaR stress test?</q><a>The number of days a CC expects to need to close out or hedge a defaulter's positions (for example 2 or 3 days); price moves over that horizon determine potential losses.</a></qa>
+<source url="https://www.taxmann.com/post/blog/sebi-revises-sgf-norms-3-clearing-members-default-test/">SEBI revises SGF norms: three clearing members default test (Taxmann)</source>
+<source url="https://www.livelawbiz.com/securities-law/sebi/securities-and-exchange-board-of-india-settlement-guarantee-fund-coverage-norms-commodity-derivatives-segment-526638">SEBI revises Core SGF coverage norms for commodity derivatives (LiveLaw Biz)</source>
+<source url="https://www.sebi.gov.in/legal/circulars/oct-2024/review-of-stress-testing-framework-for-equity-derivatives-segment-for-determining-the-corpus-of-core-settlement-guarantee-fund_87209.html">SEBI circular: stress testing framework for equity derivatives (October 2024)</source>
+<source url="https://dsklegal.com/wp-content/uploads/2025/08/DSK-Legal-Newsletter-November-2024.pdf">DSK Legal newsletter, November 2024</source>
+</topic>
+
+<topic id="556">
+<level>advanced</level>
+<lesson>
+# SPAN, VaR and ELM margin models and procyclicality at Indian CCs
+
+## Core idea
+Margin models protect clearing corporations, but they can also amplify stress. When volatility jumps, risk-sensitive models (SPAN scanning ranges, VaR margins) raise margins sharply, forcing traders to post cash or sell positions in a falling market, which can push prices down further. This feedback is **procyclicality**. Good margin design keeps margins adequate while avoiding sudden, destabilising jumps, using floors, long look-back periods and buffers.
+
+## How it works, step by step
+1. **Volatility estimate.** Margin models estimate volatility from recent returns, often with exponentially weighted moving averages (EWMA) that react quickly to new data.
+2. **Margin = f(volatility).** SPAN scanning ranges and VaR margins scale with estimated volatility; exposure margin or ELM adds a further percentage.
+3. **Procyclical spiral.** A shock raises volatility estimates → margins rise → leveraged traders sell or deposit cash → selling raises volatility further.
+4. **Anti-procyclicality (APC) tools** (as used in the EU under EMIR and recommended internationally):
+   - a margin buffer of at least 25% that can be released in stress;
+   - giving at least 25% weight to stressed observations in the look-back period;
+   - using at least a 10-year look-back of volatility;
+   - floors so margins do not fall too low in calm periods.
+5. **Indian practice.** Indian CCs use minimum margins (for example the cash market VaR + ELM floor and minimum exposure margins in derivatives), extra margins in stressed or concentrated situations, and periodic recalibration; SEBI's stress-testing rules aim to keep the default fund adequate without relying only on margins.
+
+## Formulas and numbers (worked example)
+EWMA volatility with λ = 0.94: σ²_t = 0.94 σ²_(t−1) + 0.06 r²_(t−1).
+Daily volatility is 1.0% (σ² = 1.0 %²). A 6% fall occurs: new σ² = 0.94 × 1.0 + 0.06 × 36 = 3.10 %², σ = 1.76%. Margin proportional to 3σ rises from 3.0% to 5.3% overnight (+76%).
+With a floor based on a 10-year stressed volatility of 1.5% daily (margin 4.5%) and a 25% buffer, the calm-period margin would already be about 4.5% to 5.6%, so the post-shock increase is small or nil, avoiding a sudden call.
+
+Leverage effect: a trader with ₹10 lakh capital and a position needing 3% margin can hold about ₹3.3 crore of exposure; at 5.3% only ₹1.9 crore, so they must cut ₹1.4 crore of positions in a falling market.
+
+## India specifics
+- Peak-margin rules (2020 to 2021) ensure margins are collected upfront and intraday, removing hidden leverage that would otherwise unwind violently in shocks.
+- In March 2020, margins rose sharply as volatility spiked; some traders faced large calls.
+- SEBI's 2024 to 2025 F&O measures (extra 2% ELM on expiry day, larger contract sizes) raised the base level of margins, reducing the room for procyclical jumps on expiry days.
+
+## Real examples and history
+- After 2008, international bodies (BCBS, CPMI-IOSCO, FSB) highlighted procyclicality in margins; EMIR introduced explicit APC requirements for EU CCPs.
+- During March 2020, global initial margin calls surged by hundreds of billions of dollars, a key lesson in margin procyclicality.
+
+## Edge cases and common mistakes
+- **Too conservative margins.** High margins in calm periods reduce liquidity and trading.
+- **Buffers that are never released.** A buffer must be usable in stress to dampen procyclicality.
+- **Short look-backs.** React fastest but are most procyclical.
+- **Ignoring liquidity add-ons.** Concentrated positions need extra margins that may also spike in stress.
+
+## How traders, investors and quants use it
+- Traders keep spare collateral for margin increases during volatility spikes.
+- CC risk teams calibrate models to balance safety and stability.
+- Quants model margin changes in stress when sizing leveraged strategies.
+
+## Related concepts
+SPAN; VaR; ELM; EWMA volatility; peak margin; stress testing; liquidity spirals.
+</lesson>
+<qa difficulty="hard"><q>With EWMA λ = 0.94 and current daily variance 1.44 %², what is the new daily volatility after a 5% move?</q><a>New variance = 0.94 × 1.44 + 0.06 × 25 = 1.354 + 1.5 = 2.854 %²; volatility = √2.854 ≈ 1.69% (up from 1.20%).</a></qa>
+<qa difficulty="medium"><q>What is margin procyclicality?</q><a>The tendency of risk-sensitive margins to rise sharply in stress and fall in calm periods, forcing traders to deleverage when markets are already falling and encouraging leverage when markets are calm, amplifying cycles.</a></qa>
+<qa difficulty="hard"><q>Name three anti-procyclicality tools used for CCP margins.</q><a>A margin buffer (for example at least 25%) released in stress; giving significant weight (for example 25%) to stressed periods in the look-back; using long look-back periods (for example 10 years) of volatility; and margin floors that prevent margins falling too low in calm times.</a></qa>
+<qa difficulty="hard"><q>A trader has ₹20 lakh and margins rise from 4% to 7%. How much must the trader cut exposure if fully margined?</q><a>Maximum exposure falls from 20/0.04 = ₹5 crore to 20/0.07 = ₹2.86 crore; the trader must cut about ₹2.14 crore of positions or add capital.</a></qa>
+<qa difficulty="expert"><q>Why can a margin floor reduce systemic risk even though it makes margins higher in calm markets?</q><a>A floor keeps leverage from building up in calm periods, so when a shock hits, margins need to rise less, reducing forced deleveraging and fire sales. The cost is lower capital efficiency in calm times; the benefit is fewer destabilising margin spirals in crises.</a></qa>
+<qa difficulty="medium"><q>How did peak-margin rules help reduce procyclical risk in India?</q><a>By requiring margins to be collected upfront and checked intraday, they eliminated hidden intraday leverage that would otherwise have to be unwound suddenly during a shock, reducing the size of forced selling when volatility spikes.</a></qa>
+<source url="https://www.bis.org/publ/qtrpdf/r_qt1512z.htm">Regulatory responses to CCP-related risks (BIS Quarterly Review)</source>
+<source url="https://equitiesindia.com/learn/derivatives/fno-margin-explained">F&O margin explained (Equities India)</source>
+<source url="https://zerodha.com/z-connect/?p=276012">Peak margin, intraday leverage and second-order effects (Zerodha)</source>
+<source url="https://www.business-standard.com/amp/markets/news/sebi-announces-six-key-changes-to-curb-speculation-in-derivatives-trading-124100101316_1.html">Sebi rolls out 6 measures to rein in F&O speculation (Business Standard)</source>
+</topic>
+
+<topic id="557">
+<level>advanced</level>
+<lesson>
+# Interoperability among NSCCL, ICCL and MCCIL and risk-sharing between CCs
+
+## Core idea
+India's three equity clearing corporations, NSE Clearing (formerly NSCCL), BSE's Indian Clearing Corporation (ICCL) and Metropolitan Clearing Corporation of India (MCCIL), have been interoperable since June 2019. A broker can clear trades from any of the three exchanges through one CC. The CCs are linked, and each is exposed to the others. The key design question is how risk is shared: each CC must protect itself against a linked CC's failure without importing that CC's losses into its own members' default fund.
+
+## How it works, step by step
+1. **Member choice.** Each clearing member chooses one CC; trades it makes on NSE, BSE or MSE are cleared there.
+2. **Inter-CC obligations.** When a trade involves members of different CCs, each CC owes the other the net funds or securities; multilateral netting reduces gross obligations.
+3. **Inter-CC collateral.** Each CC posts collateral to the other CCs covering potential losses on its net obligations (based on margins on the net positions), separate from its own members' margins.
+4. **Default of a member.** Each CC handles its own members' defaults through its own waterfall; the linked CC is protected by the inter-CC collateral, not by sharing in the other's default fund.
+5. **Default of a CC.** If a CC fails to meet obligations to another, the other uses the inter-CC collateral; residual losses are handled under each CC's rules.
+6. **Supervision.** SEBI's framework requires CCs to agree on links, collateral and default procedures, and to report exposures.
+
+## Formulas and numbers (worked example)
+On a volatile day, NSE Clearing's members net-buy ₹1,200 crore of shares from ICCL's members (cross-CC trades). NSE Clearing owes ₹1,200 crore in funds to ICCL; ICCL owes the shares.
+- If the stock prices could move 9% before settlement (stressed margin rate), each CC holds inter-CC collateral of about 9% × ₹1,200 crore = ₹108 crore from the other.
+- Suppose ICCL's members fail to deliver and ICCL cannot settle; NSE Clearing faces replacement cost if prices rose 7%: ₹84 crore, covered by the ₹108 crore collateral. Its own members' default fund is untouched.
+
+## India specifics
+- The framework covered all exchange-traded products except commodity derivatives and excluded IFSC clearing corporations.
+- Because NSE dominates volumes, most clearing members choose NSE Clearing, making NSE Clearing's exposures to ICCL and MCCIL relatively small in practice.
+- MCCIL is the smallest CC, serving MSE; its links to the larger CCs are important for MSE's viability.
+
+## Real examples and history
+- Interoperability began on 3 June 2019 with the first trades cleared through MCCIL and ICCL; the industry-wide deadline was extended to July 2019.
+- In Europe, interoperable equity CCP links (for example among LCH, EuroCCP and SIX x-clear) operated under rules requiring inter-CCP collateral and protecting each CCP's default fund.
+
+## Edge cases and common mistakes
+- **Assuming the default fund is shared.** Each CC's default fund covers its own members; inter-CC exposures are covered by link collateral.
+- **Wrong-way risk.** A CC under stress may fail precisely when inter-CC exposures are largest.
+- **Collateral adequacy.** Link collateral must be sized for stressed conditions and multi-day close-outs.
+- **Operational dependencies.** Settlement timing differences or system outages at one CC affect others.
+
+## How traders, investors and quants use it
+- Brokers consolidate clearing at one CC to save margin and operations.
+- CC risk teams monitor inter-CC exposures and collateral daily.
+- Regulators run system-wide stress tests including links.
+
+## Related concepts
+Clearing corporations; Core SGF; default waterfall; collateral; PFMI links principle; systemic risk.
+</lesson>
+<qa difficulty="medium"><q>Which three clearing corporations are linked under Indian equity interoperability?</q><a>NSE Clearing (formerly NSCCL), Indian Clearing Corporation (ICCL, BSE) and Metropolitan Clearing Corporation of India (MCCIL, MSE).</a></qa>
+<qa difficulty="hard"><q>If a member of ICCL defaults on trades with NSE Clearing's members, whose default fund absorbs the loss?</q><a>ICCL handles its member's default through its own waterfall (the defaulter's margins, ICCL's resources and Core SGF). NSE Clearing is protected by inter-CC collateral posted by ICCL and does not use its own members' default fund unless the link collateral is insufficient and its rules provide otherwise.</a></qa>
+<qa difficulty="hard"><q>A CC's net obligation to a linked CC is ₹800 crore; the stressed margin rate is 8%. What inter-CC collateral might be held?</q><a>About 8% × ₹800 crore = ₹64 crore, posted to the linked CC to cover potential replacement losses if the first CC failed to settle.</a></qa>
+<qa difficulty="expert"><q>Why should interoperability not require each CC to contribute to the other's default fund?</q><a>Mutualising default funds across CCs would expose each CC's members to defaults of members of other CCs they did not choose and cannot monitor, weakening incentives for risk management and spreading contagion. Bilateral link collateral covers each CC's exposure to the other while keeping default losses within the CC that admitted and supervised the defaulting member.</a></qa>
+<qa difficulty="medium"><q>Why do most clearing members choose NSE Clearing?</q><a>Because NSE has most of the trading volume; clearing at NSE Clearing minimises inter-CC flows, netting is most efficient where most trades occur, and operational relationships are already established.</a></qa>
+<qa difficulty="hard"><q>What is wrong-way risk in CC links?</q><a>The possibility that a linked CC becomes stressed exactly when the exposure to it is largest, for example in a market crash with large one-sided flows. Link collateral must be sized for such stressed conditions, not just normal days.</a></qa>
+<source url="https://www.business-standard.com/article/pti-stories/sebi-issues-norms-for-interoperability-among-clearing-corporations-118112700866_1.html">SEBI issues norms for interoperability among clearing corporations (Business Standard)</source>
+<source url="https://barandbench.com/interoperability-of-ccps-integrating-the-securities-market/">Interoperability of CCPs (Bar and Bench)</source>
+<source url="https://insights.dsij.in/dsijarticledetail/bse-and-iccl-implement-interoperability-framework-7740">BSE and ICCL implement interoperability framework (DSIJ)</source>
+</topic>
+
+<topic id="558">
+<level>expert</level>
+<lesson>
+# PFMI, EMIR and CCP recovery and resolution: cash calls, variation-margin gains haircutting and Basel CCP capital charges
+
+## Core idea
+Three layers of international rules shape how central counterparties (CCPs) are made safe. The **PFMI** (CPMI-IOSCO, 2012) set global principles for CCP risk management. The EU's **EMIR** turned these into binding rules (capital, margins, default funds, anti-procyclicality), and its CCP Recovery and Resolution Regulation added tools for extreme failures. **Basel capital rules** decide how much capital banks must hold against their exposures to CCPs, rewarding the use of qualifying CCPs (QCCPs). Indian CCs follow SEBI's framework aligned with the PFMI, and bank members' capital depends on their CCs' qualifying status.
+
+## How it works, step by step
+**PFMI highlights:** credit risk coverage (Cover-1 or Cover-2), collateral quality, margin models, liquidity risk (cover the largest payment obligation), default management, segregation and portability, general business risk capital, and recovery planning.
+
+**EMIR highlights (EU):**
+1. CCP capital and "skin in the game" (dedicated own resources, at least 25% of minimum capital, used before non-defaulters' default fund contributions).
+2. Margins with anti-procyclicality tools (25% buffer, 25% weight on stressed observations, or 10-year look-back).
+3. Default fund sized to Cover-2 under extreme but plausible conditions.
+4. Recovery and resolution (CCPRRR): cash calls, VMGH, partial or full tear-ups, with resolution authority powers.
+
+**Basel capital for bank clearing members:**
+1. **Trade exposures to a QCCP:** risk weight of 2%, covering derivatives, exchange-traded derivatives and securities financing transactions.
+2. **Default fund contributions to a QCCP:** capital based on the CCP's hypothetical capital (K_CCP), allocated to members in proportion to their contributions (K_CCP is computed from exposures not covered by margins and default funds, with a 20% risk weight and 8% capital ratio).
+3. **Non-qualifying CCPs:** trade exposures risk-weighted under the standardised approach for the counterparty type; default fund contributions risk-weighted at 1,250% (effectively deducted).
+4. A CCP that loses qualifying status triggers a three-month grace period before the higher charges apply.
+
+## Formulas and numbers (worked example)
+A bank has ₹10,000 crore of trade exposure (after margins) to a QCCP and a ₹200 crore default fund contribution.
+- Trade exposures: RWA = 2% × ₹10,000 crore = ₹200 crore; capital at 9% = ₹18 crore.
+- Default fund (illustrative K_CCP allocation): if K_CCP = ₹300 crore and total prefunded default funds are ₹3,000 crore, the bank's share = 300 × 200/3,000 = ₹20 crore of capital.
+If the CCP were non-qualifying: default fund at 1,250% → RWA ₹2,500 crore, capital ₹225 crore (equal to the full contribution at 9%), and trade exposures at, say, 100% → RWA ₹10,000 crore, capital ₹900 crore. QCCP status saves about ₹1,087 crore of capital in this example.
+
+## India specifics
+- SEBI's Core SGF framework (2014) and later circulars align Indian CCs with PFMI principles; CCIL (for government securities, forex and money markets) has received QCCP recognition, important for banks' capital.
+- The RBI has issued guidelines on capital requirements for banks' exposures to CCPs following Basel rules.
+- Recovery tools in Indian frameworks include capped additional contributions and pro-rata loss allocation at the end of the waterfall; a dedicated CCP resolution law like the EU's does not yet exist.
+
+## Real examples and history
+- The 2009 G20 commitment to central clearing of standardised OTC derivatives increased CCPs' systemic importance, prompting PFMI (2012) and Basel CCP rules (2012 interim, 2014 final).
+- EMIR (2012) and the EU's CCP Recovery and Resolution Regulation (2021) are the most detailed implementations.
+
+## Edge cases and common mistakes
+- **Assuming CCP exposures are risk-free for banks.** QCCP exposures still carry capital, especially default fund contributions.
+- **Cliff effects.** Losing QCCP status sharply raises members' capital needs.
+- **VMGH and clients.** Haircuts on variation margin gains may pass through to clients.
+- **Jurisdiction.** Recognition of foreign CCPs as QCCPs depends on home-country regulation meeting PFMI.
+
+## How traders, investors and quants use it
+- Bank treasuries choose CCPs partly on capital efficiency.
+- CCP risk teams design waterfalls and recovery plans to meet PFMI and regulators' expectations.
+- Analysts of banks assess capital impacts of central clearing.
+
+## Related concepts
+Core SGF; default waterfall; Cover-N stress tests; anti-procyclicality; recovery tools; QCCP status; CCIL.
+</lesson>
+<qa difficulty="medium"><q>What risk weight applies to a bank's trade exposures to a qualifying CCP under Basel rules?</q><a>2%, for derivatives, exchange-traded derivatives, securities financing and long-settlement transactions with the QCCP (including obligations to reimburse clients if the CCP defaults).</a></qa>
+<qa difficulty="hard"><q>What happens to the capital treatment of default fund contributions if a CCP is non-qualifying?</q><a>They are risk-weighted at 1,250%, which at an 8% minimum capital ratio means holding capital equal to the full contribution, effectively deducting it from capital.</a></qa>
+<qa difficulty="hard"><q>Under EMIR, what is "skin in the game" and where does it sit in the waterfall?</q><a>A dedicated amount of the CCP's own resources, at least 25% of its minimum capital, used after the defaulter's margins and default fund contribution but before non-defaulting members' default fund contributions, giving the CCP an incentive to manage risk well.</a></qa>
+<qa difficulty="expert"><q>Why does Basel allocate capital for default fund contributions using a hypothetical CCP capital (K_CCP)?</q><a>Default fund contributions are at risk of loss when other members default, which depends on how much exposure the CCP has beyond margins. K_CCP estimates the capital a CCP would need for those exposures (at a 20% risk weight and 8% ratio), and each member's share reflects its default fund contribution, linking members' capital to the riskiness of the CCP's uncovered exposures.</a></qa>
+<qa difficulty="medium"><q>What does PFMI require for CCP liquidity?</q><a>Sufficient qualifying liquid resources to settle payments on time in all relevant currencies under extreme but plausible conditions, covering at least the default of the participant and affiliates with the largest payment obligation.</a></qa>
+<qa difficulty="hard"><q>What is the "cliff effect" of losing QCCP status?</q><a>Members' capital charges jump from the low QCCP treatment (2% trade exposure, K_CCP-based default fund) to the much higher non-QCCP treatment (standard counterparty weights and 1,250% on default funds) after a three-month grace period, which can force members to reduce activity or raise capital quickly.</a></qa>
+<source url="https://www.bis.org/committees/bcbs/basel-framework/81362/chapter.pdf">Basel Framework CRE54: capital requirements for bank exposures to central counterparties (BIS)</source>
+<source url="https://rulebook.sama.gov.sa/en/node/5695">Capital requirements for bank exposures to CCPs (SAMA rulebook)</source>
+<source url="https://www.bis.org/publ/qtrpdf/r_qt1512z.htm">Regulatory responses to CCP-related risks (BIS Quarterly Review)</source>
+<source url="https://www.globalcustodian.com/clearing-corporation-of-india-receives-qccp-status/">Clearing Corporation of India receives QCCP status (Global Custodian)</source>
+<source url="https://ib.barclays/content/dam/barclaysmicrosites/ibpublic/documents/investment-bank/adscmd/CCP%20Recovery%20and%20Resolution%20Regulation.pdf">EU CCP Recovery and Resolution Regulation disclosure (Barclays)</source>
+</topic>
+
+<topic id="559">
+<level>intermediate</level>
+<lesson>
+# Investor Protection Fund and compensation limits at NSE and BSE
+
+## Core idea
+Each Indian stock exchange maintains an Investor Protection Fund (IPF) in a separate trust to compensate investors when a trading member defaults. Compensation is limited per investor per claim, and limits differ between exchanges. SEBI requires exchanges to review and progressively increase these limits at least every three years. Knowing the limits helps investors judge how much protection they really have and why keeping assets in their own demat accounts matters more.
+
+## How it works, step by step
+1. **Eligibility.** Claims must relate to transactions on the exchange with a member declared a defaulter or expelled, filed within the notice period.
+2. **Assessment.** The exchange's committee admits claims and checks what the defaulter's assets (in the defaulters' account) can pay.
+3. **IPF payout.** The IPF pays the shortfall up to the per-investor cap.
+4. **Limits (examples):**
+   - NSE: ₹35 lakh per investor per claim, for defaults declared or expulsions after 13 August 2024 (earlier ₹25 lakh).
+   - Metropolitan Stock Exchange (MSE): raised from ₹2 lakh to ₹2.2 lakh per investor per claim in September 2025.
+   - BSE: its own limit set by its IPF Trust; older reports cited ₹15 lakh, so check BSE's current notice.
+5. **Review.** SEBI's guidelines require each exchange, with its IPF trust, to review and progressively increase compensation at least every three years.
+6. **Beyond the cap.** Investors pursue the balance through arbitration or civil suits against the defaulter.
+
+## Formulas and numbers (worked example)
+Two investors have admitted claims against a defaulting member of NSE (after August 2024); the defaulter's assets cover 25% of claims.
+- Investor A: claim ₹20 lakh; defaulter pays ₹5 lakh; shortfall ₹15 lakh; IPF pays ₹15 lakh (within cap). Full recovery.
+- Investor B: claim ₹1 crore; defaulter pays ₹25 lakh; shortfall ₹75 lakh; IPF pays ₹35 lakh; recovery ₹60 lakh; ₹40 lakh to pursue separately.
+The same claims against a member of an exchange with a ₹2.2 lakh cap would leave investor A recovering only ₹7.2 lakh.
+
+## India specifics
+- SEBI's guidelines (from 2010 onward) set the IPF framework, including trust structure, corpus sources and claim processes.
+- SEBI asked exchanges in 2020 to review and enlarge IPF corpus sizes (NSE's target of about ₹1,500 crore was reported).
+- Commodity exchanges have their own IPFs (for example NCDEX raised its limit to ₹5 lakh in 2020).
+
+## Real examples and history
+- Broker defaults in the 2010s and the Karvy case (2019 to 2020) led to IPF claims; most Karvy clients recovered securities directly through the depository, reducing IPF use.
+- Limits have risen over time with market growth, but remain modest compared with some large investor holdings.
+
+## Edge cases and common mistakes
+- **Assuming full protection.** Caps limit compensation; large holders bear residual risk.
+- **Comparing exchanges.** Limits differ; check the exchange where the defaulting member traded.
+- **Non-exchange losses.** Losses from off-market or unregistered schemes are not covered.
+- **Time limits.** Claims after the notice period may be rejected.
+
+## How traders, investors and quants use it
+- Investors keep securities in their own demat accounts and minimise idle funds with brokers, so IPF limits matter less.
+- Large investors spread exposure across brokers or use custodial arrangements.
+- Analysts track IPF corpus and limit changes as indicators of investor protection.
+
+## Related concepts
+Broker default procedures; Karvy case; segregation of client assets; running-account settlement; investor grievance redressal.
+</lesson>
+<qa difficulty="medium"><q>What is NSE's IPF compensation limit per investor per claim?</q><a>₹35 lakh, for claims against members declared defaulters or expelled after 13 August 2024; earlier it was ₹25 lakh.</a></qa>
+<qa difficulty="hard"><q>An investor's admitted claim is ₹50 lakh against an NSE defaulter whose assets cover 10%. How much does the investor recover?</q><a>From the defaulter: ₹5 lakh. Shortfall ₹45 lakh; IPF pays ₹35 lakh (cap). Total ₹40 lakh; ₹10 lakh must be pursued through arbitration or civil action.</a></qa>
+<qa difficulty="medium"><q>How often must exchanges review IPF compensation limits?</q><a>At least every three years, in consultation with the IPF trust, with the aim of progressively increasing compensation per claim, under SEBI's guidelines.</a></qa>
+<qa difficulty="hard"><q>Why do IPF limits matter less for investors whose shares are in their own demat accounts?</q><a>Shares in the investor's own demat account remain the investor's property and are not part of the broker's assets, so a broker default does not usually cause their loss. IPF limits mainly matter for funds or securities held by or misused through the broker.</a></qa>
+<qa difficulty="medium"><q>What change did the Metropolitan Stock Exchange make to its IPF limit in September 2025?</q><a>It raised the maximum compensation per investor per claim from ₹2 lakh to ₹2.2 lakh.</a></qa>
+<qa difficulty="hard"><q>Why might two investors with identical claims recover different amounts from IPFs?</q><a>Because limits differ by exchange (for example NSE ₹35 lakh versus much lower limits at smaller exchanges) and by date of default (NSE's increase applies to defaults after August 2024), and because recovery from the defaulter's own assets varies by case.</a></qa>
+<source url="https://www.moneylife.in/article/nse-increases-investor-claim-amount-to-rs35-lakh-from-rs25-lakh-per-claim/74911.html">NSE increases investor claim amount to Rs 35 lakh (Moneylife)</source>
+<source url="https://www.msei.in/SX-Content/Press-Release/2025/September/PR-ENGLISH-04-SEP-2025--INCREASE-IN-CEILING-AMOUNT-PAYABLE-OUT-OF-INVESTOR-PROTECTION-FUND-TRUST.pdf">MSE: increase in ceiling amount payable out of IPF trust (September 2025)</source>
+<source url="https://www.sebi.gov.in/sebi_data/attachdocs/1293167244060.pdf">SEBI guidelines on investor protection funds of stock exchanges</source>
+<source url="https://www.business-standard.com/amp/article/markets/ncdex-raises-compensation-limit-to-rs-5-lakh-from-investor-protection-fund-120071401737_1.html">NCDEX raises compensation limit to Rs 5 lakh (Business Standard)</source>
+</topic>
