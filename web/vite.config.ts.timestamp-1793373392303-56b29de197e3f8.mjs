@@ -1,0 +1,12 @@
+// vite.config.ts
+import { defineConfig } from "file:///G:/candlecast/web/node_modules/vite/dist/node/index.js";
+import react from "file:///G:/candlecast/web/node_modules/@vitejs/plugin-react/dist/index.js";
+var vite_config_default = defineConfig({
+  plugins: [react()],
+  // `npm run dev` talks to the Python backend started by start.bat
+  server: { proxy: { "/api": "http://127.0.0.1:8000" } }
+});
+export {
+  vite_config_default as default
+};
+//# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsidml0ZS5jb25maWcudHMiXSwKICAic291cmNlc0NvbnRlbnQiOiBbImNvbnN0IF9fdml0ZV9pbmplY3RlZF9vcmlnaW5hbF9kaXJuYW1lID0gXCJHOlxcXFxjYW5kbGVjYXN0XFxcXHdlYlwiO2NvbnN0IF9fdml0ZV9pbmplY3RlZF9vcmlnaW5hbF9maWxlbmFtZSA9IFwiRzpcXFxcY2FuZGxlY2FzdFxcXFx3ZWJcXFxcdml0ZS5jb25maWcudHNcIjtjb25zdCBfX3ZpdGVfaW5qZWN0ZWRfb3JpZ2luYWxfaW1wb3J0X21ldGFfdXJsID0gXCJmaWxlOi8vL0c6L2NhbmRsZWNhc3Qvd2ViL3ZpdGUuY29uZmlnLnRzXCI7aW1wb3J0IHsgZGVmaW5lQ29uZmlnIH0gZnJvbSAndml0ZSdcbmltcG9ydCByZWFjdCBmcm9tICdAdml0ZWpzL3BsdWdpbi1yZWFjdCdcblxuLy8gaHR0cHM6Ly92aXRlanMuZGV2L2NvbmZpZy9cbmV4cG9ydCBkZWZhdWx0IGRlZmluZUNvbmZpZyh7XG4gIHBsdWdpbnM6IFtyZWFjdCgpXSxcbiAgLy8gYG5wbSBydW4gZGV2YCB0YWxrcyB0byB0aGUgUHl0aG9uIGJhY2tlbmQgc3RhcnRlZCBieSBzdGFydC5iYXRcbiAgc2VydmVyOiB7IHByb3h5OiB7ICcvYXBpJzogJ2h0dHA6Ly8xMjcuMC4wLjE6ODAwMCcgfSB9LFxufSlcbiJdLAogICJtYXBwaW5ncyI6ICI7QUFBMk8sU0FBUyxvQkFBb0I7QUFDeFEsT0FBTyxXQUFXO0FBR2xCLElBQU8sc0JBQVEsYUFBYTtBQUFBLEVBQzFCLFNBQVMsQ0FBQyxNQUFNLENBQUM7QUFBQTtBQUFBLEVBRWpCLFFBQVEsRUFBRSxPQUFPLEVBQUUsUUFBUSx3QkFBd0IsRUFBRTtBQUN2RCxDQUFDOyIsCiAgIm5hbWVzIjogW10KfQo=

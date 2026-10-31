@@ -1,0 +1,6 @@
+# Rebuilt on any machine by setup.bat (pip install -r requirements.txt) and build_ui.bat (npm install);
+# .venv alone is ~2.9 GB, over GitHub's 2 GB push and 100 MB file limits
+.venv/
+node_modules/
+__pycache__/
+*.pyc

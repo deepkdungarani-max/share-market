@@ -1,0 +1,38 @@
+/* @import url() FONT IMPORTS MUST ALWAYS BE AT THE VERY TOP OF THIS FILE, ABOVE THE TAILWIND IMPORTS — DO NOT DELETE THIS COMMENT */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* CRITICAL: THE FOLLOWING TAILWIND IMPORTS MUST NEVER BE DELETED OR REORDERED — DO NOT DELETE THIS COMMENT */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* END TAILWIND IMPORTS — ALL OTHER CSS MUST GO BELOW THIS LINE */
+
+/* Calm dark theme: soft navy-black, high-contrast text, blue accent so it never reads as "down" red */
+:root {
+  --canvas: 11 13 18;
+  --surface: 19 22 30;
+  --raised: 30 34 45;
+  --line: 42 47 61;
+  --ink: 236 238 243;
+  --muted: 160 168 184;
+  --up: 52 211 153;
+  --down: 248 113 113;
+  --accent: 96 165 250;
+}
+html,
+body,
+#root {
+  height: 100%;
+  background: rgb(var(--canvas));
+  color-scheme: dark;
+}
+body {
+  font-size: 15px;
+  line-height: 1.5;
+  font-feature-settings: 'tnum' 1, 'cv11' 1;
+  -webkit-font-smoothing: antialiased;
+}
+::selection {
+  background: rgb(var(--accent) / 0.35);
+}
