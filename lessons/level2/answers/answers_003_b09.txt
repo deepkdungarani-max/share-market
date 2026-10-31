@@ -1,0 +1,301 @@
+<topic id="679">
+<level>advanced</level>
+<lesson>
+# Queue-position simulation and fill modelling in limit-order backtests
+
+## Core idea
+A backtest that assumes a limit order fills whenever the price touches it is usually too optimistic. In a real order book, orders at the same price wait in a queue under price-time priority. Your order fills only after the orders ahead of it trade or cancel, and the fills you do get tend to come just before adverse moves. Realistic backtests of passive strategies must track your position in the queue and how it advances.
+
+## Data you need
+- **Market by order (MBO):** every order's entry, modification, cancellation and trade, so the exact queue is known. NSE's tick-by-tick order-level data gives this, typically through paid or co-location feeds.
+- **Market by price (MBP):** only total quantity at each price level. Your position in the queue must then be estimated.
+- **Snapshots:** periodic depth snapshots (for example five levels) miss events between snapshots and make queue estimates rough.
+
+## A queue model, step by step
+1. **Join:** when your order arrives at price p (after your order-entry latency), the quantity ahead of you equals the displayed quantity at p.
+2. **Trades at p** reduce the quantity ahead first.
+3. **Cancellations at p** may be ahead of you or behind you:
+   - Conservative model: all cancellations are behind you, so you advance only through trades.
+   - Probabilistic model: a share of each cancellation is ahead of you, given by a function of your position, for example ahead ÷ (ahead + behind). Variants use linear, log or power functions.
+4. **Fill:** once the quantity ahead reaches zero, further trades at p fill your order. If the price trades through p, your order is filled in full.
+5. **Latency:** include delays for your market data and order messages, so you do not react to events you could not have seen in time.
+
+## Worked example
+You join the bid at ₹99.95 with 100 shares; 1,000 shares are ahead of you.
+- 300 shares trade at ₹99.95: ahead = 700.
+- 200 shares join behind you: behind = 200.
+- 400 shares are cancelled at ₹99.95.
+  - Conservative: ahead stays 700.
+  - Probabilistic (linear): share ahead = 700 ÷ 900 ≈ 0.78, so about 311 cancel ahead; ahead ≈ 389.
+- A 500-share market sell arrives.
+  - Conservative: it fills 500 of the 700 ahead; you are not filled.
+  - Probabilistic: it fills 389 ahead and your 100; you are filled.
+The two models give opposite outcomes, so choose the model by comparing backtest fills with live fills.
+
+## Adverse selection and markouts
+Being filled is not the same as profiting. Measure markouts: the mid-price 1, 5 and 30 seconds after each fill, relative to your fill price. Passive fills often show negative markouts because they happen when the other side is aggressive and informed. A backtest that models queues but ignores markouts still overstates profits.
+
+## Validation
+1. Run the strategy live in small size and log every order, fill and queue estimate.
+2. Compare the live fill rate and markouts with the backtest under each queue model.
+3. Pick the model, and latency assumption, that matches live behaviour, and recheck regularly.
+
+## India-specific points
+- Strict price-time priority on NSE and BSE makes queue position decisive, especially in one-tick-wide contracts like liquid index options.
+- Order modifications that change price or increase quantity lose time priority; your simulator must reset queue position when that happens.
+- Exchange freeze limits and broker rate limits cap how quickly orders can be placed, which affects queue-joining strategies.
+
+## Common mistakes
+- Filling on touch: assuming a fill when the price merely reaches your level.
+- Ignoring latency: joining queues instantly at historical depth.
+- Forgetting that improving your price moves you to the back of a new queue.
+- Calibrating fill models on backtests only, without live comparison.
+
+## Key takeaways
+Model your position in each queue: join behind displayed quantity, advance with trades, and treat cancellations conservatively or probabilistically. Fills happen when the queue ahead is exhausted or the price trades through. Validate against live fills and include markouts, because passive fills carry adverse selection.
+</lesson>
+<qa difficulty="medium"><q>Why does "fill on touch" overstate passive strategy performance?</q><a>Orders ahead in the queue must trade or cancel first, so many touches do not fill you. The fills you do get are often followed by adverse moves.</a></qa>
+<qa difficulty="medium"><q>What is the difference between market-by-order and market-by-price data for queue modelling?</q><a>Market-by-order shows every order, so queue position is known exactly. Market-by-price shows only total quantity at each level, so queue position must be estimated with a model.</a></qa>
+<qa difficulty="hard"><q>How do the conservative and probabilistic cancellation models differ?</q><a>The conservative model assumes cancellations are behind you, so you advance only through trades. The probabilistic model assigns part of each cancellation to the queue ahead, based on your position, so you advance faster.</a></qa>
+<qa difficulty="hard"><q>With 700 ahead and 200 behind, 400 shares cancel. Under a linear probabilistic model, how much is ahead afterwards?</q><a>Share ahead = 700 ÷ 900 ≈ 0.78, so about 311 cancel ahead, leaving about 389 ahead.</a></qa>
+<qa difficulty="expert"><q>How should a queue model be validated?</q><a>Trade live in small size, log orders, fills and queue estimates, and compare live fill rates and markouts with backtests under different queue and latency assumptions. Choose the model that matches live results and recheck it regularly.</a></qa>
+<qa difficulty="medium"><q>What happens to your queue position if you modify an order's price on NSE?</q><a>You lose time priority and join the back of the queue at the new price, so the simulator must reset your position.</a></qa>
+<source url="https://hftbacktest.readthedocs.io/en/latest/tutorials/Probability%20Queue%20Models.html">Probability queue position models (hftbacktest)</source>
+<source url="https://hftbacktest.readthedocs.io/en/latest/order_fill.html">Order fill (hftbacktest documentation)</source>
+<source url="https://nautilustrader.io/docs/nightly/concepts/backtesting/fill-models/">Fill models (NautilusTrader)</source>
+<source url="https://arxiv.org/pdf/2402.17359">Limit order book simulations: a review (arXiv)</source>
+</topic>
+
+<topic id="680">
+<level>expert</level>
+<lesson>
+# Hawkes-process models of order flow and self-exciting liquidity
+
+## Core idea
+Order book events cluster: one trade or cancellation makes others more likely soon after. A Poisson model, with a constant arrival rate, cannot capture this. A Hawkes process is a self-exciting point process: each event temporarily raises the rate of future events, and that excitement fades over time. Hawkes models describe clustering, measure how much activity is generated internally by the market (endogeneity), and power realistic order flow simulators.
+
+## The model
+- Intensity: λ(t) = μ + sum over past events of φ(t − tᵢ).
+- μ is the baseline rate from outside news ("immigrants").
+- φ is the excitation kernel, often exponential, φ(s) = α e^(−βs), or a power law.
+- **Branching ratio** n = integral of φ = α ÷ β for the exponential kernel: the average number of "child" events each event triggers.
+- The process is stationary only if n is below 1. The mean intensity is then μ ÷ (1 − n).
+
+## The branching interpretation
+Each event is either exogenous (from the baseline) or triggered by an earlier event. The branching ratio n is the fraction of events that are endogenous. Studies on high-frequency mid-price data estimate high endogeneity, with branching ratios close to 1. Jaisson and Rosenbaum showed that "nearly unstable" Hawkes processes (n close to 1) reproduce both high- and low-frequency stylised facts of markets.
+
+## Multivariate Hawkes for order books
+Different event types excite each other: market buys raise the rate of limit sells and cancellations, and so on. Ten-dimensional models of limit orders, market orders and cancellations on both sides have been estimated, and later work separated events that change the mid-price from those that do not. Non-parametric methods estimate the full matrix of cross-excitation kernels.
+
+## Worked example
+Baseline μ = 2 events per second, exponential kernel with α = 0.6 and β = 1.0 per second.
+- Branching ratio n = 0.6 ÷ 1.0 = 0.6, so 60% of events are endogenous.
+- Mean intensity = 2 ÷ (1 − 0.6) = 5 events per second.
+- A burst of 10 simultaneous events raises the intensity by 10 × 0.6 = 6, to about 11 per second, decaying with a half-life of ln 2 ÷ β ≈ 0.69 seconds.
+- If n rose to 0.95, the mean intensity would be 2 ÷ 0.05 = 40 per second: small shocks would set off long cascades.
+
+## Estimation and checking
+1. **Maximum likelihood:** log-likelihood = sum of log λ(tᵢ) − integral of λ over the period. With an exponential kernel, λ can be updated recursively, so estimation is fast.
+2. **Time-rescaling check:** transform inter-event times using the fitted compensator (integrated intensity). If the model fits, the transformed times should be independent and exponentially distributed with mean 1.
+3. **Seasonality:** use a time-varying baseline μ(t) for the intraday pattern, or apparent excitation is overstated.
+
+## Uses
+- **Simulation:** realistic bursty order flow for testing execution and market-making strategies.
+- **Short-term forecasting:** predicting activity and volatility in the next seconds.
+- **Risk:** branching ratios near 1 signal fragile markets where cascades (such as flash crashes) can occur.
+- **Execution:** timing child orders around predicted bursts.
+
+## Limitations
+- Results depend on the kernel choice and on handling seasonality.
+- Estimating many cross-kernels requires a lot of data and care.
+- Linear Hawkes processes cannot directly model inhibition (events that reduce future activity) without extensions.
+
+## Key takeaways
+Hawkes processes model clustered order flow: λ(t) = μ + sum of decaying excitations, with branching ratio n measuring the endogenous share. They need n below 1 for stationarity, and markets often sit close to 1. Multivariate versions capture cross-excitation between order types. Fit with maximum likelihood, check with time-rescaling, and control for intraday seasonality.
+</lesson>
+<qa difficulty="medium"><q>What is a Hawkes process?</q><a>A self-exciting point process whose intensity is a baseline rate plus contributions from past events that decay over time, so events make further events more likely soon after.</a></qa>
+<qa difficulty="medium"><q>What is the branching ratio and why must it be below 1?</q><a>It is the integral of the excitation kernel, the average number of events each event triggers. Below 1 the process is stationary with mean intensity μ ÷ (1 − n); at or above 1 activity can explode.</a></qa>
+<qa difficulty="hard"><q>With μ = 2 per second, α = 0.6 and β = 1, compute the branching ratio and mean intensity.</q><a>n = α ÷ β = 0.6, and the mean intensity is 2 ÷ 0.4 = 5 events per second, with 60% of events endogenous.</a></qa>
+<qa difficulty="hard"><q>How can you check whether a fitted Hawkes model is adequate?</q><a>Apply the time-rescaling theorem: transform inter-event times with the fitted compensator. If the model fits, the transformed times are independent exponential with mean 1, which can be tested with QQ plots or Kolmogorov-Smirnov tests.</a></qa>
+<qa difficulty="expert"><q>What did Jaisson and Rosenbaum show about nearly unstable Hawkes processes?</q><a>That modelling order flow as Hawkes processes with branching ratios close to 1 reproduces both high-frequency clustering and low-frequency stylised facts of markets.</a></qa>
+<qa difficulty="hard"><q>Why should a Hawkes fit include intraday seasonality?</q><a>Activity follows a daily pattern. A constant baseline would attribute the predictable morning and closing surges to self-excitation, overstating the branching ratio.</a></qa>
+<source url="https://en.wikipedia.org/wiki/Hawkes_process">Hawkes process (Wikipedia)</source>
+<source url="https://arxiv.org/pdf/2402.17359">Limit order book simulations: a review (arXiv)</source>
+<source url="https://projecteuclid.org/journals/annals-of-applied-probability/volume-25/issue-2/Limit-theorems-for-nearly-unstable-Hawkes-processes/10.1214/14-AAP1005.pdf">Limit theorems for nearly unstable Hawkes processes (Jaisson and Rosenbaum, Annals of Applied Probability)</source>
+</topic>
+
+<topic id="681">
+<level>advanced</level>
+<lesson>
+# Maker-taker fees, tick size and priority rules: FIFO versus pro-rata allocation
+
+## Core idea
+Three design choices decide who earns from providing liquidity on an exchange. The priority rule decides which resting orders fill first: by time (FIFO) or by size (pro-rata). The tick size sets the smallest price step, and so the narrowest possible spread. The fee model can pay rebates to liquidity providers (makers) and charge those who take liquidity (takers). Together they shape order sizes, speed races and quoted spreads.
+
+## Priority rules
+- **Price-time priority (FIFO):** best price first, then earliest order. Used by NSE and BSE and most equity markets. Rewards speed and joining the queue early.
+- **Pro-rata:** at the same price, an incoming order is shared in proportion to resting order sizes. Used in some futures markets, often as a hybrid with priority for the first order at a new best price.
+- **Effects:** FIFO creates races to the front of the queue. Pro-rata rewards size, encouraging traders to post more than they want (oversizing). Research finds that one-tick futures markets with pro-rata matching can show wider effective spreads than the tick alone implies.
+
+## Tick size
+- The tick sets a floor on the quoted spread.
+- **Large-tick instruments:** the spread is usually one tick, queues are long, and queue position is valuable.
+- **Small-tick instruments:** spreads span several ticks, and competition happens on price.
+- In the US, Rule 612 sets a minimum tick of one cent for most stocks. The SEC's Tick Size Pilot (2016 to 2018) widened ticks for small caps. A study of the pilot found trading moved away from maker-taker venues towards inverted (taker-maker) venues. In 2024 the SEC adopted half-penny ticks for some tightly quoted stocks, alongside lower access fee caps.
+
+## Maker-taker and inverted models
+- **Maker-taker:** the venue pays makers a rebate and charges takers a fee, both a fraction of a cent per share in the US.
+- **Inverted (taker-maker):** takers are paid and makers charged, attracting orders that want priority in long queues.
+- Rebates effectively let prices move in sub-tick steps: a maker buying at $20.00 with a rebate pays slightly less than $20.00 net.
+- Critics argue maker-taker creates conflicts for brokers routing client orders to rebate-paying venues.
+
+## Worked examples
+**Pro-rata versus FIFO.** The bid has 50,000 lots; you add 1,000. A 10,000-lot sell arrives.
+- FIFO: you are last in the queue, so you get nothing.
+- Pro-rata: you get 1,000 ÷ 51,000 × 10,000 ≈ 196 lots. Posting 10,000 lots would get you about 10,000 ÷ 60,000 × 10,000 ≈ 1,667, which encourages oversizing.
+**Maker-taker net prices.** A stock is quoted $20.00 bid and $20.01 ask, with a maker rebate of 0.2¢ and a taker fee of 0.3¢ per share.
+- A maker buying at $20.00 effectively pays $19.998.
+- A taker buying at $20.01 effectively pays $20.013.
+The effective spread between them is 1.5¢, not 1¢.
+
+## India
+- NSE and BSE use strict price-time priority, with no pro-rata allocation.
+- There are no maker-taker rebates: exchange charges are the same for passive and aggressive orders, and SEBI's true-to-label rules require uniform charges.
+- Tick sizes are linked to price ranges, and options trade in ₹0.05 ticks. In liquid index options the spread is often one tick, so the market behaves like a large-tick market where queue position matters.
+- Exchange market-making schemes in illiquid contracts use incentives, not per-trade rebates.
+
+## Design trade-offs
+- Smaller ticks narrow spreads but shorten queues and make quotes flicker.
+- Larger ticks give stable queues but wider spreads, pushing activity into speed races.
+- FIFO is simple and transparent; pro-rata dampens speed races but invites oversizing.
+- Rebates can attract liquidity but complicate routing incentives and true costs.
+
+## Key takeaways
+FIFO rewards speed and pro-rata rewards size. Tick size sets the minimum spread and the value of queue position. Maker-taker rebates create sub-tick effective prices and routing conflicts. India combines strict price-time priority, price-linked ticks and no rebates, so in one-tick contracts queue position is the main battleground.
+</lesson>
+<qa difficulty="medium"><q>How do FIFO and pro-rata allocation differ?</q><a>FIFO fills resting orders at the same price in order of arrival. Pro-rata shares each incoming order among resting orders in proportion to their sizes.</a></qa>
+<qa difficulty="hard"><q>With 50,000 lots resting and your 1,000 added last, how much of a 10,000-lot sell do you get under each rule?</q><a>FIFO: nothing, as you are last. Pro-rata: about 1,000 ÷ 51,000 × 10,000 ≈ 196 lots.</a></qa>
+<qa difficulty="hard"><q>Why do maker-taker rebates create sub-tick pricing?</q><a>A maker's net price includes the rebate, so buying at $20.00 with a 0.2¢ rebate effectively costs $19.998. Prices vary by fractions of a tick through fees and rebates.</a></qa>
+<qa difficulty="medium"><q>What is a large-tick instrument and why does queue position matter there?</q><a>One whose spread is usually a single tick because the tick is large relative to price. Price competition is limited, queues are long, and being early in the queue decides who trades.</a></qa>
+<qa difficulty="expert"><q>What did a study of the SEC Tick Size Pilot find about fee models?</q><a>After wider ticks were introduced, trading and order volume fell on maker-taker venues and rose on inverted (taker-maker) venues, as traders paid for priority in longer queues.</a></qa>
+<qa difficulty="medium"><q>Which priority and fee model do NSE and BSE use?</q><a>Strict price-time priority with no maker-taker rebates; exchange charges are uniform for passive and aggressive orders.</a></qa>
+<source url="https://www.tradermath.org/courses/markets-trading-and-risk/price-time-priority-and-order-matching">Price-time priority and order matching (TraderMath)</source>
+<source url="https://www.economics.ox.ac.uk/node/2152571">Pro-rata matching and one-tick futures markets (University of Oxford)</source>
+<source url="https://ideas.repec.org/a/bla/finrev/v54y2019i3p417-449.html">Tick size pilot and maker-taker fee models (Financial Review)</source>
+<source url="https://assets.publishing.service.gov.uk/media/5a7c4009e5274a2041cf2bc2/12-1073-eia12-maker-taker-pricing-and-high-frequency-trading.pdf">Maker-taker pricing and high-frequency trading (UK Foresight review)</source>
+<source url="https://law-economic-studies.law.columbia.edu/sites/default/files/content/Harris_Quarter-Penny%20Tick.pdf">Harris: the case for a quarter-penny tick (Columbia)</source>
+</topic>
+
+<topic id="682">
+<level>advanced</level>
+<lesson>
+# Dynamic price band flexing for F&O stocks: SEBI's May 2024 rules, cooling-off and sliding bands
+
+## Core idea
+Stocks in the derivatives segment do not have fixed circuit limits like other shares. They have dynamic price bands that widen ("flex") when the price keeps pressing against the edge, after a pause called a cooling-off period. Before 2024, exchanges applied this differently. SEBI's circular of 24 May 2024 (SEBI/HO/MRD/TPD-1/P/CIR/2024/58) set one uniform method for all exchanges. NSE later added a sliding band, which moves both limits instead of only widening one.
+
+## When a band flexes
+1. The stock starts with an initial band around the previous close (for example ±10%).
+2. If trades happen at or near the edge (reported as at or beyond 9.90% from the base price), with participation conditions on both sides, a flex is triggered.
+3. A cooling-off period starts. Trading continues within the current band.
+4. After the cooling-off, the band moves by the set step.
+
+## The flex schedule
+- **First two flexes:** 5% of the previous close each, after a 15-minute cooling-off (5 minutes if triggered in the last half-hour).
+- **Next two flexes:** 3% each, after a 30-minute cooling-off.
+- **Further flexes:** 2% each, after a 60-minute cooling-off.
+During cooling-off, options on the stock get a temporary price floor or ceiling based on the last traded or theoretical price, so traders can still hedge or close positions.
+
+## Sliding band (NSE, November 2024)
+Instead of only widening, the band slides. A ₹90 to ₹110 band after an upward flex becomes ₹95 to ₹115, not ₹90 to ₹115. Orders priced outside the new band (here, between ₹90 and ₹95) are cancelled. Limit price protection rules for options during cooling-off were adjusted alongside.
+
+## Worked example
+Previous close ₹100, band ₹90 to ₹110.
+- 11:00: heavy buying pushes trades to ₹109.90 and above, meeting the trigger. Cooling-off runs to 11:15.
+- 11:15: first flex of 5% (₹5), sliding the band to ₹95 to ₹115. Resting buy orders at ₹92 are cancelled.
+- 12:10: the price hits ₹114.90 and triggers again; cooling-off to 12:25; second flex to ₹100 to ₹120.
+- 13:30: a third trigger; 30-minute cooling-off to 14:00; flex of 3% (₹3) to ₹103 to ₹123.
+- A trigger at 15:05 (in the last half-hour) would have only a 5-minute cooling-off, if the schedule allows another flex.
+
+## Effects on futures and options trading
+- Stock futures cannot trade beyond the underlying's band, so they "lock" with the stock during cooling-off.
+- Options face temporary floors or ceilings, which can make deep in-the-money options trade at constrained prices.
+- Orders can be cancelled when the band slides, so algorithms must reconcile order states after each flex.
+- Market makers widen quotes near band edges because hedging may be blocked during cooling-off.
+
+## Why harmonise
+Before May 2024, different exchanges could have different bands for the same stock, creating arbitrage and confusion. A uniform method gives the same limits on all exchanges and predictable steps. In 2026 SEBI extended a similar dynamic band approach to many ETFs.
+
+## Common mistakes
+- Assuming a stuck price will open up immediately: cooling-off delays the flex.
+- Forgetting that a sliding band cancels resting orders on the far side.
+- Ignoring the shorter cooling-off in the last half-hour, which can produce fast late moves.
+
+## Key takeaways
+F&O stocks have dynamic bands that flex after cooling-off periods: 5% steps after 15 minutes for the first two flexes, then 3% after 30 minutes, then 2% after 60 minutes, with 5-minute cooling-off in the last half-hour. NSE's sliding band moves both limits and cancels orders outside the new band. Options get temporary floors or ceilings during cooling-off.
+</lesson>
+<qa difficulty="medium"><q>What did SEBI's 24 May 2024 circular change about price bands for F&O stocks?</q><a>It set a uniform dynamic price band method across exchanges, with defined flex steps and cooling-off periods, so the same stock has the same limits everywhere.</a></qa>
+<qa difficulty="medium"><q>What is the flex schedule?</q><a>The first two flexes are 5% after a 15-minute cooling-off (5 minutes in the last half-hour), the next two are 3% after 30 minutes, and further flexes are 2% after 60 minutes.</a></qa>
+<qa difficulty="hard"><q>A ₹90 to ₹110 band flexes up by 5% under the sliding rule. What is the new band, and what happens to a buy order at ₹92?</q><a>The band becomes ₹95 to ₹115. The ₹92 buy order is outside the new band and is cancelled.</a></qa>
+<qa difficulty="hard"><q>How are options treated during a cooling-off period?</q><a>They get a temporary price floor or ceiling based on the last traded or theoretical price, so traders can hedge or close positions while the underlying is constrained.</a></qa>
+<qa difficulty="expert"><q>Why do market makers widen quotes in stock options near the band edge?</q><a>If the underlying hits its band, hedging in the stock or futures may be impossible during cooling-off, and option prices face temporary limits. Unhedgeable risk and order cancellations make tight quotes dangerous.</a></qa>
+<qa difficulty="medium"><q>Why is the cooling-off period shorter in the last half-hour?</q><a>So that a flex can still take effect before the close, allowing price discovery on the same day instead of leaving the stock locked at the band until the next session.</a></qa>
+<source url="https://www.outlookbusiness.com/news/sebi-tweaks-framework-for-dynamic-price-bands-for-scrips-in-derivatives-segment">SEBI tweaks framework for dynamic price bands for derivatives scrips (Outlook Business)</source>
+<source url="https://zerodha.com/z-connect/business-updates/explainer-on-new-price-band-rules-for-stocks-trading-in-the-fo-segment">Explainer on new price band rules for F&O stocks (Zerodha)</source>
+<source url="https://hdfcsky.com/blogs/derivatives/enhancement-of-dynamic-price-bands-for-derivative-segment-scrips">Enhancement of dynamic price bands for derivative segment scrips (HDFC Sky)</source>
+<source url="https://www.teamleaseregtech.com/updates/article/36882/nse-issued-a-circular-regarding-the-enhancement-of-dynamic-price-bands">NSE circular on enhancement of dynamic price bands (TeamLease RegTech)</source>
+<source url="https://taxmann.com/post/blog/sebi-modifies-the-framework-for-price-band-formulation-for-scrips-in-the-derivatives-segment-to-manage-volatility">SEBI modifies price band framework for derivatives scrips (Taxmann)</source>
+</topic>
+
+<topic id="683">
+<level>intermediate</level>
+<lesson>
+# Limit price protection (LPP) for options and how it interacts with stop-loss limit orders
+
+## Core idea
+Limit price protection is a pre-trade check by NSE on all futures and options orders that carry a limit price. Each order's price must lie within a range around a reference price for the contract. If it does not, the exchange rejects it. LPP took effect on 31 October 2022 (NSE circular of 28 October 2022). Its aim is to stop "fat-finger" orders and freak trades at absurd prices, especially in illiquid options.
+
+## How the range works for options
+- **Premium above ₹50:** the range is about ±40% of the reference price.
+- **Premium of ₹50 or less:** the range is a flat ±₹20 around the reference price.
+- The reference price is based on recent traded prices or, where trades are scarce, a theoretical price, and it moves as the market moves.
+- Futures have their own, narrower ranges. Check NSE's LPP FAQ for current values.
+One broker source describes different percentages for stock options; rely on NSE's own documents when they differ.
+
+## Worked examples
+- **₹75 option:** 40% of ₹75 = ₹30, so the range is ₹45 to ₹105. A buy limit at ₹110 or a sell limit at ₹40 is rejected.
+- **₹25 option:** the range is ₹5 to ₹45.
+- **Fast market:** news lifts an option from ₹75 to ₹140 in seconds. A buy at ₹150 may be rejected if the reference has not yet caught up (range still ₹45 to ₹105). Once the reference updates to about ₹140, the range becomes about ₹84 to ₹196 and the order is accepted.
+
+## Interaction with stop-loss limit orders
+1. For a stop-loss limit (SL-L) order, both the trigger price and the limit price must lie within the LPP range when you place it.
+2. Example: a long position in a ₹75 option; you want to exit if it falls to ₹40, with a limit of ₹38. Both are below ₹45, so the order is rejected. You must place the stop within ₹45 to ₹105, or wait until the price falls and the range moves down.
+3. When a stop is triggered in a fast market, the limit price may no longer give a fill: a sell limit set close to the trigger can be skipped if the price gaps below. The order then rests unfilled as a limit order.
+4. Brokers often convert stop-market orders into limit orders with a protective range, which must also respect LPP.
+
+## Market orders and protection
+Many brokers block or restrict market orders in options because thin books can fill them at extreme prices. Where allowed, brokers attach market price protection (a maximum distance from the last price) so the order behaves like a limit order within LPP.
+
+## Interaction with dynamic price bands
+When an underlying stock is in a cooling-off period under the dynamic price band rules, options on it get temporary floors or ceilings. NSE adjusted LPP rules for that period in 2024, so ranges can be tighter than usual.
+
+## Common mistakes
+- Setting far-away stop-losses on cheap options and having them rejected.
+- Assuming a triggered SL-L order always fills.
+- Placing orders immediately after a big jump, before the reference price updates.
+
+## Key takeaways
+NSE checks every F&O limit order against an LPP range around a moving reference price: about ±40% for options above ₹50 and ±₹20 for options at or below ₹50. SL-L orders must have both trigger and limit inside the range at entry, and may not fill if the market gaps. Use stop levels that fit the range, and recheck after big moves.
+</lesson>
+<qa difficulty="medium"><q>What is limit price protection on NSE?</q><a>A pre-trade check that rejects F&O orders whose limit price is outside a range around the contract's reference price, introduced from 31 October 2022 to prevent erroneous orders.</a></qa>
+<qa difficulty="medium"><q>What is the LPP range for an option with a ₹75 reference price?</q><a>About ±40%, which is ₹30, so ₹45 to ₹105.</a></qa>
+<qa difficulty="medium"><q>What is the range for an option at ₹25?</q><a>A flat ±₹20, so ₹5 to ₹45.</a></qa>
+<qa difficulty="hard"><q>Why might an SL-L sell order with trigger ₹40 and limit ₹38 on a ₹75 option be rejected?</q><a>Both the trigger and limit must be within the LPP range of ₹45 to ₹105 at entry; ₹40 and ₹38 are outside it.</a></qa>
+<qa difficulty="hard"><q>After an option jumps from ₹75 to ₹140, why might a buy limit at ₹150 be rejected at first?</q><a>The reference price may still reflect ₹75, giving a range of ₹45 to ₹105. Once it updates to about ₹140, the range widens to about ₹84 to ₹196 and the order is accepted.</a></qa>
+<qa difficulty="expert"><q>Why can a triggered stop-loss limit order fail to protect a position?</q><a>Once triggered it becomes a limit order. If the market gaps past the limit price, it rests unfilled. LPP also restricts how far the limit can be set, so in fast markets the position may stay open.</a></qa>
+<source url="https://support.zerodha.com/category/trading-and-markets/kite-web-and-mobile/kite-error-messages/articles/price-out-of-lpp-range">Price out of LPP range (Zerodha support)</source>
+<source url="https://www.nseindia.com/static/trade/limit-price-protection-faqs">NSE: limit price protection FAQs</source>
+<source url="https://icicidirect.com/futures-and-options/articles/limit-price-protection">Limit price protection (ICICI Direct)</source>
+<source url="https://fyers.in/notice-board/pre-trade-risk-controls-to-be-in-effect-from-31st-october-2022/">Pre-trade risk controls in effect from 31 October 2022 (Fyers)</source>
+<source url="https://www.tradejini.com/support/knowledge-base/trading-markets/orders/rejection/what-does-the-error-the-order-was-cancelled-by-the-exchange-because-the-price-is-outside-the-current-allowed-limit-price-protection-range-mean">Order cancelled outside the LPP range (Tradejini)</source>
+</topic>
