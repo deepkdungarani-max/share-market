@@ -1,0 +1,312 @@
+<topic id="405">
+<level>advanced</level>
+<lesson>
+# SME IPO eligibility, tightening since 2024, and migration to the main board
+
+## Core idea
+Small and medium enterprises (SMEs) can list on separate exchange platforms, NSE Emerge and BSE SME, with lighter rules than the main board: smaller issue sizes, fewer disclosures and market makers to provide liquidity. In 2023 and 2024 SME IPOs boomed, with some tiny issues oversubscribed hundreds of times and prices of several listed SMEs moving in ways that suggested manipulation. SEBI and the exchanges responded with stricter eligibility, use-of-proceeds limits and lock-ins in 2024 and 2025. Successful SMEs can later migrate to the main board.
+
+## How it works, step by step
+**Listing on the SME platform** (ICDR Chapter IX, as amended in March 2025):
+1. Post-issue paid-up capital up to ₹25 crore (larger companies must use the main board).
+2. **Profitability:** EBITDA from operations of at least ₹1 crore in at least two of the three preceding financial years (added in 2025). NSE Emerge had separately required positive free cash flow to equity in at least two of three years from 2024.
+3. **Offer for sale limits:** OFS capped at 20% of the issue size, and selling shareholders cannot sell more than 50% of their pre-issue holding.
+4. **Use of proceeds:** general corporate purposes capped at 15% of the issue or ₹10 crore, whichever is lower; proceeds cannot repay loans from promoters or related parties.
+5. **Minimum application** about ₹2 lakh (two lots), to keep small retail investors out of risky issues.
+6. **Promoter lock-in:** minimum promoter contribution locked for three years; excess promoter holding released in stages (half after one year, half after two).
+7. **Market making:** a market maker must provide two-way quotes for at least three years.
+
+**Migration to the main board.** Exchanges set criteria (time on the SME platform, market capitalisation or capital, revenue, net worth and profit history, shareholder numbers). BSE tightened its migration criteria in 2025, raising profit requirements. SEBI has consulted on linking migration to market capitalisation.
+
+## Formulas and numbers (worked example)
+An SME plans a ₹40 crore IPO: ₹30 crore fresh issue, ₹10 crore OFS.
+- OFS share = 10/40 = 25%, above the 20% cap. It must cut the OFS to ₹8 crore or less (for example ₹32 crore fresh plus ₹8 crore OFS).
+- Promoter holding ₹12 crore before the issue; selling ₹8 crore would be 67% of it, above the 50% limit. The promoter can sell at most ₹6 crore; another shareholder must sell the rest, or the OFS shrinks.
+- General corporate purposes: 15% of ₹32 crore fresh issue = ₹4.8 crore (below ₹10 crore), so ₹4.8 crore is the cap.
+- EBITDA: ₹0.7 crore, ₹1.4 crore, ₹1.9 crore. Two of three years at ₹1 crore or more, so it qualifies.
+
+## India specifics
+- SME IPO fundraising and subscription multiples surged in 2023 and 2024. One widely reported case was an August 2024 IPO of a small two-wheeler dealership raising about ₹12 crore that was subscribed several hundred times, highlighting froth.
+- SEBI warned investors in 2024 about manipulation in SME stocks and issued a consultation in late 2024, followed by the March 2025 amendments.
+- SEBI has since proposed further changes (for example an average operating profit test and changes to the minimum application size), which are proposals until notified.
+- SME stocks trade in lots, often in a separate trading segment with market makers, and price bands apply.
+
+## Real examples and history
+- SME platforms were launched in 2012 to help small firms raise equity. For years they were quiet; the post-2020 retail boom brought heavy demand.
+- Several SME companies faced SEBI action for misusing IPO proceeds or manipulating share prices, prompting the use-of-proceeds and promoter-related limits.
+
+## Edge cases and common mistakes
+- **Equating oversubscription with quality.** Huge subscription in a tiny issue can reflect speculation and allotment lotteries, not business strength.
+- **Liquidity.** Trading in lots of ₹1 to 2 lakh with a few market makers means wide spreads and difficulty exiting.
+- **Rules in transition.** Proposals versus notified rules: check which version applies to an issue's filing date.
+- **Migration assumptions.** Moving to the main board is not automatic; many SMEs never qualify.
+- **Related-party use of proceeds.** Check the objects of the issue for payments to promoter entities.
+
+## How traders, investors and quants use it
+- Investors read the objects of the issue, promoter OFS, EBITDA history and market maker arrangements before applying.
+- Traders avoid illiquid SME stocks or size positions for the difficulty of exit.
+- Analysts treat migration to the main board as a positive event that broadens the investor base.
+
+## Related concepts
+ICDR Regulation 6 main-board eligibility; book building and fixed-price issues; market makers; lock-ins; surveillance measures; SME manipulation cases.
+</lesson>
+<qa difficulty="hard"><q>An SME issue is ₹50 crore with an OFS of ₹12 crore. Is the OFS within limits?</q><a>12/50 = 24%, above the 20% cap introduced in 2025. The OFS must be ₹10 crore or less (20% of ₹50 crore), or the issue restructured. Each selling shareholder must also stay within 50% of their pre-issue holding.</a></qa>
+<qa difficulty="medium"><q>Why did SEBI raise the minimum application size in SME IPOs?</q><a>SME IPOs are riskier and less liquid. A higher minimum application (about ₹2 lakh, two lots) discourages very small retail investors who may not be able to bear losses, so participation comes mainly from investors with more capital and, ideally, more ability to assess risk.</a></qa>
+<qa difficulty="hard"><q>An SME's EBITDA was ₹1.2 crore, ₹0.9 crore and ₹0.8 crore over the last three years. Does it meet the 2025 profitability rule?</q><a>No. The rule requires EBITDA from operations of at least ₹1 crore in at least two of the three preceding years. Only one year (₹1.2 crore) meets it.</a></qa>
+<qa difficulty="hard"><q>What limits apply to how an SME uses IPO proceeds after March 2025?</q><a>General corporate purposes are capped at 15% of the issue or ₹10 crore, whichever is lower, and the proceeds cannot be used to repay loans taken from promoters, the promoter group or related parties. The objects must be disclosed and monitored.</a></qa>
+<qa difficulty="expert"><q>Why are SME stocks more vulnerable to manipulation than main-board stocks, and what features of the new rules address this?</q><a>They have small floats, concentrated promoter holdings, thin trading, few analysts and high retail enthusiasm, so small amounts of coordinated buying can move prices, and promoters can sell into the rise. The 2025 rules require profitability, cap the OFS and promoters' selling, restrict use of proceeds and related-party payments, stage promoter lock-in releases and raise the minimum application size, reducing both the incentive and the ability to manipulate.</a></qa>
+<qa difficulty="medium"><q>What does a market maker do on the SME platform?</q><a>It is required to quote two-way prices (buy and sell) in the stock for a set period (at least three years), providing a minimum level of liquidity so investors can trade even when natural buyers or sellers are scarce.</a></qa>
+<source url="https://ksandk.com/corporate/sebi-mandates-profitability-for-smes-ipos/">SEBI mandates profitability for SME IPOs (King Stubb and Kasiva)</source>
+<source url="https://www.etvbharat.com/amp/en/!business/sebi-amends-rules-to-tighten-sme-ipo-norms-enn25031003502">SEBI amends rules to tighten SME IPO norms (ETV Bharat)</source>
+<source url="https://agamalaw.in/2025/05/16/navigating-sme-ipos-recent-regulatory-changes/">Navigating SME IPOs: recent regulatory changes (Agama Law)</source>
+<source url="https://www.moneylife.in/article/sebi-proposes-sweeping-overhaul-of-sme-ipo-framework/81956.html">SEBI proposes sweeping overhaul of SME IPO framework (Moneylife)</source>
+<source url="https://oga-prod.angelone.in/news/market-updates/bse-tightens-rules-for-sme-migration-to-main-board-to-boost-quality">BSE tightens rules for SME migration to main board (Angel One)</source>
+</topic>
+
+<topic id="406">
+<level>advanced</level>
+<lesson>
+# Free-float market capitalisation and index treatment of low-float stocks
+
+## Core idea
+Index weights in India are based on free-float market capitalisation: only shares that are realistically available for trading count. Shares held by promoters, governments as strategic investors and similar holders are excluded. A company with a huge total market value but a small free float gets a small index weight. This matters for passive funds (which buy by weight), for liquidity, and for how low-float stocks behave around index changes.
+
+## How it works, step by step
+1. **Investible weight factor (IWF).** NSE Indices computes, for each stock, the fraction of shares that are free float, using the latest shareholding pattern. Excluded where separately identifiable: promoter and promoter group holdings, government holdings as strategic investor, promoters' holdings through ADRs or GDRs, strategic FDI, equity held by associate or group companies, employee welfare trusts and locked-in shares, among others.
+2. **Free-float market cap** = shares outstanding × IWF × price.
+3. **Index level** = sum of free-float market caps / base market cap × base value. Weight of a stock = its free-float cap / sum of free-float caps.
+4. **Eligibility.** Index methodologies also apply liquidity (impact cost), free-float and listing-history tests; for derivatives on non-benchmark indices, SEBI has set concentration limits on constituents' weights.
+5. **Updates.** IWFs are revised periodically from new shareholding data, and when corporate events change free float (an OFS, a QIP).
+
+## Formulas and numbers (worked example)
+Company A: 600 crore shares at ₹250, promoters 90% → total market cap ₹1,50,000 crore; IWF 0.10; free-float cap ₹15,000 crore.
+Company B: 200 crore shares at ₹750, promoters 40% → total market cap ₹1,50,000 crore; IWF 0.60; free-float cap ₹90,000 crore.
+Same total size, but B has six times A's index weight.
+
+**Passive flow when float rises.** If promoters of A sell 15% through an OFS, IWF rises to 0.25 and free-float cap to ₹37,500 crore. If ₹4 lakh crore of passive money tracks an index in which the total free-float cap is ₹1,00,00,000 crore (₹100 lakh crore):
+- A's weight goes from 0.015% to 0.0375%, an increase of 0.0225 percentage points.
+- Passive buying ≈ ₹4,00,000 crore × 0.000225 = ₹90 crore, a small offset to the ₹22,500 crore of shares sold in the OFS.
+
+## India specifics
+- Several large listings had very low public float: for example LIC listed in 2022 with about 3.5% public shareholding, which kept its index weights small despite its size, and the government gave it extra time to reach 25% public shareholding.
+- After the Hindenburg report in January 2023, MSCI reviewed the free-float classification of some Adani group companies and reduced their free-float factors, cutting their index weights.
+- Minimum public shareholding rules (25%) gradually raise free float for low-float companies, creating predictable index-weight increases.
+- SEBI's rules for non-benchmark indices used for derivatives (such as Bank Nifty) limit the weight of the largest constituents and require a minimum number of stocks, to curb concentration.
+
+## Real examples and history
+- Indian indices moved from full market capitalisation to free-float weighting in 2009 (Nifty) and 2003 (Sensex), following global practice.
+- Global index providers (MSCI, FTSE) apply their own free-float estimates, which can differ from NSE's, creating different weights for the same stock in different indices.
+
+## Edge cases and common mistakes
+- **Confusing public shareholding with free float.** Some public holders (strategic investors, locked-in holders) may still be excluded.
+- **Assuming low float means low volatility.** Low-float stocks can be more volatile, because few shares trade.
+- **Ignoring rounding.** IWFs may be rounded to steps, so small changes in shareholding may not change the weight.
+- **Timing.** IWF updates follow shareholding disclosures with a lag; trading on expected changes requires the methodology's update schedule.
+- **Different index providers.** A stock's weight in MSCI India can change on a different day from its Nifty weight.
+
+## How traders, investors and quants use it
+- Index-flow traders estimate passive buying or selling from IWF changes and inclusions or exclusions, and position before effective dates.
+- Fund managers compare benchmark weights with total market caps to understand underweights in low-float giants.
+- Quants use free float as a liquidity and governance feature: very low float can signal concentrated control and higher manipulation risk.
+
+## Related concepts
+Minimum public shareholding; index inclusion rules; passive flow estimation; OFS; shareholding pattern disclosure; MSCI index reviews.
+</lesson>
+<qa difficulty="hard"><q>A stock has 300 crore shares at ₹400 and promoters hold 75%. What is its free-float market cap, assuming no other exclusions?</q><a>Total market cap = 300 crore × ₹400 = ₹1,20,000 crore. IWF = 0.25. Free-float cap = ₹30,000 crore.</a></qa>
+<qa difficulty="hard"><q>Why do index providers exclude promoter holdings from free float?</q><a>Promoter shares are held for control and rarely traded, so they are not available to investors who buy the index. Counting them would give the stock an index weight larger than the supply of shares that funds can actually buy, causing price pressure and tracking problems for passive funds.</a></qa>
+<qa difficulty="expert"><q>₹2 lakh crore of passive money tracks an index whose total free-float cap is ₹50 lakh crore. A constituent's free-float cap rises from ₹50,000 crore to ₹80,000 crore after an OFS. Estimate the passive buying.</q><a>Old weight = 50,000/50,00,000 = 1.0%. New total = ₹50,30,000 crore; new weight = 80,000/50,30,000 ≈ 1.59%. Passive holding goes from 1.0% × ₹2 lakh crore = ₹2,000 crore to 1.59% × ₹2 lakh crore ≈ ₹3,181 crore. Passive buying ≈ ₹1,181 crore, part of it bought in the OFS itself.</a></qa>
+<qa difficulty="medium"><q>Why did LIC's index weight stay small after its 2022 listing despite its large market capitalisation?</q><a>Only about 3.5% of its shares were with the public at listing, the rest held by the government as promoter. Free-float weighting counts only the public portion, so its free-float market cap, and hence its index weight, was a small fraction of its total market cap.</a></qa>
+<qa difficulty="hard"><q>What happens to index weights if an index provider reduces a stock's free-float factor, as MSCI did for some Adani companies in 2023?</q><a>The stock's free-float market cap in that index falls, reducing its weight. Passive funds tracking the index must sell shares to match the new weight on the effective date, adding selling pressure, while other constituents' weights rise slightly.</a></qa>
+<qa difficulty="hard"><q>Two companies have the same free float percentage, but one's public holders include a 10% strategic investor. How might their IWFs differ?</q><a>If the strategic investor's holding is classified as strategic (for example a foreign strategic partner), the index provider can exclude it, so that company's IWF is 10 percentage points lower than the other's, even though both show the same public shareholding in the disclosure.</a></qa>
+<source url="https://www.niftyindices.com/resources/investible-weight-factors">Investible weight factors (NSE Indices)</source>
+<source url="https://niftyindices.com/resources/tutorial/calculation-of-indices">Calculation of indices (NSE Indices)</source>
+<source url="https://www.nseindia.com/static/products-services/indices-investible-weight-factors">Indices: investible weight factors (NSE)</source>
+<source url="https://www.motilaloswal.com/personal-finance/share-market/what-is-free-float-market-capitalisation-definition-and-examples">What is free float market capitalisation (Motilal Oswal)</source>
+</topic>
+
+<topic id="407">
+<level>advanced</level>
+<lesson>
+# Lock-in rules for promoters, anchors and pre-IPO holders and expiry-date price behaviour
+
+## Core idea
+After an IPO, large blocks of shares cannot be sold for set periods: promoters' contributions, anchor investors' allotments and pre-IPO investors' holdings are "locked in". When those periods end, a large supply can come to the market. Prices often weaken before and around lock-in expiries, especially for companies whose pre-IPO investors bought far below the IPO price and want to exit. Knowing the calendar of expiries is basic risk management for post-IPO stocks.
+
+## How it works, step by step
+**Main-board lock-ins under SEBI ICDR** (as revised in 2021 and 2022):
+1. **Promoters' minimum contribution** (20% of post-issue capital): locked for 18 months from allotment (3 years if the issue's objects include capital expenditure or a large project).
+2. **Promoter holding above the minimum:** 6 months (1 year in the capex case).
+3. **Pre-IPO shareholders (non-promoters):** 6 months from allotment, with some exemptions (for example certain venture capital or AIF holdings held long enough).
+4. **Anchor investors:** 50% of their allotment for 30 days, the other 50% for 90 days.
+5. Locked-in shares can be pledged with banks or NBFCs in some cases, but cannot be sold.
+
+**SME platform:** stricter staged releases for promoters' excess holdings (half after one year, half after two) under the 2025 amendments.
+
+**Price behaviour.** Before an expiry, traders anticipate selling; on and after the expiry, block deals by early investors add supply. The effect is larger when (a) locked shares are a big part of the float, (b) their holders bought at much lower prices, and (c) the stock has fallen and holders want liquidity.
+
+## Formulas and numbers (worked example)
+A company has 100 crore shares after its IPO: public float from the IPO 15 crore; anchors 4 crore (part of the IPO); pre-IPO investors 35 crore; promoters 50 crore.
+- Day 30: 2 crore anchor shares unlock (13% of the 15 crore float).
+- Day 90: another 2 crore anchor shares.
+- Month 6: 35 crore pre-IPO shares unlock, more than twice the existing float.
+If pre-IPO investors bought at ₹50 and the stock trades at ₹200, even selling a quarter of their holding (8.75 crore shares, ₹1,750 crore) is a large supply compared with daily volume of, say, ₹150 crore.
+
+## India specifics
+- SEBI cut pre-IPO and excess promoter lock-ins from one year to six months in August 2021, and promoters' minimum contribution lock-in from three years to 18 months (where no capex is funded), aligning India closer to global practice.
+- Anchor lock-in was extended in 2022 from 30 days for all shares to 30 days for half and 90 days for the rest.
+- **2022 new-age tech expiries:** Zomato fell to a record low in July 2022 when its one-year pre-IPO lock-in ended (one early investor sold its whole stake), though the fall also followed its Blinkit acquisition news; Paytm fell more than 10% to an all-time low in November 2022 after its lock-in expired, as SoftBank sold shares; Nykaa fell below its IPO price around its pre-IPO lock-in expiry, with private equity investors selling in tranches. Anchor lock-in expiries for Nykaa and PolicyBazaar were followed by falls of about 2% and 3.5%.
+
+## Real examples and history
+- US research (for example Field and Hanka, 2001) found small but significant negative abnormal returns around lock-up expiries, with larger effects when venture capital-backed shareholders were unlocking, along with a jump in trading volume.
+- The Indian 2022 experience showed similar patterns, amplified by the sharp fall in tech valuations that year.
+
+## Edge cases and common mistakes
+- **Assuming all locked shares will be sold.** Many holders keep their shares; the effect depends on their cost and motives.
+- **Ignoring pledges.** Locked shares pledged to lenders can be released or invoked under certain conditions.
+- **Counting from listing instead of allotment.** Lock-in periods run from the date of allotment.
+- **Missing staggered expiries.** Anchor shares unlock in two steps; different investor classes unlock on different dates.
+- **Confusing correlation and cause.** Expiry-date falls can coincide with other news (results, acquisitions).
+
+## How traders, investors and quants use it
+- Traders mark lock-in calendars and watch for block deals and bulk deals on and after expiry dates.
+- Quants study abnormal returns and volume around expiries and use "unlocked shares / free float" as a feature.
+- Long-term investors may wait for lock-in overhangs to clear before buying recently listed stocks.
+
+## Related concepts
+IPO allocation and anchor investors; free float; block deals; ICDR Regulation 6; SME rules; event studies.
+</lesson>
+<qa difficulty="medium"><q>When do an anchor investor's shares become sellable after allotment?</q><a>Half of the anchor allotment is locked for 30 days and the other half for 90 days from the date of allotment. After 30 days the first half can be sold; after 90 days the rest.</a></qa>
+<qa difficulty="hard"><q>A company has a public float of 12 crore shares after its IPO; 30 crore pre-IPO shares unlock at month 6. Why might the price fall before the unlock?</q><a>The unlock more than triples the shares potentially available for sale. Traders expect pre-IPO investors (who may have bought far lower) to sell, so they sell or short ahead of the date, and buyers wait for the supply. The anticipated overhang pushes prices down before the actual selling.</a></qa>
+<qa difficulty="hard"><q>What lock-in applies to promoters' minimum contribution if the IPO money is used to repay debt (no capital expenditure)?</q><a>18 months from the date of allotment for the minimum contribution (20% of post-issue capital), and 6 months for promoter holdings above that, under the rules revised in 2021. If the objects included capital expenditure for a project, the lock-in would be 3 years and 1 year respectively.</a></qa>
+<qa difficulty="expert"><q>How would you design an event study of lock-in expiries for Indian IPOs from 2015 to 2025?</q><a>Collect allotment dates and lock-in schedules by investor class from offer documents; compute unlock size relative to free float. For each expiry, compute abnormal returns against the market (or a matched portfolio) from 20 days before to 20 days after, and abnormal volume. Test whether effects are larger when unlocked shares are a larger share of float, when the stock trades far above pre-IPO costs, and for venture-backed firms. Control for news events and account for overlapping expiries and market-wide clustering of IPOs.</a></qa>
+<qa difficulty="medium"><q>Why did Paytm's share price fall more than 10% in November 2022?</q><a>Its one-year lock-in for pre-IPO investors expired, and SoftBank, a large early investor, sold part of its holding. The additional supply into an already weak stock pushed it to an all-time low, far below its IPO price of ₹2,150.</a></qa>
+<qa difficulty="hard"><q>Why might the price effect of a lock-in expiry be small even when many shares unlock?</q><a>If holders are long-term strategic investors, if the stock is trading below their purchase price, or if the expiry was widely anticipated and already priced in, few shares may be sold or the selling may be absorbed through planned block deals with institutions, with little impact on the open market.</a></qa>
+<source url="https://techcrunch.com/2022/07/24/zomato-drops-14-to-record-low-as-lock-in-period-ends/">Zomato drops to all-time low as lock-in period ends (TechCrunch)</source>
+<source url="https://techcrunch.com/2022/11/21/india-paytm-slides-over-10-to-all-time-low-after-lock-up-period-expires/">India's Paytm slides over 10% to all-time low after lock-up expires (TechCrunch)</source>
+<source url="https://www.business-standard.com/amp/article/markets/nykaa-policy-bazaar-stocks-slide-as-one-year-lock-in-period-nears-end-122102500727_1.html">Nykaa and PolicyBazaar slide as one-year lock-in nears end (Business Standard)</source>
+<source url="https://www.business-standard.com/amp/article/markets/paytm-stock-falls-8-as-anchor-investor-s-30-days-lock-in-period-ends-121121501545_1.html">Paytm stock falls 8% as anchor investors' 30-day lock-in ends (Business Standard)</source>
+<source url="https://yourstory.com/2022/10/nykaa-shares-dip-below-ipo-listing-price-anchor-investors/amp">Nykaa shares dip below IPO listing price (YourStory)</source>
+</topic>
+
+<topic id="408">
+<level>advanced</level>
+<lesson>
+# Fama–French factors and anomalies in Indian equities (value, momentum, size, quality)
+
+## Core idea
+Factor models explain stock returns by a few common sources: the market, size (small minus big), value (high minus low book-to-market), momentum (winners minus losers) and, in newer models, profitability and investment. Testing whether markets are efficient always tests a model at the same time (the joint-hypothesis problem): an "anomaly" may be a risk premium the model misses. In India, researchers at IIM Ahmedabad publish factor returns that show strong momentum, a positive value premium and a weak or negative size premium in recent decades.
+
+## How it works, step by step
+1. **Universe.** Indian listed stocks, excluding illiquid ones so that portfolios are investable.
+2. **Size and value sorts.** Each year sort by market cap into small and big, and by book-to-market into high, neutral and low. SMB = average return of small portfolios − big portfolios; HML = average of high book-to-market − low.
+3. **Momentum.** Sort monthly by past 12-month return skipping the latest month; WML = winners − losers.
+4. **Model.** For any portfolio, regress its excess return on market, SMB, HML and WML. The intercept (alpha) is the return not explained by the factors.
+5. **Interpretation.** A significant alpha means either a genuine mispricing or a missing factor; a strategy with high raw returns but zero alpha is just factor exposure.
+
+## Formulas and numbers (worked example)
+A small-cap value fund's monthly excess return regression on Indian factors gives:
+R − Rf = 0.20% + 1.05 × MKT + 0.60 × SMB + 0.45 × HML − 0.10 × WML.
+With average monthly factor returns MKT 0.60%, SMB −0.40%, HML 0.55%, WML 0.95%:
+- Expected from factors = 1.05 × 0.60 + 0.60 × (−0.40) + 0.45 × 0.55 − 0.10 × 0.95 = 0.63 − 0.24 + 0.2475 − 0.095 = 0.5425% a month.
+- Alpha 0.20% a month (about 2.4% a year) is the manager's return beyond these exposures; its t-statistic decides whether it is skill or noise.
+
+## India specifics
+- **IIM Ahmedabad data library** (Agarwalla, Jacob and Varma) computes Indian Fama-French and momentum factors with corrections for survivorship. Their original study (1993 to 2012) found an average annual momentum factor return of 21.2%. The legacy series was suspended in 2020 and a new series, excluding illiquid firms, launched in December 2021 with data from October 1993.
+- A snapshot on the library's site has shown annualised returns of about 6.8% for value (HML), about −4.8% for size (SMB) and about 11.3% for momentum (WML), with volatilities of 14% to 18%; figures depend on the release and period, so check the current data.
+- **Factor indices and funds.** NSE publishes factor indices such as Nifty200 Momentum 30, Nifty200 Value 30, Nifty200 Quality 30, Nifty Alpha 50 and Nifty Low Volatility 50, and many passive funds track them, bringing factor investing to retail investors.
+- **Quality** (high profitability, low leverage) and **low volatility** have been popular in India; their returns vary by period, often outperforming in downturns.
+
+## Real examples and history
+- Fama and French (1993) introduced the three-factor model; Carhart (1997) added momentum; Fama and French (2015) added profitability and investment.
+- Momentum has been one of the strongest factors globally and in India, but it suffers sharp crashes after market reversals (for example in sudden recoveries after crashes).
+- The small-cap premium has been weak in many markets after its discovery; India's negative SMB in the IIMA snapshot fits this pattern, though small caps had strong runs in some periods (such as 2020 to 2024).
+
+## Edge cases and common mistakes
+- **Data snooping.** Testing many signals on the same data guarantees some false "anomalies"; demand out-of-sample evidence and higher t-statistic thresholds.
+- **Ignoring costs.** Momentum and small-cap strategies trade a lot in less liquid stocks; costs can erase paper returns.
+- **Survivorship and look-ahead.** Book values must be used only after they are published (with a lag), and delisted stocks must be included.
+- **Crowding.** Popular factor indices can become crowded, reducing future returns and increasing crash risk.
+- **Factor timing.** Factors have long droughts; switching in and out based on recent performance often hurts.
+
+## How traders, investors and quants use it
+- Fund analysts decompose mutual fund returns into factor exposures to separate skill from style.
+- Quants build multi-factor portfolios (value, momentum, quality, low volatility) for diversification across factor cycles.
+- Investors choose factor index funds knowing their expected behaviour (momentum's crashes, value's long underperformance spells).
+
+## Related concepts
+Efficient market hypothesis and the joint-hypothesis problem; CAPM; momentum crashes; smart-beta indices; survivorship bias; transaction costs; event studies.
+</lesson>
+<qa difficulty="hard"><q>A fund has an alpha of 0.25% a month with a standard error of 0.20% in a four-factor regression. Is the alpha significant?</q><a>t = 0.25/0.20 = 1.25, below about 2, so it is not statistically significant at conventional levels. The fund's outperformance could be due to chance; more data or a longer record is needed.</a></qa>
+<qa difficulty="medium"><q>What does SMB measure, and what has it shown in Indian data?</q><a>SMB (small minus big) is the return of small-cap stocks minus large-cap stocks, controlling for value. In the IIM Ahmedabad data, its long-run average has been weak, with one snapshot showing about −4.8% a year, so small caps have not earned a reliable premium over large caps on average, though they outperformed in certain periods.</a></qa>
+<qa difficulty="hard"><q>Explain the joint-hypothesis problem with an Indian example.</q><a>Suppose momentum stocks in India earn high returns not explained by the CAPM. This could mean the market is inefficient (investors underreact to news), or the CAPM is the wrong model and momentum stocks carry a risk the CAPM misses. Any test of efficiency must assume a model of expected returns, so an anomaly cannot prove inefficiency on its own.</a></qa>
+<qa difficulty="expert"><q>How should a researcher construct HML for India to avoid look-ahead bias?</q><a>Use book equity from annual reports only after they were publicly available (for example forming portfolios in a set month using book values from the fiscal year ending at least several months earlier), use market cap at the formation date, include all listed stocks that existed at the time (including later delistings), and exclude illiquid stocks according to rules known at formation. The IIMA library's methodology follows these principles.</a></qa>
+<qa difficulty="hard"><q>Why might momentum earn high average returns in India yet be risky?</q><a>Momentum buys recent winners and sells recent losers. In sharp market reversals, losers (often beaten-down, high-beta stocks) rebound strongly while winners lag, causing large, sudden losses ("momentum crashes"). High average returns compensate for, or coexist with, this crash risk, along with high turnover and costs.</a></qa>
+<qa difficulty="medium"><q>Name three NSE factor indices that let investors buy factor exposure passively.</q><a>Nifty200 Momentum 30, Nifty200 Value 30 and Nifty200 Quality 30 (others include Nifty Alpha 50 and Nifty Low Volatility 50). Index funds and ETFs track these.</a></qa>
+<source url="https://faculty.iima.ac.in/~iffm/Indian-Fama-French-Momentum/">Indian Fama-French and momentum factors data library (IIM Ahmedabad)</source>
+<source url="https://web.iima.ac.in/~iffm/legacy/four-factors-India-90s-onwards-IIM-WP-Version-original-Sep13.pdf">Four factor model in Indian equities market (IIMA working paper, 2013)</source>
+<source url="https://faculty.iima.ac.in/iffm/Indian-Fama-French-Momentum/drawdown.php">Factor drawdowns (IIM Ahmedabad data library)</source>
+<source url="https://www.jrvarma.in/fama-french.html">India Fama-French and momentum factors (Jayanth R. Varma)</source>
+</topic>
+
+<topic id="409">
+<level>advanced</level>
+<lesson>
+# Behavioural finance and limits to arbitrage: noise traders, overreaction and bubbles in Indian small caps
+
+## Core idea
+Prices can drift far from fundamental value when two things happen together: some investors trade on sentiment rather than information (noise traders), and rational traders cannot easily or safely bet against them (limits to arbitrage). Indian small caps, especially SME stocks, combine heavy retail participation, thin liquidity and weak short-selling, making them a natural place for bubbles and sharp reversals.
+
+## How it works, step by step
+1. **Noise traders.** Investors who chase recent winners, follow tips or social media, and overweight attention-grabbing stocks. De Long, Shleifer, Summers and Waldmann (1990) showed that unpredictable noise-trader sentiment creates risk that keeps arbitrageurs from fully correcting prices.
+2. **Limits to arbitrage** (Shleifer and Vishny, 1997):
+   - **Fundamental risk:** the arbitrageur may be wrong about value.
+   - **Noise-trader risk:** mispricing can get worse before it corrects, causing losses and margin calls.
+   - **Implementation costs:** short-selling may be expensive or impossible; spreads are wide.
+   - **Agency problems:** professional arbitrageurs lose clients after losses, so they cannot hold positions long.
+3. **Short-sale constraints.** When pessimists cannot short, prices reflect mostly optimists' views (Miller, 1977), so overpricing persists.
+4. **Overreaction and reversal.** Prices driven up by sentiment tend to fall back when sentiment fades, producing long-run reversals (De Bondt and Thaler, 1985) for the most extreme past winners.
+
+## Formulas and numbers (worked example)
+A small-cap stock's fair value is ₹200; it trades at ₹320 after a social media rally. An arbitrageur wants to short it:
+- No stock futures exist (it is not in the F&O segment), and securities lending is thin; borrowing costs 15% a year when available.
+- If sentiment pushes the price to ₹400 before correcting, the short position loses ₹80 per share (25%) even though the arbitrageur's valuation is right.
+- With 50% margin and 3× leverage on capital, a 25% adverse move costs 75% of capital, ending the trade before it can work.
+The expected profit if the price returns to ₹200 within a year is ₹120 per share minus borrowing cost (about ₹48), but survival risk makes the bet unattractive. The mispricing persists.
+
+## India specifics
+- **Short-selling limits.** Institutions cannot short sell without delivering borrowed shares; the securities lending and borrowing (SLB) market is thin for most small caps, and stock derivatives exist for only about two hundred large stocks. Small caps are effectively short-sale constrained.
+- **Surveillance tools.** Exchanges apply Additional Surveillance Measures (ASM) and Graded Surveillance Measures (GSM), narrower price bands (2% or 5%) and trade-for-trade settlement to cool speculative stocks.
+- **2024 froth warnings.** SEBI's chair spoke of "froth" in small and mid caps in early 2024, and mutual funds were required to publish stress tests showing how many days they would need to sell 25% and 50% of their small and mid-cap portfolios (early results ranged from under a week for some mid-cap funds to about a month or more for small-cap funds). Over 200 small caps fell more than 20% in the weeks after the warnings. SME IPOs were oversubscribed hundreds of times and SEBI warned about manipulation.
+- **Retail participation.** The number of demat accounts grew from about 4 crore in 2020 to well over 15 crore by 2024, much of it new retail investors attracted to momentum stocks.
+
+## Real examples and history
+- Harshad Mehta (1992) and Ketan Parekh (2000) episodes involved manipulation of thinly traded stocks fuelled by leverage; both ended in crashes.
+- The 2007 to 2008 small-cap boom and bust saw many small caps fall 70 to 90% from their peaks.
+- In the US, the 2021 meme-stock episode showed noise traders forcing short sellers out, a vivid example of noise-trader risk.
+
+## Edge cases and common mistakes
+- **"Overvalued" is not a timing signal.** Bubbles can last for years; shorting early is ruinous.
+- **Blaming all rallies on noise.** Small caps can rise on genuine earnings growth; distinguish fundamentals from sentiment with earnings and cash flow data.
+- **Liquidity illusion.** Small caps that trade freely in rising markets can become impossible to sell in panics (lower circuits with no buyers).
+- **Surveillance as a signal.** ASM or GSM placement warns of speculative activity; it does not mean the stock will fall immediately.
+
+## How traders, investors and quants use it
+- Investors avoid illiquid, heavily promoted small caps and size positions for exit difficulty.
+- Quants use measures of sentiment (retail share of volume, turnover spikes, extreme past returns) to predict lower future returns in small caps, and test them out of sample.
+- Fund managers manage liquidity risk in small-cap funds, as the 2024 stress tests require.
+
+## Related concepts
+Efficient market hypothesis; noise-trader risk; short-selling and SLB; surveillance measures; momentum and reversal; SME IPOs; market manipulation.
+</lesson>
+<qa difficulty="hard"><q>Why can a rational arbitrageur lose money betting against an overpriced stock even if the valuation is correct?</q><a>Because mispricing can widen before it corrects. Noise traders may push the price further up, causing mark-to-market losses, margin calls and investor withdrawals that force the arbitrageur to close the position at a loss before prices return to value. This noise-trader risk, with costs of shorting, limits arbitrage.</a></qa>
+<qa difficulty="medium"><q>Why are Indian small caps hard to short?</q><a>Most are not in the F&O segment, so no stock futures or options exist; institutions must borrow shares through the SLB market to short, and lending supply for small caps is thin and costly. Without a practical way to short, pessimistic views do not enter prices.</a></qa>
+<qa difficulty="expert"><q>Explain Miller's (1977) argument and how it applies to SME stocks in India.</q><a>When investors disagree about value and pessimists cannot short, prices are set by the most optimistic buyers, so stocks become overpriced, more so the greater the disagreement. SME stocks have small floats, wide disagreement about value, strong retail enthusiasm and essentially no short selling, so prices can stay above fair value until optimism fades, after which they fall sharply.</a></qa>
+<qa difficulty="hard"><q>In the worked example, the arbitrageur used 3× leverage. How large an adverse move wipes out capital, and what does this imply about sizing short positions?</q><a>With 3× leverage, a 33.3% adverse move loses 100% of capital (before margin calls force exit earlier). Since sentiment-driven stocks can rise 30 to 50% quickly, leveraged shorts are fragile. Short positions in such stocks need low leverage, small size and defined-risk instruments where available.</a></qa>
+<qa difficulty="medium"><q>What are ASM and GSM?</q><a>Additional Surveillance Measures and Graded Surveillance Measures are exchange frameworks that place stocks showing unusual price or volume behaviour, or weak fundamentals, under restrictions such as 100% upfront margins, narrower price bands, trade-for-trade settlement and limits on trading frequency, to curb speculation.</a></qa>
+<qa difficulty="hard"><q>Why did SEBI ask mutual funds to publish stress tests for small and mid-cap schemes in 2024?</q><a>Small and mid-cap schemes had received heavy inflows while those stocks were richly valued and less liquid. If many investors redeemed at once, funds might struggle to sell holdings without large price impact. Stress tests disclosing how many days it would take to sell 25% or 50% of the portfolio inform investors about this liquidity risk.</a></qa>
+<source url="https://gwern.net/doc/economics/1990-delong.pdf">De Long, Shleifer, Summers and Waldmann (1990), Noise trader risk in financial markets</source>
+<source url="https://ms.mcmaster.ca/%7Egrasselli/ShleiferVishny97.pdf">Shleifer and Vishny (1997), The limits of arbitrage</source>
+<source url="https://www.business-standard.com/amp/markets/news/small-midcap-stocks-sink-further-to-log-their-biggest-fall-in-two-years-124031300939_1.html">Small, midcap stocks log their biggest fall in two years (Business Standard, March 2024)</source>
+<source url="https://www.money9.com/news/exclusive/small-mid-cap-mutual-funds-in-focus-as-mf-stress-test-looms-large-131369.html">Small and mid-cap mutual funds in focus as stress test looms (Money9)</source>
+<source url="https://www.moneylife.in/article/sebi-proposes-sweeping-overhaul-of-sme-ipo-framework/81956.html">SEBI proposes sweeping overhaul of SME IPO framework (Moneylife)</source>
+</topic>
