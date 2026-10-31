@@ -1,0 +1,304 @@
+<topic id="602">
+<level>intermediate</level>
+<lesson>
+# Karvy Stock Broking: facts, SEBI orders, and the reforms that followed
+
+## Core idea
+The 2019 Karvy Stock Broking scandal is the single most important event behind today's rules on how Indian brokers handle client assets. Karvy used clients' powers of attorney to move their shares into its own accounts and pledge them for loans worth about ₹2,000 crore or more, diverting money to group companies. SEBI's response went beyond punishing Karvy: it rebuilt the plumbing of client asset protection, so that a similar fraud is far harder today.
+
+## How it works, step by step (timeline)
+1. **Before 2019.** Clients gave brokers broad powers of attorney (POAs) over demat accounts; brokers often held client securities in pool or beneficiary accounts and could pledge them.
+2. **June 2019.** SEBI banned brokers from pledging client securities for their own borrowing and required segregation by September 2019.
+3. **Autumn 2019.** NSE's inspection found Karvy had transferred client securities (including those of fully paid clients) to its own account and pledged them; it had not complied with the June circular.
+4. **22 November 2019.** SEBI's interim order barred Karvy from taking new clients and froze the arrangement; NSDL was directed to act, and over the following weeks transferred securities back to tens of thousands of clients who had paid fully. SEBI refused lenders' requests to invoke pledges.
+5. **November 2020.** NSE and BSE declared Karvy a defaulter and expelled it.
+6. **28 April 2023.** SEBI's final order banned Karvy and promoter Comandur Parthasarathy for seven years and imposed a penalty of about ₹21 crore.
+
+## Formulas and numbers (worked example)
+How the fraud worked, in numbers: a client with fully paid shares worth ₹10 lakh had given Karvy a POA. Karvy moved the shares to its own account and pledged them (along with other clients' shares) to a lender for a loan at 50% of value: ₹5 lakh borrowed against this client's shares alone. Across many clients, borrowing reached about ₹2,000 crore. When exposed, regulators returned the shares to the client; the lender lost its collateral and was left with an unsecured claim.
+
+## India specifics: reforms that followed
+1. **Margin pledge and re-pledge (from September 2020):** securities given as margin stay in clients' demat accounts with a pledge marked, approved by the client's OTP.
+2. **End of broad POAs:** replaced by the Demat Debit and Pledge Instruction (DDPI) in 2022, usable only for specific purposes.
+3. **Segregation and reporting:** brokers report client fund and securities balances, which exchanges reconcile with bank and depository records; monthly or quarterly running-account settlement returns idle funds.
+4. **Upstreaming of client funds** to clearing corporations so brokers do not hold large client balances overnight.
+5. **Block mechanism for early pay-in (2022):** shares to be delivered are blocked in the client's account rather than moved to broker pool accounts.
+6. **Closure of client unpaid securities accounts and pool accounts misuse,** with unpaid securities handled through specific pledges.
+
+## Real examples and history
+- Other brokers with similar problems (for example BMA Wealth Creators) surfaced around the same time, confirming a systemic weakness.
+- Lenders' appeals to SAT failed to obtain immediate relief; the principle that clients' fully paid securities belong to clients was upheld.
+
+## Edge cases and common mistakes
+- **Believing a large broker is automatically safe.** Karvy was a well-known name.
+- **Leaving funds idle with brokers.** Funds are more exposed than securities in your own demat account.
+- **Ignoring depository alerts.** Clients now receive alerts on every debit or pledge; unexpected alerts should be reported.
+- **Signing broad authorisations.** Limit authorisations to DDPI purposes.
+
+## How traders, investors and quants use it
+- Investors use their depository statements and alerts to verify holdings independently of broker reports.
+- Lenders verify ownership before accepting pledged securities.
+- Students use the case to understand why each post-2019 rule exists.
+
+## Related concepts
+Margin pledge; DDPI; segregation of client assets; Investor Protection Fund; broker insolvency; enhanced supervision.
+</lesson>
+<qa difficulty="medium"><q>What did Karvy do with clients' securities?</q><a>Using powers of attorney, it transferred clients' shares (including those of clients who had fully paid) to its own account and pledged them with banks and NBFCs to raise loans, diverting funds to group companies.</a></qa>
+<qa difficulty="hard"><q>List four reforms introduced after the Karvy case.</q><a>(1) Margin pledge and re-pledge, keeping margin securities in clients' accounts (2020). (2) DDPI replacing broad POAs (2022). (3) Block mechanism for early pay-in (2022). (4) Stronger segregation, reconciliation of client balances and upstreaming of client funds to clearing corporations, along with running-account settlement.</a></qa>
+<qa difficulty="hard"><q>Why were Karvy's lenders unable to recover through the pledged shares?</q><a>The shares belonged to Karvy's clients, many of whom had fully paid for them, and Karvy had no authority to pledge them for its own borrowing (which SEBI had banned in June 2019). Regulators returned the shares to the clients, and SAT refused lenders' requests for relief, leaving lenders with claims against Karvy.</a></qa>
+<qa difficulty="medium"><q>What penalties did SEBI impose in its final order?</q><a>A seven-year ban from the securities market for Karvy Stock Broking and its promoter Comandur Parthasarathy, and a penalty of about ₹21 crore (April 2023).</a></qa>
+<qa difficulty="hard"><q>How do depository alerts help prevent a Karvy-type fraud today?</q><a>Clients receive SMS or email alerts for every debit, transfer or pledge in their demat accounts. An unauthorised movement of shares would trigger an alert the client can report immediately, and pledges require the client's OTP, making secret transfers difficult.</a></qa>
+<qa difficulty="medium"><q>When did NSE and BSE expel Karvy?</q><a>In November 2020, after declaring it a defaulter.</a></qa>
+<source url="https://www.businesstoday.in/amp/markets/top-story/story/sebi-bans-karvy-stock-broking-promoter-from-securities-mkt-for-7-yrs-imposes-rs-21-cr-penalty-379360-2023-04-28">SEBI bans Karvy Stock Broking and promoter for 7 years (Business Today)</source>
+<source url="https://indiacorplaw.in/2023/06/20/karvy-demat-case-how-has-sebi-responded/">Karvy demat case: how has SEBI responded? (IndiaCorpLaw)</source>
+<source url="https://www.business-standard.com/amp/article/pti-stories/sebi-bars-karvy-stock-broking-from-taking-new-clients-119112201484_1.html">SEBI bars Karvy Stock Broking from taking new clients (Business Standard)</source>
+<source url="https://taxguru.in/sebi/karvy-stock-broking-case-fallout-sebi-circular.html">Karvy Stock Broking case: fallout of the SEBI circular (TaxGuru)</source>
+</topic>
+
+<topic id="603">
+<level>advanced</level>
+<lesson>
+# Collateral haircuts: VaR, ELM and liquidity-group floors for pledged securities
+
+## Core idea
+When investors pledge shares as margin, the clearing corporation does not count their full market value. It applies a **haircut**: a percentage cut reflecting how much the shares could fall, and how hard they would be to sell, before the CC could liquidate them. For equity shares, the haircut is generally linked to the stock's VaR margin, which depends on its volatility and its **liquidity group** (based on trading frequency and impact cost), with minimum floors for each group. Less liquid stocks get much larger haircuts.
+
+## How it works, step by step
+1. **Liquidity groups** (reviewed monthly on a rolling six-month basis):
+   - **Group I:** traded on at least 80% of days with impact cost up to 1%.
+   - **Group II:** traded on at least 80% of days with impact cost above 1%.
+   - **Group III:** traded on fewer than 80% of days (illiquid).
+2. **VaR margin.** Based on the stock's volatility (a multiple of sigma, such as 6σ in the post-2020 framework), with minimum floors by group: about 9% for Group I, 21.5% for Group II, and 50% or 75% for Group III depending on trading frequency.
+3. **ELM** is added for extreme moves in margin computation.
+4. **Haircut on collateral.** Pledged Group I shares typically carry a haircut equal to their VaR margin; less liquid shares carry higher haircuts or are not accepted; cash and fixed deposits carry no or minimal haircuts.
+5. **Daily revaluation.** Collateral is marked to market daily with updated haircuts.
+6. **Proposals.** A clearing-corporation working group has proposed tightening Group I criteria (for example 99% trading frequency and 0.1% impact cost); check whether adopted.
+
+## Formulas and numbers (worked example)
+A client pledges:
+- Stock X (Group I), ₹10 lakh, daily volatility 1.8%: 6σ = 10.8%, above the 9% floor → haircut ≈ 10.8% → collateral ₹8.92 lakh.
+- Stock Y (Group II), ₹5 lakh, daily volatility 2.5%: 6σ = 15%, below the 21.5% floor → haircut 21.5% → collateral ₹3.93 lakh.
+- Stock Z (Group III), ₹3 lakh, traded weekly → haircut 50% (if accepted) → ₹1.5 lakh.
+Total market value ₹18 lakh; collateral value ₹14.35 lakh (about 80%).
+
+## India specifics
+- SEBI's 2003 risk management framework for T+2 first set VaR margins by liquidity groups; NSE Clearing updated the methodology around 2020 with 6-sigma and higher floors.
+- NSE publishes monthly categorisation of stocks and applicable VaR margins.
+- Surveillance-listed stocks may carry 100% margins, making them useless as collateral.
+
+## Real examples and history
+- When small-cap volatility spiked in 2024, haircuts on many stocks rose, reducing traders' collateral and margin capacity even before prices fell much.
+- Liquidity-based groupings date back to the early 2000s, after crises showed illiquid stocks could not be sold quickly at fair prices.
+
+## Edge cases and common mistakes
+- **Assuming haircuts are fixed.** They change with volatility and group reclassification.
+- **Concentration.** A pledge concentrated in one stock may face additional limits.
+- **Illiquid collateral.** Group III stocks may be unacceptable or nearly worthless as margin.
+- **Cash component rule.** Even with large share collateral, at least 50% of F&O margin must be cash or cash equivalents.
+
+## How traders, investors and quants use it
+- Traders choose liquid, low-volatility stocks and liquid funds as collateral.
+- Risk teams monitor haircut changes to anticipate margin calls.
+- Quants model collateral value in stress as haircuts rise with volatility.
+
+## Related concepts
+VaR margin; ELM; impact cost; margin pledge; peak margin; surveillance measures.
+</lesson>
+<qa difficulty="medium"><q>What are the three liquidity groups for VaR margins?</q><a>Group I: traded on at least 80% of days with impact cost up to 1%. Group II: traded on at least 80% of days with impact cost above 1%. Group III: traded on fewer than 80% of days.</a></qa>
+<qa difficulty="hard"><q>A Group I stock has daily volatility of 1.2%. What VaR margin applies under a 6σ rule with a 9% floor?</q><a>6σ = 7.2%, below the 9% floor, so the VaR margin (and typical haircut) is 9%.</a></qa>
+<qa difficulty="hard"><q>Compute collateral value for ₹4 lakh of a Group II stock with 6σ = 18% and a 21.5% floor.</q><a>Haircut = max(18%, 21.5%) = 21.5%. Collateral = ₹4 lakh × 0.785 = ₹3.14 lakh.</a></qa>
+<qa difficulty="expert"><q>Why do less liquid stocks need larger haircuts even if their volatility looks similar to liquid stocks?</q><a>Haircuts protect the CC if it must sell collateral after a default. Illiquid stocks take longer to sell and move more when sold in size (higher impact cost), so the realised loss on liquidation can be far larger than daily volatility suggests. Floors by liquidity group capture this liquidation risk.</a></qa>
+<qa difficulty="medium"><q>Do cash and fixed deposits carry haircuts as collateral?</q><a>Cash carries no haircut, and fixed deposit receipts (in prescribed form) carry no or minimal haircut; they also count towards the cash-equivalent portion of margin.</a></qa>
+<qa difficulty="hard"><q>A stock moves from Group I to Group II at the monthly review. What happens to clients who pledged it?</q><a>Its VaR margin and haircut rise (for example from about 9% to at least 21.5%), reducing collateral value. Clients may face margin shortfalls without any price change and need to add collateral.</a></qa>
+<source url="https://www.nseindia.com/static/products-services/equity-market-categorisation-stocks-imposition-of-margins">NSE: categorisation of stocks and imposition of margins</source>
+<source url="https://nsearchives.nseindia.com/content/circulars/CMPT44387.pdf">NSE Clearing circular on VaR margin methodology</source>
+<source url="https://www.sebi.gov.in/legal/circulars/mar-2003/circular-for-risk-management-for-t-2-rolling-settlement_15836.html">SEBI circular on risk management for T+2 rolling settlement (2003)</source>
+<source url="https://bseindia.com/static/markets/equity/EQReports/risk_management.html">BSE: risk management</source>
+</topic>
+
+<topic id="604">
+<level>intermediate</level>
+<lesson>
+# Loan against shares: pledge invocation, LTV limits and margin calls
+
+## Core idea
+A loan against shares (LAS) lets an investor borrow money by pledging shares, without selling them. The lender lends only a fraction of the shares' value (the loan-to-value ratio, LTV), and if prices fall, asks for more collateral or repayment (a margin call). If the borrower fails, the lender invokes the pledge and sells the shares. RBI rules set limits on how much banks and NBFCs can lend against shares; in October 2025 RBI raised the cap on bank loans to individuals against shares from ₹20 lakh to ₹1 crore.
+
+## How it works, step by step
+1. **Eligible shares.** Lenders accept listed shares from an approved list (usually liquid large and mid caps), each with an LTV.
+2. **Pledge.** The borrower pledges shares in the depository system to the lender (OTP-authorised).
+3. **Loan amount.** Loan = value × LTV. NBFCs lending against shares must maintain an LTV of at most 50% (an RBI rule); banks follow their own policies within RBI limits.
+4. **Interest.** Charged on the amount used (often as an overdraft facility).
+5. **Monitoring.** The lender revalues collateral daily. If LTV rises above the threshold, it issues a margin call.
+6. **Cure.** The borrower adds shares or cash, or repays part of the loan, within a short period.
+7. **Invocation.** If the call is not met, the lender invokes the pledge and sells shares to restore the LTV or recover the loan.
+8. **Limits.** Bank loans to individuals against shares capped at ₹1 crore (from October 2025, up from ₹20 lakh); IPO financing capped at ₹25 lakh per person (up from ₹10 lakh). RBI also issued a draft in October 2025 proposing a higher LTV (60%) for loans against shares; check whether finalised.
+
+## Formulas and numbers (worked example)
+An investor pledges shares worth ₹40 lakh at 50% LTV → loan up to ₹20 lakh. They draw ₹18 lakh.
+- Current LTV = 18/40 = 45%.
+- The lender's margin call trigger is LTV above 55%: price at which 18/V = 0.55 → V = ₹32.7 lakh (an 18% fall).
+- If shares fall to ₹30 lakh, LTV = 60%; to restore 50%, the borrower must repay ₹3 lakh (to ₹15 lakh) or pledge ₹6 lakh more shares.
+- If they fail, the lender sells about ₹3 lakh to ₹6 lakh of shares (plus costs), possibly at low prices.
+
+## India specifics
+- Promoter pledges (by promoter groups for large loans) are a separate but related area, with SAST disclosures; retail LAS is for individuals' liquidity needs.
+- Interest on LAS used for personal purposes is not tax-deductible; using it to buy more shares adds leverage risk.
+- Margin pledges to brokers (for trading margin) are different from LAS pledges to lenders.
+
+## Real examples and history
+- In March 2020, rapid market falls triggered many LAS margin calls and invocations.
+- RBI's 2025 relaxations aimed to expand credit against financial assets while keeping LTV discipline.
+
+## Edge cases and common mistakes
+- **Using LAS for trading.** Leverage amplifies losses and invocation risk.
+- **Concentrated collateral.** One stock's crash can trigger calls on the whole loan.
+- **Lender's approved list changes.** Shares removed from the list may need replacement.
+- **Corporate actions.** Bonus shares may need to be pledged separately.
+- **Forced sales at bad prices.** Invocation happens when prices are already down.
+
+## How traders, investors and quants use it
+- Long-term investors use LAS for short-term liquidity instead of selling and paying capital gains tax.
+- Risk-aware borrowers keep LTV well below limits and maintain cash buffers.
+- Lenders model invocation risk with price volatility and gap scenarios.
+
+## Related concepts
+Margin pledge; promoter pledging; LTV; margin calls; depository pledge invocation; IPO financing.
+</lesson>
+<qa difficulty="medium"><q>What is the maximum LTV for NBFC loans against shares under RBI rules?</q><a>50%: an NBFC can lend at most half the value of shares pledged (RBI proposed in October 2025 to raise share LTV to 60%; check whether finalised).</a></qa>
+<qa difficulty="hard"><q>An investor borrows ₹12 lakh against shares worth ₹30 lakh. The lender calls margin when LTV exceeds 50%. At what portfolio value does a call occur?</q><a>12/V = 0.50 → V = ₹24 lakh, a 20% fall from ₹30 lakh.</a></qa>
+<qa difficulty="medium"><q>What did RBI change in October 2025 for bank loans against shares to individuals?</q><a>It raised the limit from ₹20 lakh to ₹1 crore per individual, and raised the limit for IPO financing from ₹10 lakh to ₹25 lakh per person.</a></qa>
+<qa difficulty="hard"><q>Shares worth ₹50 lakh secure a ₹25 lakh loan (50% LTV). Prices fall 20%. How much must the borrower repay to restore 50% LTV?</q><a>New value = ₹40 lakh; LTV = 25/40 = 62.5%. To restore 50%, loan must fall to ₹20 lakh: repay ₹5 lakh (or pledge ₹10 lakh more shares).</a></qa>
+<qa difficulty="medium"><q>What happens if a borrower does not meet a margin call?</q><a>The lender invokes the pledge and sells enough shares to restore the required LTV or recover the loan, with costs charged to the borrower.</a></qa>
+<qa difficulty="hard"><q>Why is using a loan against shares to buy more shares risky?</q><a>It creates leverage: a market fall reduces both collateral and the newly bought shares, raising LTV quickly and triggering margin calls; forced sales then crystallise losses at low prices, magnifying the drawdown.</a></qa>
+<source url="https://www.business-standard.com/amp/finance/personal-finance/need-cash-now-borrow-up-to-1-crore-against-your-shares-says-rbi-125100300085_1.html">Now borrow up to Rs 1 crore against your shares, says RBI (Business Standard)</source>
+<source url="https://c4scourses.in/banking-finance/rbi-proposes-higher-loan-to-value-limits-for-loans-against-shares-and-debt-mutual-funds/">RBI proposes higher LTV limits for loans against shares (C4S)</source>
+<source url="https://www.moneylife.in/article/rbi-issues-guidelines-for-nbfcs-lending-against-shares/38542.html">RBI issues guidelines for NBFCs lending against shares (Moneylife)</source>
+<source url="https://cafemutual.com/news/press-news/35929-loan-against-shares-have-emergency-funds-ready-to-handle-margin-calls">Loan against shares: have emergency funds ready for margin calls (Cafemutual)</source>
+</topic>
+
+<topic id="605">
+<level>intermediate</level>
+<lesson>
+# Off-market transfers, transmission, and nomination in demat accounts
+
+## Core idea
+Shares can move between demat accounts without an exchange trade. **Off-market transfers** cover gifts, family transfers, transfers between one's own accounts and private sales. **Transmission** moves shares after a holder's death to nominees, joint holders or heirs. **Nomination** decides who gets them. Each has different paperwork, stamp duty and tax consequences, and since 2024 all off-market transfers require full beneficiary details.
+
+## How it works, step by step
+**Off-market transfer:**
+1. The sender submits a delivery instruction (physical DIS or online through the depository), choosing a reason code (for example off-market sale, gift, transfer between own accounts) and entering the target demat account details (mandatory for all reason codes since 1 January 2024).
+2. **Stamp duty.** 0.015% of consideration on transfers with consideration (sales), collected through the depository; no stamp duty on transfers without consideration such as gifts.
+3. **Tax.**
+   - Gift to a relative: exempt for the recipient; the recipient's cost and holding period include the donor's.
+   - Gift to a non-relative: taxable for the recipient if the value exceeds ₹50,000 in a year.
+   - Off-market sale: the seller has capital gains; since no STT is paid, the concessional section 111A and 112A treatment generally does not apply (short-term gains at slab rates; long-term gains under the general long-term provision at 12.5% without the ₹1.25 lakh exemption).
+4. Income tax records (the annual information statement) show off-market credits and debits.
+
+**Transmission and nomination:**
+1. On death, surviving joint holders, then nominees, then legal heirs receive shares through transmission.
+2. Simplified documents apply up to thresholds (₹30 lakh for demat holdings under the July 2026 framework); quick processing for small claims.
+3. Nominees: up to 10 per demat account under SEBI's 2025 framework (a March 2026 proposal would cap at 4).
+
+## Formulas and numbers (worked example)
+**Gift.** A father gifts 500 shares (bought at ₹200, now ₹900) to his son: no stamp duty, no tax at transfer. The son later sells at ₹1,000 after two years: cost ₹200 (father's), holding period includes father's; long-term gain 500 × 800 = ₹4 lakh, taxed under section 112A if sold on the exchange with STT (12.5% above ₹1.25 lakh).
+**Off-market sale.** An investor sells 1,000 shares to a friend at ₹500 (₹5 lakh) off-market, bought at ₹300 three years ago: stamp duty 0.015% × ₹5 lakh = ₹75; long-term gain ₹2 lakh, taxed at 12.5% under the general provision (no STT, so no section 112A exemption) = ₹25,000 plus cess.
+
+## India specifics
+- Depositories (NSDL, CDSL) set reason codes and processes; brokers and DPs implement them.
+- Large off-market transfers may draw tax scrutiny (for example price far below market between unrelated parties).
+- Transmission thresholds and nomination rules changed in 2025 and 2026; use the current framework.
+
+## Real examples and history
+- Stamp duty on securities transfers was standardised nationally from 1 July 2020, collected through exchanges, clearing corporations and depositories.
+- The 2024 rule on target account details was introduced to curb fraud and wrong transfers.
+
+## Edge cases and common mistakes
+- **Choosing the wrong reason code.** It affects stamp duty and tax reporting.
+- **Gifts to non-relatives above ₹50,000.** Taxable as income for the recipient.
+- **Off-market sale pricing.** Prices far below market can be questioned for tax.
+- **Joint holders versus nominees.** Joint holders take precedence on death.
+
+## How traders, investors and quants use it
+- Families use gifts to relatives to rebalance holdings tax-efficiently.
+- Investors consolidate holdings across accounts using own-account transfer codes.
+- Advisers plan estates with nominations and simplified transmission in mind.
+
+## Related concepts
+Stamp duty on securities; capital gains tax; nomination; transmission; DDPI and DIS.
+</lesson>
+<qa difficulty="medium"><q>Is stamp duty payable when shares are gifted off-market?</q><a>No. Stamp duty of 0.015% applies to transfers with consideration (such as sales); gifts without consideration attract no stamp duty.</a></qa>
+<qa difficulty="hard"><q>An investor sells listed shares off-market at a long-term gain of ₹3 lakh. Can they claim the ₹1.25 lakh section 112A exemption?</q><a>Generally no. Section 112A requires STT to be paid on the transfer; an off-market sale has no STT, so the gain is taxed under the general long-term capital gains provision at 12.5% (after July 2024) without the ₹1.25 lakh exemption.</a></qa>
+<qa difficulty="hard"><q>A grandmother gifts shares to her grandson. What are the tax implications for the grandson?</q><a>A grandchild is a relative for gift tax purposes, so the gift is not taxable income for him. His cost of acquisition and holding period include the grandmother's; tax arises only when he sells.</a></qa>
+<qa difficulty="medium"><q>What changed for off-market transfers from 1 January 2024?</q><a>Adding the target beneficiary demat account details became mandatory for all off-market transfer reason codes, to prevent fraudulent or mistaken transfers.</a></qa>
+<qa difficulty="hard"><q>A friend (not a relative) receives a gift of shares worth ₹80,000. What tax applies?</q><a>Gifts from non-relatives exceeding ₹50,000 in aggregate in a year are taxable as income from other sources for the recipient, so the full ₹80,000 is taxable at slab rates.</a></qa>
+<qa difficulty="medium"><q>What is the difference between transmission and an off-market transfer?</q><a>Transmission moves securities by operation of law on a holder's death to joint holders, nominees or heirs. An off-market transfer is a voluntary transfer by a living holder (gift, sale, own-account transfer) outside the exchange.</a></qa>
+<source url="https://www.nirmalbang.com/knowledge-center/off-market-transfer-in-demat-account.html">Off-market transfer in demat account: process, tax rules and charges (Nirmal Bang)</source>
+<source url="https://taxguru.in/?p=1082330">Stamp duty on transfer and gift of shares in India (TaxGuru)</source>
+<source url="https://nsdl.co.in/downloadables/pdf/2020-0002-Policy-Detailed procedure_guidelines for collection of stamp duty.pdf">NSDL guidelines for collection of stamp duty (2020)</source>
+<source url="https://www.outlookbusiness.com/news/sebi-simplifies-transmission-of-securities-introduces-fast-track-route-for-low-value-claims">SEBI simplifies transmission of securities (Outlook Business)</source>
+<source url="https://moneylife.in/article/sebi-allows-up-to-10-nominees-in-mutual-funds-demat-accounts/76086.html">SEBI allows up to 10 nominees (Moneylife)</source>
+</topic>
+
+<topic id="606">
+<level>intermediate</level>
+<lesson>
+# BTST, block mechanism and early pay-in under T+1
+
+## Core idea
+Under T+1, a client can sell shares from holdings (with early pay-in), sell shares bought the previous day (BTST), or sell shares already blocked for delivery. The **block mechanism**, mandatory for early pay-in since August 2022, keeps shares in the client's demat account but blocks them for the clearing corporation until settlement, replacing the older practice of moving shares to the broker's pool account. Understanding these flows explains margin benefits and short-delivery risks.
+
+## How it works, step by step
+1. **Selling holdings with early pay-in:**
+   - The client authorises delivery (eDIS with TPIN and OTP, or DDPI).
+   - Shares are blocked in the client's account in favour of the clearing corporation.
+   - The CC treats the obligation as met early, so no margin is needed on that sale; SEBI's 2026 changes extend real-time margin relief after accepted early pay-in (effective dates reported differently; check the circular).
+   - On settlement, blocked shares are debited and delivered.
+2. **Selling without early pay-in:** the broker collects VaR and ELM margin on the sale until delivery.
+3. **BTST:**
+   - Buy on T; shares paid out to the buyer through settlement on T+1.
+   - Sell on T+1 before the shares are credited; delivery happens on T+2 using the shares received.
+   - No early pay-in benefit; margin applies to the T+1 sale.
+   - If the T purchase is short-delivered, the BTST sale may also fail and face auction or close-out.
+4. **Unblocking.** If a sale is cancelled or reversed, blocked shares are released, and EPI margin benefit is revoked.
+
+## Formulas and numbers (worked example)
+A client sells ₹6 lakh of holdings at 10:30 am.
+- With early pay-in through eDIS: no margin blocked; ₹6 lakh sale proceeds arrive after settlement; the client can use available margin for other trades.
+- Without EPI: margin of about 20% (₹1.2 lakh) blocked until settlement.
+BTST: buys ₹3 lakh on Monday, sells on Tuesday at ₹3.1 lakh. Margin on the Tuesday sale is collected (about ₹62,000 at 20%). If Monday's seller fails, the client's Tuesday sale becomes short; close-out at up to 20% above the auction-day close could cost far more than the ₹10,000 profit.
+
+## India specifics
+- SEBI's August 2022 circular made the block mechanism mandatory for all early pay-in transactions.
+- T+1 settlement was fully in place from January 2023; SEBI adjusted the timing of securities payout in October 2024.
+- Brokers often restrict BTST in volatile, illiquid or surveillance-listed stocks.
+
+## Real examples and history
+- Before the block mechanism, shares for early pay-in moved to broker pool accounts, the kind of setup misused in the Karvy case.
+- Peak-margin rules made early pay-in valuable by removing margin needs for sales of holdings.
+
+## Edge cases and common mistakes
+- **Not completing eDIS authorisation.** The sale is then not deliverable from holdings, risking shortage.
+- **BTST before record dates.** Shortages near record dates can lead to direct close-outs.
+- **Assuming EPI applies to all sales.** It applies only when shares in the client's account are blocked for the sale.
+- **Reversing trades.** Cancels EPI benefits.
+
+## How traders, investors and quants use it
+- Investors selling holdings authorise eDIS or DDPI to avoid margin blocks.
+- Short-term traders consider shortage risk before BTST.
+- Brokers configure systems to block shares and apply EPI benefits automatically.
+
+## Related concepts
+T+1 settlement; DDPI and eDIS; peak margin; shortage auctions; Karvy reforms.
+</lesson>
+<qa difficulty="medium"><q>What is the block mechanism for early pay-in?</q><a>Shares to be delivered for a sale are blocked in the client's own demat account in favour of the clearing corporation until settlement, instead of being transferred to the broker's pool account; it became mandatory for early pay-in from August 2022.</a></qa>
+<qa difficulty="hard"><q>Why does early pay-in remove the need for margin on a sale?</q><a>Margin protects against the seller failing to deliver. When the shares are already blocked for the clearing corporation, delivery is assured, so there is no delivery risk to cover, and the CC does not require margin on that sale.</a></qa>
+<qa difficulty="hard"><q>A BTST trader earns ₹8,000 on a trade, but the original purchase is short-delivered and the auction fails; the close-out costs ₹45,000. What lesson does this teach?</q><a>BTST depends on the previous day's purchase settling; a short delivery upstream can turn a small profit into a large loss because close-out prices include a penalty (up to 20% above the close). BTST in volatile or illiquid stocks carries tail risk.</a></qa>
+<qa difficulty="medium"><q>Does a BTST sale qualify for early pay-in?</q><a>No. On T+1 the shares bought on T are not yet in the seller's account to block, so there is no early pay-in and normal sale margins apply.</a></qa>
+<qa difficulty="hard"><q>A client blocks shares for early pay-in and then cancels the sale order (it was never executed). What happens?</q><a>The block is released and the shares remain freely available in the client's account; any EPI-related margin benefit for that sale no longer applies.</a></qa>
+<qa difficulty="medium"><q>Which authorisations allow delivery from holdings?</q><a>eDIS (online authorisation with TPIN and OTP through the depository), DDPI (a standing instruction for specified purposes), or a physical delivery instruction slip.</a></qa>
+<source url="https://scconline.com/blog/post/2022/08/19/sebi-makes-block-mechanism-mandatory-for-all-early-pay-in-transactions/amp">SEBI makes block mechanism mandatory for early pay-in (SCC Online)</source>
+<source url="https://share.market/blog/early-pay-in-epi-mechanism-and-how-it-affects-your-trades">Early pay-in mechanism and your trades (share.market)</source>
+<source url="https://www.outlookmoney.com/invest/sebi-introduces-real-time-margin-waiver-for-cash-segment-trades">SEBI introduces real-time margin waiver (Outlook Money)</source>
+<source url="https://www.sebi.gov.in/legal/circulars/oct-2024/change-in-timing-for-securities-payout-in-the-activity-schedule-for-t-1-rolling-settlement_87512.html">SEBI circular: securities payout timing under T+1 (October 2024)</source>
+</topic>
