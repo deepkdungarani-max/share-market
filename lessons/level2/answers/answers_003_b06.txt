@@ -1,0 +1,295 @@
+<topic id="622">
+<level>intermediate</level>
+<lesson>
+# Indian broker defaults: from the 1992 scam and Ketan Parekh to NSEL and Karvy
+
+## Core idea
+India's major market crises share a pattern. Money or securities belonging to others ended up in the hands of brokers or intermediaries. Long or flexible settlement cycles let losses stay hidden. And the link between payments and securities was weak. Each crisis produced reforms aimed at one of these weaknesses, and today's rules (T+1, daily mark-to-market, margin pledges, upstreaming, UPI block) are best read as the sum of those lessons.
+
+## Timeline of major episodes
+1. **1991 to 1992: the securities scam (Harshad Mehta).** Brokers used bank ready-forward deals and bank receipts to divert roughly ₹5,000 crore of bank funds into the stock market between April 1991 and May 1992, fuelling a bubble that collapsed when the scheme was exposed. Several finance companies, including Fairgrowth Financial Services, appear in accounts of the period. Results: SEBI received statutory powers (SEBI Act, 1992), a special court and custodian were set up to recover assets, and NSE was created with screen-based trading.
+2. **2001: Ketan Parekh and the Calcutta Stock Exchange crisis.** Parekh's favoured "K-10" stocks were funded partly with money from cooperative banks. When bear traders hammered them in February 2001, prices collapsed, and on 9 March 2001 brokers, including Parekh, defaulted on payments at the Calcutta Stock Exchange. Results: the carry-forward system (badla) was ended, compulsory rolling settlement began in July 2001, and India moved to T+3 (2002) and then T+2 (2003).
+3. **2013: NSEL.** The National Spot Exchange offered "paired contracts" (buy now, sell later at a fixed price) that worked like fixed-return loans backed by commodity stocks that often did not exist. In July 2013 it stopped paying, leaving about ₹5,600 crore owed to roughly 13,000 investors. Results: commodity derivatives regulation moved from the Forward Markets Commission to SEBI in 2015, and brokers who sold the products faced regulatory action.
+4. **2019: Karvy and other brokers.** Karvy pledged clients' shares for its own loans. Smaller brokers such as BMA Wealth Creators showed similar problems. Results: margin pledges, DDPI, upstreaming of client funds, client-level collateral reporting and, later, UPI block trading.
+
+## The recurring weaknesses
+- **Custody by intermediaries:** brokers holding client money and securities (1992, 2019).
+- **Hidden losses:** long settlement periods and carry-forward let positions grow unchecked (2001).
+- **Products dressed as trading:** fixed-return schemes on a trading platform (2013).
+- **Concentration and leverage:** a few brokers or stocks dominated (2001).
+
+## Worked example: why settlement speed matters
+A broker carries a ₹100 crore long position that falls 2% a day for five days.
+- Under weekly settlement and carry-forward, nobody collects losses until the week ends. The loss of about ₹9.6 crore (100 × (1 − 0.98⁵)) appears at once, possibly more than the broker can pay.
+- Under daily mark-to-market, the clearing corporation collects about ₹2 crore on day 1. If the broker cannot pay, the position is closed out with a loss limited to roughly one day's move plus margin.
+Shorter cycles and daily settlement turn a catastrophic surprise into a small, early default.
+
+## Mapping crises to today's rules
+- 1992 led to SEBI's powers and screen-based trading with clearing corporations.
+- 2001 led to rolling settlement, the end of badla, and the move to exchange-traded derivatives.
+- 2013 led to unified regulation and scrutiny of "assured return" products.
+- 2019 led to margin pledges, segregation of client assets and direct settlement through banks.
+
+## Common misconceptions
+- "Exchange-traded means guaranteed." NSEL's paired contracts traded on an exchange but were not covered by a clearing corporation guarantee like securities trades.
+- "Big names are safe." Karvy was one of India's largest brokers.
+- "Defaults are about market crashes." Most were about misuse of other people's money; the crash only exposed it.
+
+## Lessons for investors
+- Anything promising fixed returns from "trading" deserves suspicion.
+- Keep securities in your own demat account and money in your own bank where possible.
+- Concentrated, leveraged market stories (a few stocks, one dominant operator) end badly.
+- Read depository and exchange alerts; they exist because past frauds went unnoticed.
+
+## Key takeaways
+Indian broker failures came from intermediary custody, slow settlement and products disguised as trading. Each crisis (1992, 2001, 2013, 2019) left a reform: SEBI's powers, rolling settlement, unified commodity regulation, and client asset segregation. Today's structure is designed so that a failing broker holds as little client property as possible and losses surface within a day.
+</lesson>
+<qa difficulty="medium"><q>What were the main reforms after the 2001 Ketan Parekh crisis?</q><a>The carry-forward (badla) system was ended, compulsory rolling settlement started in July 2001, and the settlement cycle moved to T+3 in 2002 and T+2 in 2003. Exchange-traded derivatives replaced carry-forward trading.</a></qa>
+<qa difficulty="medium"><q>What happened at NSEL in 2013?</q><a>The exchange's paired contracts, which worked like fixed-return financing backed by commodity stocks that often did not exist, stopped paying in July 2013, leaving about ₹5,600 crore owed to roughly 13,000 investors.</a></qa>
+<qa difficulty="hard"><q>A ₹100 crore position falls 2% a day for five days. Compare loss recognition under weekly settlement and daily mark-to-market.</q><a>Weekly: the full loss of about ₹9.6 crore appears at once at the end. Daily MTM: about ₹2 crore is collected on day 1, and if the broker cannot pay, the position is closed with a loss limited to about one day's move plus margin.</a></qa>
+<qa difficulty="hard"><q>Which common weakness links the 1992 scam and the 2019 Karvy case?</q><a>Intermediaries controlling other people's assets: in 1992 bank funds were diverted to brokers through ready-forward deals and bank receipts, and in 2019 Karvy pledged clients' shares for its own borrowing.</a></qa>
+<qa difficulty="expert"><q>Why was moving commodity regulation to SEBI a structural response to NSEL?</q><a>NSEL fell between regulators: the Forward Markets Commission regulated futures, while spot exchanges had exemptions. Unifying commodity derivatives under SEBI in 2015 brought the same intermediary, surveillance and investor protection rules as securities markets.</a></qa>
+<qa difficulty="medium"><q>What warning sign do 2001 and 2013 share for investors?</q><a>Unusual returns: concentrated, leveraged stock rallies in 2001 and fixed "assured" returns from trading in 2013. Both relied on funding that could not last.</a></qa>
+<source url="https://theprint.in/economy/boom-to-bust-haunted-by-ketan-parekh-saga-117-yr-old-calcutta-stock-exchanges-future-lies-in-limbo/2768300/">Boom to bust: the Calcutta Stock Exchange and the Ketan Parekh saga (ThePrint)</source>
+<source url="https://en.wikipedia.org/wiki/Ketan_Parekh">Ketan Parekh (Wikipedia)</source>
+<source url="https://www.business-standard.com/amp/article/markets/from-harshad-mehta-to-nsel-113090500472_1.html">From Harshad Mehta to NSEL (Business Standard)</source>
+<source url="https://en.wikipedia.org/wiki/NSEL_case">NSEL case (Wikipedia)</source>
+</topic>
+
+<topic id="665">
+<level>advanced</level>
+<lesson>
+# SEBI's Closing Auction Session: phases, price band, reference price and order transition
+
+## Core idea
+Until 2026, the closing price of an NSE stock was the volume-weighted average price (VWAP) of the last 30 minutes of trading. Nobody could trade at that price exactly, and index funds and other investors had no single moment to trade at the close. SEBI's circular of 16 January 2026 introduced a Closing Auction Session (CAS), a call auction that sets the close at one price where the most shares trade. It went live on 3 August 2026 for stocks with derivative contracts. A revision announced in October 2026 reshapes the timings from December 2026. Check the latest exchange circulars, because the rules are still changing.
+
+## Phases in the first version (from 3 August 2026)
+1. **3:15 to 3:20 pm: reference price.** Continuous trading in covered stocks ends, and a reference price is calculated from recent continuous-session prices.
+2. **3:20 to 3:25 pm: order entry.** Limit and market orders can be entered, modified or cancelled.
+3. **3:25 to 3:30 pm: limit-only period.** Only limit orders can be entered, modified or cancelled. The window closes randomly in the last two minutes (between 3:28 and 3:30), so nobody knows the exact final second.
+4. **3:30 to 3:35 pm: matching.** The equilibrium price is set and orders are matched.
+5. **3:35 to 3:50 pm: transition, then 3:50 to 4:00 pm: post-close session** at the closing price.
+Equity derivatives traded until 3:40 pm in this version.
+
+## How the equilibrium price is chosen
+The auction picks the price that maximises matched volume. Ties are broken by the smallest order imbalance, then by closeness to the reference price.
+
+## Price band and order transition
+- Auction orders must lie within a band around the reference price. Reports cite ±3% for orders carried over from continuous trading; confirm the band in the circular.
+- Unexecuted limit orders from the continuous session move into the auction automatically. They can be cancelled but not modified.
+- Stop-loss orders, and orders priced outside the band, do not move into the auction.
+
+## The October 2026 revision
+- A circular dated 15 October 2026 moves CAS to a separate 10-minute session from 3:30 to 3:40 pm, after continuous trading ends at 3:30, from 7 December 2026.
+- Order entry closes randomly between 3:38 and 3:40 pm.
+- Changes to how unexecuted orders transition follow from 8 February 2027.
+- Derivatives trade until 3:45 pm, with expiry-day differences for index contracts reported inconsistently.
+- Expiry settlement no longer uses the auction price (covered in a separate lesson).
+
+## Worked example: finding the auction price
+Reference price ₹100. Buy orders: market 200, 500 at ₹101, 300 at ₹100.50, 400 at ₹100. Sell orders: market 100, 300 at ₹99.50, 400 at ₹100, 300 at ₹100.50, 500 at ₹101.
+- At ₹99.50: demand 1,400, supply 400, so 400 trade.
+- At ₹100: demand 1,400, supply 800, so 800 trade.
+- At ₹100.50: demand 1,000, supply 1,100, so 1,000 trade.
+- At ₹101: demand 700, supply 1,600, so 700 trade.
+The closing price is ₹100.50 with 1,000 shares matched and 100 shares of unfilled sell interest.
+
+## Why random closure and bands matter
+In any auction, a large order entered at the last second can move the price with no time for others to respond. Random closure removes the certain "last second". Bands limit how far one order can push the price from recent trading. These controls address manipulation of the close, a classic market abuse.
+
+## Practical effects for traders
+- Orders for the close should be entered in the auction windows. Market orders must go in during the first order-entry window.
+- Algorithms that target the close now trade into a single auction rather than a 30-minute VWAP.
+- Backtests using closing prices should note the change in methodology from August 2026.
+
+## Key takeaways
+CAS replaced the 30-minute VWAP close with a call auction for stocks with derivatives from 3 August 2026: reference price, order entry, a limit-only window with random closure, then matching at the volume-maximising price. Bands and transition rules limit manipulation. From 7 December 2026 it becomes a separate 3:30 to 3:40 pm session.
+</lesson>
+<qa difficulty="medium"><q>What did CAS replace, and when did it start?</q><a>It replaced the closing price based on the last 30 minutes' VWAP with a call auction price. SEBI's circular came on 16 January 2026 and CAS went live on 3 August 2026 for stocks with derivative contracts.</a></qa>
+<qa difficulty="medium"><q>List the CAS phases in the August 2026 version.</q><a>3:15–3:20 pm reference price calculation; 3:20–3:25 pm order entry for limit and market orders; 3:25–3:30 pm limit-only entry, modification or cancellation, with random closure in the last two minutes; 3:30–3:35 pm matching; then transition and the 3:50–4:00 pm post-close session.</a></qa>
+<qa difficulty="hard"><q>How is the auction price chosen when several prices could clear?</q><a>First the price that maximises matched volume; ties are broken by the smallest order imbalance and then by closeness to the reference price.</a></qa>
+<qa difficulty="hard"><q>Which continuous-session orders carry into CAS and with what limits?</q><a>Unexecuted limit orders carry over automatically and can only be cancelled, not modified. Stop-loss orders and orders priced outside the auction band do not carry over.</a></qa>
+<qa difficulty="expert"><q>Using the worked example, explain why ₹100.50 beats ₹100 even though demand is higher at ₹100.</q><a>Matched volume is the minimum of demand and supply. At ₹100 demand is 1,400 but supply only 800, so 800 trade. At ₹100.50 demand is 1,000 and supply 1,100, so 1,000 trade. The auction maximises matched volume, so ₹100.50 is chosen.</a></qa>
+<qa difficulty="medium"><q>What changes from 7 December 2026 under the October 2026 revision?</q><a>CAS becomes a separate 10-minute session from 3:30 to 3:40 pm with random order-entry closure between 3:38 and 3:40 pm. Derivatives trade until 3:45 pm, and expiry settlement no longer uses the auction price.</a></qa>
+<source url="https://www.nseindia.com/static/products-services/closing-auction-session">NSE: Closing Auction Session</source>
+<source url="https://zerodha.com/marketintel/bulletin/439989/introduction-of-closing-auction-session-cas-in-the-equity-cash-segment-and-certain-modifications-in-the-pre-open-auction-session">Introduction of CAS in the equity cash segment (Zerodha bulletin)</source>
+<source url="https://www.outlookmoney.com/invest/nse-extended-fo-timings-and-new-closing-auction-session-rules-explained">NSE extended F&O timings and new closing auction rules explained (Outlook Money)</source>
+<source url="https://taxguru.in/sebi/sebi-revises-closing-auction-timings-derivatives-settlement-rules-december-2026.html">SEBI revises closing auction timings and derivatives settlement rules from December 2026 (TaxGuru)</source>
+<source url="https://support.zerodha.com/category/trading-and-markets/trading-faqs/market-sessions/articles/what-are-pre-market-and-post-market-sessions-and-orders">What are pre-market and post-market sessions on NSE and BSE? (Zerodha support)</source>
+</topic>
+
+<topic id="666">
+<level>advanced</level>
+<lesson>
+# Expiry settlement price design: closing auction versus window VWAP and manipulation incentives
+
+## Core idea
+Cash-settled derivatives pay out against one number at expiry: the final settlement price. Huge positions depend on it, so anyone with a large derivative position has an incentive to move that number. The design question is which price is hardest and most expensive to move: a last trade, an average over a window (VWAP), an auction price, or an opening quotation. India has used a 30-minute VWAP, briefly linked settlement to the new closing auction in 2026, and then returned to VWAP.
+
+## Design options
+1. **Last traded price.** Easiest to manipulate: one trade at the right moment sets it.
+2. **Window VWAP.** NSE's long-standing method for index derivatives uses each constituent's VWAP over the last 30 minutes of continuous trading. Moving it requires trading heavily across the whole window.
+3. **Closing auction price.** Liquidity concentrates in one auction; with random closure and price bands it can be robust, but a single price can still be targeted if the auction is thin.
+4. **Special opening quotation.** Some US index options settle on the opening prices of the constituents on expiry day.
+5. **Intraday auction.** Some European index derivatives settle on a dedicated midday auction on expiry day.
+
+## India's path
+- **Long-standing rule:** index derivatives settle on the index calculated from constituents' VWAP in the last 30 minutes (3:00 to 3:30 pm). Stock derivatives settle on the stock's closing price, which was itself the last-30-minute VWAP.
+- **August 2026:** the closing auction (CAS) began setting closing prices for stocks with derivatives, and so fed into expiry settlement.
+- **October 2026 revision (effective 7 December 2026):** settlement was decoupled from the auction. Index derivatives keep the constituent VWAP from 3:00 to 3:30 pm. Expiring stock derivatives settle at the stock's VWAP across exchanges over the last 30 minutes of continuous trading.
+
+## The economics of manipulation
+A manipulator compares two things:
+- **Gain:** derivative exposure × move in the settlement price.
+- **Cost:** impact cost of the trades needed to move the price, plus the risk of holding those trades.
+If derivative exposure is far larger than the underlying trading needed, manipulation can pay even after costs. That is why expiry-day option volumes many times larger than cash volumes are a concern.
+
+## Worked example
+A trader has options exposure equivalent to ₹5,000 crore of the index at expiry.
+- Moving the settlement price down by 0.2% earns 0.2% × ₹5,000 crore = ₹10 crore.
+- To push a 30-minute VWAP down 0.2%, suppose they must sell ₹1,000 crore across the window, paying about 0.3% impact = ₹3 crore, and must later buy back or carry the position.
+- Net expected gain is about ₹7 crore before risk: the incentive exists. Window VWAP makes this costlier than targeting one last trade, but not impossible.
+
+## Real cases
+SEBI's interim order of 3 July 2025 against Jane Street group entities alleged a pattern on Bank Nifty expiry days: buying constituent stocks and futures in the morning to lift the index while building large option positions that gained when the index later fell, and aggressive selling later in the day. SEBI required a deposit of about ₹4,843 crore into escrow. Jane Street disputed the findings. Whatever the final outcome, the case shows how settlement design and cash-market depth interact with option positions.
+
+## Choosing between auction and VWAP
+- VWAP spreads the price over time, so manipulation needs sustained trading; but it is not a tradable price, so hedgers cannot lock in exactly.
+- An auction gives a tradable single price and concentrates liquidity; but its robustness depends on depth, bands and random closure.
+- Multi-exchange VWAP reduces the effect of trading on one venue.
+- Surveillance and position limits are needed whatever the method.
+
+## Key takeaways
+The final settlement price should be expensive to move relative to the derivative exposure riding on it. India uses a 30-minute VWAP for index derivatives and, from December 2026, a multi-exchange 30-minute VWAP for stock derivatives, after briefly linking stock settlement to the new closing auction. Manipulation incentives scale with the ratio of derivative exposure to cash-market depth.
+</lesson>
+<qa difficulty="medium"><q>How is the final settlement price of NSE index derivatives calculated?</q><a>From the index computed using constituents' volume-weighted average prices over the last 30 minutes of continuous trading (3:00 to 3:30 pm).</a></qa>
+<qa difficulty="medium"><q>What changed for stock derivatives' settlement in the October 2026 revision?</q><a>From 7 December 2026, expiring stock derivatives settle at the stock's VWAP across exchanges over the last 30 minutes of continuous trading, instead of the closing auction price.</a></qa>
+<qa difficulty="hard"><q>Why is a last-traded-price settlement easier to manipulate than a window VWAP?</q><a>A single trade at the right moment sets the last price, while a VWAP averages all trades over the window, so moving it requires heavy trading throughout the window at higher cost.</a></qa>
+<qa difficulty="hard"><q>A trader with ₹5,000 crore of index-equivalent option exposure can move settlement by 0.2% at an impact cost of ₹3 crore. Is manipulation profitable?</q><a>The gain is 0.2% × ₹5,000 crore = ₹10 crore against about ₹3 crore cost, so roughly ₹7 crore before risk and penalties. This shows why large derivative exposure relative to cash depth creates incentives.</a></qa>
+<qa difficulty="expert"><q>Compare closing auction and window VWAP as settlement methods.</q><a>An auction gives one tradable price and concentrates liquidity, but its robustness depends on depth, bands and random closure, and a thin auction can be targeted. A VWAP spreads the price over time, raising the cost of manipulation, but it is not a price anyone can trade at exactly, so hedges carry tracking risk.</a></qa>
+<qa difficulty="medium"><q>What did SEBI allege in its July 2025 interim order against Jane Street entities?</q><a>That on Bank Nifty expiry days they bought constituent stocks and futures early to lift the index while building option positions that profited from a later fall, then sold aggressively later in the day. A deposit of about ₹4,843 crore was required; Jane Street disputed the findings.</a></qa>
+<source url="https://upstox.com/news/market-news/financial-regulations/closing-auction-session-framework-revised-by-sebi-derivatives-settlement-norms-also-changed/article-201950/">Closing auction framework revised by SEBI; derivatives settlement norms changed (Upstox)</source>
+<source url="https://www.outlookbusiness.com/markets/sebi-reworks-closing-auction-weeks-after-launch-ends-its-say-in-derivatives-settlement">SEBI reworks closing auction weeks after launch, ends its say in derivatives settlement (Outlook Business)</source>
+<source url="https://blogs.law.ox.ac.uk/oblb/blog-post/2025/07/jane-street-and-expiry-day-trap-unpacking-sebis-crackdown-algorithmic">Jane Street and the expiry-day trap (Oxford Business Law Blog)</source>
+<source url="https://www.ecgi.global/publications/blog/expiry-day-and-the-governance-of-algorithmic-trading-the-jane-street-episode">Expiry day and the governance of algorithmic trading (ECGI)</source>
+</topic>
+
+<topic id="667">
+<level>advanced</level>
+<lesson>
+# Spoofing, layering and marking the close: SEBI's PFUTP regulations and enforcement
+
+## Core idea
+Market manipulation in India is prohibited mainly by section 12A of the SEBI Act and the SEBI (Prohibition of Fraudulent and Unfair Trade Practices relating to Securities Market) Regulations, 2003, known as PFUTP. The regulations do not name "spoofing" or "layering". SEBI treats them as conduct that creates a false or misleading appearance of trading, prohibited by the general clauses in regulations 3 and 4, especially regulation 4(2)(a). Marking the close, wash trades and synchronised trades are handled the same way.
+
+## The main forms of abuse
+1. **Spoofing:** placing large orders you do not intend to execute, to create false demand or supply, trading on the other side, then cancelling.
+2. **Layering:** a form of spoofing with many orders at several price levels.
+3. **Marking the close:** trading at or near the close to move the closing or settlement price, often to benefit derivative positions or portfolio valuations.
+4. **Wash and synchronised trades:** trades without a real change of ownership, or prearranged trades between related parties, to create volume or transfer profits.
+
+## Legal framework
+- **SEBI Act section 12A:** prohibits manipulative and deceptive devices.
+- **PFUTP regulation 3:** prohibits fraudulent dealings.
+- **Regulation 4(1):** prohibits manipulative, fraudulent or unfair trade practices.
+- **Regulation 4(2):** lists examples, with clause (a) covering acts that create a false or misleading appearance of trading.
+- **Penalties:** monetary penalties under section 15HA (up to ₹25 crore or three times the profit, whichever is higher), disgorgement of gains, market bans, and criminal prosecution in serious cases.
+- **Supreme Court guidance:** in SEBI v. Rakhi Trading (February 2018), the Court upheld that synchronised, reversal trades in derivatives with no genuine purpose were manipulative, even though each trade was on the exchange.
+
+## How SEBI proves spoofing
+A single large or cancelled order is not spoofing. SEBI relies on cumulative indicators:
+- a high share of orders cancelled relative to trades;
+- large orders placed away from the best price and cancelled within seconds;
+- executions on the opposite side while the large orders are visible;
+- repetition across many episodes and stocks;
+- profit linked to the pattern.
+
+## Recent cases
+- An interim order against PWAPL found buy-side spoofing in Syrma SGS Technology over seven episodes, with profit of about ₹4.44 lakh.
+- SEBI has reported larger spoofing investigations across many stocks, with alleged gains in crores.
+- SEBI's July 2025 interim order against Jane Street entities alleged expiry-day index manipulation, including "marking the close"-type selling into the last part of the session; the firm disputed it.
+
+## Worked example: a spoofing cycle
+A trader holds 5,000 shares to sell at ₹100.05 while the best bid is ₹99.95.
+1. They place buy orders for 50,000 shares at ₹99.90, ₹99.85 and ₹99.80 (layering), making demand look strong.
+2. Other traders lift their bids; the trader sells 5,000 shares at ₹100.05.
+3. Within seconds the 50,000-share buy orders are cancelled, unfilled.
+The cycle gains about ₹0.10 per share, ₹500, but repeated hundreds of times it adds up. Surveillance sees a cancellation ratio above 90% on the buy side and sales during each layering episode.
+
+## Compliance points for algo traders
+- Every order should have a genuine intention to trade at its price.
+- Test strategies for patterns that resemble layering (frequent large orders cancelled after opposite-side fills).
+- Keep logs of strategy logic and order decisions; they are evidence of intent.
+- Watch order-to-trade ratios; exchanges charge for very high ratios.
+
+## Key takeaways
+Spoofing, layering and marking the close are prohibited in India through section 12A and PFUTP regulations 3 and 4, mainly 4(2)(a). SEBI proves them from patterns, not single orders, and can impose penalties up to three times profits, disgorgement and bans. Algo traders should design and document strategies so every order is genuine.
+</lesson>
+<qa difficulty="medium"><q>Which laws prohibit spoofing in India even though the word is not used?</q><a>Section 12A of the SEBI Act and the PFUTP Regulations, 2003, particularly regulations 3, 4(1) and 4(2)(a), which cover acts creating a false or misleading appearance of trading.</a></qa>
+<qa difficulty="medium"><q>What is the difference between spoofing and layering?</q><a>Spoofing is placing non-genuine orders to create false demand or supply and cancelling them after trading on the other side. Layering is a form of spoofing using many such orders at several price levels.</a></qa>
+<qa difficulty="hard"><q>What indicators does SEBI use to infer spoofing?</q><a>A high ratio of cancellations to trades, large orders away from the best price cancelled within seconds, executions on the opposite side while those orders are visible, repetition across episodes and stocks, and profits linked to the pattern.</a></qa>
+<qa difficulty="hard"><q>What did the Supreme Court decide in SEBI v. Rakhi Trading (2018)?</q><a>It upheld that synchronised reversal trades in derivatives between related parties, with no genuine commercial purpose, were manipulative and violated the PFUTP regulations, even though executed on the exchange.</a></qa>
+<qa difficulty="expert"><q>What is the maximum monetary penalty for manipulation under section 15HA, and what other remedies exist?</q><a>Up to ₹25 crore or three times the profits made, whichever is higher. SEBI can also order disgorgement, ban persons from the market, and pursue criminal prosecution.</a></qa>
+<qa difficulty="medium"><q>What is marking the close?</q><a>Trading at or near the close to move the closing or settlement price, often to benefit derivative positions or valuations.</a></qa>
+<source url="https://indiacorplaw.in/?p=12529">SEBI's order on spoofing: a way forward (IndiaCorpLaw)</source>
+<source url="https://cbcl.nliu.ac.in/?p=5884">SEBI's spoofing crackdown (NLIU CBCL blog)</source>
+<source url="https://api.sci.gov.in/supremecourt/2011/1353/1353_2011_Judgement_08-Feb-2018.pdf">Supreme Court judgment of 8 February 2018 (Civil Appeal 1353 of 2011, SEBI v. Rakhi Trading)</source>
+<source url="https://www.outlookmoney.com/invest/sebi-cracks-rs-32-crore-mega-order-spoofing-scam-involving-173-scrips-check-details">SEBI cracks ₹32 crore order spoofing case involving 173 scrips (Outlook Money)</source>
+<source url="https://www.mondaq.com/india/securities/1648508/sebi-update-%7c-interim-order-against-jane-street-group-for-alleged-index-manipulation">SEBI interim order against Jane Street group (Mondaq)</source>
+</topic>
+
+<topic id="668">
+<level>expert</level>
+<lesson>
+# Frequent batch auctions and market design theory (Budish, Cramton and Shim)
+
+## Core idea
+Budish, Cramton and Shim (Quarterly Journal of Economics, 2015) argue that the continuous limit order book has a design flaw. Because time is continuous and messages are processed one by one, tiny speed advantages earn real money. When public information moves the price, fast traders race to pick off stale quotes before liquidity providers can cancel them. Liquidity providers widen spreads to pay for these losses, and firms spend heavily on speed. Their proposal: replace continuous trading with frequent batch auctions, uniform-price sealed-bid auctions held at short discrete intervals (for example every tenth of a second).
+
+## The evidence
+- Using millisecond exchange data, the authors show that the S&P 500 futures (ES) and the SPY exchange-traded fund, which track the same index, are almost perfectly correlated over minutes but nearly uncorrelated at very short horizons. In their 2011 data the median correlation at the shortest horizons was about 0.09.
+- These breakdowns create purely mechanical arbitrage opportunities that go to the fastest trader.
+- The opportunities did not shrink as speed rose; the race just got faster.
+
+## The model, step by step
+1. A public signal (for example a futures move) makes a quote stale.
+2. The liquidity provider sends a cancel; N fast traders send orders to hit the stale quote.
+3. Messages are processed in order. With N symmetric racers, the provider wins only about 1 in N+1 races.
+4. Losses to sniping are a tax on liquidity provision, paid through wider spreads by investors.
+5. Investing in speed only reallocates who wins; it does not remove the tax. It is a socially wasteful arms race.
+
+## Why batching helps
+In a batch auction, all orders arriving in the interval are treated as simultaneous and matched at one price. A provider's cancel and a sniper's order in the same batch arrive together, so sniping succeeds only if the signal arrives in the last few microseconds of the interval. Competition shifts from speed to price.
+
+## Worked example
+Suppose quotes become stale 10 times a minute, by ₹0.10 each, and investors trade 20 times a minute. With 4 fast snipers, the provider loses each race with probability about 4/5.
+- Continuous market: expected sniping loss = 10 × ₹0.10 × 0.8 = ₹0.80 a minute. To break even, the half-spread on 20 investor trades must be at least ₹0.80 ÷ 20 = ₹0.04.
+- Batch every 100 milliseconds, with a 1 millisecond latency gap: only jumps in the last 1% of each interval can be sniped, so losses fall by about 99% and the needed half-spread falls to well under ₹0.01.
+
+## Real-world experience
+- Call auctions already exist at the open and close (India's pre-open session and, from 2026, the closing auction).
+- Taiwan's exchange used periodic call auctions every few seconds for decades before moving to continuous trading in 2020.
+- European venues offer periodic auction books, and IEX in the US uses a speed bump to blunt latency arbitrage.
+- India's experience with co-location disputes and SEBI's 2016 discussion of measures such as randomisation, minimum resting times and batch auctions show the debate's relevance here.
+- Later work using London Stock Exchange message data found latency races to be frequent and a meaningful share of trading volume, supporting the model's central claim.
+
+## Criticisms and open questions
+- **Choice of interval:** too long hurts price discovery, too short brings back the race.
+- **Fragmentation:** if only one venue batches, the race moves to links between venues.
+- **Transition costs:** exchanges earn from speed products and data, which reduces their incentive to change.
+- **Information:** some argue fast traders improve price discovery, and batching delays it.
+
+## Key takeaways
+Continuous trading turns public information into sniping races that tax liquidity providers and fund a speed arms race. Budish, Cramton and Shim show the mechanical arbitrage in ES and SPY data and propose frequent batch auctions, which make time discrete and shift competition from speed to price. Periodic and closing auctions show the idea in practice, while interval choice and cross-venue effects remain debated.
+</lesson>
+<qa difficulty="medium"><q>What is the central design flaw of continuous limit order books according to Budish, Cramton and Shim?</q><a>Continuous time with serial message processing lets tiny speed advantages capture mechanical arbitrage from stale quotes, creating sniping and a wasteful speed arms race.</a></qa>
+<qa difficulty="medium"><q>What is a frequent batch auction?</q><a>A uniform-price sealed-bid double auction held at short discrete intervals (for example every 100 milliseconds), where all orders arriving within the interval are treated as simultaneous and matched at one price.</a></qa>
+<qa difficulty="hard"><q>What evidence on ES and SPY did the paper present?</q><a>ES futures and the SPY ETF are almost perfectly correlated over longer horizons, but at millisecond horizons the correlation breaks down (median around 0.09 in 2011 data), creating purely mechanical arbitrage that goes to the fastest trader.</a></qa>
+<qa difficulty="hard"><q>Why does investing in speed not reduce the sniping tax in continuous markets?</q><a>Faster technology only changes which trader wins each race. The provider still loses most races when a quote becomes stale, so the expected loss, and the spread needed to cover it, remains.</a></qa>
+<qa difficulty="expert"><q>With 10 stale-quote events a minute of ₹0.10 each, 4 snipers and 20 investor trades a minute, what half-spread does a provider need, and how does a 100 ms batch with 1 ms latency change it?</q><a>Expected loss = 10 × ₹0.10 × 0.8 = ₹0.80 a minute, so the half-spread must be at least ₹0.04. With batching, only about 1% of events (those in the last 1 ms of each 100 ms batch) can be sniped, so losses and the needed half-spread fall by about 99%, to well under ₹0.01.</a></qa>
+<qa difficulty="hard"><q>Give two criticisms of frequent batch auctions.</q><a>The choice of batch interval trades off price discovery against residual racing, and if only one venue batches, the race shifts to links between venues. Exchanges also earn from speed products and may resist the change.</a></qa>
+<source url="https://conference.nber.org/conf_papers/f69665.pdf">The High-Frequency Trading Arms Race: Frequent Batch Auctions as a Market Design Response (NBER paper)</source>
+<source url="https://econ.umd.edu/publication/high-frequency-trading-arms-race-frequent-batch-auctions-market-design-response-0">Publication page, Quarterly Journal of Economics 2015 (University of Maryland)</source>
+<source url="https://www.aqr.com/About-Us/AQR-Insight-Award/2014/First-Prize">AQR Insight Award 2014 first prize: the HFT arms race paper</source>
+</topic>
