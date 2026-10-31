@@ -1,0 +1,327 @@
+<topic id="180">
+<level>advanced</level>
+<lesson>
+# Index option expiry settlement: closing price, VWAP windows and closing auction proposals
+
+## Core idea
+Indian index options are cash-settled: on expiry day every open contract is settled at a single final settlement price, which is the index's closing value that day. How that closing value is calculated therefore decides who wins and loses on expiry. For years NSE computed closing prices as a volume-weighted average over the last 30 minutes. From 3 August 2026, stocks in the F&O segment get their closing prices from a **closing auction session (CAS)**, and SEBI has since consulted on further changes to expiry settlement.
+
+## How it works, step by step
+**Before CAS (and still for non-F&O stocks):**
+1. Each stock's closing price = weighted average price of trades in the last 30 minutes of continuous trading (3:00 to 3:30 pm).
+2. The index closing value is computed from its constituents' closing prices.
+3. Index options and futures settle at that closing value on expiry day.
+
+**With CAS (F&O stocks, from 3 August 2026):**
+1. Continuous trading in F&O stocks ends at 3:15 pm; non-F&O stocks continue to 3:30 pm.
+2. A reference price is set from the VWAP of trades between 3:00 and 3:15 pm.
+3. Orders are collected for the auction (reported phases: market and limit orders, then limit orders only, with order entry closing at a random moment between about 3:28 and 3:30 pm to discourage last-second manipulation).
+4. Orders are matched at a single equilibrium price (the price that maximises executable volume) around 3:30 to 3:35 pm. That price becomes the official closing price.
+5. Equity derivatives now trade until 3:40 pm, so traders can hedge after seeing the auction outcome.
+6. The index's closing value is built from constituents' closing prices, which for F&O stocks now come from the auction.
+
+## Formulas and numbers (worked example)
+**VWAP close (old method).** In the last 30 minutes a stock trades 10 lakh shares at ₹500, 6 lakh at ₹503 and 4 lakh at ₹498:
+closing price = (10 × 500 + 6 × 503 + 4 × 498)/20 = (5,000 + 3,018 + 1,992)/20 = ₹500.50.
+
+**Auction close.** Buy orders: 3 lakh with limit ₹502, 4 lakh with limit ₹501, 5 lakh with limit ₹500. Sell orders: 4 lakh with limit ₹499, 3 lakh with limit ₹500, 6 lakh with limit ₹501. Cumulative demand at a price counts buys with limits at or above it; cumulative supply counts sells with limits at or below it.
+- At ₹501: demand 7 lakh, supply 13 lakh → 7 lakh executable.
+- At ₹500: demand 12 lakh, supply 7 lakh → 7 lakh executable.
+Both prices execute 7 lakh, so tie-break rules (smallest imbalance, closeness to the reference price) pick the final price.
+
+**Settlement effect.** A Nifty 25,000 call is in the money only if the closing value is above 25,000. If Nifty trades at 24,990 at 3:14 pm and the auctions lift the constituents enough to close the index at 25,020, a short call loses 20 points per unit at settlement, even though the index never traded above 25,000 in continuous trading.
+
+## India specifics
+- SEBI first proposed a closing auction in December 2024, consulted on a revised design in 2025 (with a 3:15 to 3:35 pm window) and issued its circular on 16 January 2026; CAS began on 3 August 2026 for stocks with derivatives.
+- Reports in the first days noted sharp price swings in the auction for some stocks, and SEBI published a consultation on 12 September 2026 proposing changes to the CAS framework, including how expiry settlement prices are set, market timings, order rules and publication of indicative prices.
+- Index options settle in cash; stock options and futures settle physically at the closing price of the underlying.
+- Since September 2025, Nifty weekly options expire on Tuesdays (NSE) and Sensex weeklies on Thursdays (BSE).
+
+## Real examples and history
+- Closing auctions are standard on major exchanges (London, Frankfurt, US listing venues) because they concentrate liquidity at the close and produce a single transparent price used by index funds and for derivatives.
+- India's VWAP close was designed to resist manipulation by single trades, but SEBI's 2025 enforcement action alleging manipulation of index levels on expiry days sharpened attention on how settlement prices are formed.
+
+## Edge cases and common mistakes
+- **Assuming the last traded index value is the settlement price.** Settlement uses the official closing value, which can differ.
+- **Ignoring the auction.** Since August 2026, F&O stocks' closes come from an auction, so the index's final value can move after continuous trading ends.
+- **Late hedging.** Derivatives trade until 3:40 pm; positions can still be adjusted after the auction result, but liquidity thins.
+- **Illiquid constituents.** Auction imbalances in a heavy index stock can move the index close.
+- **Rules are changing.** Check the current NSE circulars before relying on timings; the September 2026 proposals may change them.
+
+## How traders, investors and quants use it
+- Option sellers holding near-the-money positions into expiry watch indicative auction prices and constituent imbalances near the close.
+- Index funds use auction prices to rebalance at the official close with less tracking error.
+- Quants update settlement models: for dates before August 2026 use the 30-minute VWAP; afterwards the auction price.
+
+## Related concepts
+Final settlement price; cash versus physical settlement; call auctions and pre-open sessions; index construction; expiry-day gamma; market manipulation surveillance.
+</lesson>
+<qa difficulty="hard"><q>Compute the VWAP closing price for trades of 5 lakh shares at ₹1,200, 3 lakh at ₹1,206 and 2 lakh at ₹1,195 in the last 30 minutes.</q><a>(5 × 1,200 + 3 × 1,206 + 2 × 1,195)/10 = (6,000 + 3,618 + 2,390)/10 = 12,008/10 = ₹1,200.80.</a></qa>
+<qa difficulty="hard"><q>Why might a closing auction produce a more reliable closing price than a 30-minute VWAP?</q><a>An auction concentrates all participants who want to trade at the close (index funds, hedgers) into one matching event, giving a single price at which the largest volume trades. A VWAP mixes prices from a half-hour of continuous trading, so it can be influenced by trading patterns during the window and does not equal any price at which closing orders actually executed. Auctions with random end times also reduce last-second manipulation.</a></qa>
+<qa difficulty="expert"><q>A trader is short Nifty 25,000 straddles on expiry day. Explain how the August 2026 change to closing prices affects the risk in the last 25 minutes.</q><a>Continuous trading in F&O stocks stops at 3:15 pm, but their official closing prices come from the auction that concludes around 3:30 to 3:35 pm. The index's settlement value is computed from those prices, so it can differ from the index level at 3:15 pm if auction imbalances move heavy constituents. The trader faces settlement risk after they can no longer trade the underlying stocks, though index derivatives remain open until 3:40 pm for hedging.</a></qa>
+<qa difficulty="medium"><q>How are Nifty index options settled at expiry?</q><a>In cash, at the final settlement price, which is the closing value of the Nifty 50 on expiry day. In-the-money options are paid their intrinsic value times the lot size; out-of-the-money options expire worthless.</a></qa>
+<qa difficulty="hard"><q>In a closing auction, at ₹250 cumulative buy demand is 9 lakh and cumulative sell supply is 6 lakh; at ₹251 demand is 7 lakh and supply 8 lakh. Which price maximises executed volume?</q><a>Executable volume = minimum of demand and supply. At ₹250: min(9, 6) = 6 lakh. At ₹251: min(7, 8) = 7 lakh. ₹251 maximises volume (7 lakh), so it would be the equilibrium price, with 1 lakh of sell orders left unexecuted.</a></qa>
+<qa difficulty="hard"><q>Why do derivatives trade until 3:40 pm after the introduction of CAS?</q><a>So that traders and hedgers can see the auction outcome and adjust positions afterwards. Without the extra minutes, holders of derivatives would carry overnight positions priced off an auction result they could not react to.</a></qa>
+<source url="https://www.goodreturns.in/news/nse-new-rule-from-today-closing-auction-session-begins-for-f-o-stocks-check-new-closing-price-rule-1525791.html">NSE closing auction session begins for F&O stocks (GoodReturns)</source>
+<source url="https://www.angelone.in/news/market-updates/nse-reports-strong-participation-on-day-1-of-closing-auction-session-for-f-o-stocks">NSE reports strong participation on day 1 of CAS (Angel One)</source>
+<source url="https://www.venturasecurities.com/news/indian-markets/nse-extends-f-introduces-closing-auction-framework/">NSE extends F&O trading till 3:40 pm, introduces closing auction framework (Ventura)</source>
+<source url="https://www.businesstoday.in/markets/stocks/story/explained-why-closing-auction-session-is-triggering-sharp-market-swings-547396-2026-08-05">Explained: why the closing auction session is triggering sharp swings (Business Today)</source>
+<source url="https://www.outlookmoney.com/invest/sebi-proposes-changes-to-closing-auction-session-fo-settlement-rules-key-proposals-explained">SEBI proposes changes to closing auction session and F&O settlement rules (Outlook Money)</source>
+<source url="https://www.thetradenews.com/sebi-launches-new-equities-closing-auction/">SEBI launches new equities closing auction (The TRADE)</source>
+</topic>
+
+<topic id="181">
+<level>intermediate</level>
+<lesson>
+# Contract value bands, semi-annual lot size reviews and their effect on liquidity and margin
+
+## Core idea
+Each derivatives contract has a lot size: the number of units of the underlying in one contract. SEBI sets a band for the contract's rupee value, and exchanges periodically revise lot sizes so that, as prices move, contract values stay inside it. Since November 2024 the band for equity derivatives is ₹15 to 20 lakh. Lot size decides how much money a trader needs for one contract, how large each point move is in rupees, and how finely positions can be sized.
+
+## How it works, step by step
+1. **Contract value** = lot size × price of the underlying.
+2. **At introduction** a new contract must have a value of at least ₹15 lakh (SEBI's October 2024 circular; earlier ₹5 lakh).
+3. **Review.** Exchanges review lot sizes periodically (roughly every six months) using the average closing price of the underlying over a recent period (for the November 2024 revision, about a month to mid-October 2024). The lot size is set so the contract value at review is between ₹15 lakh and ₹20 lakh, typically rounded to convenient multiples.
+4. **Implementation.** New lot sizes apply to newly introduced contracts first; existing contracts keep their old lot until they expire, or are adjusted on a set date. Brokers ask clients to hold positions in multiples of the new lot and may square off odd quantities.
+5. **Margin.** SPAN and exposure margins are percentages of contract value, so margin per lot moves with contract value.
+
+## Formulas and numbers (worked example)
+Nifty averages 26,000 in the review window.
+- With lot 75: contract value = 75 × 26,000 = ₹19.5 lakh, near the top of the band.
+- If Nifty rose to 27,000, value = ₹20.25 lakh, above ₹20 lakh, so the lot should come down.
+- With lot 65: 65 × 26,000 = ₹16.9 lakh, comfortably inside the band. This is the revision NSE made: Nifty from 75 to 65 (weekly contracts on the new lot from 6 January 2026), and Bank Nifty from 35 to 30.
+- Margin: if margin is about 10.5% of contract value for a futures position, it falls from about ₹2.05 lakh to ₹1.77 lakh per lot.
+- Rupee value of a 100-point move falls from ₹7,500 to ₹6,500 per lot.
+
+Odd quantities: a trader short 75 units of Nifty futures after the change holds 1 lot of 65 plus 10 extra units; brokers may require the position to be a multiple of 65 or block extra margin on the remainder.
+
+## India specifics
+- SEBI's 2015 framework had a minimum contract size of ₹5 lakh; the October 2024 circular raised it to ₹15 lakh at introduction with a ₹15 to 20 lakh band at review, to raise the minimum stake and reduce speculative retail participation.
+- In November 2024 Nifty's lot rose from 25 to 75 under the new band; as Nifty rose further it was cut to 65 for contracts from early January 2026.
+- Stock derivatives follow similar rules, with lot sizes revised as share prices change; stock splits and bonuses also change lot sizes through corporate action adjustments.
+- Weekly and monthly contracts can carry different lot sizes for a time during transitions.
+
+## Real examples and history
+- The jump from 25 to 75 in November 2024 tripled the money needed for one Nifty lot, cutting the number of small retail traders who could take positions.
+- Brokers' notices before the 30 December 2025 changeover warned that short positions not in multiples of the new lot might be squared off.
+
+## Edge cases and common mistakes
+- **Old lot sizes in backtests.** P&L and margins in rupees depend on the lot in force at each date.
+- **Position sizing after a lot cut.** Keeping the same number of lots after a lot cut reduces exposure; keeping the same exposure needs more lots.
+- **Odd lots at transitions.** Positions that are not multiples of the new lot can be force-closed.
+- **Margin changes.** A lot increase raises margin per lot immediately for new positions.
+- **Liquidity.** Larger lots reduce the number of small orders; spreads can widen in less liquid contracts.
+
+## How traders, investors and quants use it
+- Traders size positions in units of risk (rupees per point) rather than "number of lots".
+- Quants store lot size history per contract and apply it when converting point P&L to rupees.
+- Brokers and risk teams prepare for each revision by flagging positions not in multiples of the new lot.
+
+## Related concepts
+SEBI F&O reforms; SPAN and exposure margin; contract specifications; corporate action adjustments; position sizing.
+</lesson>
+<qa difficulty="hard"><q>A stock averages ₹1,850 during the review window. Which lot sizes keep the contract value between ₹15 lakh and ₹20 lakh?</q><a>Minimum lot = 15,00,000/1,850 = 810.8, so 811; maximum = 20,00,000/1,850 = 1,081.1, so 1,081. Any lot from 811 to 1,081 works; exchanges usually pick a round number in that range, such as 900 or 1,000.</a></qa>
+<qa difficulty="medium"><q>Why did SEBI raise the minimum contract value from ₹5 lakh to ₹15 lakh?</q><a>The ₹5 lakh minimum dated from 2015; since then markets had risen a lot, and SEBI's studies showed many small individual traders losing money in F&O. Raising the minimum contract size increases the capital needed per contract, making derivatives less accessible for very small speculative trades and matching contract sizes to the risk involved.</a></qa>
+<qa difficulty="hard"><q>Compare rupee risk per 1% move for one Nifty lot at Nifty 26,000 with lot 75 and lot 65.</q><a>A 1% move is 260 points. Lot 75: 260 × 75 = ₹19,500 per lot. Lot 65: 260 × 65 = ₹16,900 per lot. The cut reduces rupee risk per lot by 13.3%.</a></qa>
+<qa difficulty="hard"><q>A trader holds 3 lots of short Nifty futures with lot 75 (225 units) when the lot changes to 65. What options do they have?</q><a>225 units = 3 lots of 65 (195 units) plus 30 extra units. The trader can reduce the position to 195 units (3 new lots), increase it to 260 units (4 new lots), or keep the odd quantity if the broker allows it, which may mean extra margin or forced square-off of the 30 units. Checking the broker's notice before the changeover date avoids surprises.</a></qa>
+<qa difficulty="medium"><q>Why do margin requirements per lot fall when the lot size is reduced?</q><a>Margins are set as a percentage of contract value (through SPAN and exposure margin). A smaller lot means a smaller contract value, so the same percentage gives a smaller rupee margin per lot, although margin per unit of exposure is unchanged.</a></qa>
+<qa difficulty="expert"><q>Why might an exchange choose a lot size in the lower half of the ₹15 to 20 lakh band?</q><a>Prices drift between reviews. If the contract value starts near ₹20 lakh, a rise in the index quickly pushes it above the band, forcing an early revision; starting near ₹16 to 17 lakh leaves room for the index to rise without breaching the cap. A lower contract value also keeps margins per lot moderate, while staying above the ₹15 lakh minimum.</a></qa>
+<source url="https://www.business-standard.com/amp/markets/news/sebi-announces-six-key-changes-to-curb-speculation-in-derivatives-trading-124100101316_1.html">Sebi rolls out 6 measures to rein in F&O speculation (Business Standard)</source>
+<source url="https://zerodha.com/marketintel/bulletin/393605/revision-in-lot-size-of-index-derivative-contracts-from-november-20-2024">Revision in lot size of index derivative contracts from 20 November 2024 (Zerodha)</source>
+<source url="https://zerodha.com/marketintel/bulletin/429705/revision-in-lot-size-of-index-derivative-contracts-from-december-30-2025">Revision in lot size of index derivative contracts from 30 December 2025 (Zerodha)</source>
+<source url="https://hdfcsky.com/news/nse-revises-market-lot-sizes-for-major-index-derivatives-effective-january-2026">NSE revises market lot sizes for major index derivatives effective January 2026 (HDFC Sky)</source>
+<source url="https://www.business-standard.com/amp/markets/news/key-f-o-changes-from-today-lower-nifty-bank-nifty-lots-swiggy-3-more-to-debut-125123100084_1.html">F&O changes from today: lower Nifty, Bank Nifty lots (Business Standard)</source>
+</topic>
+
+<topic id="402">
+<level>advanced</level>
+<lesson>
+# ICDR Regulation 6 eligibility routes: profitability, QIB 75% and the treatment of loss-making new-age companies
+
+## Core idea
+To list on the main board of NSE or BSE through an IPO, a company must qualify under Regulation 6 of SEBI's Issue of Capital and Disclosure Requirements (ICDR) Regulations 2018. There are two main routes. Regulation 6(1) is the **profitability route** for companies with a track record of assets, profits and net worth. Regulation 6(2) is the **QIB route** for companies that fail those tests, typically loss-making technology and "new-age" companies: they can list if at least 75% of the issue goes to qualified institutional buyers, on the logic that professional investors should bear the risk.
+
+## How it works, step by step
+**Regulation 6(1): profitability track** (all on restated, consolidated figures):
+1. Net tangible assets of at least ₹3 crore in each of the preceding three full years, of which no more than 50% held in monetary assets (with exceptions if the issue is entirely an offer for sale, or if the excess monetary assets are committed to the business).
+2. Average operating profit of at least ₹15 crore over the preceding three years, with an operating profit in each of those years.
+3. Net worth of at least ₹1 crore in each of the preceding three years.
+4. If the company changed its name in the last year, at least 50% of revenue in the preceding year must come from the activity indicated by the new name.
+
+**Regulation 6(2): QIB route.**
+1. Available to issuers that do not meet 6(1).
+2. The issue must be made through book building.
+3. At least 75% of the net offer must be allotted to QIBs; non-institutional investors get at most 15% and retail investors at most 10% (against 35% retail under 6(1)).
+4. If 75% cannot be allotted to QIBs, the application money must be refunded.
+
+**Additional rules for 6(2) issuers:**
+- Limits on how much existing shareholders can sell in an offer for sale (larger holders can offer only part of their stake).
+- Extra disclosures for new-age, loss-making companies: key performance indicators (KPIs) used to value the business, and the prices of recent share issues and transfers before the IPO, so investors can compare the IPO price with what insiders paid.
+
+## Formulas and numbers (worked example)
+Company A: net tangible assets ₹40 crore, ₹55 crore, ₹70 crore; operating profit ₹10 crore, ₹14 crore, ₹24 crore (average ₹16 crore, positive every year); net worth positive every year. It qualifies under 6(1). In a ₹1,000 crore IPO, at least 35% (₹350 crore) is reserved for retail.
+
+Company B: operating losses of ₹80 crore, ₹120 crore and ₹60 crore. It fails 6(1) and lists under 6(2). In a ₹1,000 crore net offer: QIBs at least ₹750 crore, NIIs at most ₹150 crore, retail at most ₹100 crore. If QIB demand is only ₹600 crore, the issue fails and money is refunded.
+
+## India specifics
+- New-age technology companies (food delivery, payments, e-commerce) listed in 2021 and 2022 largely under 6(2). Weak post-listing performance of several led SEBI to require KPI and pre-IPO pricing disclosures from late 2022.
+- SEBI also allows confidential pre-filing of draft offer documents (from late 2022), useful for companies wanting to test the market quietly.
+- Anchor investors (a part of the QIB portion) have lock-ins: half of their shares for 30 days and half for 90 days after allotment.
+- SEBI amended the ICDR Regulations in March 2025 and again in later 2025; check the current consolidated text for any change to these thresholds.
+- Separately, SME platforms (NSE Emerge, BSE SME) have their own eligibility rules, tightened since 2024.
+
+## Real examples and history
+- Under the earlier SEBI (ICDR) Regulations 2009, the equivalent rules were in Regulation 26(1) and 26(2); the 2018 regulations kept the structure.
+- The 2021 wave of tech IPOs showed why the 75% QIB rule exists: valuations relied on growth expectations, and when sentiment turned, several stocks fell far below their issue prices, with losses concentrated among those who bought after listing.
+
+## Edge cases and common mistakes
+- **"Loss-making companies cannot list."** They can, under 6(2).
+- **Using standalone numbers.** Eligibility uses restated consolidated financials.
+- **Monetary assets.** A company with most of its net tangible assets in cash fails the 50% test unless an exception applies.
+- **Retail allocation.** Retail investors in 6(2) IPOs get a smaller share, so oversubscription in the retail category is often extreme.
+- **Changes in law.** Thresholds and disclosure rules change; read the latest version.
+
+## How traders, investors and quants use it
+- Investors check which route an IPO uses: a 6(2) issue means no profit track record, so valuation rests on KPIs and growth assumptions.
+- Analysts compare the IPO price with pre-IPO transaction prices disclosed in the offer document.
+- Quants studying IPO returns separate 6(1) and 6(2) issues, since their risk and investor base differ.
+
+## Related concepts
+Book building; anchor investors and lock-ins; QIBs; KPIs and valuation; minimum public shareholding; SME IPOs; offer for sale.
+</lesson>
+<qa difficulty="hard"><q>A company had operating profits of ₹30 crore, −₹5 crore and ₹40 crore in the last three years (average ₹21.7 crore). Does it qualify under Regulation 6(1)?</q><a>No. Regulation 6(1) requires an average operating profit of at least ₹15 crore and an operating profit in each of the three years. The loss in the middle year fails the second condition, so it must use Regulation 6(2) (75% QIB allocation) or wait for a clean three-year record.</a></qa>
+<qa difficulty="medium"><q>What are the allocation limits in a 6(2) IPO?</q><a>At least 75% of the net offer to qualified institutional buyers, at most 15% to non-institutional investors and at most 10% to retail individual investors.</a></qa>
+<qa difficulty="hard"><q>Why does SEBI require at least 75% QIB allocation for companies without a profit track record?</q><a>Without three years of profits and assets, valuation depends on forecasts that are hard for retail investors to judge. Requiring most of the issue to go to institutions with research capacity puts the main risk on informed investors, and the issue only succeeds if they are willing to buy at the price.</a></qa>
+<qa difficulty="hard"><q>A ₹2,000 crore 6(2) IPO receives QIB bids of ₹1,400 crore and huge retail demand. What happens?</q><a>The net offer requires at least 75% (₹1,500 crore) allotted to QIBs. With only ₹1,400 crore of QIB demand, the condition is not met; under 6(2) the issue fails and application money must be refunded. Retail demand cannot replace QIB demand in this route.</a></qa>
+<qa difficulty="expert"><q>What disclosures did SEBI add for new-age companies after 2021, and why?</q><a>Offer documents must disclose the key performance indicators the company uses (and that support its valuation), with definitions and history, and the prices at which shares were issued or transferred in the 18 months or so before the IPO, compared with the IPO price. These let investors judge whether the IPO valuation is consistent with operating metrics and with what insiders and earlier investors paid, after several 2021 listings fell sharply.</a></qa>
+<qa difficulty="hard"><q>Company C has net tangible assets of ₹50 crore each year, but ₹38 crore of it is cash. Does it meet the net tangible assets test?</q><a>It meets the ₹3 crore minimum, but monetary assets are 76% of net tangible assets, more than 50%. It qualifies under 6(1) only if an exception applies: for example the IPO is entirely an offer for sale, or the company has used or committed the excess monetary assets to its business or project. Otherwise it fails 6(1) and would use 6(2).</a></qa>
+<source url="https://www.ipoplatform.com/blogs/qib-route-for-ipo-listing-explained-sebi-icdr-regulations-6(2)/154">QIB route for IPO listing explained: SEBI ICDR Regulation 6(2) (IPO Platform)</source>
+<source url="https://www.khuranaandkhurana.com/ipo-of-loss-making-companies-with-100-percent-offer-for-sale">IPO of loss-making companies with 100% offer for sale (Khurana and Khurana)</source>
+<source url="https://www.business-standard.com/amp/article/markets/sebi-may-beef-up-disclosure-requirements-for-ipos-of-new-age-companies-122092200858_1.html">Sebi likely to step up disclosure norms for IPOs of new-age companies (Business Standard)</source>
+<source url="https://www.cyrilshroff.com/wp-content/uploads/2025/03/Client-Alert-SEBI-ICDR-Amendments.pdf">SEBI ICDR amendments, March 2025 (Cyril Amarchand Mangaldas)</source>
+<source url="https://nishithdesai.com/research-and-articles/hotline/corpsec-hotline/sebi-tweaks-the-regulatory-framework-for-initial-public-offerings-5212">SEBI tweaks the regulatory framework for IPOs (Nishith Desai Associates)</source>
+</topic>
+
+<topic id="403">
+<level>advanced</level>
+<lesson>
+# Compliance methods for continuing MPS: OFS, QIP, rights and bonus issues, and their market impact
+
+## Core idea
+Every listed company in India must have at least 25% of its shares held by the public (minimum public shareholding, MPS), under Rule 19A of the Securities Contracts (Regulation) Rules 1957 (SCRR). Companies that list with less, or fall below 25% later, must reduce promoter holding or issue new shares to the public within set deadlines. SEBI permits specific methods, each with its own speed, cost and effect on the share price. For traders, MPS deadlines create predictable supply events.
+
+## How it works, step by step
+**Permitted methods** (under SEBI's circulars):
+1. Further public offer (new shares to the public by prospectus).
+2. Offer for sale (OFS) by promoters by prospectus.
+3. **OFS through the stock exchange mechanism**: promoters sell on a separate exchange window over one or two days, with a floor price; a part is reserved for retail investors.
+4. **Qualified institutional placement (QIP)**: new shares to institutions.
+5. **Rights issue** to public shareholders, with promoters giving up (forgoing) their entitlements.
+6. **Bonus issue** to public shareholders, with promoters forgoing their bonus.
+7. **Sale by promoters in the open market**, limited to a small share of capital and subject to conditions.
+8. **Allotment under employee stock schemes**, within limits.
+9. Any other method approved by SEBI case by case.
+
+**Deadlines.** Under rules notified after SEBI's September 2025 board decision, large companies have more time: issuers listing with public shareholding below 15% get up to 10 years to reach 25%, those starting at 15% or more get 5 years, and minimum public offer sizes for very large IPOs were reduced by slab. The new timelines also apply to companies already listed before the amendment.
+
+## Formulas and numbers (worked example)
+Company X: 100 crore shares, promoter 82% (public 18%). Price ₹400.
+- **OFS route.** To reach 25% public, promoters must sell 7 crore shares (7%), worth ₹2,800 crore. OFS floor price set at ₹380 (5% discount). Retail gets at least 10% of the offer.
+- **QIP route.** Issue new shares N so that public share = 25%: (18 + N)/(100 + N) = 0.25 → 18 + N = 25 + 0.25N → 0.75N = 7 → N = 9.33 crore new shares. At ₹380 that raises ₹3,547 crore and dilutes existing holders by 8.5%.
+- **Rights or bonus with promoters forgoing.** A bonus of k shares per public share: public shares become 18(1 + k) crore, total 100 + 18k. For 25%: 18(1 + k) = 0.25(100 + 18k) → 18 + 18k = 25 + 4.5k → 13.5k = 7 → k = 0.519. So about 26 bonus shares for every 50 public shares; no money moves but promoters' percentage falls.
+The OFS sells existing shares (no dilution, money to promoters); QIP and rights raise money for the company with dilution; a bonus to public shareholders transfers value to them from promoters.
+
+## India specifics
+- Rule 19A of SCRR requires 25% public shareholding; public sector companies have had longer timelines at various times.
+- OFS through the stock exchange window is the most common route for large promoter sales, including government disinvestments in PSUs.
+- Recent large listings by companies with very low public float (for example under the 2025 relaxations for mega issuers) mean more MPS-driven share sales in coming years.
+
+## Real examples and history
+- The government has repeatedly used OFS to sell stakes in PSU companies, often at a discount to the market price, with retail and non-retail days.
+- Companies with low float (such as large conglomerate listings and some PSU banks after recapitalisation) have faced MPS deadlines, leading to sequences of QIPs and OFSs.
+
+## Edge cases and common mistakes
+- **Price pressure.** A known OFS adds supply; the stock often weakens into the OFS and the discount sets a reference price.
+- **Dilution versus sale.** Investors should know whether shares are new (dilution, money to the company) or existing (money to promoters).
+- **Promoters forgoing rights.** If promoters do not forgo, a rights issue does not change the public percentage.
+- **Deadline misses.** Missing MPS deadlines triggers fines and freezing of promoter holdings (see enforcement).
+- **Index weights.** Higher free float increases the stock's weight in free-float indices, bringing passive buying that partly offsets the extra supply.
+
+## How traders, investors and quants use it
+- Event traders track companies below 25% public shareholding and their deadlines, anticipating OFS or QIP supply.
+- Investors assess whether an OFS discount is attractive relative to the stock's fair value.
+- Index-flow analysts estimate the passive buying when free float rises.
+
+## Related concepts
+Free-float market capitalisation; OFS mechanism; QIP; rights issues; bonus issues; promoter holding; index inclusion; SEBI LODR enforcement.
+</lesson>
+<qa difficulty="hard"><q>A company has 50 crore shares with promoters at 80%. How many shares must promoters sell in an OFS to reach 25% public shareholding?</q><a>Public needs 25% of 50 crore = 12.5 crore shares; it now holds 10 crore (20%). Promoters must sell 2.5 crore shares (5% of capital).</a></qa>
+<qa difficulty="hard"><q>For the same company, how many new shares must a QIP issue to reach 25% public?</q><a>(10 + N)/(50 + N) = 0.25 → 10 + N = 12.5 + 0.25N → 0.75N = 2.5 → N = 3.33 crore new shares. Total shares become 53.33 crore, with public at 13.33 crore (25%).</a></qa>
+<qa difficulty="expert"><q>Compare the effect on existing public shareholders of reaching MPS through an OFS versus a bonus issue to public shareholders only.</q><a>OFS: promoters sell existing shares; there is no dilution, the company receives no money, and the share supply may pressure the price around the event. Bonus to public only: public shareholders get extra shares while promoters forgo theirs, so public holders' share of the company rises at the promoters' expense; no money changes hands and no new investors come in. The bonus transfers value from promoters to public holders, the OFS transfers cash from buyers to promoters.</a></qa>
+<qa difficulty="medium"><q>Why is the OFS through the stock exchange mechanism popular for MPS compliance?</q><a>It is quick (one or two trading days), transparent (bids on an exchange window above a floor price), allows retail participation with a reserved portion, and avoids the cost and time of a prospectus. It suits large promoter sales such as government disinvestments.</a></qa>
+<qa difficulty="hard"><q>A company lists with 12% public shareholding in 2026 under the amended rules. How long does it have to reach 25%?</q><a>Under the rules notified after SEBI's September 2025 decision, an issuer listing with public shareholding below 15% has up to 10 years to reach 25% (those starting at 15% or more have 5 years). Interim milestones may apply; check the notified SCRR rule for the exact schedule.</a></qa>
+<qa difficulty="hard"><q>Why might a stock's price fall before an MPS-driven OFS and recover afterwards?</q><a>Investors expect a large block of supply at a discount, so some sell or delay buying, and arbitrageurs short the stock to buy back in the OFS. After the OFS absorbs the supply and the overhang is gone, the pressure eases; higher free float can also bring index buying, supporting the price.</a></qa>
+<source url="https://www.outlookmoney.com/news/govt-amends-minimum-public-shareholding-rules-to-facilitate-mega-companies-ipos">Govt amends minimum public shareholding rules to facilitate mega IPOs (Outlook Money)</source>
+<source url="https://www.jsalaw.com/jsa_news/sebi-proposes-smaller-floats-for-big-firms">SEBI proposes smaller floats for big firms (JSA)</source>
+<source url="https://www.business-standard.com/amp/markets/ipo/sebi-proposes-lower-dilution-mega-ipos-mps-timelines-125081801183_1.html">Sebi proposes lower dilution for mega IPOs, extended MPS timelines (Business Standard)</source>
+<source url="https://www.taxmann.com/post/blog/analysis-sebi-ipo-rules-proposed-changes-in-minimum-public-offer-shareholding-norms/">SEBI IPO rules 2025: proposed changes in minimum public offer and shareholding norms (Taxmann)</source>
+</topic>
+
+<topic id="404">
+<level>advanced</level>
+<lesson>
+# Enforcement for MPS and LODR non-compliance: fines, promoter freezes, suspension and delisting
+
+## Core idea
+Listed companies must follow SEBI's Listing Obligations and Disclosure Requirements (LODR) Regulations 2015 and keep minimum public shareholding (MPS). When they don't, enforcement follows a ladder: per-day fines levied by the stock exchanges, freezing of promoters' shares, moving the stock to a restricted trading category, suspension of trading and, finally, compulsory delisting. SEBI can also act directly through orders and penalties. For investors, enforcement actions are warning signs about governance.
+
+## How it works, step by step
+1. **Standard operating procedure (SOP).** SEBI's SOP for LODR non-compliance (first issued in 2018 and 2020, now in the master circular of 11 November 2024, Chapter VII(A)) sets out fines per day or per instance for specific regulations (board composition, committee composition, financial results, shareholding pattern, corporate governance reports and others). Exchanges levy them, plus GST.
+2. **Notice and cure.** The company gets notice to comply and pay; fines continue until it complies.
+3. **Freezing promoter holdings.** If the company continues to default or does not pay, exchanges freeze the holdings of the promoter and promoter group in that company and, during suspension, other securities in their demat accounts.
+4. **Restricted trading and suspension.** For example, non-submission of financial results (Regulation 33) for two consecutive quarters moves the stock to the restricted "Z" category and then to suspension of trading.
+5. **Revocation.** Freezes and suspensions are lifted only after the company complies and pays fines.
+6. **Compulsory delisting.** Prolonged suspension can lead to compulsory delisting under SEBI's delisting regulations; promoters must then buy out public shareholders at a fair value set by an independent valuer, and the company and promoters face restrictions on accessing the market.
+7. **MPS non-compliance.** Companies below 25% public shareholding after the deadline face fines and freezes of promoter holdings, and promoters and directors can face restrictions, until compliance.
+
+## Formulas and numbers (worked example)
+A company misses a board composition requirement for 60 days. Suppose the SOP fine is ₹X per day; the fine is 60X plus 18% GST. With a ₹1,25,000 basic fine, GST is ₹22,500 and the total ₹1,47,500 (an actual BSE notice used these figures). If unpaid within the period allowed, promoter holdings are frozen.
+
+An investor holds shares of a company that has not filed results for two quarters. After the exchange moves the stock to the Z category, trading happens only in periodic call auctions or trade-for-trade settlement, with lower liquidity; if suspended, the shares cannot be traded on the exchange at all until revocation, and on compulsory delisting the investor receives the fair value determined under the regulations from promoters.
+
+## India specifics
+- Exchanges publish lists of companies fined and policies for waiving or reducing fines.
+- Fines for non-compliance with Regulation 13(1) (investor grievance redressal through SCORES) continue even during suspension.
+- SEBI's enforcement also includes adjudication orders with penalties under the SEBI Act, and directions barring promoters or directors from the securities market.
+- A 2018 analysis noted that continued LODR non-compliance can end in compulsory delisting, which hurts minority shareholders who may receive less than they hoped.
+
+## Real examples and history
+- Many small companies have been suspended for years for repeated non-filing of results, leaving minority shareholders with illiquid holdings.
+- MPS enforcement led several promoters to sell stakes through OFS or QIP close to deadlines.
+
+## Edge cases and common mistakes
+- **Assuming a suspended stock is worthless.** Shares remain owned; value depends on revocation or delisting fair value.
+- **Buying "cheap" Z-category stocks.** Restricted trading and governance problems usually mean high risk.
+- **Ignoring promoter freezes.** A freeze means promoters cannot sell or pledge; it may also block pledged-share invocation.
+- **Misreading fines.** Small fines often precede bigger problems; repeated fines signal weak governance.
+- **Fine waivers.** Exchanges can waive or reduce fines in some cases; a waiver is not evidence of compliance.
+
+## How traders, investors and quants use it
+- Investors screen out companies with recent SOP fines, Z-category status or frozen promoter holdings.
+- Quants use enforcement events as governance risk features.
+- Analysts track MPS deadlines and non-compliance lists for potential supply events.
+
+## Related concepts
+LODR Regulations; minimum public shareholding; delisting regulations; trading categories and surveillance; promoter pledges; corporate governance.
+</lesson>
+<qa difficulty="medium"><q>What happens if a listed company does not submit its financial results for two consecutive quarters?</q><a>Under SEBI's SOP, trading in its shares is moved to the restricted Z category and then suspended. The promoters' entire holding in the company, and other securities in their demat accounts, remain frozen during suspension, until the company complies and pays the fines.</a></qa>
+<qa difficulty="hard"><q>Why does SEBI freeze promoter holdings rather than only fining the company?</q><a>Fines on the company are ultimately borne by all shareholders, including minorities. Freezing promoters' shares targets those who control the company, preventing them from selling or pledging until compliance, which creates a direct personal incentive to fix the default.</a></qa>
+<qa difficulty="hard"><q>A company's basic fine is ₹2,40,000. What is the total payable including GST?</q><a>GST at 18% = ₹43,200. Total = ₹2,83,200.</a></qa>
+<qa difficulty="expert"><q>What protection do minority shareholders get if a company is compulsorily delisted?</q><a>Under SEBI's delisting regulations, the promoters must buy the shares of public shareholders at a fair value determined by an independent valuer appointed by the exchange. The company, its directors and promoters face restrictions on accessing the securities market for a period. In practice recovering the amount from defaulting promoters can be slow, and fair value may be far below historical prices.</a></qa>
+<qa difficulty="hard"><q>How can an investor detect governance warning signs from exchange data?</q><a>Look for SOP fines in exchange notices, repeated late filings, Z-category or enhanced surveillance measures, frozen promoter holdings, auditor resignations, and public shareholding below 25% past the deadline. Several of these together signal elevated risk.</a></qa>
+<qa difficulty="hard"><q>Do fines stop when trading in a stock is suspended?</q><a>Not always. Under SEBI's SOP, fines for non-compliance with Regulation 13(1) (investor grievance redressal) continue to be levied even during the suspension period, while freezes and suspension continue until the company complies and pays.</a></qa>
+<source url="https://archives.nseindia.com/corporates/compliance/SOP_Guidance_note_for_companies.pdf">NSE guidance note on the SEBI SOP for non-compliance</source>
+<source url="https://nsearchives.nseindia.com/content/equities/SEBI_Circular_22012020.pdf">SEBI circular of 22 January 2020 on SOP and fines for LODR non-compliance</source>
+<source url="https://vinodkothari.com/2018/05/non-compliance-of-listing-regulations-may-lead-to-compulsory-delisting/">Non-compliance of Listing Regulations may lead to compulsory delisting (Vinod Kothari)</source>
+<source url="https://www.nseindia.com/static/nse-penalises-companies-for-non-compliance-with-listing-regulations">NSE penalises companies for non-compliance with listing regulations</source>
+</topic>
