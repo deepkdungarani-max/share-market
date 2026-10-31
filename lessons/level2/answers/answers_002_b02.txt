@@ -1,0 +1,309 @@
+<topic id="509">
+<level>advanced</level>
+<lesson>
+# CIRP step by step: admission, moratorium, CoC voting thresholds and Section 29A
+
+## Core idea
+The Corporate Insolvency Resolution Process (CIRP) under India's Insolvency and Bankruptcy Code 2016 (IBC) is how a defaulting company is either rescued through a resolution plan or sent into liquidation. Control moves from the promoters to an insolvency professional, and the decisions move to a committee of creditors (CoC) made up of financial creditors, voting by the size of their claims. For equity investors, a CIRP usually means the old shares become worthless or nearly so.
+
+## How it works, step by step
+1. **Default and application.** A financial creditor (section 7), operational creditor (section 9, after a demand notice) or the company itself (section 10) applies to the National Company Law Tribunal (NCLT). The minimum default is ₹1 crore (raised from ₹1 lakh in 2020).
+2. **Admission.** The NCLT admits the application if a debt and default exist (the statute contemplates 14 days, but admission often takes much longer).
+3. **Moratorium (section 14).** From admission, suits, enforcement of security, recovery actions and transfers of assets are frozen, so creditors cannot grab assets separately.
+4. **Interim resolution professional (IRP).** Takes over management, makes a public announcement and collects claims.
+5. **CoC formation.** Financial creditors form the CoC; votes are in proportion to their admitted financial debt. Related-party financial creditors cannot vote.
+6. **Voting thresholds.** Most decisions need 51%; key decisions (approving a resolution plan, replacing the resolution professional, extending CIRP, certain actions under section 28) need 66%; withdrawing a case after admission (section 12A) needs 90%.
+7. **Resolution plans.** Prospective resolution applicants submit plans; section 29A bars ineligible persons (for example those with accounts classified as non-performing for over a year unless overdue amounts are paid, wilful defaulters, disqualified directors, and their connected persons). Operational creditors must receive at least what they would get in liquidation.
+8. **Approval.** CoC approves by 66%; the NCLT approves under section 31, making the plan binding on all.
+9. **Timelines.** 180 days, extendable by 90, with an outer limit of 330 days including litigation (2019 amendment); in practice cases take much longer.
+10. **Liquidation (section 33).** If no plan is approved, the company is liquidated and proceeds distributed by the section 53 waterfall.
+
+## Formulas and numbers (worked example)
+Admitted financial claims: Bank A ₹4,000 crore, Bank B ₹2,500 crore, NBFC C ₹1,500 crore, bondholders ₹2,000 crore (total ₹10,000 crore).
+Vote on a plan: A and B vote yes (65%), C and bondholders no. 65% is below 66%, so the plan fails. If C also votes yes (80%), the plan passes and binds the dissenting bondholders, who must receive at least their liquidation value.
+Plan value ₹3,500 crore against ₹10,000 crore of admitted financial claims: recovery 35%, close to the system-wide average of about 30% to 33%.
+
+## India specifics
+- As of June 2026, creditors had recovered about 30.5% of admitted claims through resolution plans, about 167% of liquidation value; resolved cases took on average about 633 days excluding time excluded by tribunals (757 days including it), far beyond the 330-day limit. Liquidations far outnumber resolutions (over 3,000 cumulative liquidation orders).
+- **Essar Steel (Supreme Court, 15 November 2019):** upheld the primacy of the CoC's commercial wisdom on how to distribute plan value, approved ArcelorMittal's plan (about ₹42,000 crore to financial creditors against about ₹49,400 crore of dues), and earlier (2018) held that ArcelorMittal and Numetal were ineligible under section 29A unless they cleared connected NPAs, which ArcelorMittal did.
+- Pre-packaged insolvency for MSMEs was introduced in 2021.
+
+## Real examples and history
+- The IBC replaced a fragmented system (SICA, BIFR, debt recovery tribunals) where cases dragged for decades.
+- Large early cases (the RBI's "dirty dozen" referrals in 2017) included Essar Steel, Bhushan Steel and others, setting precedents.
+
+## Edge cases and common mistakes
+- **Equity holders' position.** Shareholders rank last in liquidation and are typically wiped out or heavily diluted under resolution plans.
+- **Operational creditors' vote.** They have no vote in the CoC; they are protected by minimum entitlement rules.
+- **Section 29A traps.** Promoters cannot bid for their own company if they are ineligible; connected persons are also barred.
+- **Timeline expectations.** Statutory limits are often exceeded because of litigation.
+- **Withdrawal.** After admission, withdrawal needs 90% CoC approval.
+
+## How traders, investors and quants use it
+- Equity investors treat admission into CIRP as a near-total loss event for shareholders.
+- Credit investors estimate recoveries by comparing liquidation value, fair value and historical recovery rates.
+- Quants use CIRP admissions and IBBI data as default and loss-given-default inputs.
+
+## Related concepts
+Liquidation waterfall (section 53); distressed debt and ARCs; Merton model; bank NPAs; corporate governance red flags.
+</lesson>
+<qa difficulty="hard"><q>Financial creditors with 60%, 7% and 33% of admitted debt vote yes, yes and no on a resolution plan. Does it pass?</q><a>Yes votes = 67%, above the 66% threshold for approving a resolution plan, so it passes the CoC and goes to the NCLT for approval under section 31. The dissenting 33% creditor is bound but must receive at least its liquidation value.</a></qa>
+<qa difficulty="medium"><q>What does the section 14 moratorium do?</q><a>From admission of the CIRP, it bars new or pending suits and proceedings against the company, enforcement of security interests, recovery of property by owners or lessors, and transfer or sale of the company's assets, so the business can be preserved while a resolution is sought.</a></qa>
+<qa difficulty="hard"><q>Why did section 29A matter in the Essar Steel case?</q><a>Section 29A bars persons connected to defaulting companies (for example with long-standing NPAs) from submitting resolution plans. ArcelorMittal and Numetal were found ineligible because of connected companies' NPAs; the Supreme Court gave them a chance to clear those dues. ArcelorMittal paid and its plan was later approved, showing that 29A can force bidders to settle old defaults.</a></qa>
+<qa difficulty="hard"><q>Creditors recover about 30% of admitted claims but about 167% of liquidation value. How can both be true?</q><a>Admitted claims are the full amounts owed; liquidation value is what assets would fetch if sold piecemeal in liquidation, often far below claims. Resolution plans pay much more than liquidation value (about 1.7 times) because they keep the business running, but still far less than the debt owed (about 30%).</a></qa>
+<qa difficulty="medium"><q>What CoC vote is needed to withdraw a CIRP after admission?</q><a>90% of the voting share of the CoC, under section 12A, followed by NCLT approval.</a></qa>
+<qa difficulty="expert"><q>Why do operational creditors have no vote in the CoC, and how are they protected?</q><a>Lawmakers gave votes to financial creditors because they can assess viability and restructure finance, whereas operational creditors (suppliers, employees) are numerous with smaller claims. They are protected by the requirement that a resolution plan pay them at least what they would get in liquidation (and, since 2019, at least what they would get if plan value were distributed by the liquidation waterfall), and by the NCLT's review of the plan.</a></qa>
+<source url="https://startupfeed.in/ibbi-june-2026-data-liquidation-recovery-rate/">IBC data: creditors recover 30.52% as liquidations hit 3,074 (June 2026)</source>
+<source url="https://www.business-standard.com/amp/industry/news/ibc-haircuts-2025-creditor-recovery-cirp-delays-ibbi-data-125112300278_1.html">Haircuts under IBC as creditor recovery stays low (Business Standard)</source>
+<source url="https://www.careratings.com/uploads/newsfiles/1770200094_Recovery%20Rates%20under%20IBC%20Remain%20Rangebound%20at%2032%20pct%20in%20Q3FY26.pdf">Recovery rates under IBC remain range-bound (CareEdge)</source>
+<source url="https://www.khuranaandkhurana.com/committee-of-creditors-of-essar-steel-india-limited-vs-satish-kumar-gupta-ors-8-scc-531">CoC of Essar Steel v. Satish Kumar Gupta (Khurana and Khurana)</source>
+<source url="https://indiacorplaw.in/2018/10/07/essar-steel-case-supreme-decodes-section-29a-ibc/">Essar Steel case: Supreme Court decodes section 29A (IndiaCorpLaw)</source>
+</topic>
+
+<topic id="510">
+<level>advanced</level>
+<lesson>
+# Bank capital stack: CET1, AT1, Tier 2 and RBI resolution/write-down rules
+
+## Core idea
+A bank's capital absorbs losses before depositors are hurt. Under Basel III, capital comes in layers: Common Equity Tier 1 (CET1: shares and retained earnings), Additional Tier 1 (AT1: perpetual bonds that can be written down or converted), and Tier 2 (subordinated debt that absorbs losses in resolution). Investors in AT1 bonds earn higher yields because they can lose everything while the bank survives. India's Yes Bank case tested this: its ₹8,415 crore AT1 write-off in 2020 was quashed by the Bombay High Court in 2023, and the Supreme Court upheld that in October 2026.
+
+## How it works, step by step
+1. **Risk-weighted assets (RWA).** Loans and other exposures weighted by risk.
+2. **Minimum ratios (RBI's Basel III rules):** CET1 at least 5.5% of RWA, plus a capital conservation buffer of 2.5% (so 8%); Tier 1 at least 7% (9.5% with the buffer); total capital at least 9% (11.5% with the buffer). Systemically important banks (D-SIBs) hold an extra CET1 surcharge (SBI the highest).
+3. **AT1 features.** Perpetual; coupons fully discretionary (non-payment is not default); call options after five years; loss absorption through write-down or conversion when CET1 falls below a pre-set trigger, or at the "point of non-viability" (PONV) as determined by the RBI.
+4. **Tier 2.** Subordinated debt with at least five years' maturity, absorbing losses at PONV, ranking above AT1 and equity.
+5. **Hierarchy of loss.** Equity first, then AT1, then Tier 2, then senior creditors, with depositors protected by deposit insurance up to ₹5 lakh.
+6. **Resolution tools.** The RBI can impose a moratorium, supersede the board and frame reconstruction or amalgamation schemes under section 45 of the Banking Regulation Act.
+
+## Formulas and numbers (worked example)
+A bank with RWA ₹2,00,000 crore:
+- CET1 ₹17,000 crore (8.5%), AT1 ₹3,000 crore (1.5%), Tier 2 ₹4,000 crore (2.0%). Tier 1 = 10.0%; total = 12.0%.
+- A loss of ₹6,000 crore reduces CET1 to ₹11,000 crore: CET1 5.5%, below the 8% (with buffer) level, so dividends and discretionary payments are restricted.
+- If the AT1 trigger is CET1 below 5.5% and losses rise further, AT1 is written down; at the point of non-viability, AT1 can be written off entirely even if CET1 is above the trigger.
+
+## India specifics
+- **Yes Bank (2020):** after a moratorium in March 2020, the RBI's reconstruction scheme (with SBI-led investment) was accompanied by the administrator's write-off of ₹8,415 crore of AT1 bonds, while shareholders kept part of their equity, reversing the usual hierarchy and angering bondholders, many of them retail investors who had been mis-sold the bonds.
+- **Courts:** the Bombay High Court in January 2023 quashed the write-off, holding that the administrator lacked authority once the reconstruction scheme had been notified. On 15 October 2026 the Supreme Court upheld that ruling; Yes Bank's shares fell about 14.5% that day on fears that the reinstated liability could hurt its capital.
+- After the episode, SEBI restricted sales of AT1 bonds to retail investors (minimum allotment and trading lot raised to ₹1 crore in 2021) and changed their valuation by mutual funds (deemed 100-year maturity for valuation).
+- Public sector banks issue AT1 bonds regularly, often bought by institutions.
+
+## Real examples and history
+- **Credit Suisse (March 2023):** about US$17 billion of AT1 bonds were written off in the UBS takeover while shareholders received some value, causing a global debate about AT1 terms.
+- Basel III was developed after 2008 to make banks hold more and better-quality capital.
+
+## Edge cases and common mistakes
+- **Treating AT1 as a fixed deposit.** Coupons can be skipped and principal written off.
+- **Assuming the hierarchy always holds.** Write-down terms can let AT1 lose before shareholders, as in Yes Bank and Credit Suisse.
+- **Call risk.** Banks may not call AT1 bonds at the first call date; investors can be left holding a perpetual bond.
+- **Legal risk.** As the Yes Bank case shows, write-downs can be challenged and reversed years later.
+
+## How traders, investors and quants use it
+- Bank analysts compare CET1 headroom over minimums and buffers to judge dividend capacity and growth.
+- Credit investors price AT1 with extra yield for write-down and coupon risk.
+- Equity investors in banks with contingent liabilities (such as reinstated AT1) adjust valuations for possible capital needs.
+
+## Related concepts
+Basel III; risk-weighted assets; deposit insurance; Banking Regulation Act section 45; bail-in; Credit Suisse AT1 write-off; SEBI rules on AT1 sales.
+</lesson>
+<qa difficulty="hard"><q>A bank has RWA of ₹50,000 crore, CET1 ₹4,500 crore, AT1 ₹800 crore and Tier 2 ₹1,000 crore. Does it meet the RBI's minimums including the conservation buffer?</q><a>CET1 ratio = 9.0% (needs 8.0% with buffer: yes). Tier 1 = (4,500 + 800)/50,000 = 10.6% (needs 9.5%: yes). Total = 6,300/50,000 = 12.6% (needs 11.5%: yes). It meets all three, before any D-SIB surcharge.</a></qa>
+<qa difficulty="medium"><q>Why do AT1 bonds pay higher yields than Tier 2 bonds?</q><a>AT1 bonds are perpetual, their coupons can be cancelled without default, and they absorb losses earlier (through write-down or conversion at a CET1 trigger or at non-viability). They rank below Tier 2 in the loss hierarchy, so investors demand more yield for more risk.</a></qa>
+<qa difficulty="hard"><q>What did the Supreme Court decide in October 2026 about Yes Bank's AT1 bonds?</q><a>It upheld the Bombay High Court's January 2023 decision that quashed the March 2020 write-off of about ₹8,415 crore of Yes Bank AT1 bonds, on the ground that the RBI-appointed administrator did not have the legal authority to extinguish them in the way it did. Yes Bank's shares fell about 14.5% on the day, reflecting the potential liability.</a></qa>
+<qa difficulty="expert"><q>Why was the Yes Bank AT1 write-off controversial from a capital-hierarchy perspective?</q><a>In a normal loss hierarchy, equity absorbs losses before AT1. In Yes Bank's 2020 reconstruction, the AT1 bonds were written off completely while existing shareholders kept a stake (with dilution). AT1 terms allowed write-down at non-viability, but bondholders argued the process and timing were improper; the courts later agreed on the administrator's authority.</a></qa>
+<qa difficulty="medium"><q>What changed for retail investors in AT1 bonds after the Yes Bank case?</q><a>SEBI raised the minimum allotment and trading lot for AT1 and similar perpetual bonds to ₹1 crore in 2021, effectively limiting them to institutional and wealthy investors, after many retail investors had bought them believing they were safe, deposit-like products.</a></qa>
+<qa difficulty="hard"><q>A loss cuts a bank's CET1 ratio from 9% to 6.5%. What happens to its dividends?</q><a>CET1 of 6.5% is above the 5.5% minimum but inside the 2.5% capital conservation buffer (below 8%). Banks within the buffer face restrictions on distributions (dividends, discretionary bonuses), with tighter limits the deeper they are in the buffer, until capital is rebuilt.</a></qa>
+<source url="https://www.businesstoday.in/latest/corporate/story/supreme-court-overturns-yes-banks-rs8400-crore-bond-write-off-raising-liability-risks-report-561907-2026-10-15">Supreme Court overturns Yes Bank's Rs 8,400 crore bond write-off (Business Today)</source>
+<source url="https://www.moneylife.in/article/yes-bank-at1-bondholders-win-in-supreme-court-as-8415-crore-writeoff-is-struck-down/81958.html">Yes Bank AT1 bondholders win in Supreme Court (Moneylife)</source>
+<source url="https://www.outlookmoney.com/invest/yes-bank-shares-close-over-14-lower-after-supreme-court-deems-884-million-at-1-bond-write-off-illegal">Yes Bank shares close over 14% lower after Supreme Court ruling (Outlook Money)</source>
+<source url="https://www.sahi.com/news/yes-bank-supreme-court-upholds-order-quashing-at1-bond-write-off">Supreme Court upholds order quashing AT1 bond write-off (Sahi)</source>
+</topic>
+
+<topic id="511">
+<level>expert</level>
+<lesson>
+# Merton model: equity as a call option and distance-to-default
+
+## Core idea
+Robert Merton (1974) showed that a company's equity behaves like a call option on its assets. Shareholders get whatever is left after paying debt; if assets fall below the debt, they walk away (limited liability) and creditors take the assets. Using this, the observable share price and its volatility can be turned into estimates of the firm's asset value, asset volatility and the probability that assets fall below debt: the probability of default. Moody's KMV built a commercial system on this idea, measuring credit risk through **distance to default (DD)**.
+
+## How it works, step by step
+1. **Set-up.** Firm asset value V follows a lognormal process with volatility σ_V. Debt with face value D matures at T. At T, equity = max(V − D, 0).
+2. **Equity as a call.** E = V N(d1) − D e^(−rT) N(d2), with d1 = [ln(V/D) + (r + σ_V²/2)T]/(σ_V √T) and d2 = d1 − σ_V √T.
+3. **Link volatilities.** σ_E E = N(d1) σ_V V.
+4. **Solve.** With observed E (market cap) and σ_E (equity volatility), solve the two equations for V and σ_V (numerically, by iteration).
+5. **Distance to default.** DD = [ln(V/D) + (μ − σ_V²/2)T]/(σ_V √T), using the expected asset return μ; probability of default ≈ N(−DD). The risk-neutral version uses r and gives N(−d2).
+6. **KMV refinements.** The default point is set at short-term debt plus half of long-term debt, and DD is mapped to empirical default frequencies rather than the normal distribution.
+
+## Formulas and numbers (worked example)
+Market cap E = ₹400 crore, equity volatility 50%, default point D = ₹600 crore, r = 6%, horizon one year.
+Solving the two equations gives:
+- Asset value V ≈ ₹964.8 crore; asset volatility σ_V ≈ 20.8%.
+- d1 ≈ 2.675, d2 ≈ 2.467; risk-neutral default probability N(−d2) ≈ 0.68%.
+- With expected asset return μ = 10%: DD ≈ 2.66, PD ≈ 0.39% under the normal assumption.
+- A quick approximation, DD ≈ (V − D)/(V σ_V) = (964.8 − 600)/(964.8 × 0.208) ≈ 1.82, gives a more conservative picture; KMV-style mappings use such distances with empirical default rates.
+If the share price halves (E = ₹200 crore) and equity volatility rises to 80%, V falls and σ_V rises, and DD drops sharply: the model reacts quickly to market information, faster than credit ratings.
+
+## India specifics
+- Banks and rating agencies in India use market-based measures alongside ratings; DD is useful for listed companies with liquid shares.
+- In Indian corporate failures such as the listed IL&FS group companies (2018) and DHFL (2019), equity prices fell and volatility jumped well before formal defaults, consistent with falling distance to default.
+- Promoter pledging and related-party issues can make equity prices noisy, affecting σ_E estimates.
+
+## Real examples and history
+- Merton's 1974 paper founded structural credit models; Black and Cox (1976) added default barriers before maturity.
+- Moody's KMV popularised Expected Default Frequency (EDF) based on DD and a large default database; empirical studies show DD has predictive power but is not a sufficient statistic for default on its own.
+
+## Edge cases and common mistakes
+- **Choosing the default point.** Total debt overstates default risk for firms with long-term debt; the KMV convention (short-term + half long-term) is a heuristic.
+- **Noisy equity volatility.** Using a period of unusual volatility distorts σ_V.
+- **Normal distribution tails.** N(−DD) understates default probabilities for distressed firms; empirical mapping is better.
+- **Complex capital structures.** Multiple debt maturities, guarantees and off-balance-sheet liabilities complicate D.
+- **Banks and financials.** High leverage and regulatory capital rules make the simple model less reliable.
+
+## How traders, investors and quants use it
+- Credit analysts monitor DD for early warnings of deterioration in listed borrowers.
+- Quant equity investors use DD as a factor: low-DD (distressed) stocks have historically delivered low returns in many markets (the distress anomaly).
+- Capital structure arbitrageurs compare equity-implied default risk with bond spreads and CDS prices.
+
+## Related concepts
+Black-Scholes; limited liability; credit spreads; expected default frequency; distress anomaly; IBC and recovery rates.
+</lesson>
+<qa difficulty="hard"><q>Why is equity like a call option on the firm's assets?</q><a>At debt maturity, shareholders receive assets minus debt if positive, and nothing otherwise, because limited liability lets them walk away. That payoff, max(V − D, 0), is exactly a call option on V with strike D.</a></qa>
+<qa difficulty="expert"><q>Using the simple approximation DD ≈ (V − D)/(V σ_V), compute DD for V = ₹1,500 crore, D = ₹900 crore, σ_V = 25%.</q><a>DD ≈ (1,500 − 900)/(1,500 × 0.25) = 600/375 = 1.6. Assets would need to fall by 1.6 standard deviations to reach the default point. Under a normal assumption, N(−1.6) ≈ 5.5%, but real-world mappings would be used for actual estimates.</a></qa>
+<qa difficulty="hard"><q>What is the KMV default point, and why not use total debt?</q><a>Short-term debt plus half of long-term debt. A firm usually does not default when assets merely fall below total liabilities, because long-term debt is not immediately due; default tends to occur somewhere between short-term liabilities and total liabilities. The KMV convention approximates that empirically.</a></qa>
+<qa difficulty="hard"><q>A company's market cap falls 50% and equity volatility doubles. Qualitatively, what happens to its distance to default?</q><a>The lower equity value implies lower asset value, so the cushion V − D shrinks, while higher equity volatility implies higher asset volatility, so each unit of cushion is worth fewer standard deviations. Both effects reduce DD sharply, raising estimated default probability.</a></qa>
+<qa difficulty="expert"><q>Why must the two Merton equations be solved simultaneously?</q><a>Asset value V and asset volatility σ_V are not observed. The option-pricing equation links E to V and σ_V, and the volatility equation (σ_E E = N(d1) σ_V V) links σ_E to them. With two unknowns, both equations are needed, solved numerically (for example by iterating until V and σ_V stop changing).</a></qa>
+<qa difficulty="medium"><q>What is one major limitation of the Merton model for Indian corporate credit?</q><a>It relies on liquid, informative equity prices; many Indian borrowers are unlisted or thinly traded, and listed promoter-dominated companies may have prices distorted by low float or pledging. It also assumes a simple debt structure and normal asset returns, which understates tail risk.</a></qa>
+<source url="https://en.wikipedia.org/wiki/Merton_model">Merton model (Wikipedia)</source>
+<source url="https://merton.readthedocs.io/en/latest/theory/merton-1974.html">The Merton 1974 model (documentation)</source>
+<source url="https://acadifi.com/community/merton-model-distance-to-default-structural-credit-risk">How the Merton model calculates distance to default and its limitations (AcadiFi)</source>
+<source url="https://www-users.cse.umn.edu/~adams005/Financial/Materials/barrY07M07D25Ch9.pdf">Structural models and KMV (University of Minnesota course material)</source>
+</topic>
+
+<topic id="512">
+<level>advanced</level>
+<lesson>
+# SR shares in India vs dual-class abroad: sunset, coat-tail and index treatment
+
+## Core idea
+Founders of technology companies often want to raise public money without losing control. Dual-class structures let them hold shares with more votes per share. The US allows them widely (Alphabet, Meta, Snap). India allows **superior voting rights (SR) shares** since 2019, but with strict guardrails: only for technology-intensive companies, only for founders, with limited voting ratios, automatic sunsets and "coat-tail" rules on key decisions. Index providers also treat such structures specially.
+
+## How it works, step by step
+**SEBI framework (2019, eased in 2021):**
+1. **Eligibility.** The issuer must be technology-intensive; SR shares can be held only by promoters or founders who are executive directors, with their net worth (excluding their holding in the company) not above ₹1,000 crore (raised from ₹500 crore in 2021).
+2. **Issue timing.** SR shares must be issued at least three months before filing the red herring prospectus (reduced from six months in 2021).
+3. **Ratio.** Between 2:1 and 10:1 votes per share; total voting rights of SR holders (with their ordinary shares) capped at 74% after listing.
+4. **Sunset.** SR shares convert to ordinary shares on the fifth anniversary of listing, extendable once by up to five years by a resolution in which SR holders do not vote; they also convert on the holder's death, resignation, change of control, merger or acquisition.
+5. **Coat-tail.** On specified matters, SR shares carry only one vote per share: appointment or removal of independent directors and auditors, voluntary winding up, change in control, related-party transactions, changes to articles affecting SR rights, and others.
+6. **Other limits.** SR shares are locked in and cannot be pledged or transferred; their rights cannot be increased after listing.
+
+**Abroad:**
+- US exchanges permit dual-class listings broadly, many without sunsets.
+- S&P excluded new multi-class companies from the S&P 500 from 2017 but reversed this in April 2023. FTSE Russell requires more than 5% of voting rights to be in public hands for index eligibility.
+- Hong Kong and Singapore allowed weighted voting rights from 2018 with safeguards similar to India's.
+
+## Formulas and numbers (worked example)
+A founder holds 15 crore SR shares at 10 votes each; public and other holders own 85 crore ordinary shares (1 vote each).
+- Founder votes = 150 crore; total = 235 crore; founder voting share = 63.8% with economic ownership of 15%.
+- On a coat-tail matter (for example removing an independent director), the founder's votes count at 1 per share: 15 crore of 100 crore = 15%.
+- After the five-year sunset, without extension, SR shares convert: founder voting falls to 15%.
+- To stay within the 74% cap, at 10:1 the founder's economic stake can be at most about 22% (22 × 10/(22 × 10 + 78) = 73.8%).
+
+## India specifics
+- India's rules were designed after studying US, Hong Kong and Singapore regimes, adding the sunset and coat-tails to protect minorities.
+- Very few Indian IPOs have used SR shares so far; most founders list with ordinary shares and keep influence through shareholding and board seats.
+- SEBI's limits (₹1,000 crore founder net worth, technology focus) mean the structure is aimed at startups, not established family groups.
+
+## Real examples and history
+- Google's 2004 IPO popularised dual-class shares in technology; Snap's 2017 IPO with non-voting public shares triggered index providers' reviews.
+- Studies of US dual-class firms find that their valuation premium tends to decline over time, which supports time-based sunsets.
+
+## Edge cases and common mistakes
+- **Confusing SR shares with DVRs.** Differential voting rights (DVR) shares with fewer votes (for example Tata Motors DVR, since withdrawn) are a different structure.
+- **Ignoring coat-tail matters.** Founders cannot use superior votes to entrench themselves on governance-critical decisions.
+- **Assuming permanence.** Indian SR shares sunset by default.
+- **Index exclusions.** Some indices limit or exclude low-voting-float companies, affecting passive demand.
+
+## How traders, investors and quants use it
+- Governance analysts compare voting control with economic ownership (the wedge) as a risk indicator.
+- Investors read sunset and coat-tail terms in the offer document.
+- Index-flow analysts check eligibility rules for multi-class companies.
+
+## Related concepts
+Corporate governance; independent directors; related-party transactions; index eligibility; founder control; ICDR Regulation 6.
+</lesson>
+<qa difficulty="hard"><q>A founder owns 20 crore SR shares at 5 votes each; others own 80 crore ordinary shares. What is the founder's voting share, and what is it on a coat-tail resolution?</q><a>Founder votes = 100 crore; total = 180 crore; voting share = 55.6%. On coat-tail matters SR shares carry one vote each: 20 crore of 100 crore = 20%.</a></qa>
+<qa difficulty="medium"><q>When do SR shares convert into ordinary shares under SEBI's framework?</q><a>On the fifth anniversary of listing (extendable once by up to five years by a resolution in which SR holders cannot vote), or earlier on events such as the holder's death, resignation, a merger or acquisition, or change of control.</a></qa>
+<qa difficulty="hard"><q>Why does SEBI cap SR holders' total voting rights at 74%?</q><a>Holding more than 75% would let SR holders pass special resolutions (which need 75%) on their own, including alterations of articles and other major decisions. Capping at 74% preserves minority shareholders' ability to block special resolutions.</a></qa>
+<qa difficulty="expert"><q>Why are time-based sunsets considered good practice for dual-class structures?</q><a>Founder control can add value early, when long-term vision matters and outside investors may be short-termist. Over time, founders may become less effective, while control remains entrenched and agency costs grow. Evidence that the valuation premium of dual-class firms declines with time supports converting superior shares after a fixed period unless independent shareholders vote to extend.</a></qa>
+<qa difficulty="medium"><q>How did S&P Dow Jones Indices treat multi-class companies in the S&P 500?</q><a>From 2017 it excluded new companies with multiple share classes from the S&P 500 and related indices, after concerns raised by listings such as Snap's. In April 2023 it reversed the policy, making such companies eligible again.</a></qa>
+<qa difficulty="hard"><q>Can a founder with net worth of ₹1,500 crore (excluding their company stake) hold SR shares in an Indian IPO?</q><a>No. SEBI's framework allows SR shares only for promoter or founder executives whose net worth, excluding their holding in the issuer, does not exceed ₹1,000 crore (the limit after the 2021 relaxation). The rule targets founders of startups who have most of their wealth in the company.</a></qa>
+<source url="https://conventuslaw.com/report/the-listing-of-shares-with-superior-voting-rights/">The listing of shares with superior voting rights (Conventus Law)</source>
+<source url="https://www.business-standard.com/amp/article/markets/markets-regulator-sebi-relaxes-eligibility-criteria-for-sr-shares-121102800056_1.html">SEBI relaxes eligibility criteria for SR shares (Business Standard)</source>
+<source url="https://www.sebi.gov.in/sebi_data/attachdocs/jul-2021/1625122759180.pdf">SEBI consultation paper on SR share framework (July 2021)</source>
+<source url="https://webiis08.mondaq.com/india/shareholders/823444/the-listing-of-shares-with-superior-voting-rights-in-india">The listing of shares with superior voting rights in India (Mondaq)</source>
+</topic>
+
+<topic id="513">
+<level>expert</level>
+<lesson>
+# Convertible debentures, CCPS and Ind AS 32 classification of liability vs equity
+
+## Core idea
+Indian companies, especially startups, raise money through compulsorily convertible debentures (CCDs), compulsorily convertible preference shares (CCPS), optionally convertible debentures (OCDs) and foreign currency convertible bonds (FCCBs). Under Ind AS 32, whether such an instrument is a liability or equity depends not on its name but on its contractual terms: does the issuer have an obligation to pay cash, and will it issue a fixed number of shares for a fixed amount ("fixed for fixed")? The answer changes reported debt, equity and profits.
+
+## How it works, step by step
+1. **Liability test.** If the issuer has a contractual obligation to deliver cash (or another financial asset) that it cannot avoid, that part is a financial liability: for example mandatory interest or redemption.
+2. **Equity test for conversion.** A conversion feature is equity only if it will be settled by issuing a fixed number of the issuer's own shares for a fixed amount of cash or a fixed liability ("fixed for fixed").
+3. **Compound instruments.** If an instrument has a liability part (for example mandatory interest) and an equity part (conversion into a fixed number of shares), split it at issue:
+   - Liability component = present value of the contractual cash flows, discounted at the market rate for similar debt without conversion.
+   - Equity component = proceeds minus liability component.
+4. **Variable conversion.** If the number of shares varies (for example conversion at fair value at the time, or adjusted to give investors a target IRR), the conversion feature fails fixed-for-fixed; the instrument (or that feature) is a financial liability, often measured at fair value through profit and loss.
+5. **No reclassification later.** Classification is decided at initial recognition; a later change from variable to fixed conversion does not by itself reclassify the instrument under Ind AS 32.
+
+## Formulas and numbers (worked example)
+A company issues ₹100 crore of CCDs: 8% annual interest payable in cash for 3 years, then compulsory conversion into a fixed number of shares. Market rate for similar non-convertible debt: 12%.
+- Liability = PV of interest = 8 × [1 − 1.12^(−3)]/0.12 = 8 × 2.4018 = ₹19.21 crore.
+- Equity component = 100 − 19.21 = ₹80.79 crore.
+- Interest expense in year 1 = 12% × 19.21 = ₹2.31 crore (effective interest), while ₹8 crore cash is paid; the liability reduces accordingly.
+
+If instead the CCDs convert into shares worth ₹100 crore at the conversion date (a variable number), the whole instrument is a financial liability.
+
+**CCPS:** convertible into a fixed number of equity shares with dividends payable only at the company's discretion → equity. CCPS with a conversion ratio that adjusts to give investors a guaranteed value → liability.
+
+## India specifics
+- The Institute of Chartered Accountants of India's Expert Advisory Committee has opined that CCDs converting into a variable number of shares are financial liabilities in their entirety.
+- Startups' CCPS with valuation-based conversion adjustments (anti-dilution, down-round protection that changes the share count) often fail fixed-for-fixed, so many Ind AS reporters show them as liabilities, inflating reported debt and creating fair-value losses as valuations rise.
+- For foreign investment, FEMA treats CCDs and CCPS (fully, compulsorily and mandatorily convertible with conversion formula fixed upfront) as equity instruments, while optionally convertible instruments count as external commercial borrowing; accounting and FEMA classifications can differ.
+- Under Indian tax law, interest on CCDs is generally deductible, whereas dividends on CCPS are not.
+
+## Real examples and history
+- Many new-age companies reported large "fair value losses on CCPS" in their pre-IPO accounts; these reversed or stopped once CCPS converted into equity at IPO.
+- FCCBs issued by Indian companies in the 2000s became liabilities when share prices fell below conversion prices and investors demanded redemption in 2011 to 2013.
+
+## Edge cases and common mistakes
+- **Labels.** "Compulsorily convertible" does not guarantee equity classification.
+- **Foreign currency.** A conversion feature in an instrument denominated in a foreign currency fails fixed-for-fixed (variable rupee amount), unless specific exceptions apply.
+- **Holder put options.** A put that lets holders demand cash creates a liability.
+- **Issuer's choice of settlement.** If the issuer can choose cash or shares, the instrument may be a liability or contain a derivative.
+- **Deferred tax.** Splitting compound instruments creates temporary differences.
+
+## How traders, investors and quants use it
+- Analysts adjust reported debt and equity for CCPS and CCD classification when comparing companies, especially pre-IPO and newly listed firms.
+- Investors read notes to accounts for fair-value movements on convertible instruments, which can swing profits.
+- Quants avoid naive leverage ratios for companies with large convertible instruments.
+
+## Related concepts
+Ind AS 109 (financial instruments measurement); fair value through profit and loss; FEMA and FDI instruments; startup financing terms; IPO conversion of preference shares.
+</lesson>
+<qa difficulty="hard"><q>Split a ₹50 crore CCD paying 10% annual cash interest for 2 years and then converting into a fixed number of shares, if the market rate for similar debt is 13%.</q><a>Liability = 5 × [1 − 1.13^(−2)]/0.13 = 5 × 1.6681 = ₹8.34 crore. Equity component = 50 − 8.34 = ₹41.66 crore.</a></qa>
+<qa difficulty="medium"><q>What is the fixed-for-fixed condition?</q><a>A contract settled in the issuer's own shares is classified as equity only if the issuer exchanges a fixed number of its shares for a fixed amount of cash or another financial asset (or a fixed liability). If either the number of shares or the amount varies, the contract is a financial liability or asset.</a></qa>
+<qa difficulty="hard"><q>A startup's CCPS convert at a price equal to 80% of the next funding round's price. Equity or liability?</q><a>The number of shares issued on conversion depends on a future price, so it is not fixed. The conversion fails fixed-for-fixed, and the CCPS are classified as a financial liability (often at fair value through profit and loss), even though they are compulsorily convertible.</a></qa>
+<qa difficulty="expert"><q>Why do many Indian startups report large losses from fair value changes in CCPS before their IPOs?</q><a>Their CCPS often include conversion adjustments (anti-dilution, valuation ratchets) that fail fixed-for-fixed, so they are financial liabilities measured at fair value through profit and loss. As the company's valuation rises toward the IPO, the CCPS' fair value rises, creating accounting losses. On conversion at the IPO, the liability is reclassified to equity and these losses stop.</a></qa>
+<qa difficulty="medium"><q>How does FEMA classify CCDs compared with optionally convertible debentures for foreign investors?</q><a>FEMA treats fully, compulsorily and mandatorily convertible debentures (with the conversion formula fixed upfront) as equity instruments for FDI purposes; optionally or partly convertible debentures are treated as debt (external commercial borrowings).</a></qa>
+<qa difficulty="hard"><q>An FCCB is denominated in US dollars and converts into a fixed number of rupee shares. Why may the conversion option fail fixed-for-fixed?</q><a>The amount being exchanged is fixed in dollars, which translates into a variable rupee amount as exchange rates change. Since the entity's functional currency is the rupee, the consideration is not a fixed amount in its own currency, so the conversion option is generally treated as a derivative liability rather than equity.</a></qa>
+<source url="https://assets.kpmg.com/content/dam/kpmg/in/pdf/2022/07/chapter-1-aau-accounting-for-compulsorily-convertible-debentures.pdf">Accounting for compulsorily convertible debentures (KPMG India)</source>
+<source url="https://www.taxmann.com/post/blog/recent-financial-reporting-developments-accounting-for-compulsory-convertible-preference-shares-ccps">Accounting for compulsorily convertible preference shares (Taxmann)</source>
+<source url="https://www.taxmann.com/post/blog/opinion-accounting-for-irr-linked-ccds-under-ind-as">Accounting for IRR-linked CCDs under Ind AS (Taxmann)</source>
+<source url="https://old.wirc-icai.org/images/material/Financial-Instruments-IndAS32-107.pdf">Financial instruments: Ind AS 32 and 107 (ICAI WIRC material)</source>
+<source url="https://www.iasplus.com/en/meeting-notes/ifrs-ic/2009/ifric-november-2009/ias-32-fixed-for-fixed-condition">IAS 32: fixed-for-fixed condition (IAS Plus)</source>
+</topic>
