@@ -1,0 +1,294 @@
+<topic id="550">
+<level>intermediate</level>
+<lesson>
+# Cum/ex-date, record date and corporate-action shortage handling
+
+## Core idea
+A buyer who purchases shares before the ex-date is entitled to the corporate benefit (dividend, bonus, rights). But if the seller fails to deliver and the shares reach the buyer after the record date, the buyer would miss the benefit. Exchanges handle this with special rules: shortages around record dates are auctioned in time if possible, otherwise **closed out directly** at a price that compensates the buyer, and the old "no delivery" period around corporate actions has been abolished for demat securities.
+
+## How it works, step by step
+1. **Cum and ex.** Trades up to the day before the ex-date are cum-benefit; under T+1, the ex-date equals the record date for most actions.
+2. **Normal shortage process.** If a seller fails to deliver on T+1, NSE Clearing runs a buying-in auction after pay-out the same day, and delivers auction shares to the buyer.
+3. **Record date timing.** A cum-benefit trade settled on the record date should give the buyer the benefit. If a shortage occurs and the auction pay-out cannot happen on or before the record date minus one business day, NSE's rules require the shortage to be closed out directly (no auction) at the highest price prevailing across exchanges over the relevant period (or as specified).
+4. **Close-out value.** The close-out amount compensates the buyer for not receiving cum-benefit shares; it reflects the cum price including the benefit.
+5. **No delivery period abolished.** Exchanges used to suspend deliveries around book closures; for compulsorily demat securities this "no delivery" period no longer exists.
+6. **Broker-level internal shortages.** When buyer and seller are clients of the same broker, close-outs (since late 2025 executed by the CC at clearing member level) follow similar principles.
+
+## Formulas and numbers (worked example)
+A buyer purchases 200 shares cum-dividend at ₹1,000 the day before the record date; the dividend is ₹30. The seller fails to deliver.
+- If the auction delivers shares before the record date: buyer gets shares and the ₹6,000 dividend.
+- If not possible, the trade is closed out directly at, say, the highest price across exchanges in the window, ₹1,045: buyer receives 200 × 1,045 = ₹2,09,000, more than the ₹2,00,000 paid, which compensates for the missed ₹6,000 dividend and the missed shares.
+- Seller's cost: 200 × (1,045 − 1,000) = ₹9,000 plus charges.
+
+## India specifics
+- Under T+1 (fully from January 2023), the ex-date and record date coincide for most actions, so shortages on the day before the record date are the critical case.
+- Buyers whose shares are credited late due to short delivery do not get benefits directly from the company; brokers cannot claim them for the buyer later, which is why close-outs include compensation.
+- Exchange circulars specify the treatment for each type of corporate action (dividend, bonus, rights, split).
+
+## Real examples and history
+- Investors sometimes complain of missing dividends or bonuses after buying just before the record date; in most cases the cause is a short delivery and subsequent close-out.
+- The abolition of the no-delivery period simplified settlement for demat securities.
+
+## Edge cases and common mistakes
+- **Buying on the record date.** Under T+1, a buy on the record date is ex-benefit; it is not a shortage issue.
+- **BTST before a record date.** Selling shares bought the previous day can cause shortage chains near record dates.
+- **Bonus and split shortages.** Close-out prices must reflect the corporate action ratio.
+- **Assuming the company will pay a buyer who received shares late.** The company pays only holders on the record date.
+
+## How traders, investors and quants use it
+- Investors buying for dividends or bonuses buy at least one trading day before the record date and avoid relying on BTST sellers.
+- Brokers track shortages around record dates and apply exchange close-out rules.
+- Event-driven quants model the small risk of shortage around record dates.
+
+## Related concepts
+Record date and ex-date; T+1 settlement; shortage auctions; close-out pricing; BTST risk.
+</lesson>
+<qa difficulty="medium"><q>A buyer bought cum-dividend shares, but the seller failed to deliver and no auction could settle before the record date. What does the buyer get?</q><a>The trade is closed out directly; the buyer receives the close-out amount, set at the highest price prevailing across exchanges over the relevant period (as specified by the exchange), compensating for the shares and the missed dividend.</a></qa>
+<qa difficulty="hard"><q>Why do exchanges close out record-date shortages directly instead of auctioning them?</q><a>An auction completes and pays out after the regular pay-out; if it cannot deliver shares before the record date, the buyer would receive ex-benefit shares and lose the entitlement. A direct close-out gives the buyer cash at a price reflecting the cum-benefit value, ensuring fair compensation.</a></qa>
+<qa difficulty="hard"><q>A buyer bought 100 shares cum-bonus (1:1) at ₹600. The seller defaulted and the trade was closed out at ₹640. Is the buyer better off?</q><a>The buyer receives ₹64,000 versus the ₹60,000 paid, while the shares would have become 200 shares worth about ₹300 each (₹60,000) ex-bonus at unchanged value. In cash terms the buyer gains ₹4,000 but loses the position; whether that is better depends on later price moves.</a></qa>
+<qa difficulty="medium"><q>What was the "no delivery" period, and does it still exist for demat shares?</q><a>A period around book closure or record dates during which deliveries were suspended for corporate action processing. It has been abolished for securities traded in compulsory demat mode, so trades settle normally around corporate actions.</a></qa>
+<qa difficulty="hard"><q>Why are BTST sales risky just before a record date?</q><a>The BTST seller relies on shares bought the previous day. If that purchase faces a short delivery, the BTST sale also becomes short, and near a record date the shortage may be closed out at a high price, costing the BTST seller far more than a normal auction.</a></qa>
+<qa difficulty="medium"><q>Does a company pay a dividend to a buyer whose shares arrived after the record date due to short delivery?</q><a>No. The company pays holders on the register on the record date. The buyer's remedy is the exchange's shortage process (auction or close-out compensation).</a></qa>
+<source url="https://www.nseindia.com/static/products-services/equity-market-shortages-handling">NSE: equity market shortages handling</source>
+<source url="https://nirmalbang.com/Internal-Shortage-Policy.pdf">Internal shortage policy (Nirmal Bang)</source>
+<source url="https://support.zerodha.com/category/console/corporate-actions/ca-others/articles/corporate-action-benefit-not-received">Corporate action benefit not received (Zerodha support)</source>
+<source url="https://www.kotaksecurities.com/support/what-happens-when-theres-a-short-delivery-of-shares-and-the-exchange-finds-no-fresh-sellers-in-the-auction-markets">Short delivery with no fresh sellers in the auction (Kotak Securities)</source>
+</topic>
+
+<topic id="551">
+<level>intermediate</level>
+<lesson>
+# BTST, T+1 delivery and early pay-in mechanics
+
+## Core idea
+BTST ("buy today, sell tomorrow") means selling shares on T+1 that were bought on T, before they are credited to the demat account. Under T+1 settlement this works because both trades settle on consecutive days, but it carries short-delivery risk if the original seller fails. **Early pay-in (EPI)** is the opposite situation: a seller delivers shares to the clearing corporation before settlement (usually on trade day), which removes the need for sale margins. SEBI made blocking mandatory for early pay-in in 2022 and moved in 2026 to give real-time margin benefits for accepted EPI.
+
+## How it works, step by step
+**BTST:**
+1. Day T: buy 100 shares.
+2. Day T+1: shares are paid out to the buyer through the settlement; the buyer can sell them on T+1 before receiving them in the demat account (shares are usually credited later on T+1).
+3. Day T+2: the T+1 sale settles; the broker delivers the shares received on T+1.
+4. Risk: if the T purchase faces a short delivery, the shares do not arrive on T+1, and the T+1 sale becomes a short delivery itself, leading to an auction or close-out cost.
+
+**Early pay-in:**
+1. A client selling shares from their holdings authorises delivery through eDIS (with TPIN and OTP), DDPI or other approved routes.
+2. The shares are blocked in the client's demat account in favour of the clearing corporation (block mechanism mandatory since August 2022).
+3. Once early pay-in is accepted, no margin is required on that sale (since delivery is assured).
+4. SEBI revised EPI rules in 2026 so that an accepted early pay-in gives real-time margin relief on subsequent trades up to the accepted amount; reports give different effective dates (late 2026 and early 2027), so check the current circular.
+5. BTST sales do not get EPI benefit, since the shares are not yet with the seller.
+
+## Formulas and numbers (worked example)
+A client sells ₹5 lakh of shares from holdings.
+- Without EPI: the broker must collect margin (VaR + ELM, minimum 20% for stocks) = about ₹1 lakh blocked until settlement.
+- With EPI via eDIS on trade day: no margin needed; ₹1 lakh stays free for other trades.
+BTST risk: a client buys 1,000 shares at ₹200 on T and sells at ₹215 on T+1. If the T purchase is short-delivered and the auction for the client's T+1 sale fails, close-out could be at max(highest price, 1.2 × close); with close ₹212, close-out ≥ ₹254.4, costing about 1,000 × (254.4 − 215) = ₹39,400.
+
+## India specifics
+- India moved to T+1 in phases from 2022, completing in January 2023; payout timings were adjusted by SEBI's October 2024 circular.
+- Optional T+0 settlement (since March 2024) applies to a limited set of stocks.
+- Brokers may restrict BTST in stocks with high shortage risk (illiquid, surveillance-listed, near record dates).
+
+## Real examples and history
+- Under T+2, BTST meant selling shares two days before receipt, with a larger window for shortages; T+1 reduced that window.
+- Early pay-in became important after peak-margin rules, as sellers sought to avoid blocking margin on sales of holdings.
+
+## Edge cases and common mistakes
+- **BTST in circuit stocks.** Shortage close-outs in stocks at upper circuit can be very expensive.
+- **Not authorising eDIS.** Without authorisation, the sale cannot be delivered from holdings, causing shortage.
+- **Reversing a sale after EPI.** Reversing the original sale revokes the EPI benefit.
+- **Record dates.** BTST shortages around record dates may lead to direct close-outs.
+
+## How traders, investors and quants use it
+- Investors selling holdings authorise eDIS or DDPI to enable early pay-in and avoid margin blocks.
+- Short-term traders weigh BTST convenience against shortage risk, especially in volatile small caps.
+- Brokers' risk teams limit BTST in risky stocks.
+
+## Related concepts
+T+1 settlement; shortage auctions and close-out; peak margin; DDPI and eDIS; record dates.
+</lesson>
+<qa difficulty="medium"><q>What is BTST?</q><a>Buy today, sell tomorrow: selling on T+1 shares bought on T, before they are credited to the demat account. The T+1 sale is delivered using the shares received from the T purchase.</a></qa>
+<qa difficulty="hard"><q>Why is BTST riskier than selling shares already in the demat account?</q><a>The BTST seller depends on the delivery from their T purchase. If the original seller fails to deliver, the BTST seller cannot deliver either and faces an auction or close-out, potentially at a high price. Shares already in the demat account can be delivered with certainty.</a></qa>
+<qa difficulty="hard"><q>A client sells ₹8 lakh of holdings and completes early pay-in. How much margin is saved compared with a 20% minimum margin?</q><a>Without EPI, about 20% × ₹8 lakh = ₹1.6 lakh would be blocked as margin until settlement. With accepted early pay-in, no margin is needed, freeing ₹1.6 lakh.</a></qa>
+<qa difficulty="medium"><q>Why was the block mechanism made mandatory for early pay-in?</q><a>Blocking the shares in the client's own account in favour of the clearing corporation (rather than transferring them to the broker's pool account) protects clients from misuse while ensuring delivery for settlement, in line with post-2019 reforms on client securities.</a></qa>
+<qa difficulty="medium"><q>Do BTST sales get early pay-in benefits?</q><a>No. The shares from the T purchase are not yet in the seller's account on T+1, so they cannot be early paid-in; margin rules for the sale apply.</a></qa>
+<qa difficulty="hard"><q>How did T+1 settlement change BTST risk compared with T+2?</q><a>Under T+2, a BTST sale happened two days before the shares were received, with more time for problems; under T+1, the window is shorter and the purchased shares are paid out on the same day the BTST sale is made, reducing but not eliminating shortage risk.</a></qa>
+<source url="https://share.market/blog/early-pay-in-epi-mechanism-and-how-it-affects-your-trades">Early pay-in mechanism and how it affects your trades (share.market)</source>
+<source url="https://scconline.com/blog/post/2022/08/19/sebi-makes-block-mechanism-mandatory-for-all-early-pay-in-transactions/amp">SEBI makes block mechanism mandatory for early pay-in (SCC Online)</source>
+<source url="https://www.outlookmoney.com/invest/sebi-introduces-real-time-margin-waiver-for-cash-segment-trades">SEBI introduces real-time margin waiver for cash segment trades (Outlook Money)</source>
+<source url="https://www.sebi.gov.in/legal/circulars/oct-2024/change-in-timing-for-securities-payout-in-the-activity-schedule-for-t-1-rolling-settlement_87512.html">SEBI circular: change in timing for securities payout under T+1 (October 2024)</source>
+</topic>
+
+<topic id="552">
+<level>intermediate</level>
+<lesson>
+# Trade-for-trade, Z-group and ASM/GSM segments: direct close-out and restrictions
+
+## Core idea
+Exchanges place risky or non-compliant stocks into special categories that restrict trading: the **trade-for-trade (T2T)** segment, where every trade must be settled by delivery (no intraday netting); BSE's **Z group** for companies failing listing compliance; and surveillance frameworks such as **ASM** (Additional Surveillance Measure) and **GSM** (Graded Surveillance Measure). These restrictions cut speculation and manipulation, but they also make these stocks less liquid and riskier to trade, including higher margins and harsher handling of short deliveries.
+
+## How it works, step by step
+1. **Trade-for-trade (T2T or BE series).** Each trade is settled individually by delivery; intraday squaring off is not allowed (buying and selling the same stock the same day creates two delivery obligations). Price bands are typically narrow (2% or 5%).
+2. **Z group (BSE).** Companies that fail to comply with listing requirements (for example not filing results) or investor grievance rules are moved here; trading may be restricted to T2T and periodic call auctions.
+3. **ASM.** Applied to stocks with unusual price or volume movements, concentrated trading or high volatility; stages escalate to 100% margins, T2T and narrower price bands.
+4. **GSM.** For stocks whose price is not supported by fundamentals (for example shell-like companies); stages restrict trading frequency (for example once a week), require additional deposits from buyers, and limit price movement.
+5. **Shortages.** In restricted segments, shortages may be handled with direct close-out rather than auctions, depending on exchange rules, because auctions in illiquid stocks often fail.
+6. **Review.** Exchanges review lists periodically; stocks move between stages or exit when criteria are no longer met.
+
+## Formulas and numbers (worked example)
+A trader buys 1,000 shares of a T2T stock at ₹50 and sells them the same day at ₹51:
+- Normal stock: the trades net off; profit ₹1,000 minus costs.
+- T2T stock: the buy must be paid for and delivered (₹50,000); the sale must be delivered from existing holdings. If the trader had no holdings, the sale is a short delivery, leading to auction or close-out, possibly at a much higher price.
+
+GSM example: a buyer in GSM stage II must deposit 100% of trade value as margin, plus an additional deposit (for example 50% of trade value) held for a period; trading allowed only on specified days.
+
+## India specifics
+- ASM and GSM frameworks were introduced in 2018 and 2017 respectively, with criteria and stages updated over time.
+- Exchanges also place stocks in Enhanced Surveillance Measure (ESM) for SME and small companies.
+- Lists are published daily; brokers block or restrict trading in these stocks.
+
+## Real examples and history
+- Many small companies with sharp, unexplained price rises during speculative phases (for example 2021 to 2024) were placed under ASM, after which their volumes and prices often fell.
+- GSM was introduced after SEBI's 2017 action against suspected shell companies.
+
+## Edge cases and common mistakes
+- **Intraday trading in T2T stocks.** Not allowed; leads to delivery obligations.
+- **Surveillance is not a sell signal by itself.** But it signals elevated risk and reduced liquidity.
+- **Margins can jump to 100%.** Leveraged positions may be squared off.
+- **Exit difficulty.** Narrow bands and limited trading days can trap investors.
+
+## How traders, investors and quants use it
+- Investors check ASM, GSM and T2T lists before buying small caps.
+- Quants exclude or flag restricted stocks in backtests, since their liquidity and trading rules differ.
+- Brokers configure risk systems to block intraday and leveraged trades in these stocks.
+
+## Related concepts
+Surveillance measures; circuit limits; shortages and close-outs; market manipulation; SME stocks.
+</lesson>
+<qa difficulty="medium"><q>What does trade-for-trade settlement mean?</q><a>Every trade is settled separately by delivery; buys and sells in the same stock on the same day are not netted, so intraday squaring off is not possible.</a></qa>
+<qa difficulty="hard"><q>A trader buys and sells 500 shares of a T2T stock on the same day without holding any shares. What happens?</q><a>The buy creates an obligation to pay and receive 500 shares; the sell creates an obligation to deliver 500 shares, which the trader cannot meet on settlement (the purchased shares arrive at the same time and cannot be used to net). The sale becomes a short delivery, leading to an auction or close-out cost.</a></qa>
+<qa difficulty="medium"><q>Why do exchanges use ASM frameworks?</q><a>To cool down stocks with unusual price or volume movements, high volatility or concentrated trading, by imposing higher margins, trade-for-trade settlement and narrower price bands, reducing the risk of manipulation and protecting investors.</a></qa>
+<qa difficulty="hard"><q>How does GSM differ from ASM?</q><a>ASM focuses on unusual price and volume behaviour; GSM targets stocks whose prices are not justified by fundamentals (such as suspected shell companies), with graded stages that restrict trading frequency, require additional deposits from buyers and limit price movement.</a></qa>
+<qa difficulty="medium"><q>What is BSE's Z group?</q><a>A category for companies that have failed to comply with listing requirements or resolve investor complaints; trading in them is restricted, often to trade-for-trade settlement and limited trading.</a></qa>
+<qa difficulty="hard"><q>Why might shortages in restricted stocks be closed out directly rather than auctioned?</q><a>Restricted stocks are often illiquid with narrow price bands, so auctions are likely to find no sellers. Direct close-out avoids a failed auction step and settles the shortage in cash promptly.</a></qa>
+<source url="https://www.nseindia.com/static/products-services/equity-market-shortages-handling">NSE: equity market shortages handling</source>
+<source url="https://bseindia.com/static/markets/equity/EQReports/tra_Self-AuctionCloseout.aspx">BSE: self-auction and close-out</source>
+<source url="https://nsearchives.nseindia.com/content/equities/SEBI_Circular_22012020.pdf">SEBI circular on SOP for non-compliance (Z category and suspension)</source>
+<source url="https://archives.nseindia.com/corporates/compliance/SOP_Guidance_note_for_companies.pdf">NSE guidance note on SEBI SOP</source>
+</topic>
+
+<topic id="553">
+<level>expert</level>
+<lesson>
+# Modelling auction and close-out loss as an option-like payoff
+
+## Core idea
+A seller who fails to deliver shares faces an uncertain cost: if the exchange's buying-in auction succeeds, they pay the auction price minus their sale price (but never gain if the auction is cheaper); if the auction fails, they pay a close-out price that is the higher of the highest price over a window and a 20% markup on the auction-day close. Both payoffs look like options the seller has written: a call on the price and a lookback with a floor. Modelling them this way shows that short delivery costs much more on average than the typical daily price move suggests.
+
+## How it works, step by step
+1. **Payoff if the auction succeeds.** Cost = max(P_auction − P_sale, 0), since a cheaper auction price does not benefit the defaulting seller (the difference does not flow back to them). This is a call option written by the seller with strike P_sale on the auction price.
+2. **Payoff if the auction fails.** Cost = max(max(H, 1.2 × C) − P_sale, 0), where H is the highest traded price from trade day to auction day and C the auction-day close. This combines a lookback call (on H) with a floor at 20% above C.
+3. **Probability of auction failure.** Depends on liquidity and price behaviour: higher for illiquid, circuit-hitting or restricted stocks.
+4. **Expected cost** = (1 − p_fail) × E[auction cost] + p_fail × E[close-out cost].
+5. **Simulation.** Simulate price paths (for example lognormal with daily volatility), compute intraday highs, apply the rules, and average.
+
+## Formulas and numbers (worked example)
+Simulation (200,000 paths) for a stock sold at ₹400 with 2.5% daily volatility, one day to the auction, auction price 0.5% above the next close, and a 20% chance that the auction fails:
+- Expected auction cost: about ₹5.1 per share (1.3%).
+- Expected close-out cost: about ₹80 per share (20%), and never less than about ₹31 in the simulation, because the 1.2 × close floor dominates.
+- Blended expected cost: about ₹20 per share (5% of price); 99th percentile about ₹100 per share.
+So a short delivery on 1,000 shares has an expected cost near ₹20,000 and a tail cost near ₹1 lakh, far more than a typical one-day move of ₹10 per share.
+
+## India specifics
+- NSE Clearing's close-out rule (higher of the highest price from trade day to auction day or 20% above the auction-day close) creates the floor that makes failed auctions expensive.
+- Since late 2025 the CC executes close-outs for internal shortages too, so brokers' internal policies converge with exchange rules.
+- Near record dates and in restricted stocks, direct close-outs (without auction) increase p_fail effectively to 1.
+
+## Real examples and history
+- Short sellers in upper-circuit stocks who could not deliver have faced close-out costs far above the day's move, because auctions found no sellers.
+- Option-style analysis of penalty rules is common in market design: penalties are set so the expected cost of failing exceeds any benefit from deliberate short delivery.
+
+## Edge cases and common mistakes
+- **Using only expected auction cost.** Ignores the fat tail from failed auctions.
+- **Ignoring path dependence.** The highest price over the window matters, not just the close.
+- **Correlation between price jumps and auction failure.** Auctions are more likely to fail when prices spike, making losses worse than an independence assumption suggests.
+- **Costs and penalties.** Exchanges and brokers may add charges on top.
+
+## How traders, investors and quants use it
+- Risk teams estimate expected and tail costs of BTST and short-delivery risk by stock type and set restrictions.
+- Market designers evaluate whether penalties deter deliberate failures.
+- Traders understand why naked short selling in Indian cash markets is costly.
+
+## Related concepts
+Shortage auctions and close-outs; lookback options; Monte Carlo simulation; BTST; circuit limits; securities lending.
+</lesson>
+<qa difficulty="hard"><q>Write the cost of a failed delivery if the auction succeeds, and explain why it is option-like.</q><a>Cost = max(P_auction − P_sale, 0). If the auction price is above the sale price, the seller pays the difference; if below, the seller does not gain. That one-sided payoff is the same as having written a call option on the auction price with strike equal to the sale price.</a></qa>
+<qa difficulty="hard"><q>A stock was sold at ₹300; the highest price from trade day to auction day is ₹318 and the auction-day close is ₹305. If the auction fails, what is the close-out cost per share?</q><a>Close-out price = max(318, 1.2 × 305 = 366) = ₹366. Cost = 366 − 300 = ₹66 per share.</a></qa>
+<qa difficulty="expert"><q>With p_fail = 30%, expected auction cost ₹4 and expected close-out cost ₹75, what is the expected cost per share? Why might the true cost be higher?</q><a>Expected cost = 0.7 × 4 + 0.3 × 75 = 2.8 + 22.5 = ₹25.3 per share. The true cost may be higher because auction failure is more likely when prices are rising sharply (correlation), which is exactly when close-out costs are largest; treating failure as independent understates expected losses.</a></qa>
+<qa difficulty="hard"><q>Why does the 20% floor dominate close-out cost in most scenarios?</q><a>The close-out price is the higher of the highest price over the window and 1.2 × the auction-day close. Unless the stock spiked more than 20% above its close during the window, the 1.2 × close term is larger, giving a cost of roughly 20% of the price plus any move from the sale price to the close.</a></qa>
+<qa difficulty="medium"><q>How would you estimate p_fail for a stock?</q><a>Use historical shortage and auction data by stock and conditions (liquidity, volatility, circuit hits, surveillance status), or proxies such as average daily volume and frequency of circuit limits, fitting a model (for example logistic regression) of auction failure on these features.</a></qa>
+<qa difficulty="expert"><q>Describe a Monte Carlo procedure to value the expected cost of short delivery for a stock.</q><a>Simulate many price paths from the trade day to the auction day using an appropriate model (lognormal or with jumps), generating intraday highs. For each path, decide auction success with a probability conditional on the path (higher failure when prices spike or hit circuit), compute the auction cost max(P_auction − P_sale, 0) or the close-out cost max(max(H, 1.2C) − P_sale, 0), and average across paths; report the mean and tail percentiles.</a></qa>
+<source url="https://www.nseindia.com/static/products-services/equity-market-shortages-handling">NSE: equity market shortages handling</source>
+<source url="https://www.kotaksecurities.com/support/what-happens-when-theres-a-short-delivery-of-shares-and-the-exchange-finds-no-fresh-sellers-in-the-auction-markets">Short delivery with no fresh sellers in the auction (Kotak Securities)</source>
+<source url="https://support.rupeezy.in/support/solutions/articles/21000004910-how-does-the-short-delivery-auction-work">How does the short delivery auction work (Rupeezy)</source>
+</topic>
+
+<topic id="554">
+<level>expert</level>
+<lesson>
+# Layer-by-layer reading of SEBI CIR/MRD/DRMNP/25/2014 and the Master Circular for clearing corporations
+
+## Core idea
+SEBI's circular of 27 August 2014 (CIR/MRD/DRMNP/25/2014) is the foundation of how Indian clearing corporations protect markets against member defaults. It created the **Core Settlement Guarantee Fund**, standardised the **default waterfall**, and required **stress testing** to size the fund. Later circulars revised parts of it, and SEBI consolidates such rules in master circulars for stock exchanges and clearing corporations. Reading it layer by layer explains today's risk architecture.
+
+## How it works, step by step (the layers)
+1. **Objective.** Create a fund within the SGF against which no exposure is given, available readily and unconditionally to meet settlement obligations if a member defaults.
+2. **Segment-wise Core SGF.** Each CC maintains a Core SGF for each segment (equity cash, equity derivatives, currency, and so on), so losses in one segment do not drain another.
+3. **Minimum Required Corpus (MRC).** Determined by stress testing, with the corpus fixed for a month and reviewed monthly; daily stress tests monitor adequacy.
+4. **Contributions.** CC at least 50% of MRC; stock exchange at least 25%; clearing members up to 25% (members' contributions risk-based and not exceeding the CC's contribution); penalties and fines added; investment of the fund in safe, liquid assets.
+5. **Stress testing.** Daily credit stress tests using historical and hypothetical scenarios to estimate losses from the default of the largest members; liquidity stress tests; reverse stress tests; periodic review of scenarios. Methods were revised later (for example equity derivatives in October 2024).
+6. **Default waterfall.** Defaulter's monies and collateral → insurance (if any) → CC resources up to a specified share ("skin in the game") → Core SGF in order (penalties, CC contribution, exchange contribution, non-defaulting members' contributions pro rata) → remaining CC resources (to the extent specified) → capped contributions from non-defaulting members → pro-rata loss allocation as a last resort.
+7. **Replenishment.** After use, the fund must be replenished promptly, with rules on who contributes.
+8. **Disclosure.** CCs publish Core SGF sizes, contributions and stress-testing summaries.
+9. **Master circulars.** SEBI periodically issues master circulars for stock exchanges and clearing corporations that consolidate the 2014 circular and later amendments; always read the latest consolidated version.
+
+## Formulas and numbers (worked example)
+Equity derivatives segment MRC from stress tests: ₹5,000 crore.
+- CC contribution ≥ ₹2,500 crore; exchange ≥ ₹1,250 crore; members ≤ ₹1,250 crore (in practice often less, with CC and exchange covering more).
+- Cash segment MRC: ₹800 crore, held separately.
+A derivatives default leaving a ₹600 crore loss after the defaulter's margins: CC skin in the game (say 5% of MRC = ₹250 crore) first, then ₹350 crore from the derivatives Core SGF (starting with penalties and CC contribution). The cash segment fund is untouched. The CC replenishes the derivatives fund.
+
+## India specifics
+- The 2014 framework applied across recognised CCs (NSE Clearing, ICCL, MCX Clearing and others) and was extended with adaptations to commodity derivatives CCs and the limited-purpose CC for corporate bond repo.
+- In 2016 SEBI directed refunds of members' earlier SGF contributions in line with the framework's emphasis on CC and exchange funding.
+- Revisions include the October 2024 equity derivatives stress-testing methodology and changes to commodity stress tests.
+
+## Real examples and history
+- The circular aligned India with the CPMI-IOSCO Principles for Financial Market Infrastructures (2012), particularly on credit risk, default management and stress testing.
+- No major Indian CC default has required the Core SGF to be used in a way that hurt non-defaulting members, but the framework is designed for that possibility.
+
+## Edge cases and common mistakes
+- **Treating SGF as one pool.** Core SGF is segment-wise.
+- **Confusing MRC with total resources.** Margins and CC capital are separate layers.
+- **Reading only the 2014 text.** Later circulars and master circulars modify it.
+- **Member contributions.** Capped and risk-based; members cannot be required to contribute more than the CC.
+
+## How traders, investors and quants use it
+- Clearing members understand their potential exposure in the waterfall.
+- Analysts of exchange groups track Core SGF contributions as capital commitments.
+- Students and risk professionals use the circular as a template for CCP risk design.
+
+## Related concepts
+Clearing corporations and novation; stress testing; default waterfall; CCP recovery tools; PFMI; segment-wise risk management.
+</lesson>
+<qa difficulty="medium"><q>What is the Core SGF, according to SEBI's 2014 circular?</q><a>A fund within the settlement guarantee fund of each clearing corporation, maintained segment-wise, against which no exposure is given, so it is readily and unconditionally available to meet settlement obligations if a clearing member defaults.</a></qa>
+<qa difficulty="hard"><q>Why is the Core SGF maintained segment-wise?</q><a>So that losses from a default in one segment (for example equity derivatives) do not drain resources protecting another segment (for example cash). Each segment's risk is covered by its own stress-tested fund, limiting contagion across segments.</a></qa>
+<qa difficulty="hard"><q>For an MRC of ₹1,600 crore, what are the minimum CC and exchange contributions and the maximum member contribution?</q><a>CC at least 50% = ₹800 crore; exchange at least 25% = ₹400 crore; members at most 25% = ₹400 crore (and not more than the CC's contribution).</a></qa>
+<qa difficulty="expert"><q>List the default waterfall order under the 2014 framework.</q><a>Defaulter's monies and collateral; insurance, if any; CC's own resources up to a specified amount (skin in the game); Core SGF in order (penalties, CC contribution, exchange contribution, non-defaulting members' primary contributions pro rata); remaining CC resources to the extent specified; capped additional contributions from non-defaulting members; and finally pro-rata allocation of any remaining loss.</a></qa>
+<qa difficulty="medium"><q>How often is the MRC reviewed?</q><a>The MRC is determined from stress tests and reviewed monthly (with the fund replenished to the required level), while stress tests run daily to monitor adequacy.</a></qa>
+<qa difficulty="hard"><q>Why should students read the latest master circular rather than only the 2014 circular?</q><a>SEBI has amended the framework many times (stress-testing methods, contributions, segments such as commodities and the LPCC), and master circulars consolidate these changes. Relying only on the 2014 text would miss current requirements.</a></qa>
+<source url="https://www.sebi.gov.in/media/press-releases/aug-2014/sebi-issues-circular-on-core-settlement-guarantee-fund-default-waterfall-and-stress-testing_27859.html">SEBI press release: Core SGF, default waterfall and stress testing (August 2014)</source>
+<source url="https://www.business-standard.com/amp/article/news-cm/create-a-core-sgf-which-will-meet-settlement-obligations-of-ccs-in-case-of-clearing-member-s-failing-to-honour-settlement-obligation-114082701074_1.html">Create a core SGF to meet settlement obligations (Business Standard)</source>
+<source url="https://nsearchives.nseindia.com/web/sites/default/files/inline-files/Policy%20on%20Composition%20and%20Contribution%20to%20Core-%20SGF.pdf">NSE Clearing policy on composition and contribution to Core SGF</source>
+<source url="https://www.sebi.gov.in/legal/circulars/oct-2024/review-of-stress-testing-framework-for-equity-derivatives-segment-for-determining-the-corpus-of-core-settlement-guarantee-fund_87209.html">SEBI circular: review of stress testing framework for equity derivatives (October 2024)</source>
+<source url="https://www.business-standard.com/amp/article/markets/sebi-asks-nse-to-refund-rs-250-crore-to-clearing-members-from-sgf-contribution-116061300108_1.html">NSE returns Rs 250 crore to clearing members (Business Standard)</source>
+</topic>
